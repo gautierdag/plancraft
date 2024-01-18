@@ -1,0 +1,52 @@
+goal_model:
+  freq: 1
+  queue_size: 0
+  use_mineclip: 0
+  use_clip: 0
+  use_horizon: 1
+  use_ranking_goal: 1
+  use_random_goal: 0
+  use_fixed_goal: 0
+
+eval:
+  max_ep_len: 3000
+  goal_ratio: 5
+  freq: 1
+  fps: 1000
+  env_name: "Plains"
+  task_name: "obtain_planks"
+  cam: False
+  only: True
+  episodes: 1
+  horizon: 0
+  num_workers: 1
+  goal_id: [0]
+  env_id: [0]
+  envs: ["crafting"]
+
+data:
+  skip_frame: 5
+  window_len: 10
+  padding_pos: left
+  per_data_filters: null
+  filters:
+    - log
+    - sheep
+    - cow
+    - pig
+    - stone
+
+model:
+  load_ckpt_path: "/Users/gautier/Github/minecraft/models/controller.pt"
+
+pretrains:
+  clip_path: /Users/gautier/Github/minecraft/models/MINECLIP.pth
+
+record:
+  ckpt_freq: 2
+  log_to_wandb: False
+  dir: ${hydra:runtime.cwd}/recordings
+  frames: True
+
+simulator:
+  resolution: [640, 480]
