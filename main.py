@@ -7,13 +7,13 @@ from datetime import datetime
 import hydra
 import torch
 
-from openai import OpenAI
 from PIL import Image
 
 from minedojo import MineDojoEnv
-from models import CraftAgent, MineAgent
 
+from models import CraftAgent, MineAgent
 from models.utils import preprocess_obs, resize_image
+from planner import Planner
 
 warnings.filterwarnings("ignore")
 
@@ -21,276 +21,18 @@ prefix = os.getcwd()
 task_info_json = os.path.join(prefix, "data/task_info.json")
 goal_lib_json = os.path.join(prefix, "data/goal_lib.json")
 goal_mapping_json = os.path.join(prefix, "data/goal_mapping.json")
-task_prompt_file = os.path.join(prefix, "data/task_prompt.txt")
-replan_prompt_file = os.path.join(prefix, "data/deps_prompt.txt")
-parse_prompt_file = os.path.join(prefix, "data/parse_prompt.txt")
-openai_key_file = os.path.join(prefix, "data/openai_keys.txt")
 
 TASK_LIST = []
 with open(task_info_json, "r") as f:
     task_info = json.load(f)
 TASK_LIST = list(task_info.keys())
 
-
 prefix = os.getcwd()
-
-
-class Planner:
-    def __init__(self):
-        self.dialogue = ""
-        self.logging_dialogue = ""
-        self.goal_lib = self.load_goal_lib()
-        self.openai_client = OpenAI(api_key=self.load_openai_key())
-        self.supported_objects = self.get_supported_objects(self.goal_lib)
-
-    def reset(self):
-        self.dialogue = ""
-        self.logging_dialogue = ""
-
-    def load_openai_key(
-        self,
-    ) -> str:
-        with open(openai_key_file, "r") as f:
-            context = f.read()
-        return context.split("\n")[0]
-
-    def load_goal_lib(
-        self,
-    ):
-        with open(goal_lib_json, "r") as f:
-            goal_lib = json.load(f)
-        return goal_lib
-
-    def get_supported_objects(self, goal_lib):
-        supported_objs = {}
-        for key in goal_lib.keys():
-            obj = list(goal_lib[key]["output"].keys())[0]
-            supported_objs[obj] = goal_lib[key]
-            supported_objs[obj]["name"] = key
-        return supported_objs
-
-    def load_parser_prompt(
-        self,
-    ):
-        with open(parse_prompt_file, "r") as f:
-            context = f.read()
-        return context
-
-    def load_initial_planning_prompt(self, group):
-        with open(task_prompt_file, "r") as f:
-            context = f.read()
-        with open(replan_prompt_file, "r") as f:
-            context += f.read()
-        return context
-
-    def query_codex(self, prompt_text):
-        server_flag = 0
-        server_error_cnt = 0
-        response = ""
-        while server_error_cnt < 2:
-            try:
-                response = self.openai_client.completions.create(
-                    model="gpt-3.5-turbo-instruct",
-                    prompt=prompt_text,
-                    temperature=0.7,
-                    max_tokens=512,
-                    top_p=1,
-                    frequency_penalty=0,
-                    presence_penalty=0,
-                    stop=[
-                        "Human:",
-                    ],
-                )
-                server_flag = 1
-                if server_flag:
-                    break
-            except Exception as e:
-                server_error_cnt += 1
-                print(e)
-        return response
-
-    def query_gpt3(self, prompt_text):
-        server_flag = 0
-        server_cnt = 0
-        response = ""
-        print("prompt_text length:", len(prompt_text))
-        prompt_text = prompt_text[-4000:]
-        while server_cnt < 3:
-            try:
-                response = self.openai_client.completions.create(
-                    model="gpt-3.5-turbo-instruct",
-                    prompt=prompt_text,
-                    temperature=0,
-                    max_tokens=256,
-                    top_p=1,
-                    frequency_penalty=0,
-                    presence_penalty=0,
-                )
-                server_flag = 1
-                if server_flag:
-                    break
-            except Exception as e:
-                server_cnt += 1
-                print(e)
-        return response
-
-    def online_parser(self, text):
-        self.parser_prompt = self.load_parser_prompt()
-        parser_prompt_text = self.parser_prompt + text
-        response = self.query_gpt3(parser_prompt_text)
-        parsed_info = response.choices[0].text
-        # print(parsed_info)
-        lines = parsed_info.split("\n")
-
-        name = None
-        obj = None
-        rank = None
-
-        for line in lines:
-            line = line.replace(" ", "")
-            if "action:" in line:
-                action = line[7:]
-            elif "name:" in line:
-                name = line[5:]
-            elif "object:" in line:
-                obj = eval(line[7:])
-            elif "rank:" in line:
-                rank = int(line[5:])
-            else:
-                pass
-        return name, obj, rank
-
-    def check_object(self, object):
-        object_flag = False
-        try:
-            object_name = list(object.keys())[0]
-            for goal in self.goal_lib.keys():
-                if object_name == list(self.goal_lib[goal]["output"].keys())[0]:
-                    object_flag = True
-                    return goal
-        except Exception as e:
-            print(e)
-        return object_flag
-
-    def generate_goal_list(self, plan):
-        lines = plan.split("\n")
-        goal_list = []
-        for line in lines:
-            if "#" in line:
-                name, obj, rank = self.online_parser(f"input: {line}")
-                print("[INFO]:", name, obj, rank)
-
-                if name in self.goal_lib.keys():
-                    goal_type = self.goal_lib[name]["type"]
-                    goal_object = obj
-                    goal_rank = rank
-                    goal_precondition = {
-                        **self.goal_lib[name]["precondition"],
-                        **self.goal_lib[name]["tool"],
-                    }
-                    goal = {}
-                    goal["name"] = name
-                    goal["type"] = goal_type
-                    goal["object"] = goal_object
-                    goal["precondition"] = goal_precondition
-                    goal["ranking"] = goal_rank
-                    goal_list.append(goal)
-                elif self.check_object(obj):
-                    print(
-                        "[INFO]: parsed goal is not in controller goal keys. Now search the object items ..."
-                    )
-                    obj_name = list(obj.keys())[0]
-                    goal_type = self.supported_objects[obj_name]["type"]
-                    goal_object = obj
-                    goal_rank = rank
-                    goal_precondition = {
-                        **self.supported_objects[obj_name]["precondition"],
-                        **self.supported_objects[obj_name]["tool"],
-                    }
-                    goal = {}
-                    goal["name"] = self.supported_objects[obj_name]["name"]
-                    goal["type"] = goal_type
-                    goal["object"] = goal_object
-                    goal["precondition"] = goal_precondition
-                    goal["ranking"] = goal_rank
-                    goal_list.append(goal)
-                else:
-                    print(
-                        "[ERROR]: parsed goal is not supported by current controller."
-                    )
-        print(f"[INFO]: Current Plan is {goal_list}")
-        return goal_list
-
-    def initial_planning(self, group, task_question):
-        task_prompt = self.load_initial_planning_prompt(group)
-        question = f"Human: {task_question}\n"
-        task_prompt_text = task_prompt + question
-        response = self.query_codex(task_prompt_text)
-        plan = response.choices[0].text
-        self.dialogue = self.load_initial_planning_prompt(group) + question
-        self.dialogue += plan
-        self.logging_dialogue = question
-        self.logging_dialogue += plan
-        print(plan)
-        return plan
-
-    def generate_inventory_description(self, inventory):
-        inventory_text = "Human: My inventory now has "
-        for inv_item in inventory:
-            if inv_item["name"] == "diamond_axe":
-                continue
-            if not inv_item["name"] == "air":
-                inventory_text += f'{inv_item["quantity"]} {inv_item["name"]}, '
-        print(inventory_text)
-        inventory_text += "\n"
-        self.dialogue += inventory_text
-        self.logging_dialogue += inventory_text
-        return inventory_text
-
-    def generate_success_description(self, step):
-        result_description = f"Human: I succeed on step {step}.\n"
-        self.dialogue += result_description
-        self.logging_dialogue += result_description
-        return result_description
-
-    def generate_failure_description(self, step):
-        result_description = f"Human: I fail on step {step}"
-        self.dialogue += result_description
-        self.logging_dialogue += result_description
-        print(result_description)
-        response = self.query_codex(self.dialogue)
-        detail_result_description = response.choices[0].text
-        self.dialogue += detail_result_description
-        self.logging_dialogue += detail_result_description
-        print(detail_result_description)
-        return detail_result_description
-
-    def generate_explanation(self):
-        response = self.query_codex(self.dialogue)
-        explanation = response.choices[0].text
-        self.dialogue += explanation
-        self.logging_dialogue += explanation
-        print(explanation)
-        return explanation
-
-    def replan(self, task_question):
-        replan_description = (
-            f"Human: Please fix above errors and replan the task '{task_question}'.\n"
-        )
-        self.dialogue += replan_description
-        self.logging_dialogue += replan_description
-        response = self.query_codex(self.dialogue)
-        plan = response.choices[0].text
-        print(plan)
-        self.dialogue += plan
-        self.logging_dialogue += plan
-        return plan
 
 
 class Evaluator:
     def __init__(self, cfg):
         self.cfg = cfg
-        self.num_workers = 0
         self.env = MineDojoEnv(
             name=cfg["eval"]["env_name"],
             img_size=(
@@ -309,24 +51,13 @@ class Evaluator:
             "clip"
         ]  # unify the mineclip and clip
         self.goal_mapping_dict = self.goal_mapping_cfg["horizon"]
-
-        print(
-            "[Progress] [red]Computing goal embeddings using MineClip's text encoder..."
-        )
-        # rely_goals = [val for val in self.goal_mapping_dict.values()]
-        # self.embedding_dict = accquire_goal_embeddings(
-        #     cfg["pretrains"]["clip_path"], rely_goals, device=device
-        # )
-
         self.goal_model_freq = cfg["goal_model"]["freq"]
         self.goal_list_size = cfg["goal_model"]["queue_size"]
-
         self.record_frames = cfg["record"]["frames"]
 
-        no_op = self.env.action_space.no_op()
-
-        self.miner = MineAgent(cfg, no_op=no_op, max_ranking=15)
-        self.crafter = CraftAgent(self.env, no_op=no_op)
+        self.no_op = self.env.action_space.no_op()
+        self.miner = MineAgent(cfg, no_op=self.no_op, max_ranking=15)
+        self.crafter = CraftAgent(self.env, no_op=self.no_op)
         self.planner = Planner()
 
         task = cfg["eval"]["task_name"]
@@ -369,8 +100,8 @@ class Evaluator:
 
     def load_goal_mapping_config(self):
         with open(goal_mapping_json, "r") as f:
-            goal_mapping_dict = json.load(f)
-        return goal_mapping_dict
+            goal_mapping_cfg = json.load(f)
+        return goal_mapping_cfg
 
     # check if the inventory has the object items
     def check_inventory(
@@ -441,8 +172,6 @@ class Evaluator:
 
     @torch.no_grad()
     def eval_step(self, fps=200):
-        self.mine_agent.eval()
-
         obs = self.env.reset()
 
         print("[INFO]: Evaluating the task is ", self.task)
@@ -473,13 +202,13 @@ class Evaluator:
         obs = preprocess_obs(obs)
 
         states = obs
-        actions = torch.zeros(1, self.mine_agent.action_dim, device=self.device)
+        actions = torch.zeros(1, self.miner.model.action_dim)
 
         curr_goal = None
         prev_goal = None
         seek_point = 0
 
-        obs, reward, env_done, info = self.env.step(self.env.action_space.no_op())
+        obs, reward, env_done, info = self.env.step(self.no_op.copy())
 
         now = datetime.now()
         timestamp = (
@@ -502,9 +231,7 @@ class Evaluator:
             if not prev_goal == curr_goal:
                 print(f"[INFO]: Episode Step {t}, Current Goal {curr_goal}")
                 seek_point = t
-                actions = torch.zeros(
-                    actions.shape[0], self.mine_agent.action_dim, device=self.device
-                )
+                actions = torch.zeros(actions.shape[0], self.miner.model.action_dim)
                 self.logging(t)
                 with open(log_file_name, "w") as f:
                     json.dump(self.logs, f, indent=4)
@@ -513,37 +240,31 @@ class Evaluator:
             # take the current goal type
             curr_goal_type = self.curr_goal["type"]
 
-            sf = self.cfg["data"]["skip_frame"]
-            wl = self.cfg["data"]["window_len"]
-
+            sf = 5 # skip frame
+            wl = 10 # window len
             end = actions.shape[0] - 1
             rg = torch.arange(
                 end, min(max(end - sf * (wl - 1) - 1, seek_point - 1), end - 1), -sf
             ).flip(0)
 
             # DONE: change the craft agent into craft actions
+            goal = list(self.curr_goal["object"].keys())[0]
+
             if curr_goal_type in ["craft", "smelt"]:
+                print("[INFO]: craft or smelt")
                 # action_done = False
                 preconditions = self.curr_goal["precondition"].keys()
-                goal = list(self.curr_goal["object"].keys())[0]
-                curr_actions, action_done = self.craft_agent.get_action(
+                print(f"[INFO]: goal is {goal}")
+                action, action_done = self.crafter.get_action(
                     preconditions, curr_goal_type, goal
                 )
-
             elif curr_goal_type == "mine":
+                print("[INFO]: mine")
                 # action_done = True
-                goal = self.goal_mapping_dict[list(self.curr_goal["object"].keys())[0]]
-                goal_embedding = self.embedding_dict[goal]
-                goals = (
-                    torch.from_numpy(goal_embedding).to(self.device).repeat(len(rg), 1)
-                )
+                clip_goal = self.goal_mapping_dict[goal]
                 complete_states = slice_obs(states, rg)
                 complete_states["prev_action"] = actions[rg]
-
-                _ranking, _action = self.mine_wrapper.get_action(
-                    goal, goals, complete_states
-                )
-                curr_actions = _action
+                _ranking, action = self.miner.get_action(clip_goal, complete_states)
             else:
                 print("Undefined action type !!")
 
@@ -567,13 +288,12 @@ class Evaluator:
                                 and item["quantity"] > 0
                                 and item["index"] > 0
                             ):
-                                act = self.env.action_space.no_op()
+                                act = self.no_op.copy()
                                 act[5] = 5
                                 act[7] = item["index"]
                                 self.env.step(act)
                                 break
             #! indent change
-            action = curr_actions
             if torch.is_tensor(action):
                 action = action.cpu().numpy()
             print(f"[INFO]: Taking action: {action}")
@@ -584,10 +304,8 @@ class Evaluator:
                 goal_frames.append(curr_goal["name"])
             obs = preprocess_obs(obs)
 
-            if type(action) != torch.Tensor:
+            if not torch.is_tensor(action):
                 action = torch.from_numpy(action)
-            if action.device != self.device:
-                action = action.to(self.device)
 
             states = stack_obs(states, obs)
             actions = torch.cat([actions, action.unsqueeze(0)], dim=0)
@@ -679,28 +397,29 @@ class Evaluator:
 
     def single_task_evaluate(self):
         loops = self.cfg["eval"]["goal_ratio"]
-        if self.num_workers == 0:
-            succ_rate = 0
-            episode_lengths = []
-            for i in range(loops):
-                try:
-                    self.reset(self.task)
-                    succ_flag, min_episode = self.eval_step()
-                except Exception as e:
-                    print(e)
-                    succ_flag = False
-                    min_episode = 0
-                succ_rate += succ_flag
-                if succ_flag:
-                    episode_lengths.append(min_episode)
-                print(
-                    f"Task {self.task} | Iteration {i} | Successful {succ_flag} | Episode length {min_episode} | Success rate {succ_rate/(i+1)}"
-                )
-            print("success rate: ", succ_rate / loops)
+        succ_rate = 0
+        episode_lengths = []
+        for i in range(loops):
+            try:
+                self.reset(self.task)
+                succ_flag, min_episode = self.eval_step()
+
+            except Exception as e:
+                print(e)
+                succ_flag = False
+                min_episode = 0
+                raise e
+            succ_rate += succ_flag
+            if succ_flag:
+                episode_lengths.append(min_episode)
             print(
-                "average episode length:",
-                sum(episode_lengths) / (len(episode_lengths) + 0.01),
+                f"Task {self.task} | Iteration {i} | Successful {succ_flag} | Episode length {min_episode} | Success rate {succ_rate/(i+1)}"
             )
+        print("success rate: ", succ_rate / loops)
+        print(
+            "average episode length:",
+            sum(episode_lengths) / (len(episode_lengths) + 0.01),
+        )
 
 
 @hydra.main(config_path="configs", config_name="base", version_base=None)

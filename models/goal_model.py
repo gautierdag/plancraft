@@ -606,7 +606,6 @@ class FanInInitReLULayer(nn.Module):
         group_norm_groups: Optional[int] = None,
         layer_norm: bool = False,
         use_activation=True,
-        log_scope: Optional[str] = None,
         **layer_kwargs,
     ):
         super().__init__()
@@ -633,6 +632,8 @@ class FanInInitReLULayer(nn.Module):
         if self.layer.bias is not None:
             self.layer.bias.data *= 0
 
+        self.use_activation = use_activation
+
     def forward(self, x):
         """Norm after the activation. Experimented with this for both IAM and BC and it was slightly better."""
         if self.norm is not None:
@@ -641,12 +642,6 @@ class FanInInitReLULayer(nn.Module):
         if self.use_activation:
             x = F.relu(x, inplace=True)
         return x
-
-    def get_log_keys(self):
-        return [
-            f"activation_mean/{self.log_scope}",
-            f"activation_std/{self.log_scope}",
-        ]
 
 
 class CnnBasicBlock(nn.Module):
@@ -660,7 +655,6 @@ class CnnBasicBlock(nn.Module):
         self,
         inchan: int,
         init_scale: float = 1,
-        log_scope="",
         init_norm_kwargs: Dict = {},
         **kwargs,
     ):
@@ -674,7 +668,6 @@ class CnnBasicBlock(nn.Module):
             kernel_size=3,
             padding=1,
             init_scale=s,
-            log_scope=f"{log_scope}/conv0",
             **init_norm_kwargs,
         )
         self.conv1 = FanInInitReLULayer(
@@ -683,7 +676,6 @@ class CnnBasicBlock(nn.Module):
             kernel_size=3,
             padding=1,
             init_scale=s,
-            log_scope=f"{log_scope}/conv1",
             **init_norm_kwargs,
         )
         self.goal_gate = nn.Sequential(
@@ -722,7 +714,6 @@ class CnnDownStack(nn.Module):
         init_scale: float = 1,
         pool: bool = True,
         post_pool_groups: Optional[int] = None,
-        log_scope: str = "",
         init_norm_kwargs: Dict = {},
         first_conv_norm=False,
         **kwargs,
@@ -740,7 +731,6 @@ class CnnDownStack(nn.Module):
             outchan,
             kernel_size=3,
             padding=1,
-            log_scope=f"{log_scope}/firstconv",
             **first_conv_init_kwargs,
         )
         self.post_pool_groups = post_pool_groups
@@ -751,7 +741,6 @@ class CnnDownStack(nn.Module):
                 CnnBasicBlock(
                     outchan,
                     init_scale=init_scale / math.sqrt(nblock),
-                    log_scope=f"{log_scope}/block{i}",
                     init_norm_kwargs=init_norm_kwargs,
                     **kwargs,
                 )
@@ -817,7 +806,6 @@ class GoalImpalaCNN(nn.Module):
                 nblock=nblock,
                 outchan=outchan,
                 init_scale=math.sqrt(len(chans)),
-                log_scope=f"downstack{i}",
                 init_norm_kwargs=init_norm_kwargs,
                 first_conv_norm=first_conv_norm if i == 0 else True,
                 **kwargs,
@@ -831,7 +819,6 @@ class GoalImpalaCNN(nn.Module):
             c1 * c2 * c3,
             outsize,
             layer_type="linear",
-            log_scope="imapala_final_dense",
             init_scale=1.4,
             **dense_init_norm_kwargs,
         )

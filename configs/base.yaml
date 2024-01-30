@@ -17,9 +17,8 @@ eval:
   task_name: "obtain_planks"
   cam: False
   only: True
-  episodes: 1
+  episodes: 10
   horizon: 0
-  num_workers: 1
   goal_id: [0]
   env_id: [0]
   envs: ["crafting"]

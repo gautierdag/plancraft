@@ -1,13 +1,15 @@
 import random
 
 import torch
+from torch.distributions import Categorical
 import numpy as np
 
 from models.goal_model import get_goal_model
 from models.mineclip import MineCLIP
+from models.utils import get_torch_device
 
 
-def accquire_goal_embeddings(clip_path, goal_list, device="cuda"):
+def accquire_goal_embeddings(clip_path: str, goal: str):
     clip_cfg = {
         "arch": "vit_base_p16_fz.v2.t2",
         "hidden_dim": 512,
@@ -18,13 +20,10 @@ def accquire_goal_embeddings(clip_path, goal_list, device="cuda"):
     }
     clip_model = MineCLIP(**clip_cfg)
     clip_model.load_ckpt(clip_path, strict=True)
+    device = get_torch_device()
     clip_model = clip_model.to(device)
-    res = {}
     with torch.no_grad():
-        for goal in goal_list:
-            print(goal)
-            res[goal] = clip_model.encode_text([goal]).cpu().numpy()
-    return res
+        return clip_model.encode_text([goal]).cpu().numpy()
 
 
 class MineAgent:
@@ -43,11 +42,14 @@ class MineAgent:
         self.no_op = no_op  # no_op is numpy array
         action_space = [3, 3, 4, 11, 11, 8, 1, 1]
         self.model = get_goal_model(cfg, action_space)
+        self.model.eval()
         self.max_ranking = max_ranking
 
-    def get_action(
-        self, goal: str, goals: torch.Tensor, states: dict
-    ) -> tuple[int, torch.Tensor]:
+        # rely_goals = [val for val in self.goal_mapping_dict.values()]
+        self.embedding_dict = {}
+        self.clip_path = cfg["pretrains"]["clip_path"]
+
+    def get_action(self, goal: str, states: dict) -> tuple[int, torch.Tensor]:
         if goal in self.script_goals:
             print(f"[INFO]: goal is {goal}")
             act = self.no_op.copy()
@@ -88,31 +90,36 @@ class MineAgent:
             else:
                 raise NotImplementedError
         else:
-            raise NotImplementedError("Only support mining goals.")
+            if goal not in self.embedding_dict:
+                # accquire goal embedding
+                self.embedding_dict[goal] = accquire_goal_embeddings(
+                    self.clip_path, goal
+                )
+
+            goal_embedding = self.embedding_dict[goal]
+            goals = torch.from_numpy(goal_embedding).repeat(
+                len(states["prev_action"]), 1
+            )
+
             # Neural Network Agent
-            # action_preds, mid_info = self.model.get_action(
-            #     goals=goals,
-            #     states=states,
-            #     horizons=None,
-            # )
-
-            # from ray.rllib.models.torch.torch_action_dist import TorchMultiCategorical
-
-            # action_dist = TorchMultiCategorical(
-            #     action_preds[:, -1], None, self.model.action_space
-            # )
+            action_preds, mid_info = self.model.get_action(
+                goals=goals,
+                states=states,
+                horizons=None,
+            )
 
             # Split the action prediction tensor into separate tensors for each categorical action.
-            # split_action_preds = torch.split(
-            #     action_preds[:, -1], [space.n for space in self.model.action_space]
-            # )
+            # TODO: BROKEN
+            split_action_preds = torch.split(
+                action_preds[:, -1], self.model.action_space
+            )
 
-            # # Create a Categorical distribution for each action space.
-            # action_dists = [Categorical(logits=preds) for preds in split_action_preds]
+            action_dists = [Categorical(logits=preds) for preds in split_action_preds]
 
-            # # To sample actions, you can use the sample() method of each distribution.
-            # sampled_actions = [dist.sample() for dist in action_dists]
+            # To sample actions, you can use the sample() method of each distribution.
+            sampled_actions = torch.stack([dist.sample() for dist in action_dists])
 
-            # action = action_dist.sample().squeeze(0)
-            # goal_ranking = mid_info["pred_horizons"][0, -1].argmax(-1)
-            # return goal_ranking, action
+            # Assuming the goal ranking logic remains the same
+            goal_ranking = mid_info["pred_horizons"][0, -1].argmax(-1)
+
+            return goal_ranking, sampled_actions
