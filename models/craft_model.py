@@ -173,7 +173,6 @@ class CraftAgent:
             self.craft_wo_table(goal),
             self.recycle("crafting_table", 200),
         ):
-            # print(f"{goal}: {act}")
             yield act
 
     def smelt_w_furnace(self, goal):
@@ -200,25 +199,25 @@ class CraftAgent:
                     self.history["craft_w_table"] = self.craft_w_table(goal)
                 try:
                     act = next(self.history["craft_w_table"])
-                    return act, False
+                    return act
                 except:
                     self.history["craft_w_table"] = None
-                    return self.no_op.copy(), True
+                    return self.no_op.copy()
             else:
                 if self.history["craft_wo_table"] is None:
                     self.history["craft_wo_table"] = self.craft_wo_table(goal)
                 try:
                     act = next(self.history["craft_wo_table"])
-                    return act, False
+                    return act
                 except:
                     self.history["craft_wo_table"] = None
-                    return self.no_op.copy(), True
+                    return self.no_op.copy()
         elif goal_type == "smelt":
             if self.history["smelt_w_furnace"] is None:
                 self.history["smelt_w_furnace"] = self.smelt_w_furnace(goal)
             try:
                 act = next(self.history["smelt_w_furnace"])
-                return act, False
+                return act
             except:
                 self.history["smelt_w_furnace"] = None
-                return self.no_op.copy(), True
+                return self.no_op.copy()

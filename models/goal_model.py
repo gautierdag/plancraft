@@ -495,7 +495,6 @@ class SimpleNetwork(nn.Module):
         return feat
 
     def forward(self, goals, states, horizons, timesteps=None, attention_mask=None):
-        mid_info = {}
         raw_rgb = states["rgb"]
         batch_size, seq_length = raw_rgb.shape[:2]
         assert (
@@ -550,7 +549,6 @@ class SimpleNetwork(nn.Module):
         if self.use_horizon:
             if self.use_pred_horizon:
                 pred_horizons = self.pred_horizon(obs_feature)
-                mid_info["pred_horizons"] = pred_horizons
                 if not self.training:
                     mid_horizons = pred_horizons.argmax(-1)
                     mid_horizons = (mid_horizons - self.c).clip(0)
@@ -565,9 +563,9 @@ class SimpleNetwork(nn.Module):
 
         action_preds = self.action_head(mid_feature)
 
-        return action_preds, mid_info
+        return action_preds
 
-    def get_action(self, goals, states, horizons):
+    def get_action(self, goals, states, horizons=None):
         # augment the batch dimension
         goals = goals.unsqueeze(0)  # 1xLxH
         B, L, _ = goals.shape
@@ -687,7 +685,6 @@ class CnnBasicBlock(nn.Module):
     def forward(self, x, goal_embeddings):
         px = self.conv1(self.conv0(x))
         gate = self.goal_gate(goal_embeddings)
-        # print(gate.shape, px.shape)
         r = x + px * gate.sigmoid().unsqueeze(2).unsqueeze(3)
         return r
 
@@ -895,38 +892,6 @@ class GoalImpalaCNNWrapper(nn.Module):
 
 
 def get_goal_model(cfg, action_space):
-    print(
-        dict(
-            action_space=action_space,
-            state_dim=1024,
-            goal_dim=512,
-            action_dim=8,
-            num_cat=len(cfg["data"]["filters"]),
-            hidden_size=1024,
-            fusion_type="concat",
-            max_ep_len=1000,
-            frozen_cnn=False,
-            use_recurrent="transformer",
-            use_extra_obs=True,
-            use_horizon=True,
-            use_prev_action=True,
-            extra_obs_cfg={
-                "biome_hiddim": 256,
-                "compass_hiddim": 256,
-                "gps_hiddim": 256,
-                "voxels_hiddim": 256,
-            },
-            use_pred_horizon=True,
-            c=8,
-            transformer_cfg={
-                "n_layer": 6,
-                "n_head": 4,
-                "resid_pdrop": 0.1,
-                "attn_pdrop": 0.1,
-                "activation_function": "relu",
-            },
-        )
-    )
     model = SimpleNetwork(
         action_space=action_space,
         state_dim=1024,
@@ -959,6 +924,5 @@ def get_goal_model(cfg, action_space):
         },
     )
     state_dict = torch.load(cfg["model"]["load_ckpt_path"], map_location="cpu")
-    print(f"[MAIN] load checkpoint from {cfg['model']['load_ckpt_path']}. ")
     model.load_state_dict(state_dict["model_state_dict"], strict=False)
     return model
