@@ -2,6 +2,7 @@ import torch
 import torch.nn.functional as F
 import numpy as np
 import cv2
+from PIL import Image
 
 
 def get_torch_device() -> torch.device:
@@ -59,3 +60,38 @@ def preprocess_obs(obs: dict, device=torch.device("cpu")) -> dict:
         .to(device=device, dtype=torch.long)
     )
     return res_obs
+
+
+def save_frames_to_video(frames: list, out_path: str):
+    imgs = []
+    for id, (frame, goal) in enumerate(frames):
+        frame = resize_image(frame, (320, 240)).astype("uint8")
+        cv2.putText(
+            frame,
+            f"FID: {id}",
+            (10, 25),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (255, 255, 255),
+            2,
+        )
+        cv2.putText(
+            frame,
+            f"Goal: {goal}",
+            (10, 55),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (255, 0, 0),
+            2,
+        )
+        imgs.append(Image.fromarray(frame))
+    imgs = imgs[::3]
+    imgs[0].save(
+        out_path,
+        save_all=True,
+        append_images=imgs[1:],
+        optimize=False,
+        quality=0,
+        duration=150,
+        loop=0,
+    )

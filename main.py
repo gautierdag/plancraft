@@ -6,10 +6,9 @@ import warnings
 import hydra
 import torch
 from minedojo import MineDojoEnv
-from PIL import Image
 
 from models import CraftAgent, MineAgent
-from models.utils import preprocess_obs, resize_image
+from models.utils import preprocess_obs, save_frames_to_video
 from planner import Planner
 
 warnings.filterwarnings("ignore")
@@ -18,13 +17,10 @@ logger = logging.getLogger(__name__)
 
 
 prefix = os.getcwd()
-task_info_json = os.path.join(prefix, "data/task_info.json")
 goal_mapping_json = os.path.join(prefix, "data/goal_mapping.json")
 
-TASK_LIST = []
-with open(task_info_json, "r") as f:
-    task_info = json.load(f)
-TASK_LIST = list(task_info.keys())
+with open("data/task_info.json", "r") as f:
+    TASK_INFO = json.load(f)
 
 prefix = os.getcwd()
 
@@ -41,37 +37,35 @@ class Evaluator:
             ),
             rgb_only=False,
         )
-        self.task_list = TASK_LIST
 
         self.goal_mapping_cfg = self.load_goal_mapping_config()
         self.mineclip_prompt_dict = self.goal_mapping_cfg["mineclip"]
-        self.clip_prompt_dict = self.goal_mapping_cfg[
-            "clip"
-        ]  # unify the mineclip and clip
+        # unify the mineclip and clip
+        self.clip_prompt_dict = self.goal_mapping_cfg["clip"]
         self.goal_mapping_dict = self.goal_mapping_cfg["horizon"]
-        self.goal_model_freq = cfg["goal_model"]["freq"]
-        self.goal_list_size = cfg["goal_model"]["queue_size"]
+
         self.record_frames = cfg["record"]["frames"]
+        self.frames = []
 
         self.no_op = self.env.action_space.no_op()
         self.miner = MineAgent(cfg, no_op=self.no_op)
         self.crafter = CraftAgent(self.env, no_op=self.no_op)
         self.planner = Planner()
 
-        task = cfg["eval"]["task_name"]
-        self.reset(task)
+        # set task
+        task_name = cfg["eval"]["task_name"]
+        self.task_name = task_name
+        self.task = TASK_INFO[task_name]
 
-    def reset(self, task):
-        logger.info(f"[INFO]: resetting the task {task}")
+        # set goal list
+        self.reset(task_name)
+
+    def reset(self, task_name: str, iteration: int = 0):
+        logger.info(f"[INFO]: resetting the task {task_name}")
         self.planner.reset()
-        self.task = task
-        (
-            self.task_obj,
-            self.max_ep_len,
-            self.task_question,
-            self.task_group,
-        ) = self.load_task_info(self.task)
-        plan = self.planner.initial_planning(self.task_group, self.task_question)
+        self.task = TASK_INFO[task_name]
+        self.iteration = iteration
+        plan = self.planner.initial_planning(self.task["group"], self.task["question"])
         self.goal_list = self.planner.generate_goal_list(plan)
         if len(self.goal_list) == 0:
             self.curr_goal = {
@@ -85,17 +79,6 @@ class Evaluator:
             self.curr_goal = self.goal_list[0]
         self.goal_eps = 0
         self.replan_rounds = 0
-        self.logs = {}
-
-    # @TODO remove since it's really redundant to reread the json file
-    def load_task_info(self, task):
-        with open(task_info_json, "r") as f:
-            task_info = json.load(f)
-        target_item = task_info[task]["object"]
-        episode_length = int(task_info[task]["episode"])
-        task_question = task_info[task]["question"]
-        task_group = task_info[task]["group"]
-        return target_item, episode_length, task_question, task_group
 
     def load_goal_mapping_config(self):
         with open(goal_mapping_json, "r") as f:
@@ -107,7 +90,6 @@ class Evaluator:
         self, inventory, items: dict
     ):  # items: {"planks": 4, "stick": 2}
         for key in items.keys():  # check every object item
-            # item_flag = False
             if (
                 sum([item["quantity"] for item in inventory if item["name"] == key])
                 < items[key]
@@ -117,7 +99,6 @@ class Evaluator:
 
     def check_precondition(self, inventory, precondition: dict):
         for key in precondition.keys():  # check every object item
-            # item_flag = False
             if (
                 sum([item["quantity"] for item in inventory if item["name"] == key])
                 < precondition[key]
@@ -167,11 +148,9 @@ class Evaluator:
     def eval_step(self):
         obs = self.env.reset()
 
-        logger.info(f"Evaluating the task is {self.task}")
+        logger.info(f"Evaluating the task is {self.task_name}")
 
-        if self.record_frames:
-            video_frames = [obs["rgb"]]
-            goal_frames = ["start"]
+        self.frames = [(obs["rgb"], "start")]
 
         def stack_obs(prev_obs: dict, obs: dict):
             stacked_obs = {}
@@ -193,18 +172,15 @@ class Evaluator:
             return res
 
         obs = preprocess_obs(obs)
-
         states = obs
         actions = torch.zeros(1, self.miner.model.action_dim)
-
         curr_goal = None
         prev_goal = None
-        seek_point = 0
 
+        seek_point = 0
         obs, reward, env_done, info = self.env.step(self.no_op.copy())
 
-        # max_ep_len = task_eps[self.task]
-        for t in range(0, self.max_ep_len):
+        for t in range(0, self.task["episode"]):
             self.update_goal(info["inventory"])
             curr_goal = self.curr_goal
 
@@ -273,10 +249,9 @@ class Evaluator:
 
             logger.info(f"[INFO]: Taking action: {action}")
             obs, reward, env_done, info = self.env.step(action)
+            # append the video frames
+            self.frames.append((obs["rgb"], curr_goal["name"]))
 
-            if self.record_frames:
-                video_frames.append(obs["rgb"])
-                goal_frames.append(curr_goal["name"])
             obs = preprocess_obs(obs)
 
             if not torch.is_tensor(action):
@@ -289,103 +264,57 @@ class Evaluator:
             if curr_goal_type == "mine" and not self.check_precondition(
                 info["inventory"], self.curr_goal["precondition"]
             ):
-                self.replan_task(info["inventory"], self.task_question)
+                self.replan_task(info["inventory"], self.task["question"])
             elif curr_goal_type == "craft" and self.goal_eps > 150:
-                self.replan_task(info["inventory"], self.task_question)
+                self.replan_task(info["inventory"], self.task["question"])
             elif curr_goal_type == "smelt" and self.goal_eps > 200:
-                self.replan_task(info["inventory"], self.task_question)
+                self.replan_task(info["inventory"], self.task["question"])
 
             if self.replan_rounds > 12:
                 logger.info("[INFO]: replanning over rounds")
                 break
 
             if self.check_done(
-                info["inventory"], self.task_obj
+                info["inventory"], self.task["object"]
             ):  # check if the task is done?
                 env_done = True
                 logger.info(f"[INFO]: finish goal {self.curr_goal['name']}.")
                 self.planner.generate_success_description(self.curr_goal["ranking"])
-                self.logs[t] = {}
-                self.logs[t]["curr_plan"] = self.goal_list
-                self.logs[t]["curr_goal"] = self.curr_goal
-                self.logs[t]["curr_dialogue"] = self.planner.logging_dialogue
-                self.logs[t]["result"] = True
                 break
 
         # record the video
         if env_done and self.record_frames:
-            # if self.record_frames:
-            logger.info("[INFO]: saving the frames")
-            imgs = []
-            for id, frame in enumerate(video_frames):
-                frame = resize_image(frame, (320, 240)).astype("uint8")
-                # cv2.putText(
-                #     frame,
-                #     f"FID: {id}",
-                #     (10, 25),
-                #     cv2.FONT_HERSHEY_SIMPLEX,
-                #     0.8,
-                #     (255, 255, 255),
-                #     2,
-                # )
-                # cv2.putText(
-                #     frame,
-                #     f"Goal: {goal_frames[id]}",
-                #     (10, 55),
-                #     cv2.FONT_HERSHEY_SIMPLEX,
-                #     0.8,
-                #     (255, 0, 0),
-                #     2,
-                # )
-                imgs.append(Image.fromarray(frame))
-            imgs = imgs[::3]
-            logger.info(f"record imgs length: {len(imgs)}")
-            # @ todo move the recording/saving to utils
-            # now = datetime.now()
-            # timestamp = (
-            #     f"{now.year}_{now.month}_{now.day}_{now.hour}_{now.minute}_{now.second}"
-            # )
-            # folder_name = os.path.join(prefix, "recordings/" + timestamp + "/")
-            # if not os.path.exists(folder_name):
-            #     os.mkdir(folder_name)
-            # imgs[0].save(
-            #     folder_name + self.task + ".gif",
-            #     save_all=True,
-            #     append_images=imgs[1:],
-            #     optimize=False,
-            #     quality=0,
-            #     duration=150,
-            #     loop=0,
-            # )
-            # with open(folder_name + self.task + ".json", "w") as f:
-            #     json.dump(self.logs, f, indent=4)
+            logger.info("[INFO]: saving video")
+            video_path = os.path.join(
+                self.output_dir, f"{self.task_name}_{self.iteration}.gif"
+            )
+            save_frames_to_video(self.frames, video_path)
+            self.frames = []
 
         return env_done, t  # True or False, episode length
 
     def single_task_evaluate(self):
-        loops = self.cfg["eval"]["goal_ratio"]
-        succ_rate = 0
+        num_evals = self.cfg["eval"]["num_evals"]
+        success_rate = 0
         episode_lengths = []
-        for i in range(loops):
+        for i in range(num_evals):
             try:
-                self.reset(self.task)
+                self.reset(self.task_name, iteration=i)
                 succ_flag, min_episode = self.eval_step()
-
             except Exception as e:
                 logger.info(e)
                 succ_flag = False
                 min_episode = 0
                 raise e
-            succ_rate += succ_flag
+            success_rate += succ_flag
             if succ_flag:
                 episode_lengths.append(min_episode)
             logger.info(
-                f"Task {self.task} | Iteration {i} | Successful {succ_flag} | Episode length {min_episode} | Success rate {succ_rate/(i+1)}"
+                f"Task {self.task_name} | Iteration {i} | Successful {succ_flag} | Episode length {min_episode} | Success rate {success_rate/(i+1)}"
             )
-        logger.info("success rate: ", succ_rate / loops)
+        logger.info(f"success rate: {success_rate / num_evals}")
         logger.info(
-            "average episode length:",
-            sum(episode_lengths) / (len(episode_lengths) + 0.01),
+            f"average episode length: {sum(episode_lengths) / (len(episode_lengths) + 0.01)}",
         )
 
 
