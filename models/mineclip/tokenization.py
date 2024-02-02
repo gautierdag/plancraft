@@ -1,11 +1,14 @@
 from __future__ import annotations
+
 import os
 from functools import lru_cache
+
+import torch
 
 # disable HuggingFace warning
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-import torch
+
 from transformers import AutoTokenizer
 
 

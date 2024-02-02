@@ -52,19 +52,16 @@ class Evaluator:
         self.crafter = CraftAgent(self.env, no_op=self.no_op)
         self.planner = Planner()
 
-        # set task
-        task_name = cfg["eval"]["task_name"]
-        self.task_name = task_name
-        self.task = TASK_INFO[task_name]
-
-        # set goal list
-        self.reset(task_name)
+        # set task and obtain goal list
+        self.reset(cfg["eval"]["task_name"])
 
     def reset(self, task_name: str, iteration: int = 0):
         logger.info(f"[INFO]: resetting the task {task_name}")
-        self.planner.reset()
+        self.task_name = task_name
         self.task = TASK_INFO[task_name]
         self.iteration = iteration
+
+        self.planner.reset()
         plan = self.planner.initial_planning(self.task["group"], self.task["question"])
         self.goal_list = self.planner.generate_goal_list(plan)
         if len(self.goal_list) == 0:
@@ -194,6 +191,7 @@ class Evaluator:
             # take the current goal type
             curr_goal_type = self.curr_goal["type"]
 
+            # get the rolling window of the actions
             sf = 5  # skip frame
             wl = 10  # window len
             end = actions.shape[0] - 1

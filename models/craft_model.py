@@ -1,6 +1,6 @@
 from itertools import chain
-import numpy as np
 
+import numpy as np
 from minedojo.sim.mc_meta.mc import ALL_CRAFT_SMELT_ITEMS
 
 

@@ -11,9 +11,9 @@ import transformers
 
 
 def resize_image(img, target_resolution=(128, 128)):
-    if type(img) == np.ndarray:
+    if isinstance(img, np.ndarray):
         img = cv2.resize(img, target_resolution, interpolation=cv2.INTER_LINEAR)
-    elif type(img) == torch.Tensor:
+    elif torch.is_tensor(img):
         img = F.interpolate(img, size=target_resolution, mode="bilinear")
     else:
         raise ValueError
@@ -65,11 +65,11 @@ def discrete_horizon(horizon):
     for i in range(10, 15):
         horizon_list += [i] * 20
     horizon_list += [15] * 700
-    if type(horizon) == torch.Tensor:
+    if torch.is_tensor(horizon):
         return torch.Tensor(horizon_list, device=horizon.device)[horizon]
-    elif type(horizon) == np.ndarray:
+    elif isinstance(horizon, np.ndarray):
         return np.array(horizon_list)[horizon]
-    elif type(horizon) == int:
+    elif isinstance(horizon, int):
         return horizon_list[horizon]
     else:
         assert False

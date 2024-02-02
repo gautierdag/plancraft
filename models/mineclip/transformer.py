@@ -5,7 +5,6 @@ pip install x_transformers==0.27.1
 """
 from x_transformers.x_transformers import *
 
-
 __all__ = ["TemporalTransformer", "make_temporal_transformer"]
 
 
