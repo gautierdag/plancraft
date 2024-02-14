@@ -96,7 +96,7 @@ class Planner:
             context += f.read()
         return context
 
-    @cache_results
+    # @cache_results
     def query_codex(self, prompt_text):
         server_flag = 0
         server_error_cnt = 0
@@ -123,7 +123,7 @@ class Planner:
                 logger.info(e)
         return response.choices[0].text
 
-    @cache_results
+    # @cache_results
     def query_gpt3(self, prompt_text):
         server_flag = 0
         server_cnt = 0
@@ -292,3 +292,7 @@ class Planner:
         self.dialogue += plan
         self.logging_dialogue += plan
         return plan
+
+    def save_dialogue(self, filename: str):
+        with open(filename, "w") as f:
+            f.write(self.logging_dialogue)

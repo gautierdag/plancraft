@@ -3,9 +3,9 @@ goal_model:
 
 eval:
   seed: 0
-  num_evals: 3
+  num_evals: 30
   env_name: "Plains"
-  task_name: "obtain_planks"
+  tasks: ["obtain_planks"]
 
 data:
   filters:

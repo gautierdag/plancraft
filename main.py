@@ -44,6 +44,7 @@ class Evaluator:
 
         self.goal_mapping_cfg = self.load_goal_mapping_config()
         self.mineclip_prompt_dict = self.goal_mapping_cfg["mineclip"]
+
         # unify the mineclip and clip
         self.clip_prompt_dict = self.goal_mapping_cfg["clip"]
         self.goal_mapping_dict = self.goal_mapping_cfg["horizon"]
@@ -56,18 +57,20 @@ class Evaluator:
         self.crafter = CraftAgent(self.env, no_op=self.no_op)
         self.planner = Planner()
 
-        # set task and obtain goal list
-        self.reset(cfg["eval"]["task_name"])
-
     def reset(self, task_name: str, iteration: int = 0):
+        # check that task directory exists
+        os.makedirs(f"{self.output_dir}/{task_name}", exist_ok=True)
+
         logger.info(f"resetting the task {task_name}")
         self.task_name = task_name
         self.task = TASK_INFO[task_name]
         self.iteration = iteration
+        self.goal_history = []
 
         self.planner.reset()
         plan = self.planner.initial_planning(self.task["group"], self.task["question"])
         self.goal_list = self.planner.generate_goal_list(plan)
+        # NOTE: if the goal list is empty, then the DEPS default goal is to mine a log
         if len(self.goal_list) == 0:
             self.curr_goal = {
                 "name": "mine_log",
@@ -114,7 +117,6 @@ class Evaluator:
         return False
 
     def update_goal(self, inventory):
-        # while self.check_inventory(inventory, self.curr_goal["object"]):
         if (
             self.check_inventory(inventory, self.curr_goal["object"])
             and self.goal_eps > 1
@@ -164,10 +166,10 @@ class Evaluator:
         seek_point = 0
         obs, reward, env_done, info = self.env.step(self.no_op.copy())
 
-        # for t in range(0, self.task["episode"]):
-        for t in range(0, 200):
+        for t in range(0, self.task["episode"]):
             self.update_goal(info["inventory"])
             curr_goal = self.curr_goal
+            self.goal_history.append(curr_goal)
 
             if t % 20 == 0:
                 logger.info(f"Episode Step {t}, Current Goal {curr_goal['name']}")
@@ -271,20 +273,33 @@ class Evaluator:
         if self.record_frames:
             logger.info("saving video")
             video_path = os.path.join(
-                self.output_dir, f"{self.task_name}_{self.iteration}.gif"
+                self.output_dir,
+                f"{self.task_name}/{self.task_name}_{self.iteration}.gif",
             )
             save_frames_to_video(self.frames, video_path)
             self.frames = []
 
+        self.planner.save_dialogue(
+            f"{self.output_dir}/{self.task_name}/{self.task_name}_{self.iteration}.txt"
+        )
+
+        # save goal history as jsonl
+        with open(
+            f"{self.output_dir}/{self.task_name}/{self.task_name}_{self.iteration}_goal_history.jsonl",
+            "w",
+        ) as f:
+            for item in self.goal_history:
+                f.write(json.dumps(item) + "\n")
+
         return env_done, t  # True or False, episode length
 
-    def single_task_evaluate(self):
+    def evaluate_task(self, task_name: str):
         num_evals = self.cfg["eval"]["num_evals"]
         success_rate = 0
         episode_lengths = []
         for i in range(num_evals):
             try:
-                self.reset(self.task_name, iteration=i)
+                self.reset(task_name, iteration=i)
                 succ_flag, min_episode = self.eval_step()
             except Exception as e:
                 logger.info(e)
@@ -301,6 +316,24 @@ class Evaluator:
         logger.info(
             f"average episode length: {sum(episode_lengths) / (len(episode_lengths) + 0.01)}",
         )
+        # save the success rate and episode length
+        with open(f"{self.output_dir}/{task_name}/{task_name}_results.json", "w") as f:
+            json.dump(
+                {
+                    "success_count": success_rate,
+                    "success_rate": success_rate / num_evals,
+                    "num_evals": num_evals,
+                    "episode_lengths": episode_lengths,
+                },
+                f,
+            )
+
+    def evaluate(self, task_names: list):
+        if len(task_names) == 0:
+            logger.info("Evaluating all tasks")
+            task_names = list(TASK_INFO.keys())
+        for task_name in task_names:
+            self.evaluate_task(task_name)
 
 
 @hydra.main(config_path="configs", config_name="base", version_base=None)
@@ -308,7 +341,7 @@ def main(cfg):
     logger.info(cfg)
     output_dir = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
     evaluator = Evaluator(cfg, output_dir=output_dir)
-    evaluator.single_task_evaluate()
+    evaluator.evaluate(cfg["eval"]["tasks"])
 
 
 if __name__ == "__main__":
