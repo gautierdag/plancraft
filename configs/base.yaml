@@ -2,7 +2,8 @@ goal_model:
   use_horizon: 1
 
 eval:
-  num_evals: 5
+  seed: 0
+  num_evals: 3
   env_name: "Plains"
   task_name: "obtain_planks"
 
@@ -15,10 +16,10 @@ data:
     - stone
 
 model:
-  load_ckpt_path: "/Users/gautier/Github/minecraft/models/controller.pt"
+  load_ckpt_path: /home/gautier/Desktop/models/controller.pt
 
 pretrains:
-  clip_path: /Users/gautier/Github/minecraft/models/MINECLIP.pth
+  clip_path: /home/gautier/Desktop/models/MINECLIP.pth
 
 record:
   frames: True

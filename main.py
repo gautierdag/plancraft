@@ -8,7 +8,7 @@ import torch
 from minedojo import MineDojoEnv
 
 from models import CraftAgent, MineAgent
-from models.utils import preprocess_obs, save_frames_to_video
+from models.utils import preprocess_obs, save_frames_to_video, slice_obs, stack_obs
 from planner import Planner
 
 warnings.filterwarnings("ignore")
@@ -36,6 +36,10 @@ class Evaluator:
                 cfg["simulator"]["resolution"][1],
             ),
             rgb_only=False,
+            seed=cfg["eval"]["seed"],
+            world_seed=cfg["eval"]["seed"],
+            fast_reset=True,
+            force_slow_reset_interval=cfg["eval"]["num_evals"],
         )
 
         self.goal_mapping_cfg = self.load_goal_mapping_config()
@@ -56,7 +60,7 @@ class Evaluator:
         self.reset(cfg["eval"]["task_name"])
 
     def reset(self, task_name: str, iteration: int = 0):
-        logger.info(f"[INFO]: resetting the task {task_name}")
+        logger.info(f"resetting the task {task_name}")
         self.task_name = task_name
         self.task = TASK_INFO[task_name]
         self.iteration = iteration
@@ -115,7 +119,7 @@ class Evaluator:
             self.check_inventory(inventory, self.curr_goal["object"])
             and self.goal_eps > 1
         ):
-            logger.info(f"[INFO]: finish goal {self.curr_goal['name']}.")
+            logger.info(f"finish goal {self.curr_goal['name']}.")
             self.planner.generate_success_description(self.curr_goal["ranking"])
             self.goal_list.remove(self.goal_list[0])
             self.curr_goal = self.goal_list[0]
@@ -146,27 +150,10 @@ class Evaluator:
         obs = self.env.reset()
 
         logger.info(f"Evaluating the task is {self.task_name}")
+        # log start position
+        logger.info(f"Start position: {obs['compass']} {obs['gps']}")
 
         self.frames = [(obs["rgb"], "start")]
-
-        def stack_obs(prev_obs: dict, obs: dict):
-            stacked_obs = {}
-            stacked_obs["rgb"] = torch.cat([prev_obs["rgb"], obs["rgb"]], dim=0)
-            stacked_obs["voxels"] = torch.cat(
-                [prev_obs["voxels"], obs["voxels"]], dim=0
-            )
-            stacked_obs["compass"] = torch.cat(
-                [prev_obs["compass"], obs["compass"]], dim=0
-            )
-            stacked_obs["gps"] = torch.cat([prev_obs["gps"], obs["gps"]], dim=0)
-            stacked_obs["biome"] = torch.cat([prev_obs["biome"], obs["biome"]], dim=0)
-            return stacked_obs
-
-        def slice_obs(obs: dict, slice: torch.tensor):
-            res = {}
-            for k, v in obs.items():
-                res[k] = v[slice]
-            return res
 
         obs = preprocess_obs(obs)
         states = obs
@@ -177,12 +164,16 @@ class Evaluator:
         seek_point = 0
         obs, reward, env_done, info = self.env.step(self.no_op.copy())
 
-        for t in range(0, self.task["episode"]):
+        # for t in range(0, self.task["episode"]):
+        for t in range(0, 200):
             self.update_goal(info["inventory"])
             curr_goal = self.curr_goal
 
+            if t % 20 == 0:
+                logger.info(f"Episode Step {t}, Current Goal {curr_goal['name']}")
+
             if not prev_goal == curr_goal:
-                logger.info(f"[INFO]: Episode Step {t}, Current Goal {curr_goal}")
+                logger.info(f"Episode Step {t}, Current Goal {curr_goal}")
                 seek_point = t
                 actions = torch.zeros(actions.shape[0], self.miner.model.action_dim)
 
@@ -201,13 +192,10 @@ class Evaluator:
 
             # DONE: change the craft agent into craft actions
             goal = list(self.curr_goal["object"].keys())[0]
-            logger.info(f"[INFO]: goal is {goal}")
             if curr_goal_type in ["craft", "smelt"]:
-                logger.info("[INFO]: craft or smelt")
                 preconditions = self.curr_goal["precondition"].keys()
                 action = self.crafter.get_action(preconditions, curr_goal_type, goal)
             elif curr_goal_type == "mine":
-                logger.info("[INFO]: mine")
                 clip_goal = self.goal_mapping_dict[goal]
                 complete_states = slice_obs(states, rg)
                 complete_states["prev_action"] = actions[rg]
@@ -245,8 +233,7 @@ class Evaluator:
             if torch.is_tensor(action):
                 action = action.cpu().numpy()
 
-            logger.info(f"[INFO]: Taking action: {action}")
-            obs, reward, env_done, info = self.env.step(action)
+            obs, _, env_done, info = self.env.step(action)
             # append the video frames
             self.frames.append((obs["rgb"], curr_goal["name"]))
 
@@ -269,20 +256,20 @@ class Evaluator:
                 self.replan_task(info["inventory"], self.task["question"])
 
             if self.replan_rounds > 12:
-                logger.info("[INFO]: replanning over rounds")
+                logger.info(f"{t}: replanning over rounds")
                 break
 
             if self.check_done(
                 info["inventory"], self.task["object"]
             ):  # check if the task is done?
                 env_done = True
-                logger.info(f"[INFO]: finish goal {self.curr_goal['name']}.")
+                logger.info(f"{t}: finish goal {self.curr_goal['name']}.")
                 self.planner.generate_success_description(self.curr_goal["ranking"])
                 break
 
         # record the video
-        if env_done and self.record_frames:
-            logger.info("[INFO]: saving video")
+        if self.record_frames:
+            logger.info("saving video")
             video_path = os.path.join(
                 self.output_dir, f"{self.task_name}_{self.iteration}.gif"
             )

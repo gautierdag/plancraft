@@ -128,7 +128,7 @@ class Planner:
         server_flag = 0
         server_cnt = 0
         response = ""
-        logger.info("prompt_text length:", len(prompt_text))
+        logger.info(f"prompt_text length: {len(prompt_text)}")
         prompt_text = prompt_text[-4000:]
         while server_cnt < 3:
             try:
@@ -191,7 +191,7 @@ class Planner:
         for line in lines:
             if "#" in line:
                 name, obj, rank = self.online_parser(f"input: {line}")
-                logger.info(f"[INFO]: {name} {obj} {rank}")
+                logger.info(f"{name} {obj} {rank}")
 
                 if name in self.goal_lib.keys():
                     goal_type = self.goal_lib[name]["type"]
@@ -210,7 +210,7 @@ class Planner:
                     goal_list.append(goal)
                 elif self.check_object(obj):
                     logger.info(
-                        "[INFO]: parsed goal is not in controller goal keys. Now search the object items ..."
+                        "parsed goal is not in controller goal keys. Now search the object items ..."
                     )
                     obj_name = list(obj.keys())[0]
                     goal_type = self.supported_objects[obj_name]["type"]
@@ -228,10 +228,8 @@ class Planner:
                     goal["ranking"] = goal_rank
                     goal_list.append(goal)
                 else:
-                    logger.info(
-                        "[ERROR]: parsed goal is not supported by current controller."
-                    )
-        logger.info(f"[INFO]: Current Plan is {goal_list}")
+                    logger.error("parsed goal is not supported by current controller.")
+        logger.info(f"Current Plan is {goal_list}")
         return goal_list
 
     def initial_planning(self, group, task_question):

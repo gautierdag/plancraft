@@ -95,3 +95,20 @@ def save_frames_to_video(frames: list, out_path: str):
         duration=150,
         loop=0,
     )
+
+
+def stack_obs(prev_obs: dict, obs: dict) -> dict:
+    stacked_obs = {}
+    stacked_obs["rgb"] = torch.cat([prev_obs["rgb"], obs["rgb"]], dim=0)
+    stacked_obs["voxels"] = torch.cat([prev_obs["voxels"], obs["voxels"]], dim=0)
+    stacked_obs["compass"] = torch.cat([prev_obs["compass"], obs["compass"]], dim=0)
+    stacked_obs["gps"] = torch.cat([prev_obs["gps"], obs["gps"]], dim=0)
+    stacked_obs["biome"] = torch.cat([prev_obs["biome"], obs["biome"]], dim=0)
+    return stacked_obs
+
+
+def slice_obs(obs: dict, slice: torch.tensor) -> dict:
+    res = {}
+    for k, v in obs.items():
+        res[k] = v[slice]
+    return res

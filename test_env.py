@@ -8,6 +8,8 @@ env = MineDojoEnv(
     name="Plains",
     img_size=(640, 480),
     rgb_only=False,
+    fast_reset=False,
+    force_slow_reset_interval=10,
 )
 obs = env.reset()
 
