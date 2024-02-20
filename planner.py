@@ -1,6 +1,7 @@
 import functools
 import json
 import logging
+import time
 
 from openai import OpenAI
 
@@ -103,6 +104,9 @@ class Planner:
         response = ""
         while server_error_cnt < 2:
             try:
+                logger.info(f"codex prompt_text length: {len(prompt_text)}")
+                max_length = 4000 - 512
+                prompt_text = prompt_text[-max_length:]
                 response = self.openai_client.completions.create(
                     model="gpt-3.5-turbo-instruct",
                     prompt=prompt_text,
@@ -120,6 +124,7 @@ class Planner:
                     break
             except Exception as e:
                 server_error_cnt += 1
+                time.sleep(1)
                 logger.info(e)
         return response.choices[0].text
 
@@ -128,8 +133,9 @@ class Planner:
         server_flag = 0
         server_cnt = 0
         response = ""
-        logger.info(f"prompt_text length: {len(prompt_text)}")
-        prompt_text = prompt_text[-4000:]
+        logger.info(f"gpt3 prompt_text length: {len(prompt_text)}")
+        max_length = 4000 - 256
+        prompt_text = prompt_text[-max_length:]
         while server_cnt < 3:
             try:
                 response = self.openai_client.completions.create(
@@ -146,6 +152,7 @@ class Planner:
                     break
             except Exception as e:
                 server_cnt += 1
+                time.sleep(1)
                 logger.info(e)
         return response.choices[0].text
 

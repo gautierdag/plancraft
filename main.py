@@ -164,7 +164,9 @@ class Evaluator:
         prev_goal = None
 
         seek_point = 0
-        obs, reward, env_done, info = self.env.step(self.no_op.copy())
+        obs, reward, A, info = self.env.step(self.no_op.copy())
+        logger.info(f"A: {A}")
+        env_done = False
 
         for t in range(0, self.task["episode"]):
             self.update_goal(info["inventory"])
@@ -235,7 +237,13 @@ class Evaluator:
             if torch.is_tensor(action):
                 action = action.cpu().numpy()
 
-            obs, _, env_done, info = self.env.step(action)
+            obs, _, B, info = self.env.step(action)
+            if B:
+                logger.info(f"B: {B}")
+                logger.info(
+                    f"Episode Step {t}, Current Goal {curr_goal['name']}, action {action}"
+                )
+
             # append the video frames
             self.frames.append((obs["rgb"], curr_goal["name"]))
 
@@ -305,7 +313,7 @@ class Evaluator:
                 logger.info(e)
                 succ_flag = False
                 min_episode = 0
-                raise e
+                # raise e
             success_rate += succ_flag
             if succ_flag:
                 episode_lengths.append(min_episode)
@@ -340,6 +348,9 @@ class Evaluator:
 def main(cfg):
     logger.info(cfg)
     output_dir = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
+
+    # save config and code to the output directory
+
     evaluator = Evaluator(cfg, output_dir=output_dir)
     evaluator.evaluate(cfg["eval"]["tasks"])
 
