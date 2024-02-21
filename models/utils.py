@@ -25,7 +25,7 @@ def resize_image(img, target_resolution=(128, 128)):
     elif type(img) == torch.Tensor:
         img = F.interpolate(img, size=target_resolution, mode="bilinear")
     else:
-        raise ValueError
+        raise ValueError("Unsupported type for img")
     return img
 
 
@@ -65,6 +65,9 @@ def preprocess_obs(obs: dict, device=torch.device("cpu")) -> dict:
 def save_frames_to_video(frames: list, out_path: str):
     imgs = []
     for id, (frame, goal) in enumerate(frames):
+        # if torch.is_tensor(frame):
+        # frame = frame.permute(0, 2, 3, 1).cpu().numpy()
+
         frame = resize_image(frame, (320, 240)).astype("uint8")
         cv2.putText(
             frame,

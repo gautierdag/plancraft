@@ -66,22 +66,31 @@ class Evaluator:
         logger.info(f"Start position: {obs['compass']} {obs['gps']}")
 
         obs, _, _, info = self.env.step(self.no_op.copy())
-        obs = preprocess_obs(obs)
         self.frames = [(obs["rgb"], "start")]
+        obs = preprocess_obs(obs)
+
         success = False
 
         for t in range(0, self.task["episode"]):
-            action, goal_name = self.model.step(obs, info)
-            obs, _, _, info = self.env.step(action)
-            obs = preprocess_obs(obs)
+            try:
+                action, goal_name = self.model.step(obs, info)
+            except Exception as e:
+                logger.error(e)
+                break
 
+            if t % 20 == 0:
+                logger.info(f"{t}: current goal {goal_name}")
+
+            obs, _, _, info = self.env.step(action)
             # append the video frames
             self.frames.append((obs["rgb"], goal_name))
+
+            obs = preprocess_obs(obs)
 
             # check if the task is done?
             if self.check_done(info["inventory"], self.task["object"]):
                 success = True
-                logger.info(f"{t}: finish goal {goal_name}.")
+                logger.info(f"{t}: completed task: {self.task_name}")
                 break
 
         # record the video
@@ -103,14 +112,8 @@ class Evaluator:
         success_rate = 0
         episode_lengths = []
         for i in range(num_evals):
-            try:
-                self.reset(task_name, iteration=i)
-                succ_flag, min_episode = self.eval_step()
-            except Exception as e:
-                logger.error(e)
-                succ_flag = False
-                min_episode = 0
-            # raise e
+            self.reset(task_name, iteration=i)
+            succ_flag, min_episode = self.eval_step()
             success_rate += succ_flag
             if succ_flag:
                 episode_lengths.append(min_episode)

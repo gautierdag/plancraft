@@ -443,7 +443,7 @@ class DEP:
         # limit the # replanning rounds to 12
         if self.replan_rounds > 12:
             logger.info(f"{t}: replanning over rounds")
-            return None, "Too many replanning rounds."
+            raise ValueError("Too many replanning rounds")
 
         # get the rolling window of the actions
         sf = 5  # skip frame
