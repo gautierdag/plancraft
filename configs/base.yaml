@@ -7,7 +7,8 @@ eval:
   # num_evals: 1
   env_name: "Plains"
   # tasks: ['obtain_fence','obtain_fence_gate','obtain_boat','obtain_trapdoor','obtain_bowl']
-  tasks: ['obtain_planks']
+  tasks: ["obtain_planks"]
+  model: oracle
 
 data:
   filters:

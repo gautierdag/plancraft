@@ -1,9 +1,6 @@
-import functools
 import json
 import logging
-import time
 
-from openai import OpenAI
 import os
 import torch
 from models import CraftAgent, MineAgent
@@ -18,7 +15,6 @@ logger = logging.getLogger(__name__)
 class OraclePlanner:
     def __init__(self, cfg, env):
         self.goal_mapping_cfg = self.load_goal_mapping_config()
-        self.mineclip_prompt_dict = self.goal_mapping_cfg["mineclip"]
 
         # unify the mineclip and clip
         self.clip_prompt_dict = self.goal_mapping_cfg["clip"]
@@ -28,26 +24,61 @@ class OraclePlanner:
         self.miner = MineAgent(cfg, no_op=no_op)
         self.crafter = CraftAgent(env, no_op=no_op)
 
+        with open("data/goal_lib.json", "r") as f:
+            goal_lib = json.load(f)
+
+        self.tech_tree = {}
+        for g in goal_lib:
+            k = g.replace("smelt_", "").replace("craft_", "").replace("mine_", "")
+            self.tech_tree[k] = goal_lib[g]
+            self.tech_tree[k]["name"] = k
+
+    def load_goal_mapping_config(self):
+        with open(goal_mapping_json, "r") as f:
+            goal_mapping_cfg = json.load(f)
+        return goal_mapping_cfg
+
+    def get_plan(self, target) -> list[dict]:
+        plan = []
+        if len(self.tech_tree[target]["precondition"]) > 0:
+            for p in self.tech_tree[target]["precondition"]:
+                plan += self.get_plan(p)
+        return plan + [self.tech_tree[target]]
+
     def reset(self, task_question: str):
         self.task_question = task_question
 
         # parse question
-
-        # # NOTE: if the goal list is empty, then the DEP default goal is to mine a log
-        # if len(self.goal_list) == 0:
-        #     self.curr_goal = {
-        #         "name": "mine_log",
-        #         "type": "mine",
-        #         "object": {"log": 1},
-        #         "precondition": {},
-        #         "ranking": 1,
-        #     }
+        target = self.task_question.split()[-1].replace("?", "")
+        self.plan = self.get_plan(target)
+        self.goal_eps = 0
+        self.curr_goal = self.plan[0]
 
         self.seek_point = 0
         self.goal_history = []
         self.prev_goal = None
         self.actions = torch.zeros(1, self.miner.model.action_dim)
         self.states = None
+
+    def check_inventory(self, inventory, items: dict):
+        # items: {"planks": 4, "stick": 2}
+        for key in items.keys():  # check every object item
+            if (
+                sum([item["quantity"] for item in inventory if item["name"] == key])
+                < items[key]
+            ):
+                return False
+        return True
+
+    def update_goal(self, inventory):
+        if (
+            self.check_inventory(inventory, self.curr_goal["output"])
+            and self.goal_eps > 1
+        ):
+            logger.info(f"finish goal {self.curr_goal['name']}.")
+            self.plan.remove(self.plan[0])
+            self.curr_goal = self.plan[0]
+            self.goal_eps = 0
 
     def step(self, obs, info, t=0):
         if self.states is None:
@@ -60,7 +91,7 @@ class OraclePlanner:
 
         self.goal_history.append(curr_goal)
 
-        if not self.prev_goal == curr_goal:
+        if self.prev_goal != curr_goal:
             logger.info(f"Episode Step {t}, Current Goal {curr_goal}")
             self.seek_point = t
             self.actions = torch.zeros(
@@ -68,8 +99,6 @@ class OraclePlanner:
             )
 
         self.prev_goal = curr_goal
-
-        
 
         # get the rolling window of the actions
         sf = 5  # skip frame
@@ -80,7 +109,7 @@ class OraclePlanner:
         ).flip(0)
 
         curr_goal_type = self.curr_goal["type"]
-        goal = list(self.curr_goal["object"].keys())[0]
+        goal = list(self.curr_goal["output"].keys())[0]
 
         if curr_goal_type in ["craft", "smelt"]:
             preconditions = self.curr_goal["precondition"].keys()

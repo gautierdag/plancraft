@@ -315,7 +315,6 @@ class Planner:
 class DEP:
     def __init__(self, cfg, env):
         self.goal_mapping_cfg = self.load_goal_mapping_config()
-        self.mineclip_prompt_dict = self.goal_mapping_cfg["mineclip"]
 
         # unify the mineclip and clip
         self.clip_prompt_dict = self.goal_mapping_cfg["clip"]

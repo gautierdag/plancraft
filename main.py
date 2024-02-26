@@ -9,6 +9,7 @@ from minedojo import MineDojoEnv
 
 from models.utils import preprocess_obs, save_frames_to_video
 from dep import DEP
+from oracle import OraclePlanner
 
 warnings.filterwarnings("ignore")
 
@@ -39,7 +40,13 @@ class Evaluator:
         self.record_frames = cfg["record"]["frames"]
         self.frames = []
 
-        self.model = DEP(cfg, self.env)
+        if cfg["eval"]["model"] == "DEP":
+            self.model = DEP(cfg, self.env)
+        elif cfg["eval"]["model"] == "oracle":
+            self.model = OraclePlanner(cfg, self.env)
+        else:
+            raise ValueError(f"Model {cfg['eval']['model']} not supported")
+
         self.no_op = self.env.action_space.no_op()
 
     def reset(self, task_name: str, iteration: int = 0):
@@ -76,7 +83,8 @@ class Evaluator:
                 action, goal_name = self.model.step(obs, info)
             except Exception as e:
                 logger.error(e)
-                break
+                raise e
+                # break
 
             if t % 20 == 0:
                 logger.info(f"{t}: current goal {goal_name}")
