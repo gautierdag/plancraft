@@ -6,6 +6,7 @@ import warnings
 import hydra
 import torch
 from minedojo import MineDojoEnv
+from pyvirtualdisplay import Display
 
 from models.utils import preprocess_obs, save_frames_to_video
 from dep import DEP
@@ -156,8 +157,12 @@ class Evaluator:
 def main(cfg):
     logger.info(cfg)
     output_dir = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
-    evaluator = Evaluator(cfg, output_dir=output_dir)
-    evaluator.evaluate(cfg["eval"]["tasks"])
+
+    with Display(size=(480, 640), visible=False) as disp:
+        # display is active
+        logger.info(f"display is alive: {disp.is_alive()}")
+        evaluator = Evaluator(cfg, output_dir=output_dir)
+        evaluator.evaluate(cfg["eval"]["tasks"])
 
 
 if __name__ == "__main__":

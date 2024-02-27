@@ -1,4 +1,5 @@
 import random
+import logging
 
 import numpy as np
 import torch
@@ -8,22 +9,7 @@ from models.goal_model import get_goal_model
 from models.mineclip import MineCLIP
 from models.utils import get_torch_device
 
-
-def accquire_goal_embeddings(clip_path: str, goal: str):
-    clip_cfg = {
-        "arch": "vit_base_p16_fz.v2.t2",
-        "hidden_dim": 512,
-        "image_feature_dim": 512,
-        "mlp_adapter_spec": "v0-2.t0",
-        "pool_type": "attn.d2.nh8.glusw",
-        "resolution": [160, 256],
-    }
-    clip_model = MineCLIP(**clip_cfg)
-    clip_model.load_ckpt(clip_path, strict=True)
-    device = get_torch_device()
-    clip_model = clip_model.to(device)
-    with torch.no_grad():
-        return clip_model.encode_text([goal]).cpu().numpy()
+logger = logging.getLogger(__name__)
 
 
 class MineAgent:
@@ -46,6 +32,23 @@ class MineAgent:
         # rely_goals = [val for val in self.goal_mapping_dict.values()]
         self.embedding_dict = {}
         self.clip_path = cfg["pretrains"]["clip_path"]
+
+        clip_cfg = {
+            "arch": "vit_base_p16_fz.v2.t2",
+            "hidden_dim": 512,
+            "image_feature_dim": 512,
+            "mlp_adapter_spec": "v0-2.t0",
+            "pool_type": "attn.d2.nh8.glusw",
+            "resolution": [160, 256],
+        }
+        # load clip model
+        self.clip_model = MineCLIP(**clip_cfg)
+        self.clip_model.load_ckpt(self.clip_path, strict=True)
+        self.clip_model.eval()
+        # move to device
+        device = get_torch_device()
+        self.model = self.model.to(device)
+        self.clip_model = self.clip_model.to(device)
 
     def get_action(self, goal: str, states: dict) -> tuple[int, torch.Tensor]:
         if goal in self.script_goals:
@@ -84,14 +87,10 @@ class MineAgent:
         else:
             if goal not in self.embedding_dict:
                 # accquire goal embedding
-                self.embedding_dict[goal] = accquire_goal_embeddings(
-                    self.clip_path, goal
-                )
+                with torch.no_grad():
+                    self.embedding_dict[goal] = self.clip_model.encode_text([goal])
 
-            goal_embedding = self.embedding_dict[goal]
-            goals = torch.from_numpy(goal_embedding).repeat(
-                len(states["prev_action"]), 1
-            )
+            goals = self.embedding_dict[goal].repeat(len(states["prev_action"]), 1)
 
             # Neural Network Agent
             action_preds = self.model.get_action(
@@ -105,10 +104,11 @@ class MineAgent:
             )
 
             action_dists = [Categorical(logits=preds) for preds in split_action_preds]
-
             # To sample actions, you can use the sample() method of each distribution.
             sampled_actions = torch.stack(
                 [dist.sample() for dist in action_dists], dim=-1
             )
+
             sampled_actions = sampled_actions.reshape(-1, 8)
+
             return sampled_actions[-1, :]

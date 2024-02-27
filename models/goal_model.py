@@ -39,42 +39,6 @@ def get_activation(activation: str | Callable | None) -> Callable:
     return ACT_LAYER[activation]
 
 
-def discrete_horizon(horizon):
-    """
-    0 - 10: 0
-    10 - 20: 1
-    20 - 30: 2
-    30 - 40: 3
-    40 - 50: 4
-    50 - 60: 5
-    60 - 70: 6
-    70 - 80: 7
-    80 - 90: 8
-    90 - 100: 9
-    100 - 120: 10
-    120 - 140: 11
-    140 - 160: 12
-    160 - 180: 13
-    180 - 200: 14
-    200 - ...: 15
-    """
-    # horizon_list = [0]*25 + [1]*25 + [2]*25 + [3]*25 +[4]* 50 + [5]*50 + [6] * 700
-    horizon_list = []
-    for i in range(10):
-        horizon_list += [i] * 10
-    for i in range(10, 15):
-        horizon_list += [i] * 20
-    horizon_list += [15] * 700
-    if torch.is_tensor(horizon):
-        return torch.Tensor(horizon_list, device=horizon.device)[horizon]
-    elif isinstance(horizon, np.ndarray):
-        return np.array(horizon_list)[horizon]
-    elif isinstance(horizon, int):
-        return horizon_list[horizon]
-    else:
-        assert False
-
-
 class Concat(nn.Module):
     def __init__(self, input_dim: int, output_dim: int):
         super().__init__()
@@ -494,9 +458,9 @@ class SimpleNetwork(nn.Module):
         feat = feat.view(B, T, -1)
         return feat
 
-    def forward(self, goals, states, horizons, timesteps=None, attention_mask=None):
+    def forward(self, goals, states, timesteps=None, attention_mask=None):
         raw_rgb = states["rgb"]
-        batch_size, seq_length = raw_rgb.shape[:2]
+        _, seq_length = raw_rgb.shape[:2]
         assert (
             self.use_recurrent or seq_length == 1
         ), "simple network only supports length = 1 if use_recurrent = None. "
@@ -546,36 +510,26 @@ class SimpleNetwork(nn.Module):
             obs_feature = transformer_outputs["last_hidden_state"]
 
         #! add horizon embeddings
-        if self.use_horizon:
-            if self.use_pred_horizon:
-                pred_horizons = self.pred_horizon(obs_feature)
-                if not self.training:
-                    mid_horizons = pred_horizons.argmax(-1)
-                    mid_horizons = (mid_horizons - self.c).clip(0)
-                else:
-                    mid_horizons = horizons
-            else:
-                mid_horizons = horizons
-            horizon_embeddings = self.embed_horizon(mid_horizons)
-            mid_feature = self.fuse_horizon(obs_feature, horizon_embeddings)
-        else:
-            mid_feature = obs_feature
+        pred_horizons = self.pred_horizon(obs_feature)
+        mid_horizons = pred_horizons.argmax(-1)
+        mid_horizons = (mid_horizons - self.c).clip(0)
+        horizon_embeddings = self.embed_horizon(mid_horizons)
+        mid_feature = self.fuse_horizon(obs_feature, horizon_embeddings)
 
         action_preds = self.action_head(mid_feature)
 
         return action_preds
 
-    def get_action(self, goals, states, horizons=None):
+    def get_action(self, goals, states):
         # augment the batch dimension
         goals = goals.unsqueeze(0)  # 1xLxH
         B, L, _ = goals.shape
         for k, v in states.items():
-            states[k] = v.unsqueeze(0)
-        if horizons is not None:
-            horizons = horizons.unsqueeze(0)  # 1xL
+            states[k] = v.unsqueeze(0).to(goals.device)
+
         timesteps = torch.arange(L).unsqueeze(0).to(goals.device)
         attention_mask = torch.ones((B, L)).to(goals.device)
-        return self.forward(goals, states, horizons, timesteps, attention_mask)
+        return self.forward(goals, states, timesteps, attention_mask)
 
 
 class FanInInitReLULayer(nn.Module):

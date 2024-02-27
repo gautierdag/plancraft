@@ -38,12 +38,15 @@ class OraclePlanner:
             goal_mapping_cfg = json.load(f)
         return goal_mapping_cfg
 
-    def get_plan(self, target) -> list[dict]:
+    def get_plan(self, target, num_needed=1) -> list[dict]:
         plan = []
         if len(self.tech_tree[target]["precondition"]) > 0:
             for p in self.tech_tree[target]["precondition"]:
-                plan += self.get_plan(p)
-        return plan + [self.tech_tree[target]]
+                plan += self.get_plan(p, self.tech_tree[target]["precondition"][p])
+        goal = self.tech_tree[target]
+        # number of resources needed
+        goal["need"] = num_needed
+        return plan + [goal]
 
     def reset(self, task_question: str):
         self.task_question = task_question
@@ -51,7 +54,6 @@ class OraclePlanner:
         # parse question
         target = self.task_question.split()[-1].replace("?", "")
         self.plan = self.get_plan(target)
-        self.goal_eps = 0
         self.curr_goal = self.plan[0]
 
         self.seek_point = 0
@@ -60,25 +62,16 @@ class OraclePlanner:
         self.actions = torch.zeros(1, self.miner.model.action_dim)
         self.states = None
 
-    def check_inventory(self, inventory, items: dict):
-        # items: {"planks": 4, "stick": 2}
-        for key in items.keys():  # check every object item
-            if (
-                sum([item["quantity"] for item in inventory if item["name"] == key])
-                < items[key]
-            ):
-                return False
-        return True
-
     def update_goal(self, inventory):
-        if (
-            self.check_inventory(inventory, self.curr_goal["output"])
-            and self.goal_eps > 1
-        ):
+        item_name = self.curr_goal["name"]
+        num_items_acquired = sum(
+            [item["quantity"] for item in inventory if item["name"] == item_name]
+        )
+        # keep goal until the number of items acquired is >= to needed
+        if num_items_acquired >= self.curr_goal["need"]:
             logger.info(f"finish goal {self.curr_goal['name']}.")
             self.plan.remove(self.plan[0])
             self.curr_goal = self.plan[0]
-            self.goal_eps = 0
 
     def step(self, obs, info, t=0):
         if self.states is None:
