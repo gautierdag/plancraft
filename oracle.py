@@ -1,5 +1,6 @@
 import json
 import logging
+import math
 
 import os
 import torch
@@ -39,14 +40,46 @@ class OraclePlanner:
         return goal_mapping_cfg
 
     def get_plan(self, target, num_needed=1) -> list[dict]:
-        plan = []
-        if len(self.tech_tree[target]["precondition"]) > 0:
-            for p in self.tech_tree[target]["precondition"]:
-                plan += self.get_plan(p, self.tech_tree[target]["precondition"][p])
         goal = self.tech_tree[target]
-        # number of resources needed
-        goal["need"] = num_needed
-        return plan + [goal]
+        goal["quantity_needed"] = num_needed
+        goal["depth"] = 0
+        tree = {target: goal}
+
+        def travel_tech_tree(current: str, quantity_needed: int, depth=1):
+            """
+            Recursive function to travel the tech tree
+            """
+            # check if the current node has any preconditions
+            requirements = (
+                self.tech_tree[current]["precondition"]
+                | self.tech_tree[current]["tool"]
+            )
+            # cost to produce the current node
+            quantity_to_produce = self.tech_tree[current]["output"][current]
+            for r in requirements:
+                cost_to_produce = requirements[r]
+                if quantity_to_produce < quantity_needed:
+                    cost_to_produce = math.ceil(
+                        cost_to_produce * (quantity_needed / quantity_to_produce)
+                    )
+                # node already exists
+                if r in tree:
+                    tree[r]["quantity_needed"] += cost_to_produce
+                    tree[r]["depth"] = max(tree[r]["depth"], depth)
+                    travel_tech_tree(r, cost_to_produce, depth=depth + 1)
+
+                # new tech
+                else:
+                    tree[r] = self.tech_tree[r]
+                    tree[r]["quantity_needed"] = cost_to_produce
+                    tree[r]["depth"] = depth
+                    travel_tech_tree(r, cost_to_produce, depth=depth + 1)
+
+        travel_tech_tree(target, num_needed)
+
+        # sort by depth
+        plan = sorted(tree.values(), key=lambda x: x["depth"], reverse=True)
+        return plan
 
     def reset(self, task_question: str):
         self.task_question = task_question
@@ -67,8 +100,8 @@ class OraclePlanner:
         num_items_acquired = sum(
             [item["quantity"] for item in inventory if item["name"] == item_name]
         )
-        # keep goal until the number of items acquired is >= to needed
-        if num_items_acquired >= self.curr_goal["need"]:
+        # keep goal until the number of items acquired is >= to quantity_needed
+        if num_items_acquired >= self.curr_goal["quantity_needed"]:
             logger.info(f"finish goal {self.curr_goal['name']}.")
             self.plan.remove(self.plan[0])
             self.curr_goal = self.plan[0]
@@ -105,8 +138,9 @@ class OraclePlanner:
         goal = list(self.curr_goal["output"].keys())[0]
 
         if curr_goal_type in ["craft", "smelt"]:
-            preconditions = self.curr_goal["precondition"].keys()
-            action = self.crafter.get_action(preconditions, curr_goal_type, goal)
+            action = self.crafter.get_action(
+                self.curr_goal["tool"], curr_goal_type, goal
+            )
         elif curr_goal_type == "mine":
             clip_goal = self.goal_mapping_dict[goal]
             complete_states = slice_obs(self.states, rg)

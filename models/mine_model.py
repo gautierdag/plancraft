@@ -52,6 +52,7 @@ class MineAgent:
 
     def get_action(self, goal: str, states: dict) -> tuple[int, torch.Tensor]:
         if goal in self.script_goals:
+            # hard-coded policy used by the MineAgent
             act = self.no_op.copy()
             if random.randint(0, 20) == 0:
                 act[4] = 1
@@ -93,10 +94,11 @@ class MineAgent:
             goals = self.embedding_dict[goal].repeat(len(states["prev_action"]), 1)
 
             # Neural Network Agent
-            action_preds = self.model.get_action(
-                goals=goals,
-                states=states,
-            )
+            with torch.no_grad():
+                action_preds = self.model.get_action(
+                    goals=goals,
+                    states=states,
+                )
 
             # Split the action prediction tensor into separate tensors for each categorical action.
             split_action_preds = torch.split(

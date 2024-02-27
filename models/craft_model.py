@@ -140,7 +140,7 @@ class CraftAgent:
         for i in range(times):
             act = self.no_op.copy()
             act[5] = 3
-            obs, reward, done, info = self.env.step(act)
+            _, _, _, info = self.env.step(act)
             if any([item["name"] == goal for item in info["inventory"]]):
                 break
         yield self.no_op.copy()
@@ -164,6 +164,7 @@ class CraftAgent:
 
     def craft_w_table(self, goal):
         if self.index_slot("crafting_table") == -1:
+            # no crafting table in env
             return None
         for act in chain(
             self.forward(5),
@@ -177,6 +178,7 @@ class CraftAgent:
 
     def smelt_w_furnace(self, goal):
         if self.index_slot("furnace") == -1:
+            # no furnace table in env
             return None
         for act in chain(
             self.look_to(-87),
@@ -191,10 +193,9 @@ class CraftAgent:
         for act in self.craft_wo_table(goal):
             yield act
 
-    def get_action(self, preconditions, goal_type, goal):
+    def get_action(self, tools: dict, goal_type: str, goal: str):
         if goal_type == "craft":
-            use_crafting_table = "crafting_table" in preconditions
-            if use_crafting_table:
+            if "crafting_table" in tools:
                 if self.history["craft_w_table"] is None:
                     self.history["craft_w_table"] = self.craft_w_table(goal)
                 try:
@@ -221,3 +222,5 @@ class CraftAgent:
             except:
                 self.history["smelt_w_furnace"] = None
                 return self.no_op.copy()
+        else:
+            raise NotImplementedError(f"goal_type: {goal_type} not implemented")
