@@ -22,11 +22,11 @@ with open("data/task_info.json", "r") as f:
 
 
 class Evaluator:
-    def __init__(self, cfg, output_dir: str):
+    def __init__(self, cfg, output_dir: str, biome: str = "plains"):
         self.cfg = cfg
         self.output_dir = output_dir
         self.env = MineDojoEnv(
-            name=cfg["eval"]["env_name"],
+            name=biome,
             img_size=(
                 cfg["simulator"]["resolution"][0],
                 cfg["simulator"]["resolution"][1],
@@ -52,8 +52,6 @@ class Evaluator:
 
     def reset(self, task_name: str, iteration: int = 0):
         # check that task directory exists
-        os.makedirs(f"{self.output_dir}/{task_name}", exist_ok=True)
-
         logger.info(f"resetting the task {task_name}")
         self.task_name = task_name
         self.task = TASK_INFO[task_name]
@@ -107,7 +105,7 @@ class Evaluator:
             logger.info("saving video")
             video_path = os.path.join(
                 self.output_dir,
-                f"{self.task_name}/{self.task_name}_{self.iteration}.gif",
+                f"{self.task_name}_{self.iteration}.gif",
             )
             save_frames_to_video(self.frames, video_path)
             self.frames = []
@@ -116,41 +114,67 @@ class Evaluator:
 
         return success, t  # True or False, episode length
 
-    def evaluate_task(self, task_name: str):
-        num_evals = self.cfg["eval"]["num_evals"]
-        success_rate = 0
-        episode_lengths = []
+    def close(self):
+        self.env.close()
+
+
+def evaluate_task(task_name: str, cfg: dict, output_dir: str):
+    num_evals = cfg["eval"]["num_evals"]  # number of evals in each biome for each task
+    success_rate = 0
+    episode_lengths = []
+    results = []
+
+    biomes = ["plains", "forest"]
+    for biome in biomes:
+        biome_output_dir = f"{output_dir}/{task_name}/{biome}"
+        os.makedirs(biome_output_dir, exist_ok=True)
+        evaluator = Evaluator(cfg, output_dir=biome_output_dir, biome=biome)
         for i in range(num_evals):
-            self.reset(task_name, iteration=i)
-            succ_flag, min_episode = self.eval_step()
+            evaluator.reset(task_name, iteration=i)
+            succ_flag, min_episode = evaluator.eval_step()
             success_rate += succ_flag
+            result = {
+                "biome": biome,
+                "task_name": task_name,
+                "iteration": i,
+                "success": succ_flag,
+            }
             if succ_flag:
-                episode_lengths.append(min_episode)
+                result["episode_length"] = min_episode
+
             logger.info(
-                f"Task {self.task_name} | Iteration {i} | Successful {succ_flag} | Episode length {min_episode} | Success rate {success_rate/(i+1)}"
+                f"Biome {biome} | Task {task_name} | Iteration {i} | Successful {succ_flag} | Episode length {min_episode} | Success rate {success_rate/(i+1)}"
             )
+            results.append(result)
         logger.info(f"success rate: {success_rate / num_evals}")
         logger.info(
             f"average episode length: {sum(episode_lengths) / (len(episode_lengths) + 0.01)}",
         )
-        # save the success rate and episode length
-        with open(f"{self.output_dir}/{task_name}/{task_name}_results.json", "w") as f:
-            json.dump(
-                {
-                    "success_count": success_rate,
-                    "success_rate": success_rate / num_evals,
-                    "num_evals": num_evals,
-                    "episode_lengths": episode_lengths,
-                },
-                f,
-            )
+        evaluator.close()
 
-    def evaluate(self, task_names: list):
-        if len(task_names) == 0:
-            logger.info("Evaluating all tasks")
-            task_names = list(TASK_INFO.keys())
-        for task_name in task_names:
-            self.evaluate_task(task_name)
+    # save the results
+    with open(f"{output_dir}/{task_name}/{task_name}_results.json", "w") as f:
+        json.dump(results, f)
+
+    # save the overall success rate and episode length
+    with open(f"{output_dir}/{task_name}/{task_name}_overall_results.json", "w") as f:
+        json.dump(
+            {
+                "success_count": success_rate,
+                "success_rate": success_rate / (num_evals * len(biomes)),
+                "num_evals": num_evals * len(biomes),
+            },
+            f,
+        )
+
+
+def evaluate(cfg: dict, output_dir: str) -> None:
+    task_names = cfg["eval"]["tasks"]
+    if len(task_names) == 0:
+        logger.info("Evaluating all tasks")
+        task_names = list(TASK_INFO.keys())
+    for task_name in task_names:
+        evaluate_task(task_name, cfg, output_dir)
 
 
 @hydra.main(config_path="configs", config_name="base", version_base=None)
@@ -161,8 +185,7 @@ def main(cfg):
     with Display(size=(480, 640), visible=False) as disp:
         # display is active
         logger.info(f"display is alive: {disp.is_alive()}")
-        evaluator = Evaluator(cfg, output_dir=output_dir)
-        evaluator.evaluate(cfg["eval"]["tasks"])
+        evaluate(cfg, output_dir)
 
 
 if __name__ == "__main__":

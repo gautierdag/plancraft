@@ -203,5 +203,5 @@ class OraclePlanner:
 
     def save_logs(self, output_dir: str, task_name: str, iteration: int):
         self.save_goal_history(
-            f"{output_dir}/{task_name}/{task_name}_{iteration}_goal_history.jsonl"
+            f"{output_dir}/{task_name}_{iteration}_goal_history.jsonl"
         )
