@@ -49,21 +49,30 @@ class OraclePlanner:
             """
             Recursive function to travel the tech tree
             """
-            # check if the current node has any preconditions
+            # add children
             requirements = (
                 self.tech_tree[current]["precondition"]
                 | self.tech_tree[current]["tool"]
             )
-            # cost to produce the current node
             quantity_to_produce = self.tech_tree[current]["output"][current]
             for r in requirements:
                 cost_to_produce = requirements[r]
-                if quantity_to_produce < quantity_needed:
+
+                # if we need to produce more than one (doesn't apply to tools)
+                if quantity_to_produce < quantity_needed and not (
+                    "pickaxe" in r or "furnace" in r or "crafting_table" in r
+                ):
                     cost_to_produce = math.ceil(
                         cost_to_produce * (quantity_needed / quantity_to_produce)
                     )
+
                 # node already exists
                 if r in tree:
+                    # tools are multi-use - no need to craft them again
+                    if "pickaxe" in r or "furnace" in r or "crafting_table" in r:
+                        tree[r]["depth"] = max(tree[r]["depth"], depth)
+                        return
+
                     tree[r]["quantity_needed"] += cost_to_produce
                     tree[r]["depth"] = max(tree[r]["depth"], depth)
                     travel_tech_tree(r, cost_to_produce, depth=depth + 1)
