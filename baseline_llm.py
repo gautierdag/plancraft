@@ -1,9 +1,57 @@
 import json
 from openai import OpenAI
+import ollama
+
+
+class LLMClient:
+    def __init__(self, model_name="gpt-3.5-turbo", api_key=""):
+        # openAI models
+        if model_name == "gpt-3.5-turbo" or model_name == "gpt-4.0-turbo-preview":
+            self.client_type = "openai"
+            assert api_key != "", "API key is required for OpenAI models"
+            self.client = OpenAI(
+                api_key=api_key,
+            )
+            self.model_name = model_name
+        elif "llama2" in model_name or "gemma" in model_name:
+            self.client_type = "ollama"
+
+    def generate(
+        self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
+    ) -> tuple[str, int]:
+        kwargs = {}
+        if self.client_type == "openai":
+            if enforce_json:
+                kwargs = {"response_format": {"type": "json_object"}}
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                **kwargs,
+            )
+            text_response = response.choices[0].message.content.strip()
+            token_used = response.usage.total_tokens
+            return text_response, token_used
+
+        elif self.client_type == "ollama":
+            if enforce_json:
+                kwargs = {"format": "json"}
+            response = ollama.chat(
+                model="llama2",
+                messages=messages,
+                options={"temperature": temperature, "num_predict": max_tokens},
+                **kwargs,
+            )
+            text_response = response["message"]["content"]
+            token_used = response["prompt_eval_count"] + response["eval_count"]
+            return text_response, token_used
+        else:
+            raise ValueError(f"Client type {self.client_type} not supported")
 
 
 class OneShotOpenAILLM:
-    def __init__(self, api_key: str, model="gpt-3.5-turbo"):
+    def __init__(self, model_name="gpt-3.5-turbo", api_key=""):
         self.system_prompt = {
             "role": "system",
             "content": """You are a helper AI agent in Minecraft.
@@ -40,12 +88,7 @@ The first argument is a dict of items to be obtained, and the second argument is
 \treturn 'iron_pickaxe'""",
             },
         ]
-        self.model = model
-
-        self.client = OpenAI(
-            api_key=api_key,
-        )
-
+        self.model = LLMClient(model_name=model_name, api_key=api_key)
         self.token_used = 0
 
     @staticmethod
@@ -101,19 +144,19 @@ The first argument is a dict of items to be obtained, and the second argument is
             },
         ]
 
-        response = self.client.chat.completions.create(
-            model=self.model,
+        response, token_used = self.model.generate(
             messages=messages,
             temperature=temperature,
             max_tokens=max_tokens,
+            enforce_json=False,
         )
 
-        self.token_used += response.usage.total_tokens
-        return response.choices[0].message.content.strip()
+        self.token_used += token_used
+        return response
 
 
 class ReactOpenAILLM:
-    def __init__(self, api_key: str, model="gpt-3.5-turbo"):
+    def __init__(self, model="gpt-3.5-turbo", api_key=""):
         self.system_prompt = {
             "role": "system",
             "content": """You are a helper AI agent in Minecraft.
@@ -284,11 +327,7 @@ If you output "think", you can output a string with your thought. For example:
                 "content": "Success\ninventory = {'diamond_axe': 1, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1, 'furnace': 1, 'iron_ingot': 1}",
             },
         ]
-        self.model = model
-
-        self.client = OpenAI(
-            api_key=api_key,
-        )
+        self.model = LLMClient(model_name=model, api_key=api_key)
 
         self.history = [
             self.system_prompt,
@@ -337,17 +376,13 @@ If you output "think", you can output a string with your thought. For example:
         thinking_step = 0
         # iterate while model is thinking:
         while thinking_step < self.max_thinking_steps:
-            response = self.client.chat.completions.create(
-                model=self.model,
+            out_message, token_used = self.model.generate(
                 messages=self.history,
                 temperature=temperature,
                 max_tokens=max_tokens,
-                response_format={"type": "json_object"},
+                enforce_json=True,
             )
-
-            self.token_used += response.usage.total_tokens
-
-            out_message = response.choices[0].message.content.strip()
+            self.token_used += token_used
 
             if self.is_thinking(out_message):
                 self.history.append({"role": "assistant", "content": out_message})
@@ -365,17 +400,13 @@ If you output "think", you can output a string with your thought. For example:
         thinking_step = 0
         # iterate while model is thinking:
         while thinking_step < self.max_thinking_steps:
-            response = self.client.chat.completions.create(
-                model=self.model,
+            out_message, token_used = self.model.generate(
                 messages=self.history,
                 temperature=temperature,
                 max_tokens=max_tokens,
-                response_format={"type": "json_object"},
+                enforce_json=True,
             )
-
-            self.token_used += response.usage.total_tokens
-
-            out_message = response.choices[0].message.content.strip()
+            self.token_used += token_used
 
             if self.is_thinking(out_message):
                 self.history.append({"role": "assistant", "content": out_message})
