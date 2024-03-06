@@ -189,10 +189,6 @@ class CraftAgent:
         ):
             yield act
 
-    def smelt_wo_furnace(self, goal):
-        for act in self.craft_wo_table(goal):
-            yield act
-
     def get_action(self, tools: dict, goal_type: str, goal: str):
         if goal_type == "craft":
             if "crafting_table" in tools:

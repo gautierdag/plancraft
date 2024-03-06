@@ -76,7 +76,6 @@ class Evaluator:
         obs = preprocess_obs(obs)
 
         success = False
-
         for t in range(0, self.task["episode"]):
             try:
                 action, goal_name = self.model.step(obs, info)

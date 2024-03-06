@@ -3,11 +3,39 @@ goal_model:
 
 eval:
   seed: 0
-  num_evals: 5
+  num_evals: 4
   # num_evals: 1
-  env_name: "Plains"
-  # tasks: ['obtain_fence','obtain_fence_gate','obtain_boat','obtain_trapdoor','obtain_bowl']
-  tasks: ["obtain_planks"]
+  tasks:
+    [
+      "obtain_crafting_table",
+      # "obtain_wooden_pickaxe",
+      # "obtain_wooden_axe",
+      # "obtain_wooden_hoe",
+      # "obtain_wooden_sword",
+      # "obtain_wooden_shovel",
+      # "obtain_furnace",
+      # "obtain_stone_pickaxe",
+      # "obtain_stone_axe",
+      # "obtain_stone_hoe",
+      # "obtain_stone_shovel",
+      # "obtain_stone_sword",
+    ]
+    # [
+    # "obtain_planks",
+    # "obtain_stick",
+    # "obtain_wooden_slab",
+    # "obtain_wooden_button",
+    # "obtain_wooden_pressure_plate",
+    # "obtain_chest",
+    # "obtain_oak_stairs",
+    # "obtain_sign",
+    #   "obtain_fence",
+    #   "obtain_fence_gate",
+    #   "obtain_boat",
+    #   "obtain_trapdoor",
+    #   "obtain_bowl",
+    # ]
+
   model: oracle
 
 data:
