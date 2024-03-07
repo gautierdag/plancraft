@@ -1,10 +1,13 @@
 import json
-from openai import OpenAI
+from dataclasses import dataclass
+
 import ollama
+from openai import OpenAI
 
 
 class LLMClient:
     def __init__(self, model_name="gpt-3.5-turbo", api_key=""):
+        self.model_name = model_name
         # openAI models
         if model_name == "gpt-3.5-turbo" or model_name == "gpt-4.0-turbo-preview":
             self.client_type = "openai"
@@ -12,8 +15,7 @@ class LLMClient:
             self.client = OpenAI(
                 api_key=api_key,
             )
-            self.model_name = model_name
-        elif "llama2" in model_name or "gemma" in model_name:
+        elif "llama2" in model_name or "gemma" in model_name or "mistral" in model_name:
             self.client_type = "ollama"
 
     def generate(
@@ -38,16 +40,26 @@ class LLMClient:
             if enforce_json:
                 kwargs = {"format": "json"}
             response = ollama.chat(
-                model="llama2",
+                model=self.model_name,
                 messages=messages,
                 options={"temperature": temperature, "num_predict": max_tokens},
                 **kwargs,
             )
             text_response = response["message"]["content"]
-            token_used = response["prompt_eval_count"] + response["eval_count"]
+            token_used = response["eval_count"]
+            if "prompt_eval_count" in response:
+                token_used += response["prompt_eval_count"]
             return text_response, token_used
         else:
             raise ValueError(f"Client type {self.client_type} not supported")
+
+
+@dataclass
+class ActionStep:
+    output: str  # item to be produced
+    quantity_needed: int  # quantity to be produced
+    type: str  # type of action
+    tool: dict[str, int]  # tools/materials needed
 
 
 class OneShotOpenAILLM:
@@ -69,30 +81,29 @@ The first argument is a dict of items to be obtained, and the second argument is
         self.example = [
             {
                 "role": "user",
-                "content": """How to obtain iron_pickaxe?\ninventory = {'diamond_axe'}""",
+                "content": """How to obtain iron_ingot?\ninventory = {'diamond_axe'}""",
             },
             {
                 "role": "assistant",
-                "content": """def obtain_iron_pickaxe(inventory):
-\tmine({'log': 5}, {'diamond_axe': 1})
-\tcraft({'planks': 13}, {'log': 4})
+                "content": """def obtain_iron_ingot(inventory):
+\tmine({'log': 3}, {'diamond_axe': 1})
+\tcraft({'planks': 11}, {'log': 3})
 \tcraft({'stick': 6}, {'planks': 2})
 \tcraft({'crafting_table': 1}, {'planks': 4})
 \tcraft({'wooden_pickaxe': 1}, {'planks': 3, 'stick': 2, 'crafting_table': 1})
 \tmine({'cobblestone': 11}, {'wooden_pickaxe': 1})
 \tcraft({'stone_pickaxe': 1}, {'cobblestone': 3, 'stick': 2, 'crafting_table': 1})
-\tmine({'iron_ore': 3}, {'stone_pickaxe': 1})
+\tmine({'iron_ore': 1}, {'stone_pickaxe': 1})
 \tcraft({'furnace': 1}, {'cobblestone': 8})
-\tsmelt({'iron_ingot': 3}, {'iron_ore': 3, 'furnace': 1})
-\tcraft({'iron_pickaxe': 1}, {'iron_ingot': 3, 'stick': 2, 'crafting_table': 1})
-\treturn 'iron_pickaxe'""",
+\tsmelt({'iron_ingot': 1}, {'iron_ore': 1, 'furnace': 1})
+\treturn 'iron_ingot'""",
             },
         ]
         self.model = LLMClient(model_name=model_name, api_key=api_key)
         self.token_used = 0
 
     @staticmethod
-    def parse_generated_plan(generated_plan: str) -> list[dict]:
+    def parse_generated_plan(generated_plan: str) -> list[ActionStep]:
         # select the python code
         if "```python" in generated_plan:
             generated_plan = generated_plan.split("```python")[1].split("```")[0]
@@ -121,17 +132,21 @@ The first argument is a dict of items to be obtained, and the second argument is
                 produce, materials_and_tools = eval("(" + parts)
                 assert len(produce) == 1, "Only one item can be produced at a time"
 
-                goal = {
-                    "output": produce,
-                    "type": action,
-                    "tool": materials_and_tools,
-                    "quantity_needed": list(produce.values())[0],
-                }
+                parsed.append(
+                    ActionStep(
+                        **{
+                            "output": list(produce.keys())[0],
+                            "type": action,
+                            "tool": materials_and_tools,
+                            "quantity_needed": list(produce.values())[0],
+                        }
+                    )
+                )
             except Exception:
                 # ignore the error and continue
                 print("Error parsing", item)
                 continue
-            parsed.append(goal)
+
         return parsed
 
     def generate(self, question: str, temperature=1.0, max_tokens=512) -> str:
@@ -343,11 +358,11 @@ If you output "think", you can output a string with your thought. For example:
         return "think" in step
 
     @staticmethod
-    def parse_step(step: str) -> dict:
+    def parse_step(step: str) -> ActionStep:
         action_step = json.loads(step)
         try:
             step = {
-                "output": {action_step["output"]: action_step["quantity"]},
+                "output": action_step["output"],
                 "quantity_needed": action_step["quantity"],
                 "type": action_step["type"],
             }
@@ -360,7 +375,7 @@ If you output "think", you can output a string with your thought. For example:
                 materials_and_tools[action_step["tool"]] = 1
 
             step["tool"] = materials_and_tools
-            return step
+            return ActionStep(**step)
         except Exception:
             return {}
 
