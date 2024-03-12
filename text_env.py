@@ -121,35 +121,41 @@ def process_step(
     if not isinstance(goal, ActionStep):
         return False, "parsing_error", goal
 
-    target = goal.output
-    target = parse_target_for_wood_type(target)
-    if target not in TECH_TREE:
-        return False, "unknown_item", target
-    if goal.type != TECH_TREE[target]["type"]:
-        return False, "action_type_mismatch", goal.type
-    if not set(TECH_TREE[target]["tool"].keys()).issubset(set(goal.tool.keys())):
-        return False, "missing_tools", list(TECH_TREE[target]["tool"].keys())
-    if not set(TECH_TREE[target]["precondition"].keys()).issubset(
-        set(current_inventory.keys())
-    ):
-        return (
-            False,
-            "missing_materials",
-            list(TECH_TREE[target]["precondition"].keys()),
-        )
+    try:
+        target = goal.output
+        target = parse_target_for_wood_type(target)
+        if target not in TECH_TREE:
+            return False, "unknown_item", target
+        if goal.type != TECH_TREE[target]["type"]:
+            return False, "action_type_mismatch", goal.type
+        if not set(TECH_TREE[target]["tool"].keys()).issubset(set(goal.tool.keys())):
+            return False, "missing_tools", list(TECH_TREE[target]["tool"].keys())
+        if not set(TECH_TREE[target]["precondition"].keys()).issubset(
+            set(current_inventory.keys())
+        ):
+            return (
+                False,
+                "missing_materials",
+                list(TECH_TREE[target]["precondition"].keys()),
+            )
 
-    # Add the outcome to the inventory
-    quantity_needed = goal.quantity_needed
-    while quantity_needed > 0:
-        for item in TECH_TREE[target]["precondition"]:
-            if current_inventory[item] - TECH_TREE[target]["precondition"][item] < 0:
-                return False, "insufficient_materials", item
-            current_inventory[item] -= TECH_TREE[target]["precondition"][item]
+        # Add the outcome to the inventory
+        quantity_needed = goal.quantity_needed
+        while quantity_needed > 0:
+            for item in TECH_TREE[target]["precondition"]:
+                if (
+                    current_inventory[item] - TECH_TREE[target]["precondition"][item]
+                    < 0
+                ):
+                    return False, "insufficient_materials", item
+                current_inventory[item] -= TECH_TREE[target]["precondition"][item]
 
-        current_inventory[target] += TECH_TREE[target]["output"][target]
-        quantity_needed -= TECH_TREE[target]["output"][target]
+            current_inventory[target] += TECH_TREE[target]["output"][target]
+            quantity_needed -= TECH_TREE[target]["output"][target]
 
-    return success, None, None
+        return success, None, None
+    except Exception as e:
+        return False, "unknown_error", str(e)
 
 
 def evaluate_generated_plan(parsed_plan: list[ActionStep]) -> tuple[bool, str, any]:
@@ -176,7 +182,6 @@ def eval_one_shot_llm(num_generations=5, models=["llama2"]):
                     hash_key = f"one_shot_{model_name}_{target}_{i}"
                     # check if we have already solved this question
                     if RESULTS_DB.contains(Query().hash_key == hash_key):
-                        print(f"Already solved: {question}")
                         pbar.update(1)
                         continue
 
@@ -217,7 +222,7 @@ def eval_one_shot_llm(num_generations=5, models=["llama2"]):
                     pbar.update(1)
 
 
-def eval_reactive_llm(num_generations=5, models=["llama2"], max_steps=30):
+def eval_reactive_llm(num_generations=5, models=["llama2"], max_steps=20):
     api_key = load_openai_key("data/openai_keys.txt")
     with tqdm(total=len(models) * len(TASKS) * num_generations) as pbar:
         for model_name in models:
@@ -228,7 +233,6 @@ def eval_reactive_llm(num_generations=5, models=["llama2"], max_steps=30):
                     hash_key = f"react_{model_name}_{target}_{i}"
                     # check if we have already solved this question
                     if RESULTS_DB.contains(Query().hash_key == hash_key):
-                        print(f"Already solved: {question}")
                         pbar.update(1)
                         continue
 
@@ -250,10 +254,18 @@ def eval_reactive_llm(num_generations=5, models=["llama2"], max_steps=30):
 
                     while not task_success and step < max_steps:
                         history += f"Step {step} inventory: {inventory}\n"
-                        parsed_action_step = model.parse_step(action_step)
-                        success, error_type, error_value = process_step(
-                            parsed_action_step, inventory, TECH_TREE
-                        )
+                        # check if the model is overthinking
+                        if model.is_thinking(action_step):
+                            success = False
+                            error_type = "over-thinking"
+                            error_value = "too many thinking steps in a row"
+                        # process the action step
+                        else:
+                            parsed_action_step = model.parse_step(action_step)
+                            success, error_type, error_value = process_step(
+                                parsed_action_step, inventory
+                            )
+
                         if success:
                             print(f"Step {step} successful")
                             history += f"Step {step} successful: {parsed_action_step}\n"
@@ -279,34 +291,35 @@ def eval_reactive_llm(num_generations=5, models=["llama2"], max_steps=30):
 
                         step += 1
 
-                        # convert plan to dict for saving
-                        plan = [asdict(p) for p in plan]
+                    # convert plan to dict for saving
+                    plan = [asdict(p) for p in plan]
 
-                        results = {
-                            "hash_key": hash_key,
-                            "target": target,
-                            "group": v["group"],
-                            "question": question,
-                            "plan": plan,
-                            "logs": history,
-                            "message_history": model.history[len(model.example) + 1 :],
-                            "errors": errors,
-                            "success": task_success,
-                            "number_of_steps": step,
-                            "number_of_thinking_steps": model.num_thinking_steps,
-                            "model_name": model_name,
-                            "tokens_used": model.token_used,
-                        }
+                    results = {
+                        "hash_key": hash_key,
+                        "target": target,
+                        "group": v["group"],
+                        "question": question,
+                        "plan": plan,
+                        "logs": history,
+                        "message_history": model.history[len(model.example) + 1 :],
+                        "errors": errors,
+                        "success": task_success,
+                        "number_of_steps": step,
+                        "number_of_thinking_steps": model.num_thinking_steps,
+                        "model_name": model_name,
+                        "tokens_used": model.token_used,
+                    }
 
-                        # add to db
-                        RESULTS_DB.insert(results)
+                    # add to db
+                    RESULTS_DB.insert(results)
 
-                        pbar.update(1)
+                    pbar.update(1)
 
 
 if __name__ == "__main__":
     # Test the plan generation
-    models = ["llama2", "gemma", "mistral"]
-    N = 5
-    eval_one_shot_llm(num_generations=N, models=models)
+    # models = ["llama2", "gemma:2b", "gemma", "mistral"]
+    models = ["gemma:2b"]
+    N = 30
+    # eval_one_shot_llm(num_generations=N, models=models)
     eval_reactive_llm(num_generations=N, models=models)

@@ -128,6 +128,10 @@ The first argument is a dict of items to be obtained, and the second argument is
                     continue
 
                 action, parts = item
+
+                if action not in ["mine", "craft", "smelt"]:
+                    continue
+
                 # Split the string by parentheses and commas
                 produce, materials_and_tools = eval("(" + parts)
                 assert len(produce) == 1, "Only one item can be produced at a time"
@@ -359,8 +363,8 @@ If you output "think", you can output a string with your thought. For example:
 
     @staticmethod
     def parse_step(step: str) -> ActionStep:
-        action_step = json.loads(step)
         try:
+            action_step = json.loads(step)
             step = {
                 "output": action_step["output"],
                 "quantity_needed": action_step["quantity"],
@@ -377,6 +381,7 @@ If you output "think", you can output a string with your thought. For example:
             step["tool"] = materials_and_tools
             return ActionStep(**step)
         except Exception:
+            print("Error parsing", step)
             return {}
 
     def generate_initial_step(
