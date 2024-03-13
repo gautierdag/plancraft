@@ -10,6 +10,7 @@ RUN apt-get update  \
 RUN conda init bash
 RUN conda create -n main python=3.12 -y
 RUN echo "conda activate main" >> ~/.bashrc
+ENV PATH /opt/conda/envs/main/bin:$PATH
 
 SHELL ["conda", "run", "-n", "main", "/bin/bash", "-c"]
 
