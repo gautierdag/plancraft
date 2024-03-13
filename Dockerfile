@@ -20,5 +20,9 @@ ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 ENV HF_HUB_DISABLE_PROGRESS_BARS=1
 ENV CURL_CA_BUNDLE=""
 
+
+# 
+RUN 
+
 # Set bash as the entrypoint to allow running arbitrary commands
 ENTRYPOINT ["/bin/bash", "-c"]
