@@ -1,28 +1,24 @@
-FROM gcr.io/deeplearning-platform-release/pytorch-gpu:latest
+FROM nvcr.io/nvidia/cuda:12.0.0-cudnn8-devel-ubuntu22.04
 
-SHELL ["/bin/bash", "-c"]
+RUN apt update
+RUN apt upgrade -y
 
-# RUN apt-get update  \
-#     && apt-get install -y --no-install-recommends \
-#     libgl1 \
-#     libglib2.0-0
+RUN apt-get -y install git-lfs unzip psmisc wget git python3 python-is-python3 pip bc htop nano 
+RUN git lfs install 
+RUN pip install -U pip
 
-# RUN apt update
-# RUN apt upgrade -y
 
-RUN conda init bash
-RUN conda create -n main python=3.12 -y
-RUN echo "conda activate main" >> ~/.bashrc
+RUN rm -rf /app/
+ADD . /app/
+WORKDIR /app/
 
-# ENV PATH /opt/conda/envs/main/bin:$PATH
+RUN pip install -r requirements.docker.txt
 
-SHELL ["conda", "run", "-n", "main", "/bin/bash", "-c"]
+ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
+# ENV HF_TOKEN=$HF_TOKEN
+# ENV H4_TOKEN=$HF_TOKEN 
+ENV HF_HUB_DISABLE_PROGRESS_BARS=1
+ENV CURL_CA_BUNDLE=""
 
-RUN conda install pytorch torchvision pytorch-cuda=11.6 -c pytorch -c nvidia -y
-RUN pip install wandb openai tinydb tqdm ollama --upgrade
-# RUN pip install -c conda-forge timm accelerate datasets transformers --upgrade
-
-# RUN rm -rf /app/
-# ADD . /app/
-
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "main", "python", "test_kube.py"]
+# Set bash as the entrypoint to allow running arbitrary commands
+ENTRYPOINT ["/bin/bash", "-c"]
