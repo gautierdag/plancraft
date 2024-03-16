@@ -7,6 +7,9 @@ RUN apt-get -y install git-lfs unzip psmisc wget git python3 python-is-python3 p
 RUN git lfs install 
 RUN pip install -U pip
 
+# Install Visual Studio Code (for interactive tunnelling)
+RUN curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz
+RUN tar -xf vscode_cli.tar.gz
 
 RUN rm -rf /app/
 ADD . /app/
