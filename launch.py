@@ -4,6 +4,7 @@
 import argparse
 import os
 import sys
+import base64
 
 sys.path.append(os.getcwd())
 
@@ -67,7 +68,16 @@ def check_if_completed(job_name: str, namespace: str = "informatics") -> bool:
 
 
 def send_message_command():
-    return """curl -X POST -H 'Content-type: application/json' --data '{"text":"Job launched!"}' https://hooks.slack.com/services/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;"""
+    # webhook - load from env
+    config.load_kube_config()
+    v1 = client.CoreV1Api()
+    secret = v1.read_namespaced_secret("s2234411-slack-webhook", "informatics").data
+    webhook = base64.b64decode(secret["SLACK_WEBHOOK"]).decode("utf-8")
+    return (
+        """curl -X POST -H 'Content-type: application/json' --data '{"text":"Job started!"}' """
+        + webhook
+        + " ;"
+    )
 
 
 def export_env_vars():
