@@ -1,23 +1,38 @@
 import json
+import os
 from dataclasses import dataclass
 
-import ollama
+import torch
+from dotenv import load_dotenv
 from openai import OpenAI
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
+load_dotenv()
 
 
 class LLMClient:
-    def __init__(self, model_name="gpt-3.5-turbo", api_key=""):
+    def __init__(self, model_name="gpt-3.5-turbo", dtype=torch.bfloat16):
         self.model_name = model_name
         # openAI models
-        if model_name == "gpt-3.5-turbo" or model_name == "gpt-4.0-turbo-preview":
+        if model_name in ["gpt-3.5-turbo", "gpt-4.0-turbo-preview"]:
             self.client_type = "openai"
-            assert api_key != "", "API key is required for OpenAI models"
             self.client = OpenAI(
-                api_key=api_key,
+                api_key=os.getenv("OPENAI_API_KEY"),
             )
-        elif "llama2" in model_name or "gemma" in model_name or "mistral" in model_name:
-            self.client_type = "ollama"
+        else:
+            self.client_type = "transformers"
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                model_name,
+                trust_remote_code=True,
+                token=os.getenv("HF_TOKEN"),
+            )
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name,
+                device_map="auto",
+                torch_dtype=dtype,
+                trust_remote_code=True,
+                token=os.getenv("HF_TOKEN"),
+            )
 
     def generate(
         self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
@@ -37,20 +52,36 @@ class LLMClient:
             token_used = response.usage.total_tokens
             return text_response, token_used
 
-        elif self.client_type == "ollama":
-            if enforce_json:
-                kwargs = {"format": "json"}
-            response = ollama.chat(
-                model=self.model_name,
-                messages=messages,
-                options={"temperature": temperature, "num_predict": max_tokens},
-                **kwargs,
+        elif self.client_type == "transformers":
+            message_text = self.tokenizer.apply_chat_template(
+                messages,
+                add_generation_prompt=True,
+                tokenize=False,
             )
-            text_response = response["message"]["content"]
-            token_used = response["eval_count"]
-            if "prompt_eval_count" in response:
-                token_used += response["prompt_eval_count"]
-            return text_response, token_used
+            if enforce_json:
+                # start json object in prompt text
+                message_text += '{"'
+
+            tokenized_messages = self.tokenizer.encode(
+                message_text,
+                return_tensors="pt",
+            )
+
+            tokenized_messages = tokenized_messages.to(self.model.device)
+            _, prompt_tokens = tokenized_messages.shape
+            response = self.model.generate(
+                tokenized_messages,
+                do_sample=True,
+                temperature=temperature,
+                max_new_tokens=max_tokens,
+            )
+
+            text_response = self.tokenizer.decode(
+                response[0, prompt_tokens:],
+                skip_special_tokens=True,
+            )
+            _, total_tokens = response.shape
+            return text_response, total_tokens
         else:
             raise ValueError(f"Client type {self.client_type} not supported")
 
@@ -64,7 +95,7 @@ class ActionStep:
 
 
 class OneShotOpenAILLM:
-    def __init__(self, model_name="gpt-3.5-turbo", api_key=""):
+    def __init__(self, model_name="gpt-3.5-turbo"):
         self.system_prompt = {
             "role": "system",
             "content": """You are a helper AI agent in Minecraft.
@@ -100,7 +131,7 @@ The first argument is a dict of items to be obtained, and the second argument is
 \treturn 'iron_ingot'""",
             },
         ]
-        self.model = LLMClient(model_name=model_name, api_key=api_key)
+        self.model = LLMClient(model_name=model_name)
         self.token_used = 0
 
     @staticmethod
@@ -176,10 +207,11 @@ The first argument is a dict of items to be obtained, and the second argument is
 
 
 class ReactOpenAILLM:
-    def __init__(self, model="gpt-3.5-turbo", api_key=""):
-        self.system_prompt = {
-            "role": "system",
-            "content": """You are a helper AI agent in Minecraft.
+    def __init__(self, model="gpt-3.5-turbo"):
+        self.system_prompt = [
+            {
+                "role": "system",
+                "content": """You are a helper AI agent in Minecraft.
 
 You need to decide on the next action to accomplish the planning TASK in Minecraft.
 
@@ -203,8 +235,11 @@ If you output "think", you can output a string with your thought. For example:
 "type": "think",
 "thought": "I need to gather some logs to craft planks using the diamond_axe."
 }
+
+Do not generate errors. Always generate valid JSON objects following the format above.
 """,
-        }
+            },
+        ]
 
         self.example = [
             {
@@ -346,13 +381,14 @@ If you output "think", you can output a string with your thought. For example:
                 "role": "user",
                 "content": "Success\ninventory = {'diamond_axe': 1, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1, 'furnace': 1, 'iron_ingot': 1}",
             },
+            {
+                "role": "assistant",
+                "content": """DONE""",
+            },
         ]
-        self.model = LLMClient(model_name=model, api_key=api_key)
+        self.model = LLMClient(model_name=model)
 
-        self.history = [
-            self.system_prompt,
-            *self.example,
-        ]
+        self.history = self.system_prompt + self.example
 
         self.token_used = 0
         self.max_thinking_steps = 3

@@ -3,13 +3,10 @@ import math
 from collections import defaultdict
 from dataclasses import asdict
 
-from tinydb import TinyDB, Query
-
+import wandb
 from tqdm import tqdm
 
 from baseline_llm import ActionStep, OneShotOpenAILLM, ReactOpenAILLM
-
-RESULTS_DB = TinyDB("data/results_db.json")
 
 # Load the task info
 tasks_path = "data/task_info.json"
@@ -24,12 +21,6 @@ for g in goal_lib:
     k = g.replace("smelt_", "").replace("craft_", "").replace("mine_", "")
     TECH_TREE[k] = goal_lib[g]
     TECH_TREE[k]["name"] = k
-
-
-def load_openai_key(openai_key_file: str) -> str:
-    with open(openai_key_file, "r") as f:
-        context = f.read()
-    return context.split("\n")[0]
 
 
 def is_tool(item: str) -> bool:
@@ -171,155 +162,173 @@ def evaluate_generated_plan(parsed_plan: list[ActionStep]) -> tuple[bool, str, a
     return success, "", None
 
 
-def eval_one_shot_llm(num_generations=5, models=["llama2"]):
-    api_key = load_openai_key("data/openai_keys.txt")
-    with tqdm(total=len(models) * len(TASKS) * num_generations) as pbar:
-        for model_name in models:
+def eval_one_shot_llm(models: list[str], num_generations=5):
+    for model_name in models:
+        for i in range(num_generations):
+            wandb.init(
+                project="plancraft",
+                entity="itl",
+                group=model_name,
+                job_type="one_shot",
+                config={
+                    "model_name": model_name,
+                    "N": num_generations,
+                },
+            )
             for k, v in TASKS.items():
-                for i in range(num_generations):
-                    question = v["question"]
-                    target = question.split()[-1].replace("?", "")
-                    hash_key = f"one_shot_{model_name}_{target}_{i}"
-                    # check if we have already solved this question
-                    if RESULTS_DB.contains(Query().hash_key == hash_key):
-                        pbar.update(1)
-                        continue
+                question = v["question"]
+                target = question.split()[-1].replace("?", "")
+                hash_key = f"one_shot_{model_name}_{target}_{i}"
 
-                    model = OneShotOpenAILLM(
-                        model_name=model_name,
-                        api_key=api_key,
-                    )
+                model = OneShotOpenAILLM(
+                    model_name=model_name,
+                )
 
-                    generation = model.generate(
-                        question, temperature=1.0, max_tokens=512
-                    )
+                generation = model.generate(question, temperature=1.0, max_tokens=512)
+                parsed_plan = model.parse_generated_plan(generation)
 
-                    parsed_plan = model.parse_generated_plan(generation)
-                    gold_plan = get_plan(target)
+                suc, err, missing = evaluate_generated_plan(parsed_plan)
+                # convert to dict for saving
+                parsed_plan = [asdict(p) for p in parsed_plan]
 
-                    suc, err, missing = evaluate_generated_plan(parsed_plan)
-                    # convert to dict for saving
-                    parsed_plan = [asdict(p) for p in parsed_plan]
+                results = {
+                    "hash_key": hash_key,
+                    "group": v["group"],
+                    "target": target,
+                    "question": question,
+                    "success": suc,
+                    "tokens_used": model.token_used,
+                    "model_name": model_name,
+                    "plan": parsed_plan,
+                    "generation": generation,
+                    "error": err,
+                    "missing": missing,
+                }
 
-                    results = {
-                        "hash_key": hash_key,
-                        "group": v["group"],
-                        "target": target,
-                        "question": question,
-                        "success": suc,
-                        "tokens_used": model.token_used,
-                        "model_name": model_name,
-                        "plan": parsed_plan,
-                        "gold_plan": gold_plan,
-                        "generation": generation,
-                        "error": err,
-                        "missing": missing,
-                    }
+            df = wandb.Table(dataframe=results)
+            wandb.log({"results": df})
 
-                    # add to db
-                    RESULTS_DB.insert(results)
-
-                    pbar.update(1)
+            # calculate aggregate statistics
+            grouped_df = df.groupby("group").agg(
+                {
+                    "success": "mean",
+                    "tokens_used": "mean",
+                }
+            )
+            # log the aggregate statistics
+            wandb.log({"group_results": wandb.Table(dataframe=grouped_df)})
+            wandb.finish()
 
 
-def eval_reactive_llm(num_generations=5, models=["llama2"], max_steps=20):
-    api_key = load_openai_key("data/openai_keys.txt")
-    with tqdm(total=len(models) * len(TASKS) * num_generations) as pbar:
-        for model_name in models:
+def eval_reactive_llm(models: list[str], num_generations=5, max_steps=20):
+    for model_name in models:
+        for i in range(num_generations):
+            wandb.init(
+                project="plancraft",
+                entity="itl",
+                group=model_name,
+                job_type="react",
+                config={
+                    "model_name": model_name,
+                    "max_steps": max_steps,
+                },
+            )
             for v in TASKS.values():
-                for i in range(num_generations):
-                    question = v["question"]
-                    target = question.split()[-1].replace("?", "")
-                    hash_key = f"react_{model_name}_{target}_{i}"
-                    # check if we have already solved this question
-                    if RESULTS_DB.contains(Query().hash_key == hash_key):
-                        pbar.update(1)
-                        continue
+                question = v["question"]
+                target = question.split()[-1].replace("?", "")
+                hash_key = f"react_{model_name}_{target}_{i}"
 
-                    step = 1
-                    model = ReactOpenAILLM(model=model_name, api_key=api_key)
+                step = 1
+                model = ReactOpenAILLM(model=model_name)
 
-                    inventory = defaultdict(int)
-                    inventory["diamond_axe"] = 1
-                    print(f"Initial inventory: {inventory}")
+                inventory = defaultdict(int)
+                inventory["diamond_axe"] = 1
+                print(f"Initial inventory: {inventory}")
 
-                    plan = []
-                    history = ""
-                    errors = defaultdict(int)
-                    task_success = False
+                plan = []
+                history = ""
+                errors = defaultdict(int)
+                task_success = False
 
-                    action_step = model.generate_initial_step(
-                        question, temperature=1.0, max_tokens=512
-                    )
+                action_step = model.generate_initial_step(
+                    question, temperature=1.0, max_tokens=512
+                )
 
-                    while not task_success and step < max_steps:
-                        history += f"Step {step} inventory: {inventory}\n"
-                        # check if the model is overthinking
-                        if model.is_thinking(action_step):
-                            success = False
-                            error_type = "over-thinking"
-                            error_value = "too many thinking steps in a row"
-                        # process the action step
-                        else:
-                            parsed_action_step = model.parse_step(action_step)
-                            success, error_type, error_value = process_step(
-                                parsed_action_step, inventory
-                            )
+                while not task_success and step < max_steps:
+                    history += f"Step {step} inventory: {inventory}\n"
+                    # check if the model is overthinking
+                    if model.is_thinking(action_step):
+                        success = False
+                        error_type = "over-thinking"
+                        error_value = "too many thinking steps in a row"
+                    # process the action step
+                    else:
+                        parsed_action_step = model.parse_step(action_step)
+                        success, error_type, error_value = process_step(
+                            parsed_action_step, inventory
+                        )
 
-                        if success:
-                            print(f"Step {step} successful")
-                            history += f"Step {step} successful: {parsed_action_step}\n"
-                            plan.append(parsed_action_step)
-                            observation = f"Success\ninventory = {dict(inventory)}"
-                            action_step = model.generate_step(
-                                observation, temperature=1.0, max_tokens=512
-                            )
-                            if parsed_action_step.output == target:
-                                task_success = True
-                                break
-                        else:
-                            print(f"Step {step} failed: {error_type} {error_value}")
-                            history += (
-                                f"Step {step} failed: {error_type} {error_value}\n"
-                            )
-                            errors[error_type] += 1
-                            observation = f"ERROR: {error_type} {error_value}\ninventory = {dict(inventory)}"
-                            print(f"Step {step} observation: {observation}")
-                            action_step = model.generate_step(
-                                observation, temperature=1.0, max_tokens=512
-                            )
+                    if success:
+                        print(f"Step {step} successful")
+                        history += f"Step {step} successful: {parsed_action_step}\n"
+                        plan.append(parsed_action_step)
+                        observation = f"Success\ninventory = {dict(inventory)}"
+                        action_step = model.generate_step(
+                            observation, temperature=1.0, max_tokens=512
+                        )
+                        if parsed_action_step.output == target:
+                            task_success = True
+                            break
+                    else:
+                        print(f"Step {step} failed: {error_type} {error_value}")
+                        history += f"Step {step} failed: {error_type} {error_value}\n"
+                        errors[error_type] += 1
+                        observation = f"ERROR: {error_type} {error_value}\ninventory = {dict(inventory)}"
+                        print(f"Step {step} observation: {observation}")
+                        action_step = model.generate_step(
+                            observation, temperature=1.0, max_tokens=512
+                        )
 
-                        step += 1
+                    step += 1
 
-                    # convert plan to dict for saving
-                    plan = [asdict(p) for p in plan]
+                # convert plan to dict for saving
+                plan = [asdict(p) for p in plan]
+                results = {
+                    "hash_key": hash_key,
+                    "target": target,
+                    "group": v["group"],
+                    "question": question,
+                    "plan": plan,
+                    "logs": history,
+                    "message_history": model.history,
+                    "errors": errors,
+                    "success": task_success,
+                    "number_of_steps": step,
+                    "number_of_thinking_steps": model.num_thinking_steps,
+                    "model_name": model_name,
+                    "tokens_used": model.token_used,
+                }
 
-                    results = {
-                        "hash_key": hash_key,
-                        "target": target,
-                        "group": v["group"],
-                        "question": question,
-                        "plan": plan,
-                        "logs": history,
-                        "message_history": model.history[len(model.example) + 1 :],
-                        "errors": errors,
-                        "success": task_success,
-                        "number_of_steps": step,
-                        "number_of_thinking_steps": model.num_thinking_steps,
-                        "model_name": model_name,
-                        "tokens_used": model.token_used,
-                    }
+            df = wandb.Table(dataframe=results)
+            wandb.log({"results": df})
 
-                    # add to db
-                    RESULTS_DB.insert(results)
-
-                    pbar.update(1)
+            # calculate aggregate statistics
+            grouped_df = df.groupby("group").agg(
+                {
+                    "success": "mean",
+                    "number_of_steps": "mean",
+                    "number_of_thinking_steps": "mean",
+                    "tokens_used": "mean",
+                }
+            )
+            # log the aggregate statistics
+            wandb.log({"group_results": wandb.Table(dataframe=grouped_df)})
+            wandb.finish()
 
 
 if __name__ == "__main__":
     # Test the plan generation
-    # models = ["llama2", "gemma:2b", "gemma", "mistral"]
-    models = ["gemma:2b"]
-    N = 30
-    # eval_one_shot_llm(num_generations=N, models=models)
+    models = ["meta-llama/Llama-2-7b-chat-hf"]
+    N = 1
+    eval_one_shot_llm(num_generations=N, models=models)
     eval_reactive_llm(num_generations=N, models=models)

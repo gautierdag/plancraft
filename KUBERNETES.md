@@ -6,7 +6,6 @@ Ensure you have a `Dockerfile` at the root of your repository.
 
 ### Register a secret with docker-hub credentials
 
-
 Save a file as `config.json` with the following:
 
 ```bash
@@ -26,7 +25,6 @@ kubectl create secret generic regcred-XXX --from-file=config.json=config.json --
 ```
 
 Replace `XXX` with your username and `your-namespace` with your namespace.
-
 
 ### Build Image on Kube
 
@@ -64,7 +62,6 @@ spec:
   restartPolicy: Never
 ```
 
-
 Replace `s2234411` with your EIDF username, `gautierdag/plancraft` with your docker hub image and `XXX` with your username.
 
 Then run the following command:
@@ -75,6 +72,4 @@ kubectl apply -f kaniko.yaml
 
 This will create a pod that will build your image and push it to docker hub.
 
-
 ## Using the image
-
