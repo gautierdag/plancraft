@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kaniko
+  labels:
+    eidf/user: "s2234411"
+spec:
+  containers:
+    - name: kaniko
+      resources:
+        requests:
+          cpu: "2" # Requests 1 CPU cores
+          memory: "4Gi" # Requests 2 GiB of memory
+        limits:
+          cpu: "4" # Limits to 1 CPU core
+          memory: "8Gi" # Limits to 4 GiB of memory
+      image: gcr.io/kaniko-project/executor:latest
+      args:
+        [
+          "--dockerfile=Dockerfile",
+          "--context=git://github.com/gautierdag/plancraft.git#main",
+          "--destination=docker.io/gautierdag/plancraft:latest",
+          "--cache=true",
+          "--compressed-caching=false",
+        ]
+      volumeMounts:
+        - name: docker-config-gautierdag
+          mountPath: /kaniko/.docker
+  volumes:
+    - name: docker-config-gautierdag
+      secret:
+        secretName: regcred-gautierdag
+  restartPolicy: Never

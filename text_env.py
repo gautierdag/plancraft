@@ -3,8 +3,9 @@ import math
 from collections import defaultdict
 from dataclasses import asdict
 
+import hydra
 import wandb
-from tqdm import tqdm
+from omegaconf import DictConfig
 
 from baseline_llm import ActionStep, OneShotOpenAILLM, ReactOpenAILLM
 
@@ -326,9 +327,23 @@ def eval_reactive_llm(models: list[str], num_generations=5, max_steps=20):
             wandb.finish()
 
 
+@hydra.main(config_path="configs/text-env", config_name="base", version_base=None)
+def main(cfg: DictConfig) -> None:
+    print(cfg)
+
+    if cfg["mode"] == "one_shot":
+        print("Evaluating one-shot LLMs")
+        eval_one_shot_llm(num_generations=cfg["num_generations"], models=cfg["models"])
+    elif cfg["mode"] == "reactive":
+        print("Evaluating reactive LLMs")
+        eval_reactive_llm(
+            num_generations=cfg["num_generations"],
+            models=cfg["models"],
+            max_steps=cfg["max_steps"],
+        )
+    else:
+        print("Unknown mode")
+
+
 if __name__ == "__main__":
-    # Test the plan generation
-    models = ["meta-llama/Llama-2-7b-chat-hf"]
-    N = 1
-    eval_one_shot_llm(num_generations=N, models=models)
-    eval_reactive_llm(num_generations=N, models=models)
+    main()
