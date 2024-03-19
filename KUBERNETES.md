@@ -67,7 +67,7 @@ Replace `s2234411` with your EIDF username, `gautierdag/plancraft` with your doc
 Then run the following command:
 
 ```bash
-kubectl apply -f kaniko.yaml
+kubectl apply -f build/kaniko-pod.yaml
 ```
 
 This will create a pod that will build your image and push it to docker hub.
