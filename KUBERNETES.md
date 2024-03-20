@@ -115,6 +115,8 @@ python launch.py --config launch.yaml --job-name gautier-test-job --gpu-type NVI
 
 #### Interactive session
 
+To get an interactive session with the pod, you can run the following command:
 
-
-kubectl exec -it gautier-test-job-n6lw7 -- /bin/bash
+```bash
+kubectl exec -it <job-name> -- /bin/bash
+```

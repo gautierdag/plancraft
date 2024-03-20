@@ -7,7 +7,7 @@ import hydra
 import wandb
 from omegaconf import DictConfig
 
-from baseline_llm import ActionStep, OneShotOpenAILLM, ReactOpenAILLM
+from baseline_llm import ActionStep, OneShotOpenAILLM, ReactOpenAILLM, get_llm_generator
 
 # Load the task info
 tasks_path = "data/task_info.json"
@@ -163,168 +163,169 @@ def evaluate_generated_plan(parsed_plan: list[ActionStep]) -> tuple[bool, str, a
     return success, "", None
 
 
-def eval_one_shot_llm(models: list[str], num_generations=5):
-    for model_name in models:
-        for i in range(num_generations):
-            wandb.init(
-                project="plancraft",
-                entity="itl",
-                group=model_name,
-                job_type="one_shot",
-                config={
-                    "model_name": model_name,
-                    "N": num_generations,
-                },
+def eval_one_shot_llm(model_name: str, num_generations=5):
+    llm_model = get_llm_generator(model_name)
+    for i in range(num_generations):
+        wandb.init(
+            project="plancraft",
+            entity="itl",
+            group=model_name,
+            job_type="one_shot",
+            config={
+                "model_name": model_name,
+                "N": num_generations,
+            },
+        )
+        for k, v in TASKS.items():
+            llm_model.reset()
+            question = v["question"]
+            target = question.split()[-1].replace("?", "")
+            hash_key = f"one_shot_{model_name}_{target}_{i}"
+
+            model = OneShotOpenAILLM(model=llm_model)
+
+            generation = model.generate(question, temperature=1.0, max_tokens=512)
+            parsed_plan = model.parse_generated_plan(generation)
+
+            suc, err, missing = evaluate_generated_plan(parsed_plan)
+            # convert to dict for saving
+            parsed_plan = [asdict(p) for p in parsed_plan]
+
+            results = {
+                "hash_key": hash_key,
+                "group": v["group"],
+                "target": target,
+                "question": question,
+                "success": suc,
+                "tokens_used": model.token_used,
+                "model_name": model_name,
+                "plan": parsed_plan,
+                "generation": generation,
+                "error": err,
+                "missing": missing,
+            }
+
+        df = wandb.Table(dataframe=results)
+        wandb.log({"results": df})
+
+        # calculate aggregate statistics
+        grouped_df = df.groupby("group").agg(
+            {
+                "success": "mean",
+                "tokens_used": "mean",
+            }
+        )
+        # log the aggregate statistics
+        wandb.log({"group_results": wandb.Table(dataframe=grouped_df)})
+        wandb.finish()
+
+
+def eval_reactive_llm(model_name: str, num_generations=5, max_steps=20):
+    llm_model = get_llm_generator(model_name)
+    for i in range(num_generations):
+        wandb.init(
+            project="plancraft",
+            entity="itl",
+            group=model_name,
+            job_type="react",
+            config={
+                "model_name": model_name,
+                "max_steps": max_steps,
+            },
+            mode="offline",
+        )
+        for v in TASKS.values():
+            llm_model.reset()
+            question = v["question"]
+            target = question.split()[-1].replace("?", "")
+            hash_key = f"react_{model_name}_{target}_{i}"
+
+            step = 1
+            model = ReactOpenAILLM(model=llm_model)
+
+            inventory = defaultdict(int)
+            inventory["diamond_axe"] = 1
+            print(f"Initial inventory: {inventory}")
+
+            plan = []
+            history = ""
+            errors = defaultdict(int)
+            task_success = False
+
+            action_step = model.generate_initial_step(
+                question, temperature=1.0, max_tokens=512
             )
-            for k, v in TASKS.items():
-                question = v["question"]
-                target = question.split()[-1].replace("?", "")
-                hash_key = f"one_shot_{model_name}_{target}_{i}"
 
-                model = OneShotOpenAILLM(
-                    model_name=model_name,
-                )
+            while not task_success and step < max_steps:
+                history += f"Step {step} inventory: {inventory}\n"
+                # check if the model is overthinking
+                if model.is_thinking(action_step):
+                    success = False
+                    error_type = "over-thinking"
+                    error_value = "too many thinking steps in a row"
+                # process the action step
+                else:
+                    parsed_action_step = model.parse_step(action_step)
+                    success, error_type, error_value = process_step(
+                        parsed_action_step, inventory
+                    )
 
-                generation = model.generate(question, temperature=1.0, max_tokens=512)
-                parsed_plan = model.parse_generated_plan(generation)
+                if success:
+                    print(f"Step {step} successful")
+                    history += f"Step {step} successful: {parsed_action_step}\n"
+                    plan.append(parsed_action_step)
+                    observation = f"Success\ninventory = {dict(inventory)}"
+                    action_step = model.generate_step(
+                        observation, temperature=1.0, max_tokens=512
+                    )
+                    if parsed_action_step.output == target:
+                        task_success = True
+                        break
+                else:
+                    print(f"Step {step} failed: {error_type} {error_value}")
+                    history += f"Step {step} failed: {error_type} {error_value}\n"
+                    errors[error_type] += 1
+                    observation = f"ERROR: {error_type} {error_value}\ninventory = {dict(inventory)}"
+                    print(f"Step {step} observation: {observation}")
+                    action_step = model.generate_step(
+                        observation, temperature=1.0, max_tokens=512
+                    )
 
-                suc, err, missing = evaluate_generated_plan(parsed_plan)
-                # convert to dict for saving
-                parsed_plan = [asdict(p) for p in parsed_plan]
+                step += 1
 
-                results = {
-                    "hash_key": hash_key,
-                    "group": v["group"],
-                    "target": target,
-                    "question": question,
-                    "success": suc,
-                    "tokens_used": model.token_used,
-                    "model_name": model_name,
-                    "plan": parsed_plan,
-                    "generation": generation,
-                    "error": err,
-                    "missing": missing,
-                }
+            # convert plan to dict for saving
+            plan = [asdict(p) for p in plan]
+            results = {
+                "hash_key": hash_key,
+                "target": target,
+                "group": v["group"],
+                "question": question,
+                "plan": plan,
+                "logs": history,
+                "message_history": model.history,
+                "errors": errors,
+                "success": task_success,
+                "number_of_steps": step,
+                "number_of_thinking_steps": model.num_thinking_steps,
+                "model_name": model_name,
+                "tokens_used": model.token_used,
+            }
 
-            df = wandb.Table(dataframe=results)
-            wandb.log({"results": df})
+        df = wandb.Table(dataframe=results)
+        wandb.log({"results": df})
 
-            # calculate aggregate statistics
-            grouped_df = df.groupby("group").agg(
-                {
-                    "success": "mean",
-                    "tokens_used": "mean",
-                }
-            )
-            # log the aggregate statistics
-            wandb.log({"group_results": wandb.Table(dataframe=grouped_df)})
-            wandb.finish()
-
-
-def eval_reactive_llm(models: list[str], num_generations=5, max_steps=20):
-    for model_name in models:
-        for i in range(num_generations):
-            wandb.init(
-                project="plancraft",
-                entity="itl",
-                group=model_name,
-                job_type="react",
-                config={
-                    "model_name": model_name,
-                    "max_steps": max_steps,
-                },
-            )
-            for v in TASKS.values():
-                question = v["question"]
-                target = question.split()[-1].replace("?", "")
-                hash_key = f"react_{model_name}_{target}_{i}"
-
-                step = 1
-                model = ReactOpenAILLM(model=model_name)
-
-                inventory = defaultdict(int)
-                inventory["diamond_axe"] = 1
-                print(f"Initial inventory: {inventory}")
-
-                plan = []
-                history = ""
-                errors = defaultdict(int)
-                task_success = False
-
-                action_step = model.generate_initial_step(
-                    question, temperature=1.0, max_tokens=512
-                )
-
-                while not task_success and step < max_steps:
-                    history += f"Step {step} inventory: {inventory}\n"
-                    # check if the model is overthinking
-                    if model.is_thinking(action_step):
-                        success = False
-                        error_type = "over-thinking"
-                        error_value = "too many thinking steps in a row"
-                    # process the action step
-                    else:
-                        parsed_action_step = model.parse_step(action_step)
-                        success, error_type, error_value = process_step(
-                            parsed_action_step, inventory
-                        )
-
-                    if success:
-                        print(f"Step {step} successful")
-                        history += f"Step {step} successful: {parsed_action_step}\n"
-                        plan.append(parsed_action_step)
-                        observation = f"Success\ninventory = {dict(inventory)}"
-                        action_step = model.generate_step(
-                            observation, temperature=1.0, max_tokens=512
-                        )
-                        if parsed_action_step.output == target:
-                            task_success = True
-                            break
-                    else:
-                        print(f"Step {step} failed: {error_type} {error_value}")
-                        history += f"Step {step} failed: {error_type} {error_value}\n"
-                        errors[error_type] += 1
-                        observation = f"ERROR: {error_type} {error_value}\ninventory = {dict(inventory)}"
-                        print(f"Step {step} observation: {observation}")
-                        action_step = model.generate_step(
-                            observation, temperature=1.0, max_tokens=512
-                        )
-
-                    step += 1
-
-                # convert plan to dict for saving
-                plan = [asdict(p) for p in plan]
-                results = {
-                    "hash_key": hash_key,
-                    "target": target,
-                    "group": v["group"],
-                    "question": question,
-                    "plan": plan,
-                    "logs": history,
-                    "message_history": model.history,
-                    "errors": errors,
-                    "success": task_success,
-                    "number_of_steps": step,
-                    "number_of_thinking_steps": model.num_thinking_steps,
-                    "model_name": model_name,
-                    "tokens_used": model.token_used,
-                }
-
-            df = wandb.Table(dataframe=results)
-            wandb.log({"results": df})
-
-            # calculate aggregate statistics
-            grouped_df = df.groupby("group").agg(
-                {
-                    "success": "mean",
-                    "number_of_steps": "mean",
-                    "number_of_thinking_steps": "mean",
-                    "tokens_used": "mean",
-                }
-            )
-            # log the aggregate statistics
-            wandb.log({"group_results": wandb.Table(dataframe=grouped_df)})
-            wandb.finish()
+        # calculate aggregate statistics
+        grouped_df = df.groupby("group").agg(
+            {
+                "success": "mean",
+                "number_of_steps": "mean",
+                "number_of_thinking_steps": "mean",
+                "tokens_used": "mean",
+            }
+        )
+        # log the aggregate statistics
+        wandb.log({"group_results": wandb.Table(dataframe=grouped_df)})
+        wandb.finish()
 
 
 @hydra.main(config_path="configs/text-env", config_name="base", version_base=None)
@@ -332,12 +333,14 @@ def main(cfg: DictConfig) -> None:
     cfg = dict(cfg)
     if cfg["mode"] == "one_shot":
         print("Evaluating one-shot LLMs")
-        eval_one_shot_llm(num_generations=cfg["num_generations"], models=cfg["models"])
+        eval_one_shot_llm(
+            model_name=cfg["model"], num_generations=cfg["num_generations"]
+        )
     elif cfg["mode"] == "react":
         print("Evaluating reactive LLMs")
         eval_reactive_llm(
+            model_name=cfg["model"],
             num_generations=cfg["num_generations"],
-            models=cfg["models"],
             max_steps=cfg["max_steps"],
         )
     else:

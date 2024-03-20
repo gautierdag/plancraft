@@ -1,4 +1,5 @@
 import json
+import re
 import os
 from dataclasses import dataclass
 
@@ -9,97 +10,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 load_dotenv()
 
-
-class LLMClient:
-    def __init__(self, model_name="gpt-3.5-turbo", dtype=torch.bfloat16):
-        self.model_name = model_name
-        # openAI models
-        if model_name in ["gpt-3.5-turbo", "gpt-4.0-turbo-preview"]:
-            self.client_type = "openai"
-            self.client = OpenAI(
-                api_key=os.getenv("OPENAI_API_KEY"),
-            )
-        else:
-            self.client_type = "transformers"
-            self.tokenizer = AutoTokenizer.from_pretrained(
-                model_name,
-                trust_remote_code=True,
-                token=os.getenv("HF_TOKEN"),
-            )
-            self.model = AutoModelForCausalLM.from_pretrained(
-                model_name,
-                device_map="auto",
-                torch_dtype=dtype,
-                trust_remote_code=True,
-                token=os.getenv("HF_TOKEN"),
-            )
-
-    def generate(
-        self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
-    ) -> tuple[str, int]:
-        kwargs = {}
-        if self.client_type == "openai":
-            if enforce_json:
-                kwargs = {"response_format": {"type": "json_object"}}
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                **kwargs,
-            )
-            text_response = response.choices[0].message.content.strip()
-            token_used = response.usage.total_tokens
-            return text_response, token_used
-
-        elif self.client_type == "transformers":
-            message_text = self.tokenizer.apply_chat_template(
-                messages,
-                add_generation_prompt=True,
-                tokenize=False,
-            )
-            if enforce_json:
-                # start json object in prompt text
-                message_text += '{"'
-
-            tokenized_messages = self.tokenizer.encode(
-                message_text,
-                return_tensors="pt",
-            )
-
-            tokenized_messages = tokenized_messages.to(self.model.device)
-            _, prompt_tokens = tokenized_messages.shape
-            response = self.model.generate(
-                tokenized_messages,
-                do_sample=True,
-                temperature=temperature,
-                max_new_tokens=max_tokens,
-            )
-
-            text_response = self.tokenizer.decode(
-                response[0, prompt_tokens:],
-                skip_special_tokens=True,
-            )
-            _, total_tokens = response.shape
-            return text_response, total_tokens
-        else:
-            raise ValueError(f"Client type {self.client_type} not supported")
-
-
-@dataclass
-class ActionStep:
-    output: str  # item to be produced
-    quantity_needed: int  # quantity to be produced
-    type: str  # type of action
-    tool: dict[str, int]  # tools/materials needed
-
-
-class OneShotOpenAILLM:
-    def __init__(self, model_name="gpt-3.5-turbo"):
-        self.system_prompt = {
-            "role": "system",
-            "content": """You are a helper AI agent in Minecraft.
-
+ONE_SHOT_SYSTEM_PROMPT = """You are a helper AI agent in Minecraft.
 You need to generate the sequences of sub-goals (actions) for a planning task in Minecraft.
 
 You have the choice to use the following commands:
@@ -108,16 +19,16 @@ You have the choice to use the following commands:
 - smelt
 
 The first argument is a dict of items to be obtained, and the second argument is a dict of items to be used.
-""",
-        }
-        self.example = [
-            {
-                "role": "user",
-                "content": """How to obtain iron_ingot?\ninventory = {'diamond_axe'}""",
-            },
-            {
-                "role": "assistant",
-                "content": """def obtain_iron_ingot(inventory):
+"""
+
+ONE_SHOT_EXAMPLE = [
+    {
+        "role": "user",
+        "content": """How to obtain iron_ingot?\ninventory = {'diamond_axe'}""",
+    },
+    {
+        "role": "assistant",
+        "content": """def obtain_iron_ingot(inventory):
 \tmine({'log': 3}, {'diamond_axe': 1})
 \tcraft({'planks': 11}, {'log': 3})
 \tcraft({'stick': 6}, {'planks': 2})
@@ -129,10 +40,357 @@ The first argument is a dict of items to be obtained, and the second argument is
 \tcraft({'furnace': 1}, {'cobblestone': 8})
 \tsmelt({'iron_ingot': 1}, {'iron_ore': 1, 'furnace': 1})
 \treturn 'iron_ingot'""",
-            },
+    },
+]
+
+
+REACT_SYSTEM_PROMPT = """You are a helper AI agent in Minecraft.
+You need to decide on the next action to accomplish the planning TASK in Minecraft.
+
+You must output a JSON object like the following:
+{
+"output": "iron_ingot",
+"quantity": 1 # quantity to be produced
+"type": "smelt",
+"materials": ["iron_ore"] # optional list of materials
+"tool": "furnace" # optional tool
+}
+
+There are four types of actions
+- think
+- mine
+- craft
+- smelt
+
+If you output "think", you can output a string with your thought. For example:
+{
+"type": "think",
+"thought": "I need to gather some logs to craft planks using the diamond_axe."
+}
+
+Do not generate errors. Always generate valid JSON objects following the format above.
+"""
+
+REACT_EXAMPLE = [
+    {
+        "role": "user",
+        "content": """TASK: How to obtain iron_ingot?\ninventory = {'diamond_axe': 1}""",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "To solve this task I need to smelt an iron_ingot."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "First I need to gather some logs to craft planks using the diamond_axe."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "mine",\n"output": "log",\n"quantity": 3,\n"tool": "diamond_axe"}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'log': 3}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I can craft planks using the logs. I need 11 planks to craft sticks and a crafting_table."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "craft",\n"output": "planks",\n"quantity": 11,\n"materials": ["log"]}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'planks': 12}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I can craft sticks using the planks. I need 4 sticks to craft a wooden_pickaxe and then the stone_pickaxe."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "craft",\n"output": "stick",\n"quantity": 4,\n"materials": ["planks"]}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'planks': 10, 'stick': 4}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I can craft a crafting_table using the planks."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "craft",\n"output": "crafting_table",\n"quantity": 1,\n"materials": ["planks"]}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'planks': 6, 'stick': 4, 'crafting_table': 1}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I can craft a wooden_pickaxe using the planks, sticks and crafting_table."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "craft",\n"output": "wooden_pickaxe",\n"quantity": 1,\n"materials": ["planks", "stick"]\n"tool": "crafting_table"}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'stick': 2, 'crafting_table': 1, 'wooden_pickaxe': 1}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I need to mine 11 cobblestone using the wooden_pickaxe to be able to craft a stone_pickaxe and a furnace."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "mine",\n"output": "cobblestone",\n"quantity": 11,\n"tool": "wooden_pickaxe"}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'cobblestone': 11, 'stick': 2, 'crafting_table': 1, 'wooden_pickaxe': 1}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I can craft a stone_pickaxe using the cobblestone, sticks and crafting_table."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "craft",\n"output": "stone_pickaxe",\n"quantity": 1,\n"materials": ["cobblestone", "stick"],\n"tool": "crafting_table"}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'cobblestone': 8, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I can mine iron_ore using the stone_pickaxe."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "mine",\n"output": "iron_ore",\n"quantity": 1,\n"tool": "stone_pickaxe"}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'cobblestone': 8, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1, 'iron_ore': 3}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I can craft a furnace using the cobblestone to smelt the iron_ore."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "craft",\n"output": "furnace",\n"quantity": 1,\n"materials": ["cobblestone"]}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1, 'furnace': 1}",
+    },
+    {
+        "role": "assistant",
+        "content": """{"type": "think",\n"thought": "Now I can smelt the iron_ore using the furnace to obtain iron_ingot."}""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """{"type": "smelt",\n"output": "iron_ingot",\n"quantity": 1,\n"materials": ["iron_ore"],\n"tool": "furnace"}""",
+    },
+    {
+        "role": "user",
+        "content": "Success\ninventory = {'diamond_axe': 1, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1, 'furnace': 1, 'iron_ingot': 1}",
+    },
+    {
+        "role": "assistant",
+        "content": """DONE""",
+    },
+]
+
+
+class LLMGeneratorBase:
+    def __init__(self, model_name: str, dtype: torch.dtype):
+        self.model_name = model_name
+        self.dtype = dtype
+
+    @staticmethod
+    def create_initial_history(
+        system_prompt: str, chat_example: list[str]
+    ) -> list[str]:
+        # default implementation supports system prompt
+        history = [
+            {"role": "system", "content": system_prompt},
+            *chat_example,
         ]
-        self.model = LLMClient(model_name=model_name)
+        return history
+
+    def reset(self):
+        pass
+
+    def generate(
+        self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
+    ) -> tuple[str, int]:
+        raise NotImplementedError()
+
+
+class OpenAIGenerator(LLMGeneratorBase):
+    def __init__(self, model_name="gpt-3.5-turbo", dtype=torch.bfloat16):
+        super().__init__(model_name, dtype)
+        self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    def generate(
+        self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
+    ) -> tuple[str, int]:
+        kwargs = {}
+        if enforce_json:
+            kwargs = {"response_format": {"type": "json_object"}}
+        response = self.client.chat.completions.create(
+            model=self.model_name,
+            messages=messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            **kwargs,
+        )
+        text_response = response.choices[0].message.content.strip()
+        token_used = response.usage.total_tokens
+        return text_response, token_used
+
+
+class TransformerGenerator(LLMGeneratorBase):
+    def __init__(self, model_name: str, dtype=torch.bfloat16):
+        super().__init__(model_name, dtype)
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            model_name, trust_remote_code=True, token=os.getenv("HF_TOKEN")
+        )
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            device_map="auto",
+            torch_dtype=dtype,
+            trust_remote_code=True,
+            token=os.getenv("HF_TOKEN"),
+            attn_implementation="flash_attention_2",
+        )
+
+        self.model.eval()
+        if self.tokenizer.pad_token_id is None:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
+            self.model.config.pad_token_id = self.model.config.eos_token_id
+        self.tokenizer.truncation_side = "left"
+        self.past_key_values = None
+
+    def reset(self):
+        self.past_key_values = None
+
+    def generate(
+        self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
+    ) -> tuple[str, int]:
+        message_text = self.tokenizer.apply_chat_template(
+            messages,
+            add_generation_prompt=True,
+            tokenize=False,
+        )
+        if enforce_json:
+            # start json object in prompt text
+            message_text += '{"'
+
+        max_prompt_length = None
+        # need to truncate if max_length is set
+        if self.model.generation_config.max_length > max_tokens:
+            max_prompt_length = self.model.generation_config.max_length - max_tokens
+
+        tokenized_messages = self.tokenizer.encode(
+            message_text,
+            return_tensors="pt",
+            truncation=True,
+            max_length=max_prompt_length,
+        )
+        tokenized_messages = tokenized_messages.to(self.model.device)
+        _, prompt_tokens = tokenized_messages.shape
+
+        with torch.no_grad():
+            generation_output = self.model.generate(
+                tokenized_messages,
+                do_sample=True,
+                temperature=temperature,
+                max_new_tokens=max_tokens,
+                pad_token_id=self.tokenizer.pad_token_id,
+                return_dict_in_generate=True,
+                use_cache=True,
+                past_key_values=self.past_key_values,
+            )
+
+        # update past key values for next generation
+        self.past_key_values = generation_output.past_key_values
+
+        text_response = self.tokenizer.decode(
+            generation_output.sequences[0, prompt_tokens:],
+            skip_special_tokens=True,
+        )
+        if enforce_json:
+            text_response = '{"' + text_response
+
+        _, total_tokens_used = generation_output.sequences.shape
+
+        return text_response, total_tokens_used
+
+
+class MistralGenerator(TransformerGenerator):
+    @staticmethod
+    def create_initial_history(
+        system_prompt: str, chat_example: list[str]
+    ) -> list[str]:
+        # Mistral does not support the system prompt
+        history = chat_example
+        history[0]["content"] = system_prompt + "\n" + history[0]["content"]
+        return history
+
+
+class GemmaGenerator(MistralGenerator):
+    pass
+
+
+class LLama2Generator(TransformerGenerator):
+    pass
+
+
+def get_llm_generator(model_name: str) -> LLMGeneratorBase:
+    if model_name in ["gpt-3.5-turbo", "gpt-4.0-turbo-preview"]:
+        return OpenAIGenerator(model_name)
+    elif "Llama-2" in model_name:
+        return LLama2Generator(model_name)
+    elif "Mistral" in model_name:
+        return MistralGenerator(model_name)
+    elif "gemma" in model_name:
+        return GemmaGenerator(model_name)
+    else:
+        raise ValueError(f"LLM {model_name} not supported")
+
+
+@dataclass
+class ActionStep:
+    output: str  # item to be produced
+    quantity_needed: int  # quantity to be produced
+    type: str  # type of action
+    tool: dict[str, int]  # tools/materials needed
+
+
+class OneShotOpenAILLM:
+    def __init__(self, model: LLMGeneratorBase):
+        self.model = model
         self.token_used = 0
+        self.history = self.model.create_initial_history(
+            ONE_SHOT_SYSTEM_PROMPT, ONE_SHOT_EXAMPLE
+        )
 
     @staticmethod
     def parse_generated_plan(generated_plan: str) -> list[ActionStep]:
@@ -186,9 +444,9 @@ The first argument is a dict of items to be obtained, and the second argument is
         return parsed
 
     def generate(self, question: str, temperature=1.0, max_tokens=512) -> str:
+        self.model.reset()
         messages = [
-            self.system_prompt,
-            *self.example,
+            *self.history,
             {
                 "role": "user",
                 "content": f"{question}\ninventory = {'diamond_axe'}",
@@ -207,188 +465,12 @@ The first argument is a dict of items to be obtained, and the second argument is
 
 
 class ReactOpenAILLM:
-    def __init__(self, model="gpt-3.5-turbo"):
-        self.system_prompt = [
-            {
-                "role": "system",
-                "content": """You are a helper AI agent in Minecraft.
+    def __init__(self, model: LLMGeneratorBase):
+        self.model = model
 
-You need to decide on the next action to accomplish the planning TASK in Minecraft.
-
-You must output a JSON object with the following:
-{
-"output": "iron_pickaxe",
-"quantity": 1 # quantity to be produced
-"type": "craft",
-"materials": ["iron_ingot", "stick"] # optional list of materials
-"tool": "crafting_table" # optional tool
-}
-
-There are four types of actions
-- think
-- mine
-- craft
-- smelt
-
-If you output "think", you can output a string with your thought. For example:
-{
-"type": "think",
-"thought": "I need to gather some logs to craft planks using the diamond_axe."
-}
-
-Do not generate errors. Always generate valid JSON objects following the format above.
-""",
-            },
-        ]
-
-        self.example = [
-            {
-                "role": "user",
-                "content": """TASK: How to obtain iron_ingot?\ninventory = {'diamond_axe': 1}""",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "To solve this task I need to smelt an iron_ingot."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "First I need to gather some logs to craft planks using the diamond_axe."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "mine",\n"output": "log",\n"quantity": 3,\n"tool": "diamond_axe"}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'log': 3}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I can craft planks using the logs. I need 11 planks to craft sticks and a crafting_table."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "craft",\n"output": "planks",\n"quantity": 11,\n"materials": ["log"]}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'planks': 12}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I can craft sticks using the planks. I need 4 sticks to craft a wooden_pickaxe and then the stone_pickaxe."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "craft",\n"output": "stick",\n"quantity": 4,\n"materials": ["planks"]}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'planks': 10, 'stick': 4}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I can craft a crafting_table using the planks."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "craft",\n"output": "crafting_table",\n"quantity": 1,\n"materials": ["planks"]}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'planks': 6, 'stick': 4, 'crafting_table': 1}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I can craft a wooden_pickaxe using the planks, sticks and crafting_table."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "craft",\n"output": "wooden_pickaxe",\n"quantity": 1,\n"materials": ["planks", "stick"]\n"tool": "crafting_table"}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'stick': 2, 'crafting_table': 1, 'wooden_pickaxe': 1}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I need to mine 11 cobblestone using the wooden_pickaxe to be able to craft a stone_pickaxe and a furnace."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "mine",\n"output": "cobblestone",\n"quantity": 11,\n"tool": "wooden_pickaxe"}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'cobblestone': 11, 'stick': 2, 'crafting_table': 1, 'wooden_pickaxe': 1}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I can craft a stone_pickaxe using the cobblestone, sticks and crafting_table."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "craft",\n"output": "stone_pickaxe",\n"quantity": 1,\n"materials": ["cobblestone", "stick"],\n"tool": "crafting_table"}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'cobblestone': 8, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I can mine iron_ore using the stone_pickaxe."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "mine",\n"output": "iron_ore",\n"quantity": 1,\n"tool": "stone_pickaxe"}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'cobblestone': 8, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1, 'iron_ore': 3}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I can craft a furnace using the cobblestone to smelt the iron_ore."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "craft",\n"output": "furnace",\n"quantity": 1,\n"materials": ["cobblestone"]}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1, 'furnace': 1}",
-            },
-            {
-                "role": "assistant",
-                "content": """{"type": "think",\n"thought": "Now I can smelt the iron_ore using the furnace to obtain iron_ingot."}""",
-            },
-            {"role": "user", "content": "OK"},
-            {
-                "role": "assistant",
-                "content": """{"type": "smelt",\n"output": "iron_ingot",\n"quantity": 1,\n"materials": ["iron_ore"],\n"tool": "furnace"}""",
-            },
-            {
-                "role": "user",
-                "content": "Success\ninventory = {'diamond_axe': 1, 'crafting_table': 1, 'wooden_pickaxe': 1, 'stone_pickaxe': 1, 'furnace': 1, 'iron_ingot': 1}",
-            },
-            {
-                "role": "assistant",
-                "content": """DONE""",
-            },
-        ]
-        self.model = LLMClient(model_name=model)
-
-        self.history = self.system_prompt + self.example
+        self.history = self.model.create_initial_history(
+            REACT_SYSTEM_PROMPT, REACT_EXAMPLE
+        )
 
         self.token_used = 0
         self.max_thinking_steps = 3
@@ -399,9 +481,16 @@ Do not generate errors. Always generate valid JSON objects following the format 
         return "think" in step
 
     @staticmethod
-    def parse_step(step: str) -> ActionStep:
+    def json_regex(text: str) -> str:
+        # find the first json like object and return it
+        regex = r"\{\"[^{}]*\"\}"
+        match = re.search(regex, text)
+        if match:
+            return match.group(0).replace("\_", "_")
+
+    def parse_step(self, step: str) -> ActionStep:
         try:
-            action_step = json.loads(step)
+            action_step = json.loads(self.json_regex(step))
             step = {
                 "output": action_step["output"],
                 "quantity_needed": action_step["quantity"],
@@ -424,6 +513,7 @@ Do not generate errors. Always generate valid JSON objects following the format 
     def generate_initial_step(
         self, question: str, temperature=1.0, max_tokens=512
     ) -> str:
+        self.model.reset()
         initial_message = {
             "role": "user",
             "content": f"{question}\ninventory = {'diamond_axe'}",
