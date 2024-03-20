@@ -112,3 +112,9 @@ To deply use `kubejobs` library, and the provided `launch.py` script.
 ```bash
 python launch.py --config launch.yaml --job-name gautier-test-job --gpu-type NVIDIA-A100-SXM4-80GB --gpu-limit 1  --namespace informatics
 ```
+
+#### Interactive session
+
+
+
+kubectl exec -it gautier-test-job-n6lw7 -- /bin/bash

@@ -329,12 +329,11 @@ def eval_reactive_llm(models: list[str], num_generations=5, max_steps=20):
 
 @hydra.main(config_path="configs/text-env", config_name="base", version_base=None)
 def main(cfg: DictConfig) -> None:
-    print(cfg)
-
+    cfg = dict(cfg)
     if cfg["mode"] == "one_shot":
         print("Evaluating one-shot LLMs")
         eval_one_shot_llm(num_generations=cfg["num_generations"], models=cfg["models"])
-    elif cfg["mode"] == "reactive":
+    elif cfg["mode"] == "react":
         print("Evaluating reactive LLMs")
         eval_reactive_llm(
             num_generations=cfg["num_generations"],
