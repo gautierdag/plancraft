@@ -1,5 +1,6 @@
 import json
 import re
+import time
 import os
 from dataclasses import dataclass
 
@@ -272,6 +273,8 @@ class TransformerGenerator(LLMGeneratorBase):
         self.tokenizer = AutoTokenizer.from_pretrained(
             model_name, trust_remote_code=True, token=os.getenv("HF_TOKEN")
         )
+        time_now = time.time()
+        print("Loading model")
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="auto",
@@ -280,6 +283,11 @@ class TransformerGenerator(LLMGeneratorBase):
             token=os.getenv("HF_TOKEN"),
             attn_implementation="flash_attention_2",
         )
+        print(f"Model loaded in {time.time() - time_now:.2f} seconds")
+        time_now = time.time()
+        print("Compiling model to reduce overhead")
+        self.model = torch.compile(self.model, mode="reduce-overhead")
+        print(f"Model compiled in {time.time() - time_now:.2f} seconds")
 
         self.model.eval()
         if self.tokenizer.pad_token_id is None:
@@ -292,7 +300,7 @@ class TransformerGenerator(LLMGeneratorBase):
         self.past_key_values = None
 
     def generate(
-        self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
+        self, messages: list[dict], temperature=1.0, max_tokens=256, enforce_json=False
     ) -> tuple[str, int]:
         message_text = self.tokenizer.apply_chat_template(
             messages,
@@ -467,11 +475,9 @@ class OneShotOpenAILLM:
 class ReactOpenAILLM:
     def __init__(self, model: LLMGeneratorBase):
         self.model = model
-
         self.history = self.model.create_initial_history(
             REACT_SYSTEM_PROMPT, REACT_EXAMPLE
         )
-
         self.token_used = 0
         self.max_thinking_steps = 3
         self.num_thinking_steps = 0
