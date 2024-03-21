@@ -1,5 +1,7 @@
 import json
 import re
+from copy import deepcopy
+import gc
 import time
 import os
 from dataclasses import dataclass
@@ -19,28 +21,67 @@ You have the choice to use the following commands:
 - craft
 - smelt
 
-The first argument is a dict of items to be obtained, and the second argument is a dict of items to be used.
+You must answer with code.
+
+Example Response:
+
+```python
+def obtain_iron_ingot(inventory):
+    # first I need to mine 3 logs using the diamond_axe
+    mine({'log': 3}, {'diamond_axe': 1})
+    # then I can craft 11 planks using the logs
+    craft({'planks': 11}, {'log': 3})
+    # I will also need sticks, so I can craft 6 sticks using the planks
+    craft({'stick': 6}, {'planks': 2})
+    # I will then need a crafting table to craft the wooden_pickaxe
+    craft({'crafting_table': 1}, {'planks': 4})
+    # I can now craft a wooden_pickaxe using the planks, sticks and crafting_table
+    craft({'wooden_pickaxe': 1}, {'planks': 3, 'stick': 2, 'crafting_table': 1})
+    # I need to mine 11 cobblestone using the wooden_pickaxe
+    mine({'cobblestone': 11}, {'wooden_pickaxe': 1})
+    # Using the cobblestone, sticks and crafting_table, I can craft a stone_pickaxe
+    craft({'stone_pickaxe': 1}, {'cobblestone': 3, 'stick': 2, 'crafting_table': 1})
+    # I can now mine iron_ore using the stone_pickaxe
+    mine({'iron_ore': 1}, {'stone_pickaxe': 1})
+    # I need to craft a furnace using the cobblestone
+    craft({'furnace': 1}, {'cobblestone': 8})
+    # Finally, I can smelt the iron_ore using the furnace to obtain iron_ingot
+    smelt({'iron_ingot': 1}, {'iron_ore': 1, 'furnace': 1})
+    return 'iron_ingot
+```
+
+The first argument of each line is a dict of items to be obtained, and the second argument is a dict of items to be used.
 """
 
 ONE_SHOT_EXAMPLE = [
     {
         "role": "user",
-        "content": """How to obtain iron_ingot?\ninventory = {'diamond_axe'}""",
+        "content": """TASK: How to obtain iron_ingot?\ninventory = {'diamond_axe'}""",
     },
     {
         "role": "assistant",
         "content": """def obtain_iron_ingot(inventory):
-\tmine({'log': 3}, {'diamond_axe': 1})
-\tcraft({'planks': 11}, {'log': 3})
-\tcraft({'stick': 6}, {'planks': 2})
-\tcraft({'crafting_table': 1}, {'planks': 4})
-\tcraft({'wooden_pickaxe': 1}, {'planks': 3, 'stick': 2, 'crafting_table': 1})
-\tmine({'cobblestone': 11}, {'wooden_pickaxe': 1})
-\tcraft({'stone_pickaxe': 1}, {'cobblestone': 3, 'stick': 2, 'crafting_table': 1})
-\tmine({'iron_ore': 1}, {'stone_pickaxe': 1})
-\tcraft({'furnace': 1}, {'cobblestone': 8})
-\tsmelt({'iron_ingot': 1}, {'iron_ore': 1, 'furnace': 1})
-\treturn 'iron_ingot'""",
+    # first I need to mine 3 logs using the diamond_axe
+    mine({'log': 3}, {'diamond_axe': 1})
+    # then I can craft 11 planks using the logs
+    craft({'planks': 11}, {'log': 3})
+    # I will also need sticks, so I can craft 6 sticks using the planks
+    craft({'stick': 6}, {'planks': 2})
+    # I will then need a crafting table to craft the wooden_pickaxe
+    craft({'crafting_table': 1}, {'planks': 4})
+    # I can now craft a wooden_pickaxe using the planks, sticks and crafting_table
+    craft({'wooden_pickaxe': 1}, {'planks': 3, 'stick': 2, 'crafting_table': 1})
+    # I need to mine 11 cobblestone using the wooden_pickaxe
+    mine({'cobblestone': 11}, {'wooden_pickaxe': 1})
+    # Using the cobblestone, sticks and crafting_table, I can craft a stone_pickaxe
+    craft({'stone_pickaxe': 1}, {'cobblestone': 3, 'stick': 2, 'crafting_table': 1})
+    # I can now mine iron_ore using the stone_pickaxe
+    mine({'iron_ore': 1}, {'stone_pickaxe': 1})
+    # I need to craft a furnace using the cobblestone
+    craft({'furnace': 1}, {'cobblestone': 8})
+    # Finally, I can smelt the iron_ore using the furnace to obtain iron_ingot
+    smelt({'iron_ingot': 1}, {'iron_ore': 1, 'furnace': 1})
+    return 'iron_ingot""",
     },
 ]
 
@@ -226,20 +267,18 @@ class LLMGeneratorBase:
 
     @staticmethod
     def create_initial_history(
-        system_prompt: str, chat_example: list[str]
+        system_prompt: str, chat_example: list[dict[str, str]]
     ) -> list[str]:
         # default implementation supports system prompt
-        history = [
-            {"role": "system", "content": system_prompt},
-            *chat_example,
-        ]
+        system_prompt_message = {"role": "system", "content": system_prompt}
+        history = [system_prompt_message, *deepcopy(chat_example)]
         return history
 
     def reset(self):
         pass
 
     def generate(
-        self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
+        self, messages: list[dict], temperature=1.0, max_tokens=256, enforce_json=False
     ) -> tuple[str, int]:
         raise NotImplementedError()
 
@@ -250,7 +289,7 @@ class OpenAIGenerator(LLMGeneratorBase):
         self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     def generate(
-        self, messages: list[dict], temperature=1.0, max_tokens=512, enforce_json=False
+        self, messages: list[dict], temperature=1.0, max_tokens=256, enforce_json=False
     ) -> tuple[str, int]:
         kwargs = {}
         if enforce_json:
@@ -268,6 +307,8 @@ class OpenAIGenerator(LLMGeneratorBase):
 
 
 class TransformerGenerator(LLMGeneratorBase):
+    supports_system_prompt = True
+
     def __init__(self, model_name: str, dtype=torch.bfloat16):
         super().__init__(model_name, dtype)
         self.tokenizer = AutoTokenizer.from_pretrained(
@@ -297,7 +338,12 @@ class TransformerGenerator(LLMGeneratorBase):
         self.past_key_values = None
 
     def reset(self):
+        # Move tensors no longer needed to CPU and delete them
         self.past_key_values = None
+        # clear cuda cache
+        torch.cuda.empty_cache()
+        # Manually invoke garbage collector
+        gc.collect()
 
     def generate(
         self, messages: list[dict], temperature=1.0, max_tokens=256, enforce_json=False
@@ -324,6 +370,7 @@ class TransformerGenerator(LLMGeneratorBase):
         )
         tokenized_messages = tokenized_messages.to(self.model.device)
         _, prompt_tokens = tokenized_messages.shape
+        print("Prompt tokens", prompt_tokens)
 
         with torch.no_grad():
             generation_output = self.model.generate(
@@ -348,17 +395,19 @@ class TransformerGenerator(LLMGeneratorBase):
             text_response = '{"' + text_response
 
         _, total_tokens_used = generation_output.sequences.shape
-
+        print("Total tokens used", total_tokens_used)
         return text_response, total_tokens_used
 
 
 class MistralGenerator(TransformerGenerator):
+    supports_system_prompt = False
+
     @staticmethod
     def create_initial_history(
-        system_prompt: str, chat_example: list[str]
+        system_prompt: str, chat_example: list[dict[str, str]]
     ) -> list[str]:
         # Mistral does not support the system prompt
-        history = chat_example
+        history = deepcopy(chat_example)
         history[0]["content"] = system_prompt + "\n" + history[0]["content"]
         return history
 
@@ -401,39 +450,23 @@ class OneShotOpenAILLM:
         )
 
     @staticmethod
-    def parse_generated_plan(generated_plan: str) -> list[ActionStep]:
+    def code_regex(text: str) -> list[str]:
+        matches_with_parentheses = re.findall(
+            r"\s*((?:mine|craft|smelt)\(\{.*\},\s*\{.*\}\))",
+            text,
+        )
+        return matches_with_parentheses
+
+    def parse_generated_plan(self, generated_plan: str) -> list[ActionStep]:
         # select the python code
-        if "```python" in generated_plan:
-            generated_plan = generated_plan.split("```python")[1].split("```")[0]
-
-        lines = generated_plan.split("\n")
-
+        lines = self.code_regex(generated_plan)
         parsed = []
         for item in lines:
             try:
-                # ignore the function definition and return statement
-                if "def " in item or "return " in item:
-                    continue
-                # ignore empty lines
-                if item.strip(" ") == "":
-                    continue
-                # ignore comments
-                if "#" in item:
-                    item = item.split("#")[0]
-                item = item.strip(" ").replace("\t", "").split("(")
-                # ignore the line if it can't be split into two parts
-                if len(item) == 1:
-                    continue
-
-                action, parts = item
-
-                if action not in ["mine", "craft", "smelt"]:
-                    continue
-
+                action, parts = item.split("(")
                 # Split the string by parentheses and commas
                 produce, materials_and_tools = eval("(" + parts)
                 assert len(produce) == 1, "Only one item can be produced at a time"
-
                 parsed.append(
                     ActionStep(
                         **{
@@ -448,19 +481,17 @@ class OneShotOpenAILLM:
                 # ignore the error and continue
                 print("Error parsing", item)
                 continue
-
         return parsed
 
-    def generate(self, question: str, temperature=1.0, max_tokens=512) -> str:
+    def generate(self, question: str, temperature=1.0, max_tokens=256) -> str:
         self.model.reset()
         messages = [
             *self.history,
             {
                 "role": "user",
-                "content": f"{question}\ninventory = {'diamond_axe'}",
+                "content": f"{ONE_SHOT_SYSTEM_PROMPT}\nTASK: {question}\ninventory = {'diamond_axe'}",
             },
         ]
-
         response, token_used = self.model.generate(
             messages=messages,
             temperature=temperature,
@@ -517,7 +548,7 @@ class ReactOpenAILLM:
             return {}
 
     def generate_initial_step(
-        self, question: str, temperature=1.0, max_tokens=512
+        self, question: str, temperature=1.0, max_tokens=256
     ) -> str:
         self.model.reset()
         initial_message = {
@@ -548,7 +579,7 @@ class ReactOpenAILLM:
         self.history.append({"role": "assistant", "content": out_message})
         return out_message
 
-    def generate_step(self, observation: str, temperature=1.0, max_tokens=512) -> str:
+    def generate_step(self, observation: str, temperature=1.0, max_tokens=256) -> str:
         self.history.append({"role": "user", "content": observation})
         thinking_step = 0
         # iterate while model is thinking:

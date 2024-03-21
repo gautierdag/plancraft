@@ -1,4 +1,8 @@
-model: "meta-llama/Llama-2-7b-chat-hf"
-num_generations: 4
-mode: "react"
+model: mistralai/Mistral-7B-Instruct-v0.2 
+num_generations: 5
+mode: "one_shot"
 max_steps: 20
+wandb:
+  project: "plancraft"
+  entity: "itl"
+  mode: "online"
