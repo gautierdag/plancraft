@@ -2,7 +2,8 @@ model: mistralai/Mistral-7B-Instruct-v0.2
 num_generations: 5
 mode: "one_shot"
 max_steps: 20
+guidance: False
 wandb:
   project: "plancraft"
   entity: "itl"
-  mode: "online"
+  mode: "disabled"
