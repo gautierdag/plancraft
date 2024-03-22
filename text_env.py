@@ -10,8 +10,9 @@ import wandb
 from omegaconf import DictConfig
 import pandas as pd
 
-from plancraft.baselines import ActionStep, OneShotOpenAILLM, ReactOpenAILLM
+from plancraft.baselines import ActionStep, OneShotLLM, ReactLLM
 from plancraft.llms import get_llm_generator
+
 
 # Load the task info
 tasks_path = "data/task_info.json"
@@ -124,7 +125,9 @@ def process_step(
             return False, "unknown_item", target
         if goal.type.strip() != TECH_TREE[target]["type"]:
             return False, "action_type_mismatch", goal.type
-        if not set(TECH_TREE[target]["tool"].keys()).issubset(set(goal.tool.keys())):
+        if not set(TECH_TREE[target]["tool"].keys()).issubset(
+            set(goal.tools_and_materials)
+        ):
             return False, "missing_tools", list(TECH_TREE[target]["tool"].keys())
         if not set(TECH_TREE[target]["precondition"].keys()).issubset(
             set(current_inventory.keys())
@@ -176,7 +179,7 @@ def evaluate_generated_plan(
 
 
 def eval_one_shot_llm(cfg: dict, model_name: str, num_generations=5):
-    llm_model = get_llm_generator(model_name)
+    llm_model = get_llm_generator(model_name, guidance=cfg["guidance"])
     for i in range(num_generations):
         wandb.init(
             **cfg["wandb"],
@@ -191,10 +194,11 @@ def eval_one_shot_llm(cfg: dict, model_name: str, num_generations=5):
             target = question.split()[-1].replace("?", "")
             hash_key = f"one_shot_{model_name}_{target}_{i}"
 
-            model = OneShotOpenAILLM(model=llm_model)
+            model = OneShotLLM(model=llm_model)
 
             generation = model.generate(question, temperature=1.0, max_tokens=1024)
-            parsed_plan = model.parse_generated_plan(generation)
+            parsed_plan = model.parse_generation(generation)
+            print(f"Generated plan: {parsed_plan}")
 
             suc, err, missing = evaluate_generated_plan(parsed_plan, target)
             # convert to dict for saving
@@ -238,7 +242,7 @@ def eval_one_shot_llm(cfg: dict, model_name: str, num_generations=5):
 
 
 def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=20):
-    llm_model = get_llm_generator(model_name)
+    llm_model = get_llm_generator(model_name, guidance=cfg["guidance"])
     for i in range(num_generations):
         wandb.init(
             **cfg["wandb"],
@@ -253,7 +257,7 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
             hash_key = f"react_{model_name}_{target}_{i}"
 
             step = 1
-            model = ReactOpenAILLM(model=llm_model)
+            model = ReactLLM(model=llm_model, guidance=cfg["guidance"])
 
             inventory = defaultdict(int)
             inventory["diamond_axe"] = 1
@@ -277,7 +281,7 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
                     error_value = "too many thinking steps in a row"
                 # process the action step
                 else:
-                    parsed_action_step = model.parse_step(action_step)
+                    parsed_action_step = model.parse_generation(action_step)
                     success, error_type, error_value = process_step(
                         parsed_action_step, inventory
                     )
@@ -291,12 +295,12 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
                     history += f"Step {step} successful: {parsed_action_step}\n"
                     plan.append(parsed_action_step)
                     observation = f"Success\ninventory = {dict(inventory)}"
-                    action_step = model.generate_step(
-                        observation, temperature=1.0, max_tokens=512
-                    )
                     if parsed_action_step.output == target:
                         task_success = True
                         break
+                    action_step = model.generate_step(
+                        observation, temperature=1.0, max_tokens=512
+                    )
                 else:
                     print(
                         f"Step {step} failed ({time_taken:.2f}s | {model.token_used//1000}k toks): {error_type} {error_value}"
@@ -332,42 +336,3 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
             gc.collect()
 
         df = pd.DataFrame(results)
-        table = wandb.Table(dataframe=df)
-        wandb.log({"results": table})
-
-        # calculate aggregate statistics
-        grouped_df = df.groupby("group").agg(
-            {
-                "success": "mean",
-                "number_of_steps": "mean",
-                "number_of_thinking_steps": "mean",
-                "tokens_used": "mean",
-            }
-        )
-        # log the aggregate statistics
-        wandb.log({"group_results": wandb.Table(dataframe=grouped_df)})
-        wandb.finish()
-
-
-@hydra.main(config_path="configs/text-env", config_name="base", version_base=None)
-def main(cfg: DictConfig) -> None:
-    cfg = dict(cfg)
-    if cfg["mode"] == "one_shot":
-        print("Evaluating one-shot LLMs")
-        eval_one_shot_llm(
-            cfg=cfg, model_name=cfg["model"], num_generations=cfg["num_generations"]
-        )
-    elif cfg["mode"] == "react":
-        print("Evaluating reactive LLMs")
-        eval_reactive_llm(
-            cfg=cfg,
-            model_name=cfg["model"],
-            num_generations=cfg["num_generations"],
-            max_steps=cfg["max_steps"],
-        )
-    else:
-        print("Unknown mode")
-
-
-if __name__ == "__main__":
-    main()

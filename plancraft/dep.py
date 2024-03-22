@@ -4,10 +4,13 @@ import logging
 import time
 
 from openai import OpenAI
+from dotenv import load_dotenv
 import os
 import torch
 from models import CraftAgent, MineAgent
 from models.utils import slice_obs, stack_obs
+
+load_dotenv()
 
 prefix = os.getcwd()
 goal_mapping_json = os.path.join(prefix, "data/goal_mapping.json")
@@ -55,7 +58,6 @@ class Planner:
         task_prompt_file="data/task_prompt.txt",
         replan_prompt_file="data/deps_prompt.txt",
         parse_prompt_file="data/parse_prompt.txt",
-        openai_key_file="data/openai_keys.txt",
     ):
         self.dialogue = ""
         self.logging_dialogue = ""
@@ -65,17 +67,12 @@ class Planner:
         self.parse_prompt_file = parse_prompt_file
 
         self.goal_lib = self.load_goal_lib(goal_lib_json)
-        self.openai_client = OpenAI(api_key=self.load_openai_key(openai_key_file))
+        self.openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         self.supported_objects = self.get_supported_objects(self.goal_lib)
 
     def reset(self):
         self.dialogue = ""
         self.logging_dialogue = ""
-
-    def load_openai_key(self, openai_key_file) -> str:
-        with open(openai_key_file, "r") as f:
-            context = f.read()
-        return context.split("\n")[0]
 
     def load_goal_lib(self, goal_lib_json):
         with open(goal_lib_json, "r") as f:

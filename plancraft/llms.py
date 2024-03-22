@@ -8,7 +8,7 @@ from enum import Enum
 import outlines
 from outlines.samplers import MultinomialSampler
 from pydantic import BaseModel
-from typing import Optional, Union
+from typing import Optional, Union, Literal
 
 import torch
 from dotenv import load_dotenv
@@ -17,6 +17,97 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 load_dotenv()
 
+MINECRAFT_ITEMS = Literal[
+    "anvil",
+    "armor_stand",
+    "bed",
+    "beef",
+    "boat",
+    "bowl",
+    "bucket",
+    "carpet",
+    "cauldron",
+    "chest",
+    "chest_minecart",
+    "coal",
+    "cobblestone",
+    "cobblestone_wall",
+    "cooked_beef",
+    "cooked_mutton",
+    "cooked_porkchop",
+    "crafting_table",
+    "diamond",
+    "diamond_shovel",
+    "fence",
+    "fence_gate",
+    "furnace",
+    "furnace_minecart",
+    "heavy_weighted_pressure_plate",
+    "hopper",
+    "hopper_minecart",
+    "iron_axe",
+    "iron_bars",
+    "iron_block",
+    "iron_boots",
+    "iron_chestplate",
+    "iron_door",
+    "iron_helmet",
+    "iron_hoe",
+    "iron_ingot",
+    "iron_leggings",
+    "iron_nugget",
+    "iron_ore",
+    "iron_pickaxe",
+    "iron_shovel",
+    "iron_sword",
+    "iron_trapdoor",
+    "item_frame",
+    "jukebox",
+    "leather",
+    "leather_boots",
+    "leather_chestplate",
+    "leather_helmet",
+    "leather_leggings",
+    "lever",
+    "log",
+    "minecart",
+    "mutton",
+    "oak_stairs",
+    "painting",
+    "planks",
+    "porkchop",
+    "quartz_block",
+    "rail",
+    "shears",
+    "shield",
+    "sign",
+    "stick",
+    "stone",
+    "stone_axe",
+    "stone_brick_stairs",
+    "stone_button",
+    "stone_hoe",
+    "stone_pickaxe",
+    "stone_pressure_plate",
+    "stone_shovel",
+    "stone_slab",
+    "stone_stairs",
+    "stone_sword",
+    "stonebrick",
+    "torch",
+    "trapdoor",
+    "tripwire_hook",
+    "wooden_axe",
+    "wooden_button",
+    "wooden_hoe",
+    "wooden_pickaxe",
+    "wooden_pressure_plate",
+    "wooden_shovel",
+    "wooden_slab",
+    "wooden_sword",
+    "wool",
+]
+
 
 class ActionType(str, Enum):
     craft = "craft"
@@ -24,13 +115,12 @@ class ActionType(str, Enum):
     smelt = "smelt"
 
 
-# TODO: test further constraint based on inventory
 class Action(BaseModel):
     type: ActionType
-    output: str
+    output: MINECRAFT_ITEMS
     quantity: int
-    tool: Optional[str] = None
-    materials: list[str] = []
+    tool: Optional[MINECRAFT_ITEMS] = None
+    materials: list[MINECRAFT_ITEMS] = []
 
 
 class Thought(BaseModel):
@@ -38,39 +128,73 @@ class Thought(BaseModel):
 
 
 class Plan(BaseModel):
-    actions: list[Action]
+    actions: list[Union[Action, Thought]]
 
 
 class LLMGeneratorBase:
-    def __init__(self, model_name: str, dtype: torch.dtype = torch.bfloat16):
+    def __init__(
+        self,
+        model_name: str,
+        dtype: torch.dtype = torch.bfloat16,
+        **kwargs,
+    ):
         self.model_name = model_name
         self.dtype = dtype
+        self.supports_system_prompt = self.supports_system_prompt(model_name)
 
     @staticmethod
+    def supports_system_prompt(model_name: str) -> bool:
+        """
+        Returns True if the model supports a system role
+        """
+        if "mistral" in model_name.lower() or "gemma" in model_name.lower():
+            return False
+        return True
+
     def create_initial_history(
-        system_prompt: str, chat_example: list[dict[str, str]]
+        self, system_prompt: str, chat_example: list[dict[str, str]] = []
     ) -> list[str]:
-        # default implementation supports system prompt
-        system_prompt_message = {"role": "system", "content": system_prompt}
-        history = [system_prompt_message, *deepcopy(chat_example)]
+        if self.supports_system_prompt:
+            # default implementation supports system prompt
+            system_prompt_message = {"role": "system", "content": system_prompt}
+            if len(chat_example) == 0:
+                return [system_prompt_message]
+            history = [system_prompt_message, *deepcopy(chat_example)]
+            return history
+
+        # add system prompt to the first message instead
+        if len(chat_example) == 0:
+            return [{"role": "user", "content": system_prompt}]
+        history = deepcopy(chat_example)
+        history[0]["content"] = system_prompt + "\n" + history[0]["content"]
         return history
 
     def reset(self):
         pass
 
     def generate(
-        self, messages: list[dict], temperature=1.0, max_tokens=256, enforce_json=False
+        self,
+        messages: list[dict],
+        temperature=1.0,
+        max_tokens=256,
+        enforce_json=False,
+        **kwargs,
     ) -> tuple[str, int]:
         raise NotImplementedError()
 
 
 class OpenAIGenerator(LLMGeneratorBase):
     def __init__(self, model_name="gpt-3.5-turbo", **kwargs):
-        super().__init__(model_name)
+        super().__init__(model_name, **kwargs)
         self.client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     def generate(
-        self, messages: list[dict], temperature=1.0, max_tokens=256, enforce_json=False
+        self,
+        messages: list[dict],
+        temperature=1.0,
+        max_tokens=256,
+        enforce_json=False,
+        **kwargs,
     ) -> tuple[str, int]:
         kwargs = {}
         if enforce_json:
@@ -88,10 +212,8 @@ class OpenAIGenerator(LLMGeneratorBase):
 
 
 class TransformersGenerator(LLMGeneratorBase):
-    supports_system_prompt = True
-
-    def __init__(self, model_name: str, dtype=torch.bfloat16):
-        super().__init__(model_name, dtype)
+    def __init__(self, model_name: str, dtype=torch.bfloat16, **kwargs):
+        super().__init__(model_name=model_name, dtype=dtype, **kwargs)
         self.tokenizer = AutoTokenizer.from_pretrained(
             model_name, trust_remote_code=True, token=os.getenv("HF_TOKEN")
         )
@@ -130,7 +252,12 @@ class TransformersGenerator(LLMGeneratorBase):
 
     @torch.inference_mode()
     def generate(
-        self, messages: list[dict], temperature=1.0, max_tokens=256, enforce_json=False
+        self,
+        messages: list[dict],
+        temperature=1.0,
+        max_tokens=256,
+        enforce_json=False,
+        **kwargs,
     ) -> tuple[str, int]:
         message_text = self.tokenizer.apply_chat_template(
             messages,
@@ -154,7 +281,6 @@ class TransformersGenerator(LLMGeneratorBase):
         )
         tokenized_messages = tokenized_messages.to(self.model.device)
         _, prompt_tokens = tokenized_messages.shape
-        print("Prompt tokens", prompt_tokens)
         generation_output = self.model.generate(
             tokenized_messages,
             do_sample=True,
@@ -177,36 +303,14 @@ class TransformersGenerator(LLMGeneratorBase):
             text_response = '{"' + text_response
 
         _, total_tokens_used = generation_output.sequences.shape
-        print("Total tokens used", total_tokens_used)
         return text_response, total_tokens_used
 
 
-class MistralGenerator(TransformersGenerator):
-    supports_system_prompt = False
-
-    @staticmethod
-    def create_initial_history(
-        system_prompt: str, chat_example: list[dict[str, str]]
-    ) -> list[str]:
-        # Mistral does not support the system prompt
-        history = deepcopy(chat_example)
-        history[0]["content"] = system_prompt + "\n" + history[0]["content"]
-        return history
-
-
-class GemmaGenerator(MistralGenerator):
-    pass
-
-
-class LLama2Generator(TransformersGenerator):
-    pass
-
-
 class GuidanceGenerator(LLMGeneratorBase):
-    supports_system_prompt = True
-
-    def __init__(self, model_name: str, dtype=torch.bfloat16, temperature=1.0):
-        super().__init__(model_name, dtype)
+    def __init__(
+        self, model_name: str, dtype=torch.bfloat16, temperature=1.0, **kwargs
+    ):
+        super().__init__(model_name, dtype, **kwargs)
         time_now = time.time()
         print("Loading model")
         self.model = outlines.models.transformers(
@@ -224,12 +328,6 @@ class GuidanceGenerator(LLMGeneratorBase):
             },
         )
         print(f"Model loaded in {time.time() - time_now:.2f} seconds")
-        time_now = time.time()
-        print("Compiling model to reduce overhead")
-        self.model = torch.compile(
-            self.model.model, mode="reduce-overhead", fullgraph=True
-        )
-        print(f"Model compiled in {time.time() - time_now:.2f} seconds")
         self.bos_token = self.model.tokenizer.tokenizer.bos_token
 
         sampler = MultinomialSampler(temperature=temperature)
@@ -242,9 +340,7 @@ class GuidanceGenerator(LLMGeneratorBase):
             self.model, Thought, sampler=sampler
         )
         # full plan mode
-        self.plan_generator = outlines.generate.json(
-            self.model, list[Action], sampler=sampler
-        )
+        self.plan_generator = outlines.generate.json(self.model, Plan, sampler=sampler)
 
     @torch.inference_mode()
     def generate(
@@ -256,6 +352,12 @@ class GuidanceGenerator(LLMGeneratorBase):
             add_generation_prompt=True,
         ).replace(self.bos_token, "")
 
+        prompt_tokens = len(
+            self.model.tokenizer.tokenizer.encode(
+                message_text, add_special_tokens=False
+            )
+        )
+
         if mode == "think":
             result = self.thought_generator(message_text, max_tokens=max_tokens)
         elif mode == "action":
@@ -265,12 +367,15 @@ class GuidanceGenerator(LLMGeneratorBase):
         else:
             raise ValueError(f"Mode {mode} not supported")
 
-        total_tokens_used = len(
-            self.model.tokenizer.tokenizer.encode(
-                result.json(), add_special_tokens=False
+        total_tokens_used = (
+            len(
+                self.model.tokenizer.tokenizer.encode(
+                    result.json(), add_special_tokens=False
+                )
             )
+            + prompt_tokens
         )
-        print("Total tokens used", total_tokens_used)
+        print(result)
         return result, total_tokens_used
 
 
@@ -278,13 +383,5 @@ def get_llm_generator(model_name: str, guidance=False) -> LLMGeneratorBase:
     if model_name in ["gpt-3.5-turbo", "gpt-4.0-turbo-preview"]:
         return OpenAIGenerator(model_name)
     if guidance:
-        print("Using Guidance")
         return GuidanceGenerator(model_name)
-    elif "Llama-2" in model_name:
-        return LLama2Generator(model_name)
-    elif "Mistral" in model_name:
-        return MistralGenerator(model_name)
-    elif "gemma" in model_name:
-        return GemmaGenerator(model_name)
-    else:
-        raise ValueError(f"LLM {model_name} not supported")
+    return TransformersGenerator(model_name)

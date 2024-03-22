@@ -3,6 +3,11 @@ import numpy as np
 import torch
 from pyvirtualdisplay import Display
 
+import sys
+
+# add path to above directory
+sys.path.append("..")
+
 
 with Display(size=(480, 640), visible=False) as disp:
     # display is active
