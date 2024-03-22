@@ -8,9 +8,9 @@ import torch
 from minedojo import MineDojoEnv
 from pyvirtualdisplay import Display
 
-from models.utils import preprocess_obs, save_frames_to_video
-from dep import DEP
-from oracle import OraclePlanner
+from plancraft.models.utils import preprocess_obs, save_frames_to_video
+from plancraft.dep import DEP
+from plancraft.oracle import OraclePlanner
 
 warnings.filterwarnings("ignore")
 

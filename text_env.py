@@ -10,8 +10,8 @@ import wandb
 from omegaconf import DictConfig
 import pandas as pd
 
-from baselines import ActionStep, OneShotOpenAILLM, ReactOpenAILLM
-from llms import get_llm_generator
+from plancraft.baselines import ActionStep, OneShotOpenAILLM, ReactOpenAILLM
+from plancraft.llms import get_llm_generator
 
 # Load the task info
 tasks_path = "data/task_info.json"
