@@ -336,3 +336,42 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
             gc.collect()
 
         df = pd.DataFrame(results)
+        table = wandb.Table(dataframe=df)
+        wandb.log({"results": table})
+
+        # calculate aggregate statistics
+        grouped_df = df.groupby("group").agg(
+            {
+                "success": "mean",
+                "number_of_steps": "mean",
+                "number_of_thinking_steps": "mean",
+                "tokens_used": "mean",
+            }
+        )
+        # log the aggregate statistics
+        wandb.log({"group_results": wandb.Table(dataframe=grouped_df)})
+        wandb.finish()
+
+
+@hydra.main(config_path="configs/text-env", config_name="base", version_base=None)
+def main(cfg: DictConfig) -> None:
+    cfg = dict(cfg)
+    if cfg["mode"] == "one_shot":
+        print("Evaluating one-shot LLMs")
+        eval_one_shot_llm(
+            cfg=cfg, model_name=cfg["model"], num_generations=cfg["num_generations"]
+        )
+    elif cfg["mode"] == "react":
+        print("Evaluating reactive LLMs")
+        eval_reactive_llm(
+            cfg=cfg,
+            model_name=cfg["model"],
+            num_generations=cfg["num_generations"],
+            max_steps=cfg["max_steps"],
+        )
+    else:
+        print("Unknown mode")
+
+
+if __name__ == "__main__":
+    main()
