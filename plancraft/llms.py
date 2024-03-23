@@ -357,15 +357,21 @@ class GuidanceGenerator(LLMGeneratorBase):
                 message_text, add_special_tokens=False
             )
         )
-
-        if mode == "think":
-            result = self.thought_generator(message_text, max_tokens=max_tokens)
-        elif mode == "action":
-            result = self.action_generator(message_text, max_tokens=max_tokens)
-        elif mode == "plan":
-            result = self.plan_generator(message_text, max_tokens=max_tokens)
-        else:
-            raise ValueError(f"Mode {mode} not supported")
+        result = None
+        while not result:
+            try:
+                if mode == "think":
+                    result = self.thought_generator(message_text, max_tokens=max_tokens)
+                elif mode == "action":
+                    result = self.action_generator(message_text, max_tokens=max_tokens)
+                elif mode == "plan":
+                    result = self.plan_generator(message_text, max_tokens=max_tokens)
+                else:
+                    raise ValueError(f"Mode {mode} not supported")
+            except Exception as e:
+                # sometimes json generation fails due to wrongly escaped characters
+                print("Constrained generation error", e)
+                continue
 
         total_tokens_used = (
             len(

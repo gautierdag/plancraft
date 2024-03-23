@@ -1,6 +1,5 @@
 goal_model:
   use_horizon: 1
-
 eval:
   seed: 0
   num_evals: 4
@@ -35,9 +34,7 @@ eval:
     #   "obtain_trapdoor",
     #   "obtain_bowl",
     # ]
-
   model: oracle
-
 data:
   filters:
     - log
@@ -45,15 +42,11 @@ data:
     - cow
     - pig
     - stone
-
 model:
   load_ckpt_path: /home/gautier/Desktop/models/controller.pt
-
 pretrains:
   clip_path: /home/gautier/Desktop/models/MINECLIP.pth
-
 record:
   frames: True
-
 simulator:
   resolution: [640, 480]

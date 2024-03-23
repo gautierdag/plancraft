@@ -1,31 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+import hydra
 
-import argparse
-import os
-import sys
+from omegaconf import DictConfig
 import base64
-
-sys.path.append(os.getcwd())
-
-import yaml
 
 from kubernetes import client, config
 from kubejobs.jobs import KubernetesJob, KueueQueue
-
-
-def argument_parser():
-    parser = argparse.ArgumentParser(description="Backend Runner")
-    parser.add_argument(
-        "--config", type=str, help="Path to the config file", default="launch.yaml"
-    )
-    parser.add_argument("--job-name", "-n", type=str, default="gautier-test-job")
-    parser.add_argument("--gpu-type", type=str, default=None)
-    parser.add_argument("--gpu-limit", type=int, default=None)
-    parser.add_argument("--interactive", type=str, default=True)
-    parser.add_argument("--namespace", type=str, default="informatics")
-    args = parser.parse_args()
-    return args
 
 
 def check_if_completed(job_name: str, namespace: str = "informatics") -> bool:
@@ -67,12 +46,16 @@ def check_if_completed(job_name: str, namespace: str = "informatics") -> bool:
     return is_completed
 
 
-def send_message_command():
+def send_message_command(launch_cfg: dict):
     # webhook - load from env
     config.load_kube_config()
     v1 = client.CoreV1Api()
-    secret = v1.read_namespaced_secret("s2234411-slack-webhook", "informatics").data
-    webhook = base64.b64decode(secret["SLACK_WEBHOOK"]).decode("utf-8")
+
+    secret_name = launch_cfg["env_vars"]["SLACK_WEBHOOK"]["secret_name"]
+    secret_key = launch_cfg["env_vars"]["SLACK_WEBHOOK"]["key"]
+
+    secret = v1.read_namespaced_secret(secret_name, "informatics").data
+    webhook = base64.b64decode(secret[secret_key]).decode("utf-8")
     return (
         """curl -X POST -H 'Content-type: application/json' --data '{"text":"Job started!"}' """
         + webhook
@@ -80,24 +63,26 @@ def send_message_command():
     )
 
 
-def export_env_vars():
-    return """export HF_TOKEN=$HF_TOKEN && export OPENAI_API_KEY=$OPENAI_API_KEY && export WANDB_API_KEY=$WANDB_API_KEY;"""
+def export_env_vars(launch_cfg: dict):
+    cmd = ""
+    for key in launch_cfg["env_vars"].keys():
+        cmd += f"export {key}=${key} &&"
+    cmd = cmd.strip("&&") + ";"
+    return cmd
 
 
-def main():
-    args = argument_parser()
-    configs = yaml.safe_load(open(args.config, "r"))
+@hydra.main(config_path="configs/text-env", config_name="base", version_base=None)
+def main(cfg: DictConfig):
+    launch_cfg = dict(cfg)["launch"]
 
-    job_name = args.job_name
-    is_completed = check_if_completed(job_name, namespace=args.namespace)
+    job_name = launch_cfg["job_name"]
+    is_completed = check_if_completed(job_name, namespace=launch_cfg["namespace"])
 
     if is_completed is True:
         print(f"Job '{job_name}' is completed. Launching a new job.")
 
-        # TODO: make this interactive mode
+        # TODO: make this interactive mode or not
         command = "while true; do sleep 60; done;"
-
-        secret_env_vars = configs["env_vars"]
 
         # Create a Kubernetes Job with a name, container image, and command
         print(f"Creating job for: {command}")
@@ -107,19 +92,17 @@ def main():
             ram_request="80Gi",
             image="docker.io/gautierdag/plancraft:latest",
             gpu_type="nvidia.com/gpu",
-            gpu_limit=configs["gpu_limit"]
-            if args.gpu_limit is None
-            else args.gpu_limit,
-            gpu_product=configs["gpu_product"]
-            if args.gpu_type is None
-            else args.gpu_type,
+            gpu_limit=launch_cfg["gpu_limit"],
+            gpu_product=launch_cfg["gpu_product"],
             backoff_limit=1,
             command=["/bin/bash", "-c", "--"],
-            args=[export_env_vars() + send_message_command() + command],
+            args=[
+                export_env_vars(launch_cfg) + send_message_command(launch_cfg) + command
+            ],
             user_email="gautier.dagan@ed.ac.uk",
-            namespace=args.namespace,
+            namespace=launch_cfg["namespace"],
             kueue_queue_name=KueueQueue.INFORMATICS,
-            secret_env_vars=secret_env_vars,
+            secret_env_vars=launch_cfg["env_vars"],
         )
 
         job_yaml = job.generate_yaml()

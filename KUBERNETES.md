@@ -84,25 +84,31 @@ Create unique secret with environment variables:
 kubectl create secret generic s2234411-hf --from-literal=HF_TOKEN=hf_***
 kubectl create secret generic s2234411-openai --from-literal=OPENAI_API_KEY=sk-***
 kubectl create secret generic s2234411-wandb --from-literal=WANDB_API_KEY=***
+# Optional: slack webhook to get notified when pod starts
+kubectl create secret generic s2234411-slack-webhook --from-literal=SLACK_WEBHOOK=***
 ```
 
-### Update the launch.yaml
+### Update the launch config in your run config
 
-Example of my `launch.yaml` that declares the environment variables and GPU limits for the pod:
+Example of my config `configs/text-env/base.yaml` that declares the environment variables and GPU limits for the pod:
 
 ```yaml
-gpu_limit: 1
-gpu_product: NVIDIA-A100-SXM4-80GB
-env_vars:
-  HF_TOKEN:
-    secret_name: s2234411-hf
-    key: HF_TOKEN
-  OPENAI_API_KEY:
-    secret_name: s2234411-openai
-    key: OPENAI_API_KEY
-  WANDB_API_KEY:
-    secret_name: s2234411-wandb
-    key: WANDB_API_KEY
+launch:
+  gpu_limit: 1
+  gpu_product: NVIDIA-A100-SXM4-80GB
+  env_vars:
+    HF_TOKEN:
+      secret_name: s2234411-hf
+      key: HF_TOKEN
+    OPENAI_API_KEY:
+      secret_name: s2234411-openai
+      key: OPENAI_API_KEY
+    WANDB_API_KEY:
+      secret_name: s2234411-wandb
+      key: WANDB_API_KEY
+    SLACK_WEBHOOK:
+      secret_name: s2234411-slack-webhook
+      key: SLACK_WEBHOOK
 ```
 
 ### Deploy the pod
@@ -110,7 +116,7 @@ env_vars:
 To deply use `kubejobs` library, and the provided `launch.py` script.
 
 ```bash
-python launch.py --config launch.yaml --job-name gautier-test-job --gpu-type NVIDIA-A100-SXM4-80GB --gpu-limit 1  --namespace informatics
+python launch.py ++launch.job-name=gautier-test-job ++launch.gpu-type=NVIDIA-A100-SXM4-80GB ++launch.gpu-limit=1
 ```
 
 #### Interactive session

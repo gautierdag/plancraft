@@ -3,7 +3,7 @@ FROM nvcr.io/nvidia/cuda:12.0.0-cudnn8-devel-ubuntu22.04
 RUN apt update
 RUN apt upgrade -y
 
-RUN apt-get -y install git-lfs unzip psmisc wget git python3 python-is-python3 pip bc htop nano curl
+RUN apt-get -y install git-lfs unzip psmisc wget git python3 python-is-python3 python3-packaging pip bc htop nano curl
 RUN git lfs install 
 RUN pip install -U pip
 
