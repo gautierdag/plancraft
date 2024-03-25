@@ -59,15 +59,15 @@ def send_message_command(launch_cfg: dict):
     return (
         """curl -X POST -H 'Content-type: application/json' --data '{"text":"Job started in $POD_NAME"}' """
         + webhook
-        + " ;"
+        + " ; "
     )
 
 
 def export_env_vars(launch_cfg: dict):
     cmd = ""
     for key in launch_cfg["env_vars"].keys():
-        cmd += f"export {key}=${key} &&"
-    cmd = cmd.strip("&&") + ";"
+        cmd += f" export {key}=${key} &&"
+    cmd = cmd.strip(" &&") + " ; "
     return cmd
 
 
@@ -81,7 +81,7 @@ def main(cfg: DictConfig):
         print(f"Job '{job_name}' is completed. Launching a new job.")
 
         # TODO: make this interactive mode or not
-        if launch_cfg["interactive_mode"]:
+        if launch_cfg["interactive"]:
             command = "while true; do sleep 60; done;"
         else:
             plan_craft_cfg = launch_cfg["plan_craft"]
