@@ -353,21 +353,23 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
         wandb.finish()
 
 
-@hydra.main(config_path="configs/text-env", config_name="base", version_base=None)
+@hydra.main(config_path="configs", config_name="base", version_base=None)
 def main(cfg: DictConfig) -> None:
-    cfg = dict(cfg)
-    if cfg["mode"] == "one_shot":
+    plancraft_cfg = dict(cfg)["plancraft"]
+    if plancraft_cfg["mode"] == "one_shot":
         print("Evaluating one-shot LLMs")
         eval_one_shot_llm(
-            cfg=cfg, model_name=cfg["model"], num_generations=cfg["num_generations"]
+            cfg=plancraft_cfg,
+            model_name=plancraft_cfg["model"],
+            num_generations=plancraft_cfg["num_generations"],
         )
-    elif cfg["mode"] == "react":
+    elif plancraft_cfg["mode"] == "react":
         print("Evaluating reactive LLMs")
         eval_reactive_llm(
-            cfg=cfg,
-            model_name=cfg["model"],
-            num_generations=cfg["num_generations"],
-            max_steps=cfg["max_steps"],
+            cfg=plancraft_cfg,
+            model_name=plancraft_cfg["model"],
+            num_generations=plancraft_cfg["num_generations"],
+            max_steps=plancraft_cfg["max_steps"],
         )
     else:
         print("Unknown mode")

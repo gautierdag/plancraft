@@ -57,7 +57,7 @@ def send_message_command(launch_cfg: dict):
     secret = v1.read_namespaced_secret(secret_name, "informatics").data
     webhook = base64.b64decode(secret[secret_key]).decode("utf-8")
     return (
-        """curl -X POST -H 'Content-type: application/json' --data '{"text":"Job started!"}' """
+        """curl -X POST -H 'Content-type: application/json' --data '{"text":"Job started in $POD_NAME"}' """
         + webhook
         + " ;"
     )
@@ -71,10 +71,9 @@ def export_env_vars(launch_cfg: dict):
     return cmd
 
 
-@hydra.main(config_path="configs/text-env", config_name="base", version_base=None)
+@hydra.main(config_path="configs", config_name="base", version_base=None)
 def main(cfg: DictConfig):
     launch_cfg = dict(cfg)["launch"]
-
     job_name = launch_cfg["job_name"]
     is_completed = check_if_completed(job_name, namespace=launch_cfg["namespace"])
 
@@ -82,7 +81,14 @@ def main(cfg: DictConfig):
         print(f"Job '{job_name}' is completed. Launching a new job.")
 
         # TODO: make this interactive mode or not
-        command = "while true; do sleep 60; done;"
+        if launch_cfg["interactive_mode"]:
+            command = "while true; do sleep 60; done;"
+        else:
+            plan_craft_cfg = launch_cfg["plan_craft"]
+            command = launch_cfg["command"]
+            for key, value in plan_craft_cfg.items():
+                command += f" ++.plancraft.{key}={value}"
+            print(f"Command: {command}")
 
         # Create a Kubernetes Job with a name, container image, and command
         print(f"Creating job for: {command}")

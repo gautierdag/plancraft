@@ -67,7 +67,7 @@ Replace `s2234411` with your EIDF username, `gautierdag/plancraft` with your doc
 Then run the following command:
 
 ```bash
-kubectl apply -f build/kaniko-pod.yaml
+kubectl delete pod kaniko && kubectl apply -f build/kaniko-pod.yaml
 ```
 
 This will create a pod that will build your image and push it to docker hub.
@@ -121,8 +121,22 @@ python launch.py ++launch.job-name=gautier-test-job ++launch.gpu-type=NVIDIA-A10
 
 #### Interactive session
 
-To get an interactive session with the pod, you can run the following command:
+To get an interactive session:
+
+```bash
+python launch.py ++launch.job-name=gautier-test-job ++launch.gpu-type=NVIDIA-A100-SXM4-40GB ++launch.gpu-limit=1 ++launch.interactive=True
+```
+
+Once the pod is live, you can run the following command:
 
 ```bash
 kubectl exec -it <job-name> -- /bin/bash
+```
+
+#### Monitoring
+
+To monitor the pod, you can use the following command:
+
+```bash
+kubectl logs -f <job-name>
 ```

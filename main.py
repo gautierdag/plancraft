@@ -176,7 +176,7 @@ def evaluate(cfg: dict, output_dir: str) -> None:
         evaluate_task(task_name, cfg, output_dir)
 
 
-@hydra.main(config_path="configs", config_name="base", version_base=None)
+@hydra.main(config_path="configs", config_name="dep", version_base=None)
 def main(cfg):
     logger.info(cfg)
     output_dir = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
