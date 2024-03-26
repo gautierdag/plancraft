@@ -57,7 +57,7 @@ def send_message_command(launch_cfg: dict):
     secret = v1.read_namespaced_secret(secret_name, "informatics").data
     webhook = base64.b64decode(secret[secret_key]).decode("utf-8")
     return (
-        """curl -X POST -H 'Content-type: application/json' --data '{"text":"Job started in $POD_NAME"}' """
+        """curl -X POST -H 'Content-type: application/json' --data '{"text":"Job started in '"$POD_NAME"'"}' """
         + webhook
         + " ; "
     )
@@ -94,8 +94,8 @@ def main(cfg: DictConfig):
         print(f"Creating job for: {command}")
         job = KubernetesJob(
             name=job_name,
-            cpu_request="8",
-            ram_request="80Gi",
+            cpu_request=launch_cfg["cpu_request"],
+            ram_request=launch_cfg["ram_request"],
             image="docker.io/gautierdag/plancraft:latest",
             gpu_type="nvidia.com/gpu",
             gpu_limit=launch_cfg["gpu_limit"],
@@ -109,6 +109,9 @@ def main(cfg: DictConfig):
             namespace=launch_cfg["namespace"],
             kueue_queue_name=KueueQueue.INFORMATICS,
             secret_env_vars=launch_cfg["env_vars"],
+            volume_mounts={
+                "nfs": {"mountPath": "/nfs", "server": "10.24.1.255", "path": "/"}
+            },
         )
 
         job_yaml = job.generate_yaml()
@@ -116,6 +119,8 @@ def main(cfg: DictConfig):
 
         # Run the Job on the Kubernetes cluster
         job.run()
+    else:
+        print(f"Job '{job_name}' is still running.")
 
 
 if __name__ == "__main__":

@@ -13,6 +13,8 @@ launch:
   job_name: "plancraft-s2234411"
   gpu_limit: 1
   gpu_product: NVIDIA-A100-SXM4-80GB
+  cpu_request: 12
+  ram_request: 48Gi
   interactive: False
   namespace: informatics
   env_vars:
