@@ -15,6 +15,8 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+from utils import get_downloaded_models
+
 load_dotenv()
 
 MINECRAFT_ITEMS = Literal[
@@ -217,15 +219,24 @@ class TransformersGenerator(LLMGeneratorBase):
         self.tokenizer = AutoTokenizer.from_pretrained(
             model_name, trust_remote_code=True, token=os.getenv("HF_TOKEN")
         )
+        model_kwargs = {
+            "trust_remote_code": True,
+            "token": os.getenv("HF_TOKEN"),
+            "torch_dtype": dtype,
+            "attn_implementation": "flash_attention_2",
+        }
+        downloaded_models = get_downloaded_models()
+        if model_name in downloaded_models:
+            model_kwargs["local_files_only"] = True
+            model_name = downloaded_models[model_name]
+            print(f"Using local model {model_name}")
+
         time_now = time.time()
         print("Loading model")
+
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            device_map="auto",
-            torch_dtype=dtype,
-            trust_remote_code=True,
-            token=os.getenv("HF_TOKEN"),
-            attn_implementation="flash_attention_2",
+            **model_kwargs,
         )
         print(f"Model loaded in {time.time() - time_now:.2f} seconds")
         time_now = time.time()
@@ -311,17 +322,24 @@ class GuidanceGenerator(LLMGeneratorBase):
         self, model_name: str, dtype=torch.bfloat16, temperature=1.0, **kwargs
     ):
         super().__init__(model_name, dtype, **kwargs)
+        model_kwargs = {
+            "trust_remote_code": True,
+            "token": os.getenv("HF_TOKEN"),
+            "torch_dtype": dtype,
+            "attn_implementation": "flash_attention_2",
+        }
+        downloaded_models = get_downloaded_models()
+        if model_name in downloaded_models:
+            model_kwargs["local_files_only"] = True
+            model_name = downloaded_models[model_name]
+            print(f"Using local model {model_name}")
+
         time_now = time.time()
         print("Loading model")
         self.model = outlines.models.transformers(
             model_name,
             device="auto",
-            model_kwargs={
-                "trust_remote_code": True,
-                "token": os.getenv("HF_TOKEN"),
-                "torch_dtype": dtype,
-                "attn_implementation": "flash_attention_2",
-            },
+            model_kwargs=model_kwargs,
             tokenizer_kwargs={
                 "trust_remote_code": True,
                 "token": os.getenv("HF_TOKEN"),
