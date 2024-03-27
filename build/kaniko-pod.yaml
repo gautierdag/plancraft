@@ -10,17 +10,19 @@ spec:
       resources:
         requests:
           cpu: "4" 
-          memory: "8Gi" 
+          memory: "32Gi" 
         limits:
-          cpu: "8" 
-          memory: "16Gi"
-      image: gcr.io/kaniko-project/executor:latest
+          cpu: "4" 
+          memory: "32Gi"
+      image: gcr.io/kaniko-project/executor:v1.21.1
       args:
         [
           "--dockerfile=Dockerfile",
           "--context=git://github.com/gautierdag/plancraft.git#main",
           "--destination=docker.io/gautierdag/plancraft:latest",
-          "--single-snapshot"
+          "--compressed-caching=true",
+          "--snapshotMode=redo",
+          "--use-new-run"
         ]
       volumeMounts:
         - name: docker-config-gautierdag
