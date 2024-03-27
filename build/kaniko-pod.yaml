@@ -9,11 +9,11 @@ spec:
     - name: kaniko
       resources:
         requests:
-          cpu: "2" # Requests 1 CPU cores
-          memory: "4Gi" # Requests 2 GiB of memory
+          cpu: "4" 
+          memory: "8Gi" 
         limits:
-          cpu: "4" # Limits to 1 CPU core
-          memory: "8Gi" # Limits to 4 GiB of memory
+          cpu: "8" 
+          memory: "16Gi"
       image: gcr.io/kaniko-project/executor:latest
       args:
         [
