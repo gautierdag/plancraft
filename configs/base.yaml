@@ -4,6 +4,7 @@ plancraft:
   mode: "react"
   max_steps: 20
   guidance: True
+  quantize: False
 wandb:
   project: "plancraft"
   entity: "itl"
@@ -14,7 +15,7 @@ launch:
   gpu_limit: 1
   gpu_product: NVIDIA-A100-SXM4-80GB
   cpu_request: 12
-  ram_request: 48Gi
+  ram_request: 80Gi
   interactive: False
   namespace: informatics
   env_vars:

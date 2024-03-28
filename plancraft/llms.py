@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from utils import get_downloaded_models
+from plancraft.utils import get_downloaded_models
 
 load_dotenv()
 
@@ -137,11 +137,9 @@ class LLMGeneratorBase:
     def __init__(
         self,
         model_name: str,
-        dtype: torch.dtype = torch.bfloat16,
         **kwargs,
     ):
         self.model_name = model_name
-        self.dtype = dtype
         self.supports_system_prompt = self.supports_system_prompt(model_name)
 
     @staticmethod
@@ -152,6 +150,30 @@ class LLMGeneratorBase:
         if "mistral" in model_name.lower() or "gemma" in model_name.lower():
             return False
         return True
+
+    @staticmethod
+    def build_model_kwargs(model_name: str, **kwargs) -> tuple[str, dict]:
+        model_kwargs = {
+            "trust_remote_code": True,
+            "token": os.getenv("HF_TOKEN"),
+            "attn_implementation": "flash_attention_2",
+        }
+        quantize = kwargs.get("quantize", False)
+        if quantize == "int4":
+            # model_kwargs["torch_dtype"] = torch.int4
+            model_kwargs["load_in_4bit"] = True
+        elif quantize == "int8":
+            model_kwargs["load_in_8bit"] = True
+        else:
+            model_kwargs["torch_dtype"] = torch.bfloat16
+
+        downloaded_models = get_downloaded_models()
+        if model_name in downloaded_models:
+            model_kwargs["local_files_only"] = True
+            model_name = downloaded_models[model_name]
+            print(f"Using local model {model_name}")
+
+        return model_name, model_kwargs
 
     def create_initial_history(
         self, system_prompt: str, chat_example: list[dict[str, str]] = []
@@ -214,28 +236,19 @@ class OpenAIGenerator(LLMGeneratorBase):
 
 
 class TransformersGenerator(LLMGeneratorBase):
-    def __init__(self, model_name: str, dtype=torch.bfloat16, **kwargs):
-        super().__init__(model_name=model_name, dtype=dtype, **kwargs)
+    def __init__(self, model_name: str, quantize=False, **kwargs):
+        super().__init__(model_name=model_name, **kwargs)
         self.tokenizer = AutoTokenizer.from_pretrained(
             model_name, trust_remote_code=True, token=os.getenv("HF_TOKEN")
         )
-        model_kwargs = {
-            "trust_remote_code": True,
-            "token": os.getenv("HF_TOKEN"),
-            "torch_dtype": dtype,
-            "attn_implementation": "flash_attention_2",
-        }
-        downloaded_models = get_downloaded_models()
-        if model_name in downloaded_models:
-            model_kwargs["local_files_only"] = True
-            model_name = downloaded_models[model_name]
-            print(f"Using local model {model_name}")
-
+        model_name, model_kwargs = self.build_model_kwargs(
+            model_name, quantize=quantize
+        )
         time_now = time.time()
         print("Loading model")
-
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
+            device_map="auto",
             **model_kwargs,
         )
         print(f"Model loaded in {time.time() - time_now:.2f} seconds")
@@ -318,22 +331,11 @@ class TransformersGenerator(LLMGeneratorBase):
 
 
 class GuidanceGenerator(LLMGeneratorBase):
-    def __init__(
-        self, model_name: str, dtype=torch.bfloat16, temperature=1.0, **kwargs
-    ):
-        super().__init__(model_name, dtype, **kwargs)
-        model_kwargs = {
-            "trust_remote_code": True,
-            "token": os.getenv("HF_TOKEN"),
-            "torch_dtype": dtype,
-            "attn_implementation": "flash_attention_2",
-        }
-        downloaded_models = get_downloaded_models()
-        if model_name in downloaded_models:
-            model_kwargs["local_files_only"] = True
-            model_name = downloaded_models[model_name]
-            print(f"Using local model {model_name}")
-
+    def __init__(self, model_name: str, quantize=False, temperature=1.0, **kwargs):
+        super().__init__(model_name, **kwargs)
+        model_name, model_kwargs = self.build_model_kwargs(
+            model_name, quantize=quantize
+        )
         time_now = time.time()
         print("Loading model")
         self.model = outlines.models.transformers(
@@ -348,6 +350,7 @@ class GuidanceGenerator(LLMGeneratorBase):
         print(f"Model loaded in {time.time() - time_now:.2f} seconds")
         self.bos_token = self.model.tokenizer.tokenizer.bos_token
 
+        self.temperature = temperature
         sampler = MultinomialSampler(temperature=temperature)
 
         # react mode
@@ -403,9 +406,19 @@ class GuidanceGenerator(LLMGeneratorBase):
         return result, total_tokens_used
 
 
-def get_llm_generator(model_name: str, guidance=False) -> LLMGeneratorBase:
+def get_llm_generator(
+    model_name: str, guidance=False, quantize=False
+) -> LLMGeneratorBase:
+    """
+    Returns a generator object for the specified model
+    """
     if model_name in ["gpt-3.5-turbo", "gpt-4.0-turbo-preview"]:
         return OpenAIGenerator(model_name)
+    if quantize:
+        assert quantize in ["int4", "int8"], "Quantization must be int4 or int8"
     if guidance:
-        return GuidanceGenerator(model_name)
-    return TransformersGenerator(model_name)
+        return GuidanceGenerator(model_name, quantize=quantize)
+    return TransformersGenerator(
+        model_name,
+        quantize=quantize,
+    )

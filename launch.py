@@ -100,7 +100,7 @@ def main(cfg: DictConfig):
             gpu_type="nvidia.com/gpu",
             gpu_limit=launch_cfg["gpu_limit"],
             gpu_product=launch_cfg["gpu_product"],
-            backoff_limit=1,
+            backoff_limit=0,
             command=["/bin/bash", "-c", "--"],
             args=[
                 export_env_vars(launch_cfg) + send_message_command(launch_cfg) + command

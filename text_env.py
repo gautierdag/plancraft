@@ -178,16 +178,21 @@ def evaluate_generated_plan(
     return success, "", None
 
 
-def eval_one_shot_llm(cfg: dict, model_name: str, num_generations=5):
-    llm_model = get_llm_generator(model_name, guidance=cfg["guidance"])
+def eval_one_shot_llm(cfg: dict, wandb_cfg: dict, model_name: str, num_generations=5):
+    llm_model = get_llm_generator(
+        model_name, guidance=cfg["guidance"], quantize=cfg["quantize"]
+    )
     for i in range(num_generations):
         wandb.init(
-            **cfg["wandb"],
+            project=wandb_cfg["project"],
+            entity=wandb_cfg["entity"],
+            mode=wandb_cfg["mode"],
             group=model_name,
-            job_type="one_shot",
-            config=cfg,
+            job_type="react",
+            config=dict(cfg),
         )
-        for k, v in TASKS.items():
+        results = []
+        for count, (k, v) in enumerate(TASKS.items()):
             time_now = time.time()
             llm_model.reset()
             question = v["question"]
@@ -208,7 +213,16 @@ def eval_one_shot_llm(cfg: dict, model_name: str, num_generations=5):
             print(
                 f"Task: {k} | Time taken: {time_taken:.2f}s | Success: {suc} | Tokens used: {model.token_used}"
             )
-            results = {
+
+            wandb.log(
+                {
+                    "count": count,
+                    "success": int(suc),
+                    "tokens_used": model.token_used,
+                }
+            )
+
+            result = {
                 "hash_key": hash_key,
                 "group": v["group"],
                 "target": target,
@@ -222,6 +236,7 @@ def eval_one_shot_llm(cfg: dict, model_name: str, num_generations=5):
                 "error": err,
                 "missing": missing,
             }
+            results.append(result)
             del model
             gc.collect()
 
@@ -241,16 +256,23 @@ def eval_one_shot_llm(cfg: dict, model_name: str, num_generations=5):
         wandb.finish()
 
 
-def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=20):
-    llm_model = get_llm_generator(model_name, guidance=cfg["guidance"])
+def eval_reactive_llm(
+    cfg: dict, wandb_cfg: dict, model_name: str, num_generations=5, max_steps=20
+):
+    llm_model = get_llm_generator(
+        model_name, guidance=cfg["guidance"], quantize=cfg["quantize"]
+    )
     for i in range(num_generations):
         wandb.init(
-            **cfg["wandb"],
+            project=wandb_cfg["project"],
+            entity=wandb_cfg["entity"],
+            mode=wandb_cfg["mode"],
             group=model_name,
             job_type="react",
-            config=cfg,
+            config=dict(cfg),
         )
-        for v in TASKS.values():
+        results = []
+        for count, v in enumerate(TASKS.values()):
             llm_model.reset()
             question = v["question"]
             target = question.split()[-1].replace("?", "")
@@ -315,9 +337,18 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
 
                 step += 1
 
+            wandb.log(
+                {
+                    "count": count,
+                    "success": int(task_success),
+                    "tokens_used": model.token_used,
+                    "number_of_steps": step,
+                }
+            )
+
             # convert plan to dict for saving
             plan = [asdict(p) for p in plan]
-            results = {
+            result = {
                 "hash_key": hash_key,
                 "target": target,
                 "group": v["group"],
@@ -332,6 +363,7 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
                 "model_name": model_name,
                 "tokens_used": model.token_used,
             }
+            results.append(result)
             del model
             gc.collect()
 
@@ -356,10 +388,12 @@ def eval_reactive_llm(cfg: dict, model_name: str, num_generations=5, max_steps=2
 @hydra.main(config_path="configs", config_name="base", version_base=None)
 def main(cfg: DictConfig) -> None:
     plancraft_cfg = dict(cfg)["plancraft"]
+    wandb_cfg = dict(cfg)["wandb"]
     if plancraft_cfg["mode"] == "one_shot":
         print("Evaluating one-shot LLMs")
         eval_one_shot_llm(
             cfg=plancraft_cfg,
+            wandb_cfg=wandb_cfg,
             model_name=plancraft_cfg["model"],
             num_generations=plancraft_cfg["num_generations"],
         )
@@ -367,6 +401,7 @@ def main(cfg: DictConfig) -> None:
         print("Evaluating reactive LLMs")
         eval_reactive_llm(
             cfg=plancraft_cfg,
+            wandb_cfg=wandb_cfg,
             model_name=plancraft_cfg["model"],
             num_generations=plancraft_cfg["num_generations"],
             max_steps=plancraft_cfg["max_steps"],

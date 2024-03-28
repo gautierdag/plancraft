@@ -17,7 +17,7 @@ There are three types of actions
 
 Otherwise you wish to think, you can output a string with your thought. For example:
 {
-"thought": "I need to gather some logs to craft planks using the diamond_axe."
+"thought": "I need to gather some logs to craft planks using the diamond axe."
 }
 
 Example:
@@ -26,25 +26,25 @@ USER: TASK: How to obtain iron_ingot?\ninventory = {'diamond_axe'}
 
 ASSISTANT:
 [
-    {"thought": "To solve this task I need to smelt an iron_ingot, first I need to gather some logs to craft planks using the diamond_axe."}
+    {"thought": "To solve this task I need to smelt an iron ingot, first I need to gather some logs to craft planks using the diamond axe."}
     {"type": "mine", "output": "log", "quantity": 3, "tool": "diamond_axe"}
-    {"thought": "Now I can craft planks using the logs. I need 11 planks to craft sticks and a crafting_table."}
+    {"thought": "Now I can craft planks using the logs. I need 11 planks to craft sticks and a crafting table."}
     {"type": "craft", "output": "planks", "quantity": 11, "materials": ["log"]}
-    {"thought": "Now I can craft sticks using the planks. I need 4 sticks to craft a wooden_pickaxe and then the stone_pickaxe."}
+    {"thought": "Now I can craft sticks using the planks. I need 4 sticks to craft a wooden pickaxe and then the stone pickaxe."}
     {"type": "craft", "output": "stick", "quantity": 4, "materials": ["planks"]}
-    {"thought": "Now I can craft a crafting_table using the planks."}
+    {"thought": "Now I can craft a crafting table using the planks."}
     {"type": "craft", "output": "crafting_table", "quantity": 1, "materials": ["planks"]}
-    {"thought": "Now I can craft a wooden_pickaxe using the planks, sticks and crafting_table."}
+    {"thought": "Now I can craft a wooden pickaxe using the planks, sticks and crafting table."}
     {"type": "craft", "output": "wooden_pickaxe", "quantity": 1, "materials": ["planks", "stick"] "tool": "crafting_table"}
-    {"thought": "Now I need to mine 11 cobblestone using the wooden_pickaxe to be able to craft a stone_pickaxe and a furnace."}
+    {"thought": "Now I need to mine 11 cobblestone using the wooden pickaxe to be able to craft a stone pickaxe and a furnace."}
     {"type": "mine", "output": "cobblestone", "quantity": 11, "tool": "wooden_pickaxe"}
-    {"thought": "Now I can craft a stone_pickaxe using the cobblestone, sticks and crafting_table."}
+    {"thought": "Now I can craft a stone pickaxe using the cobblestone, sticks and crafting table."}
     {"type": "craft", "output": "stone_pickaxe", "quantity": 1, "materials": ["cobblestone", "stick"], "tool": "crafting_table"}
-    {"thought": "Now I can mine iron_ore using the stone_pickaxe."}
+    {"thought": "Now I can mine iron ore using the stone pickaxe."}
     {"type": "mine", "output": "iron_ore", "quantity": 1, "tool": "stone_pickaxe"}
-    {"thought": "Now I can craft a furnace using the cobblestone to smelt the iron_ore."}
+    {"thought": "Now I can craft a furnace using the cobblestone to smelt the iron ore."}
     {"type": "craft", "output": "furnace", "quantity": 1, "materials": ["cobblestone"]}
-    {"thought": "Now I can smelt the iron_ore using the furnace to obtain iron_ingot."}
+    {"thought": "Now I can smelt the iron ore using the furnace to obtain iron ingot."}
     {"type": "smelt", "output": "iron_ingot", "quantity": 1, "materials": ["iron_ore"], "tool": "furnace"}
 ]
 
@@ -72,7 +72,7 @@ There are four types of actions
 
 If you wish to think, you can output a string with your thought. For example:
 {
-"thought": "I need to gather some logs to craft planks using the diamond_axe."
+"thought": "I need to gather some logs to craft planks using the diamond axe."
 }
 
 Do not generate errors. Always generate valid JSON objects following the format above.
@@ -85,12 +85,12 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "To solve this task I need to smelt an iron_ingot."}""",
+        "content": """{"thought": "To solve this task I need to smelt an iron ingot."}""",
     },
     {"role": "user", "content": "OK"},
     {
         "role": "assistant",
-        "content": """{"thought": "First I need to gather some logs to craft planks using the diamond_axe."}""",
+        "content": """{"thought": "First I need to gather some logs to craft planks using the diamond axe."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -103,7 +103,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I can craft planks using the logs. I need 11 planks to craft sticks and a crafting_table."}""",
+        "content": """{"thought": "Now I can craft planks using the logs. I need 11 planks to craft sticks and a crafting table."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -116,7 +116,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I can craft sticks using the planks. I need 4 sticks to craft a wooden_pickaxe and then the stone_pickaxe."}""",
+        "content": """{"thought": "Now I can craft sticks using the planks. I need 4 sticks to craft a wooden pickaxe and then the stone pickaxe."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -129,7 +129,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I can craft a crafting_table using the planks."}""",
+        "content": """{"thought": "Now I can craft a crafting table using the planks."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -142,7 +142,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I can craft a wooden_pickaxe using the planks, sticks and crafting_table."}""",
+        "content": """{"thought": "Now I can craft a wooden pickaxe using the planks, sticks and crafting table."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -155,7 +155,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I need to mine 11 cobblestone using the wooden_pickaxe to be able to craft a stone_pickaxe and a furnace."}""",
+        "content": """{"thought": "Now I need to mine 11 cobblestone using the wooden pickaxe to be able to craft a stone pickaxe and a furnace."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -168,7 +168,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I can craft a stone_pickaxe using the cobblestone, sticks and crafting_table."}""",
+        "content": """{"thought": "Now I can craft a stone pickaxe using the cobblestone, sticks and crafting table."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -181,7 +181,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I can mine iron_ore using the stone_pickaxe."}""",
+        "content": """{"thought": "Now I can mine iron ore using the stone pickaxe."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -194,7 +194,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I can craft a furnace using the cobblestone to smelt the iron_ore."}""",
+        "content": """{"thought": "Now I can craft a furnace using the cobblestone to smelt the iron ore."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -207,7 +207,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "Now I can smelt the iron_ore using the furnace to obtain iron_ingot."}""",
+        "content": """{"thought": "Now I can smelt the iron ore using the furnace to obtain iron ingot."}""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -220,6 +220,6 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """{"thought": "I have successfully obtained iron_ingot."}""",
+        "content": """{"thought": "I have successfully obtained iron ingot."}""",
     },
 ]
