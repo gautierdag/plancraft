@@ -84,10 +84,10 @@ def main(cfg: DictConfig):
         if launch_cfg["interactive"]:
             command = "while true; do sleep 60; done;"
         else:
-            plan_craft_cfg = launch_cfg["plan_craft"]
+            plancraft_cfg = dict(cfg)["plancraft"]
             command = launch_cfg["command"]
-            for key, value in plan_craft_cfg.items():
-                command += f" ++.plancraft.{key}={value}"
+            for key, value in plancraft_cfg.items():
+                command += f" ++plancraft.{key}={value}"
             print(f"Command: {command}")
 
         # Create a Kubernetes Job with a name, container image, and command
