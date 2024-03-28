@@ -116,7 +116,11 @@ def process_step(
     success = True
 
     if not isinstance(goal, ActionStep):
-        return False, "parsing_error", goal
+        return (
+            False,
+            "parsing_error",
+            "action not formatted as valid JSON ActionStep object",
+        )
 
     try:
         target = goal.output.strip()
@@ -300,7 +304,7 @@ def eval_reactive_llm(
                 if model.is_thinking(action_step):
                     success = False
                     error_type = "over-thinking"
-                    error_value = "too many thinking steps in a row"
+                    error_value = "too many thinking steps in a row, alternate think and act steps"
                 # process the action step
                 else:
                     parsed_action_step = model.parse_generation(action_step)
