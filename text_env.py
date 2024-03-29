@@ -116,11 +116,7 @@ def process_step(
     success = True
 
     if not isinstance(goal, ActionStep):
-        return (
-            False,
-            "parsing_error",
-            "action not formatted as valid JSON ActionStep object",
-        )
+        return False, "parsing_error", goal
 
     try:
         target = goal.output.strip()
@@ -196,7 +192,7 @@ def eval_one_shot_llm(cfg: dict, wandb_cfg: dict, model_name: str, num_generatio
             config=dict(cfg),
         )
         results = []
-        for count, (k, v) in enumerate(TASKS.items()):
+        for k, v in TASKS.items():
             time_now = time.time()
             llm_model.reset()
             question = v["question"]
@@ -205,7 +201,7 @@ def eval_one_shot_llm(cfg: dict, wandb_cfg: dict, model_name: str, num_generatio
 
             model = OneShotLLM(model=llm_model)
 
-            generation = model.generate(question, temperature=1.0, max_tokens=1024)
+            generation = model.generate(question, max_tokens=1024)
             parsed_plan = model.parse_generation(generation)
             print(f"Generated plan: {parsed_plan}")
 
@@ -217,15 +213,6 @@ def eval_one_shot_llm(cfg: dict, wandb_cfg: dict, model_name: str, num_generatio
             print(
                 f"Task: {k} | Time taken: {time_taken:.2f}s | Success: {suc} | Tokens used: {model.token_used}"
             )
-
-            wandb.log(
-                {
-                    "count": count,
-                    "success": int(suc),
-                    "tokens_used": model.token_used,
-                }
-            )
-
             result = {
                 "hash_key": hash_key,
                 "group": v["group"],
@@ -294,24 +281,14 @@ def eval_reactive_llm(
             errors = defaultdict(int)
             task_success = False
 
-            action_step = model.generate_initial_step(
-                question, temperature=1.0, max_tokens=512
-            )
+            action_step = model.generate_initial_step(question, max_tokens=128)
             time_now = time.time()
             while not task_success and step < max_steps:
                 history += f"Step {step} inventory: {inventory}\n"
-                # check if the model is overthinking
-                if model.is_thinking(action_step):
-                    success = False
-                    error_type = "over-thinking"
-                    error_value = "too many thinking steps in a row, alternate think and act steps"
-                # process the action step
-                else:
-                    parsed_action_step = model.parse_generation(action_step)
-                    success, error_type, error_value = process_step(
-                        parsed_action_step, inventory
-                    )
-
+                parsed_action_step = model.parse_generation(action_step)
+                success, error_type, error_value = process_step(
+                    parsed_action_step, inventory
+                )
                 time_taken = time.time() - time_now
                 time_now = time.time()
                 if success:
@@ -324,9 +301,6 @@ def eval_reactive_llm(
                     if parsed_action_step.output == target:
                         task_success = True
                         break
-                    action_step = model.generate_step(
-                        observation, temperature=1.0, max_tokens=512
-                    )
                 else:
                     print(
                         f"Step {step} failed ({time_taken:.2f}s | {model.token_used//1000}k toks): {error_type} {error_value}"
@@ -334,10 +308,9 @@ def eval_reactive_llm(
                     history += f"Step {step} failed: {error_type} {error_value}\n"
                     errors[error_type] += 1
                     observation = f"ERROR: {error_type} {error_value}\ninventory = {dict(inventory)}"
-                    print(f"Step {step} observation: {observation}")
-                    action_step = model.generate_step(
-                        observation, temperature=1.0, max_tokens=512
-                    )
+
+                print(f"Step {step} observation: {observation}")
+                action_step = model.generate_step(observation, max_tokens=128)
 
                 step += 1
 

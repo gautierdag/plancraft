@@ -1,6 +1,8 @@
 import re
 from dataclasses import dataclass
 from typing import Union
+from copy import deepcopy
+import json
 
 from dotenv import load_dotenv
 
@@ -26,6 +28,18 @@ class ActionStep:
 JSON_REGEX = re.compile(r"\s*(\{.*?\})", re.DOTALL)
 
 
+def get_dict_from_text(step: str) -> dict:
+    try:
+        return json.loads(step)
+    except json.JSONDecodeError:
+        pass
+    try:
+        return eval(step)
+    except Exception:
+        pass
+    return {}
+
+
 def parse_step(action_step: Union[str, Action, Thought]) -> ActionStep:
     try:
         # ignore thoughts
@@ -45,22 +59,24 @@ def parse_step(action_step: Union[str, Action, Thought]) -> ActionStep:
                 tools_and_materials=tools_and_materials,
             )
 
-        if "thought" in action_step:
-            return
+        # clean some escape characters
+        action_step = action_step.replace("\_", "_")
+        # parse into a dict
+        action_step_dict = get_dict_from_text(action_step)
 
-        # parse the json object if it is a json string
-        action_step = eval(action_step)
         step = {
-            "output": action_step["output"].strip(),
-            "quantity_needed": int(action_step["quantity"]),
-            "type": action_step["type"].strip(),
+            "output": action_step_dict["output"].strip(),
+            "quantity_needed": int(action_step_dict["quantity"]),
+            "type": action_step_dict["type"].strip(),
         }
         materials_and_tools = []
-        if "materials" in action_step and isinstance(action_step["materials"], list):
-            for material in action_step["materials"]:
+        if "materials" in action_step_dict and isinstance(
+            action_step_dict["materials"], list
+        ):
+            for material in action_step_dict["materials"]:
                 materials_and_tools.append(material.strip())
-        if "tool" in action_step:
-            materials_and_tools.append(action_step["tool"].strip())
+        if "tool" in action_step_dict:
+            materials_and_tools.append(action_step_dict["tool"].strip())
         return ActionStep(
             output=step["output"],
             quantity_needed=step["quantity_needed"],
@@ -109,7 +125,6 @@ class OneShotLLM:
             messages=messages,
             temperature=temperature,
             max_tokens=max_tokens,
-            enforce_json=False,
             mode="plan",  # used for guidance
         )
 
@@ -120,80 +135,103 @@ class OneShotLLM:
 class ReactLLM:
     def __init__(self, model: LLMGeneratorBase, guidance=False):
         self.model = model
-        self.history = self.model.create_initial_history(
-            REACT_SYSTEM_PROMPT, REACT_EXAMPLE
-        )
+        self.system_prompt = {
+            "role": "system",
+            "content": REACT_SYSTEM_PROMPT,
+        }
+        self.history = deepcopy(REACT_EXAMPLE)
+
         self.token_used = 0
         self.max_thinking_steps = 1
         self.num_thinking_steps = 0
         self.guidance = guidance
-
-    @staticmethod
-    def is_thinking(step: str) -> bool:
-        return "thought" in step
+        self.max_messages_window = 50
 
     @staticmethod
     def parse_generation(step: Union[str, Action, Thought]) -> ActionStep:
-        action = parse_step(step)
+        if isinstance(step, str):
+            match = JSON_REGEX.findall(step)
+            if len(match) < 1:
+                print("Error parsing", step)
+                return {}
+            action = parse_step(match[0])
+        else:
+            action = parse_step(step)
+
         if action is None:
             print("Error parsing", step)
             return {}
         return action
 
-    def generate(self, temperature=1.0, max_tokens=256):
-        # if guidance is enabled, we force the model to think and then act
+    def generate(self, max_tokens=256):
+        # get the N last messages from the history
+        message_window = self.history[-self.max_messages_window :]
+        # remove the first assistant message if it is present
+        if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+            message_window = message_window[1:]
+
+        # add the system prompt to the message window
+        message_window = [self.system_prompt] + message_window
+
+        # we force the model to think and then act
+        thought_message, thinking_token_used = self.model.generate(
+            messages=message_window,
+            max_tokens=max_tokens,
+            mode="think",  # used for guidance
+            enforce_json='{"thought":',
+        )
         if self.guidance:
-            thought_message, token_used = self.model.generate(
-                messages=self.history,
-                max_tokens=max_tokens,
-                mode="think",
-            )
-            self.history.append(
-                {"role": "assistant", "content": thought_message.json()}
-            )
-            self.history.append({"role": "user", "content": "OK"})
-            self.token_used += token_used
-            self.num_thinking_steps += 1
-            action_message, token_used = self.model.generate(
-                messages=self.history,
-                max_tokens=max_tokens,
-                mode="action",
-            )
-            self.history.append({"role": "assistant", "content": action_message.json()})
-            self.token_used += token_used
-            return action_message
+            thought_chat_message = {
+                "role": "assistant",
+                "content": thought_message.json(),
+            }
+        else:
+            thought_chat_message = {"role": "assistant", "content": thought_message}
 
-        thinking_step = 0
-        # iterate while model is thinking:
-        while thinking_step < self.max_thinking_steps:
-            out_message, token_used = self.model.generate(
-                messages=self.history,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                enforce_json=True,
-            )
-            self.token_used += token_used
-            if self.is_thinking(out_message):
-                self.history.append({"role": "assistant", "content": out_message})
-                self.history.append({"role": "user", "content": "OK"})
-                thinking_step += 1
-                self.num_thinking_steps += 1
-                continue
-            break
-        self.history.append({"role": "assistant", "content": out_message})
-        return out_message
+        # add the thought message to the history and window
+        self.history.append(thought_chat_message)
+        message_window.append(thought_chat_message)
+        self.history.append({"role": "user", "content": "OK"})
+        message_window.append({"role": "user", "content": "OK"})
 
-    def generate_initial_step(
-        self, question: str, temperature=1.0, max_tokens=256
-    ) -> str:
+        self.num_thinking_steps += 1
+        action_message, action_token_used = self.model.generate(
+            messages=message_window,
+            max_tokens=max_tokens,
+            mode="action",  # used for guidance
+            enforce_json='{"type":',
+        )
+
+        if self.guidance:
+            action_chat_message = {
+                "role": "assistant",
+                "content": action_message.json(),
+            }
+        else:
+            action_chat_message = {"role": "assistant", "content": action_message}
+
+        self.history.append(action_chat_message)
+        self.token_used += thinking_token_used + action_token_used
+        print(
+            f"Thinking token used: {thinking_token_used}, Action token used: {action_token_used}, Total token used: {thinking_token_used+action_token_used}"
+        )
+        return action_message
+
+    def generate_initial_step(self, question: str, max_tokens=128) -> str:
         self.model.reset()
         initial_message = {
             "role": "user",
-            "content": f"{question}\ninventory = {'diamond_axe'}",
+            "content": f"TASK: {question}\ninventory = {'diamond_axe'}",
         }
         self.history.append(initial_message)
-        return self.generate(temperature=temperature, max_tokens=max_tokens)
 
-    def generate_step(self, observation: str, temperature=1.0, max_tokens=256) -> str:
+        # add current task to the system prompt
+        self.system_prompt["content"] = (
+            self.system_prompt["content"] + f"\n\nCURRENT TASK: {question}"
+        )
+
+        return self.generate(max_tokens=max_tokens)
+
+    def generate_step(self, observation: str, max_tokens=128) -> str:
         self.history.append({"role": "user", "content": observation})
-        return self.generate(temperature=temperature, max_tokens=max_tokens)
+        return self.generate(max_tokens=max_tokens)

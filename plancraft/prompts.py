@@ -64,13 +64,12 @@ You must output a JSON object like the following:
     "tool": "furnace" # optional tool
 }
 
-There are four types of actions
-- think
+There are three types of actions
 - mine
 - craft
 - smelt
 
-If you wish to think, you can output a string with your thought. For example:
+To assist with planning, you first generate some thoughts before answering. For example:
 {
 "thought": "I need to gather some logs to craft planks using the diamond axe."
 }

@@ -1,4 +1,3 @@
-from copy import deepcopy
 import gc
 import time
 import os
@@ -13,7 +12,12 @@ from typing import Optional, Union, Literal
 import torch
 from dotenv import load_dotenv
 from openai import OpenAI
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    StoppingCriteria,
+)
 
 from plancraft.utils import get_downloaded_models
 
@@ -133,6 +137,31 @@ class Plan(BaseModel):
     actions: list[Union[Action, Thought]]
 
 
+class JSONStoppingCriteria(StoppingCriteria):
+    """
+    Custom stopping criteria for stopping generation on a list of strings.
+    """
+
+    def __init__(self, tokenizer, device=torch.device("cpu")):
+        super().__init__()
+        # Preparing a tensor of token IDs for tokens that contain "}"
+        self.stop_ids = torch.tensor(
+            [v for k, v in tokenizer.vocab.items() if "}" in k],
+            dtype=torch.long,
+            device=device,
+        )
+
+    def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor):
+        """
+        This function is called at each generation step to determine if generation should stop.
+        Stops if the last tokens in the input_ids are in the stop_ids.
+        """
+        # Returns a boolean tensor of shape (batch_size,)
+        # NOTE: this is not foolproof if generating multiple sequences
+        # at the same time with different lengths
+        return (input_ids[:, -1].unsqueeze(-1) == self.stop_ids).any(dim=(1))
+
+
 class LLMGeneratorBase:
     def __init__(
         self,
@@ -140,30 +169,44 @@ class LLMGeneratorBase:
         **kwargs,
     ):
         self.model_name = model_name
-        self.supports_system_prompt = self.supports_system_prompt(model_name)
 
     @staticmethod
-    def supports_system_prompt(model_name: str) -> bool:
+    def fix_tokenizer_system_prompt(model_name: str, tokenizer) -> bool:
         """
         Returns True if the model supports a system role
         """
-        if "mistral" in model_name.lower() or "gemma" in model_name.lower():
-            return False
-        return True
+        if "mistral" in model_name.lower():
+            # get directory of current file
+            current_dir = os.path.dirname(os.path.realpath(__file__))
+            chat_template = open(
+                current_dir + "/templates/mistral-instruct.jinja"
+            ).read()
+            chat_template = chat_template.replace("    ", "").replace("\n", "")
+            # set the chat template
+            tokenizer.chat_template = chat_template
+        if "gemma" in model_name.lower():
+            # get directory of current file
+            current_dir = os.path.dirname(os.path.realpath(__file__))
+            chat_template = open(current_dir + "/templates/gemma-instruct.jinja").read()
+            chat_template = chat_template.replace("    ", "").replace("\n", "")
+            # set the chat template
+            tokenizer.chat_template = chat_template
 
     @staticmethod
     def build_model_kwargs(model_name: str, **kwargs) -> tuple[str, dict]:
         model_kwargs = {
-            "trust_remote_code": True,
             "token": os.getenv("HF_TOKEN"),
             "attn_implementation": "flash_attention_2",
         }
         quantize = kwargs.get("quantize", False)
         if quantize == "int4":
-            # model_kwargs["torch_dtype"] = torch.int4
-            model_kwargs["load_in_4bit"] = True
+            model_kwargs["quantization_config"] = BitsAndBytesConfig(
+                load_in_4bit=True,
+            )
         elif quantize == "int8":
-            model_kwargs["load_in_8bit"] = True
+            model_kwargs["quantization_config"] = BitsAndBytesConfig(
+                load_in_8bit=True,
+            )
         else:
             model_kwargs["torch_dtype"] = torch.bfloat16
 
@@ -175,33 +218,13 @@ class LLMGeneratorBase:
 
         return model_name, model_kwargs
 
-    def create_initial_history(
-        self, system_prompt: str, chat_example: list[dict[str, str]] = []
-    ) -> list[str]:
-        if self.supports_system_prompt:
-            # default implementation supports system prompt
-            system_prompt_message = {"role": "system", "content": system_prompt}
-            if len(chat_example) == 0:
-                return [system_prompt_message]
-            history = [system_prompt_message, *deepcopy(chat_example)]
-            return history
-
-        # add system prompt to the first message instead
-        if len(chat_example) == 0:
-            return [{"role": "user", "content": system_prompt}]
-        history = deepcopy(chat_example)
-        history[0]["content"] = system_prompt + "\n" + history[0]["content"]
-        return history
-
     def reset(self):
         pass
 
     def generate(
         self,
         messages: list[dict],
-        temperature=1.0,
         max_tokens=256,
-        enforce_json=False,
         **kwargs,
     ) -> tuple[str, int]:
         raise NotImplementedError()
@@ -239,8 +262,10 @@ class TransformersGenerator(LLMGeneratorBase):
     def __init__(self, model_name: str, quantize=False, **kwargs):
         super().__init__(model_name=model_name, **kwargs)
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name, trust_remote_code=True, token=os.getenv("HF_TOKEN")
+            model_name, token=os.getenv("HF_TOKEN")
         )
+        self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
+
         model_name, model_kwargs = self.build_model_kwargs(
             model_name, quantize=quantize
         )
@@ -251,6 +276,11 @@ class TransformersGenerator(LLMGeneratorBase):
             device_map="auto",
             **model_kwargs,
         )
+
+        self.stopping_criteria = JSONStoppingCriteria(
+            self.tokenizer, device=self.model.device
+        )
+
         print(f"Model loaded in {time.time() - time_now:.2f} seconds")
         time_now = time.time()
         print("Compiling model to reduce overhead")
@@ -262,13 +292,12 @@ class TransformersGenerator(LLMGeneratorBase):
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.model.config.pad_token_id = self.model.config.eos_token_id
         self.tokenizer.truncation_side = "left"
-        self.past_key_values = None
 
     def reset(self):
+        # TODO: could use past_key_values cache with a rolling window
         # TODO: could also cache input ids / attention mask
         # TODO: could explore bfill
         # Remove cached tensors from memory
-        self.past_key_values = None
         # clear cuda cache
         torch.cuda.empty_cache()
         # Manually invoke garbage collector
@@ -280,7 +309,7 @@ class TransformersGenerator(LLMGeneratorBase):
         messages: list[dict],
         temperature=1.0,
         max_tokens=256,
-        enforce_json=False,
+        enforce_json: Union[bool, str] = False,
         **kwargs,
     ) -> tuple[str, int]:
         message_text = self.tokenizer.apply_chat_template(
@@ -288,9 +317,9 @@ class TransformersGenerator(LLMGeneratorBase):
             add_generation_prompt=True,
             tokenize=False,
         )
-        if enforce_json:
+        if enforce_json and isinstance(enforce_json, str):
             # start json object in prompt text
-            message_text += '{"'
+            message_text += f"{enforce_json}"
 
         max_prompt_length = None
         # need to truncate if max_length is set
@@ -313,18 +342,15 @@ class TransformersGenerator(LLMGeneratorBase):
             pad_token_id=self.tokenizer.pad_token_id,
             return_dict_in_generate=True,
             use_cache=True,
-            past_key_values=self.past_key_values,
+            stopping_criteria=[self.stopping_criteria] if enforce_json else None,
         )
-
-        # update past key values for next generation
-        self.past_key_values = generation_output.past_key_values
 
         text_response = self.tokenizer.decode(
             generation_output.sequences[0, prompt_tokens:],
             skip_special_tokens=True,
         )
         if enforce_json:
-            text_response = '{"' + text_response
+            text_response = enforce_json + text_response
 
         _, total_tokens_used = generation_output.sequences.shape
         return text_response, total_tokens_used
@@ -343,10 +369,12 @@ class GuidanceGenerator(LLMGeneratorBase):
             device="auto",
             model_kwargs=model_kwargs,
             tokenizer_kwargs={
-                "trust_remote_code": True,
                 "token": os.getenv("HF_TOKEN"),
             },
         )
+        # fix system prompt
+        self.fix_tokenizer_system_prompt(model_name, self.model.tokenizer.tokenizer)
+
         print(f"Model loaded in {time.time() - time_now:.2f} seconds")
         self.bos_token = self.model.tokenizer.tokenizer.bos_token
 
