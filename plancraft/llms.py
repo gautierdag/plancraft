@@ -261,14 +261,14 @@ class OpenAIGenerator(LLMGeneratorBase):
 class TransformersGenerator(LLMGeneratorBase):
     def __init__(self, model_name: str, quantize=False, **kwargs):
         super().__init__(model_name=model_name, **kwargs)
+        model_name, model_kwargs = self.build_model_kwargs(
+            model_name, quantize=quantize
+        )
         self.tokenizer = AutoTokenizer.from_pretrained(
             model_name, token=os.getenv("HF_TOKEN")
         )
         self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
 
-        model_name, model_kwargs = self.build_model_kwargs(
-            model_name, quantize=quantize
-        )
         time_now = time.time()
         print("Loading model")
         self.model = AutoModelForCausalLM.from_pretrained(
