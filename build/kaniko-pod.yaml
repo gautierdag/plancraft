@@ -21,7 +21,7 @@ spec:
           "--context=git://github.com/gautierdag/plancraft.git#main",
           "--destination=docker.io/gautierdag/plancraft:latest",
           "--compressed-caching=true",
-          "--snapshotMode=redo",
+          "--snapshot-mode=redo",
           "--use-new-run"
         ]
       volumeMounts:
