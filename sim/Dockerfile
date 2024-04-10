@@ -34,8 +34,10 @@ ENV VGL_WM 1
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
-# MineRL
-RUN pip3 install git+https://github.com/minerllabs/minerl --no-dependencies
+
+# CLONE MINERL
+RUN git clone https://github.com/gautierdag/minerl.git /minerl
+RUN pip3 install -e /minerl --no-dependencies
 
 COPY entrypoint.sh /etc/entrypoint.sh
 RUN chmod 755 /etc/entrypoint.sh
