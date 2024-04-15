@@ -36,6 +36,7 @@ COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
 # CLONE MINERL
+ARG CACHEBUST=1
 RUN git clone https://github.com/gautierdag/minerl.git /minerl
 RUN pip3 install -e /minerl --no-dependencies
 
