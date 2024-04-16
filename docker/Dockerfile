@@ -8,7 +8,7 @@ COPY apt.txt apt.txt
 ARG DEBIAN_FRONTEND=noninteractive
 RUN xargs -a apt.txt apt-get install -y --no-install-recommends && rm -rf /var/cache/*
 
-# # Install VirtualGL
+# Install VirtualGL
 ARG VIRTUALGL_VERSION=3.0.2
 RUN curl -fsSL -O https://github.com/VirtualGL/virtualgl/releases/download/${VIRTUALGL_VERSION}/virtualgl_${VIRTUALGL_VERSION}_amd64.deb &&\
     apt-get update && apt-get install -y --no-install-recommends ./virtualgl_${VIRTUALGL_VERSION}_amd64.deb && \
@@ -17,9 +17,7 @@ RUN curl -fsSL -O https://github.com/VirtualGL/virtualgl/releases/download/${VIR
     chmod u+s /usr/lib/libvglfaker.so && \
     chmod u+s /usr/lib/libdlfaker.so
 
-
-# Customized for your own application. MineRL (https://github.com/minerllabs/minerl) is installed for testing purposes.
-# java jdk 1.8
+# java jdk 1.8 needed for minecraft
 RUN apt update -y && apt install -y software-properties-common && \
     add-apt-repository ppa:openjdk-r/ppa && apt update -y && \
     apt install -y openjdk-8-jdk && \
@@ -42,6 +40,10 @@ RUN pip3 install -e /minerl --no-dependencies
 
 COPY entrypoint.sh /etc/entrypoint.sh
 RUN chmod 755 /etc/entrypoint.sh
+
+# copy above docker folder to /plancraft and set working directory
+COPY .. /plancraft
+WORKDIR /plancraft
 
 ENTRYPOINT ["/etc/entrypoint.sh"]
 CMD [ "sleep", "infinity" ]
