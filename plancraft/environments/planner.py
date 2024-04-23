@@ -12,6 +12,10 @@ for item, recipes in RECIPES.items():
             RECIPE_GRAPH.add_edge(ingredient, recipe.result.item)
 
 
+def get_ancestors(target: str):
+    return list(nx.ancestors(RECIPE_GRAPH, source=target))
+
+
 def optimal_planner(
     target: str,
     inventory: dict[str, int],
@@ -21,7 +25,7 @@ def optimal_planner(
 ) -> list[tuple[BaseRecipe, dict[str, int]]]:
     memo = {}
     # only look at recipes that are ancestors of the target
-    ancestors = list(nx.ancestors(RECIPE_GRAPH, source=target))
+    ancestors = get_ancestors(target)
     # sort to put the closest ancestors first
     ancestors = sorted(
         ancestors,

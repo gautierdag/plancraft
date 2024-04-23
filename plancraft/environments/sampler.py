@@ -6,7 +6,7 @@ import numpy as np
 from minerl.herobraine.hero.mc import all_data, ALL_ITEMS
 
 from plancraft.environments.recipes import RECIPES
-from plancraft.environments.planner import optimal_planner
+from plancraft.environments.planner import optimal_planner, get_ancestors
 
 
 MAX_STACK_SIZE = {}
@@ -117,6 +117,19 @@ def sample_recipes(
     return start_inputs, overall_exclude_set
 
 
+def remove_ancestor_items(target: str, inventory: dict[str, int]) -> dict[str, int]:
+    ancestors = set(get_ancestors(target))
+    possible_items = set(inventory.keys())
+    items_to_remove = list(ancestors.intersection(possible_items))
+    num_items = random.randint(1, len(items_to_remove))
+    for item in random.sample(items_to_remove, num_items):
+        count_to_remove = random.randint(1, inventory[item])
+        inventory[item] -= count_to_remove
+        if inventory[item] == 0:
+            del inventory[item]
+    return inventory
+
+
 def construct_example(
     target: str,
     num_distractors: 16,
@@ -138,19 +151,20 @@ def construct_example(
     inventory, overall_exclude_set = sample_recipes(target, set())
     if impossible:
         # if impossible then remove one or more items from the inventory
-        num_items = random.randint(1, len(inventory))
-        for _ in range(num_items):
-            item = random.choice(list(inventory.keys()))
-            count_to_remove = random.randint(1, inventory[item])
-            inventory[item] -= count_to_remove
-            if inventory[item] == 0:
-                del inventory[item]
+        inventory = remove_ancestor_items(
+            target,
+            inventory,
+        )
 
     # add distractors to the inventory
     distractors = sample_distractors(overall_exclude_set, num_distractors)
     inventory.update(distractors)
 
     optimal_path = optimal_planner(target, inventory)
+    # @TODO this is a hack to ensure that we don't have impossible examples
+    while optimal_path is not None and impossible:
+        inventory = remove_ancestor_items(target, inventory)
+        optimal_path = optimal_planner(target, inventory)
 
     # assign to slots
     inventory_list = assign_to_slots(inventory)
