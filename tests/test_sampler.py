@@ -53,3 +53,8 @@ def test_sample_distractors():
 def test_construct_example():
     example = construct_example(target="torch", num_distractors=4)
     assert not example["impossible"]
+
+
+def test_construct_example_impossible():
+    example = construct_example(target="torch", num_distractors=4, impossible=True)
+    assert example["impossible"]

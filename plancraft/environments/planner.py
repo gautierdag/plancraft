@@ -1,8 +1,6 @@
-from copy import deepcopy
-
 import networkx as nx
 
-from plancraft.environments.recipes import RECIPES
+from plancraft.environments.recipes import RECIPES, BaseRecipe
 
 RECIPE_GRAPH = nx.DiGraph()
 
@@ -20,7 +18,7 @@ def optimal_planner(
     steps=[],
     best_steps=None,
     max_steps=40,
-):
+) -> list[tuple[BaseRecipe, dict[str, int]]]:
     memo = {}
     # only look at recipes that are ancestors of the target
     ancestors = list(nx.ancestors(RECIPE_GRAPH, source=target))
@@ -56,16 +54,10 @@ def optimal_planner(
             # TODO prevent looping between equivalent recipes (coal <-> coal_block)
             for recipe in RECIPES[recipe_name]:
                 if recipe.can_craft_from_inventory(starting_inventory):
-                    # print(len(steps), starting_inventory)
                     # Craft this item and update the inventory.
-                    new_inventory, result = recipe.craft_from_inventory(
-                        deepcopy(starting_inventory)
-                    )
-                    new_inventory[result.item] = (
-                        new_inventory.get(result.item, 0) + result.count
-                    )
+                    new_inventory = recipe.craft_from_inventory(starting_inventory)
                     # Add this step to the path.
-                    new_steps = steps + [recipe]
+                    new_steps = steps + [(recipe, new_inventory)]
 
                     # Recursively try to craft the target item with the updated inventory.
                     candidate_steps = dfs(new_inventory, new_steps, best_steps)

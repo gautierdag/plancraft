@@ -1,5 +1,6 @@
 import math
 import random
+from collections import Counter
 
 import numpy as np
 from minerl.herobraine.hero.mc import all_data, ALL_ITEMS
@@ -119,6 +120,7 @@ def sample_recipes(
 def construct_example(
     target: str,
     num_distractors: 16,
+    impossible=False,
 ) -> list[dict]:
     """
     For a given target object, number of distractors, and impossible flag
@@ -134,6 +136,15 @@ def construct_example(
 
     # sample the recipe
     inventory, overall_exclude_set = sample_recipes(target, set())
+    if impossible:
+        # if impossible then remove one or more items from the inventory
+        num_items = random.randint(1, len(inventory))
+        for _ in range(num_items):
+            item = random.choice(list(inventory.keys()))
+            count_to_remove = random.randint(1, inventory[item])
+            inventory[item] -= count_to_remove
+            if inventory[item] == 0:
+                del inventory[item]
 
     # add distractors to the inventory
     distractors = sample_distractors(overall_exclude_set, num_distractors)
@@ -147,16 +158,39 @@ def construct_example(
         "inventory": inventory,
         "slotted_inventory": inventory_list,
         "target": target,
+        "num_distractors": num_distractors,
+        "impossible": impossible,
     }
+    # either impossible and no path or not impossible and path exists
+    assert (impossible and optimal_path is None) or (
+        not impossible and optimal_path is not None
+    )
 
-    if optimal_path is None:
-        example["impossible"] = True
-        print(f"Impossible to craft {target} with inventory: {inventory}")
-    else:
-        example["impossible"] = False
+    if not impossible:
         example["optimal_path_length"] = len(optimal_path)
-        example["optimal_path"] = [r.result.item for r in optimal_path]
+        example["optimal_path"] = [r.result.item for (r, i) in optimal_path]
+        example["inventory_trace"] = [i for (r, i) in optimal_path]
+        items_used, unique_items_used = calculate_stats_from_inventory_trace(
+            [example["inventory"]] + example["inventory_trace"]
+        )
+        example["items_used"] = items_used
+        example["unique_items_used"] = unique_items_used
+
     return example
+
+
+def calculate_stats_from_inventory_trace(
+    inventory_trace: list[dict],
+) -> tuple[int, int]:
+    total_items_used = 0
+    total_unique_items_used = 0
+
+    for a, b in zip(inventory_trace[:-1], inventory_trace[1:]):
+        diff = Counter(a) - Counter(b)
+        total_items_used += sum(diff.values())
+        total_unique_items_used += len(diff)
+
+    return total_items_used, total_unique_items_used
 
 
 def generate_dataset(seed=2024, distractors=[4, 8, 16], num_examples=10):

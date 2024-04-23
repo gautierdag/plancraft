@@ -91,9 +91,7 @@ class BaseRecipe:
         pass
 
     @abstractmethod
-    def craft_from_inventory(
-        self, inventory: dict[str, int]
-    ) -> tuple[dict[str, int], RecipeResult]:
+    def craft_from_inventory(self, inventory: dict[str, int]) -> dict[str, int]:
         pass
 
     @property
@@ -173,7 +171,8 @@ class ShapelessRecipe(BaseRecipe):
         exclude_set = set()
         for ingredient_counter in self.ingredients:
             for ingredient in ingredient_counter.keys():
-                exclude_set.add(ingredient)
+                if ingredient is not None:
+                    exclude_set.add(ingredient)
 
         # sample a random ingredients set from the list of possible
         return deepcopy(random.choice(self.ingredients)), deepcopy(exclude_set)
@@ -206,10 +205,7 @@ class ShapelessRecipe(BaseRecipe):
         for ingredient_counter in self.ingredients:
             temp_inventory = deepcopy(inventory)
             for ingredient, count in ingredient_counter.items():
-                if (
-                    ingredient not in temp_inventory
-                    or temp_inventory[ingredient] < count
-                ):
+                if temp_inventory.get(ingredient, 0) < count:
                     break
                 temp_inventory[ingredient] -= count
             else:
@@ -320,7 +316,9 @@ class ShapedRecipe(BaseRecipe):
                     input_counter[id_to_item(item_id)] += 1
 
         # convert exclude set to item names
-        exclude_set = {id_to_item(item_id) for item_id in exclude_set}
+        exclude_set = {
+            id_to_item(item_id) for item_id in exclude_set if id_to_item(item_id)
+        }
         return dict(input_counter), exclude_set
 
     @property
