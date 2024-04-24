@@ -1,3 +1,5 @@
+import time
+
 import networkx as nx
 
 from plancraft.environments.recipes import RECIPES, BaseRecipe
@@ -22,6 +24,7 @@ def optimal_planner(
     steps=[],
     best_steps=None,
     max_steps=40,
+    timeout=10,
 ) -> list[tuple[BaseRecipe, dict[str, int]]]:
     memo = {}
     # only look at recipes that are ancestors of the target
@@ -32,7 +35,13 @@ def optimal_planner(
         key=lambda x: nx.shortest_path_length(RECIPE_GRAPH, source=x, target=target),
     )
 
+    time_now = time.time()
+
     def dfs(starting_inventory, steps, best_steps):
+        # If we have exceeded the timeout, return the best known path so far.
+        if time.time() - time_now > timeout:
+            raise TimeoutError("Timeout exceeded")
+
         memo_key = (frozenset(starting_inventory.items()), len(steps))
         if memo_key in memo:
             return memo[memo_key]

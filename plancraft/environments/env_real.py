@@ -6,9 +6,11 @@ from minerl.env import _singleagent
 from minerl.herobraine.env_specs.human_controls import HumanControlEnvSpec
 from minerl.herobraine.hero import handlers, mc, spaces
 from minerl.herobraine.hero.handler import Handler
-from minerl.herobraine.hero.handlers.agent.action import Action
+
 from minerl.herobraine.hero.handlers.agent.start import InventoryAgentStart
 from minerl.herobraine.hero.handlers.translation import TranslationHandler
+
+from plancraft.environments.actions import InventoryCommandAction, SmeltCommandAction
 
 
 PLANCRAFT_MODE = Literal[
@@ -72,32 +74,6 @@ class InventoryObservation(TranslationHandler):
         raise NotImplementedError(
             "from_universal not implemented in InventoryObservation"
         )
-
-
-class InventoryCommandAction(Action):
-    """
-    Handler which lets agents programmatically interact with an open container
-
-    Using this - agents can move a chosen quantity of items from one slot to another.
-    """
-
-    def to_string(self):
-        return "inventory_command"
-
-    def xml_template(self) -> str:
-        return str("<InventoryCommands/>")
-
-    def __init__(self):
-        self._command = "inventory_command"
-        # first argument is the slot to take from, second is the slot to put into
-        # third is the count to take
-        super().__init__(
-            self.command,
-            spaces.Box(low=0, high=64, shape=[3], dtype=np.int32),
-        )
-
-    def from_universal(self, x):
-        return np.array([0, 0, 0], dtype=np.int32)
 
 
 class PlancraftBaseEnvSpec(HumanControlEnvSpec):
@@ -164,11 +140,11 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         """
         # Camera and mouse
         if "symbolic" in self.name:
-            return [InventoryCommandAction()]
+            return [InventoryCommandAction(), SmeltCommandAction()]
         elif "real" in self.name:
             return [
                 handlers.KeybasedCommandAction(v, v) for k, v in mc.KEYMAP.items()
-            ] + [handlers.CameraAction()]
+            ] + [handlers.CameraAction(), SmeltCommandAction()]
         else:
             raise ValueError("Invalid mode")
 
