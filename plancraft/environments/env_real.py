@@ -1,4 +1,4 @@
-from typing import Literal, Sequence, Union
+from typing import Sequence, Union
 
 import numpy as np
 from minerl.env import _singleagent
@@ -13,11 +13,6 @@ from minerl.herobraine.hero.handlers.translation import TranslationHandler
 from plancraft.environments.actions import InventoryCommandAction, SmeltCommandAction
 
 
-PLANCRAFT_MODE = Literal[
-    "symbolic_symbolic",  # symbolic env and symbolic actions
-    "image_symbolic",  # image env and symbolic actions
-    "image_real",  # image env and real (mouse + keyboard) actions
-]
 MINUTE = 20 * 60
 
 
@@ -79,7 +74,8 @@ class InventoryObservation(TranslationHandler):
 class PlancraftBaseEnvSpec(HumanControlEnvSpec):
     def __init__(
         self,
-        mode: PLANCRAFT_MODE = "image_real",
+        symbolic_action_space=False,
+        symbolic_observation_space=False,
         max_episode_steps=2 * MINUTE,
         inventory: Sequence[dict] = (),
         preferred_spawn_biome: str = "plains",
@@ -87,9 +83,19 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
     ):
         self.inventory = inventory
         self.preferred_spawn_biome = preferred_spawn_biome
-        self.mode = mode
+        self.symbolic_action_space = symbolic_action_space
+        self.symbolic_observation_space = symbolic_observation_space
 
-        if "symbolic" in mode:
+        mode = "real"
+        if symbolic_action_space:
+            mode += "-symbolic-act"
+        else:
+            mode += "-real-act"
+
+        if symbolic_observation_space:
+            mode += "-symbolic-obs"
+
+        if symbolic_observation_space:
             cursor_size = 1
         else:
             cursor_size = 16
@@ -112,10 +118,12 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         ]
 
     def create_observables(self) -> list[TranslationHandler]:
-        return [
-            handlers.POVObservation(self.resolution),
-            InventoryObservation(mc.ALL_ITEMS),
-        ]
+        if self.symbolic_observation_space:
+            return [
+                handlers.POVObservation(self.resolution),
+                InventoryObservation([item["slot"] for item in self.inventory]),
+            ]
+        return [handlers.POVObservation(self.resolution)]
 
     def create_server_world_generators(self) -> list[Handler]:
         # TODO the original biome forced is not implemented yet. Use this for now.
@@ -139,14 +147,12 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         Real env can use camera/keyboard
         """
         # Camera and mouse
-        if "symbolic" in self.name:
+        if self.symbolic_action_space:
             return [InventoryCommandAction(), SmeltCommandAction()]
-        elif "real" in self.name:
-            return [
-                handlers.KeybasedCommandAction(v, v) for k, v in mc.KEYMAP.items()
-            ] + [handlers.CameraAction(), SmeltCommandAction()]
-        else:
-            raise ValueError("Invalid mode")
+        return [handlers.KeybasedCommandAction(v, v) for k, v in mc.KEYMAP.items()] + [
+            handlers.CameraAction(),
+            SmeltCommandAction(),
+        ]
 
     def is_from_folder(self, folder: str) -> bool:
         return False
@@ -173,20 +179,22 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         return self.__class__.__doc__
 
 
-class PlancraftEnv(_singleagent._SingleAgentEnv):
+class RealPlancraft(_singleagent._SingleAgentEnv):
     def __init__(
         self,
         inventory: list[dict],
-        mode: PLANCRAFT_MODE = "image_real",
         preferred_spawn_biome="plains",
+        symbolic_action_space=False,
+        symbolic_observation_space=True,
         resolution=[260, 180],
     ):
         preferred_spawn_biome = "plains"
         env_spec = PlancraftBaseEnvSpec(
-            mode=mode,
+            symbolic_action_space=symbolic_action_space,
+            symbolic_observation_space=symbolic_observation_space,
             preferred_spawn_biome=preferred_spawn_biome,
             inventory=inventory,
             resolution=resolution,
         )
-        super(PlancraftEnv, self).__init__(env_spec=env_spec)
+        super(RealPlancraft, self).__init__(env_spec=env_spec)
         self.reset()

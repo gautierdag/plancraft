@@ -157,11 +157,16 @@ class ShapelessRecipe(BaseRecipe):
         arr[len(ALL_ITEMS)] = 9 - total_slots
         return arr
 
-    def craft(self, table: np.array) -> RecipeResult:
+    def craft(self, table: np.array) -> tuple[RecipeResult, list[int]]:
         assert table.shape == (3, 3), "Crafting table must have 3x3 shape"
         table_arr = np.bincount(table.flatten(), minlength=len(ALL_ITEMS) + 1)
         if (table_arr == self.ingredients_arr).all(axis=1).any():
-            return self.result
+            indexes_to_decrement = []
+            for idx, item_id in enumerate(table.flatten()):
+                if item_id != len(ALL_ITEMS):
+                    indexes_to_decrement.append(idx)
+            return self.result, indexes_to_decrement
+
         return None
 
     def smelt(self, ingredient: str):
@@ -255,7 +260,7 @@ class ShapedRecipe(BaseRecipe):
         kernel = [[symbol_to_items(symbol) for symbol in row] for row in patterns]
         return kernel
 
-    def craft(self, table: np.array) -> RecipeResult:
+    def craft(self, table: np.array) -> tuple[RecipeResult, list[int]]:
         assert table.shape == (3, 3), "Crafting table must have 3x3 shape"
 
         count_empty = (table == len(ALL_ITEMS)).sum()
@@ -279,6 +284,7 @@ class ShapedRecipe(BaseRecipe):
                 continue
 
             # check that all items in kernel match the table
+            indexes_to_decrement = []
             for row in range(self.kernel_height):
                 for col in range(self.kernel_width):
                     if (
@@ -286,11 +292,15 @@ class ShapedRecipe(BaseRecipe):
                         not in self.kernel[row][col]
                     ):
                         break
+                    # add to indexes to decrement if not empty slot
+                    if table[start_row + row, start_col + col] != len(ALL_ITEMS):
+                        idx = (start_row + row) * 3 + start_col + col
+                        indexes_to_decrement.append(idx)
                 else:
                     continue
                 break
             else:
-                return self.result
+                return self.result, indexes_to_decrement
         return None
 
     def smelt(self, ingredient: str):

@@ -42,7 +42,6 @@ class SmeltCommandAction(Action):
     We assume smelting is immediate.
     @TODO: might be interesting to explore using the smelting time as an additional planning parameter.
 
-
     Using this agents can smelt items in their inventory.
     """
 

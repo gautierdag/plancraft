@@ -98,9 +98,10 @@ def test_craft_from_table_shaped():
     ingredients[4] = "acacia_planks"
     ingredients[5] = "acacia_planks"
     table = convert_ingredients_to_table(ingredients)
-    result = recipe.craft(table)
+    result, indexes = recipe.craft(table)
     assert result.item == "acacia_boat"
     assert result.count == 1
+    assert indexes == [0, 2, 3, 4, 5]
 
 
 def test_sample_inputs_shaped():
@@ -133,9 +134,10 @@ def test_craft_from_table_shapeless():
     ingredients[6] = "beetroot"
 
     table = convert_ingredients_to_table(ingredients)
-    result = recipe.craft(table)
+    result, indexes = recipe.craft(table)
     assert result.item == "beetroot_soup"
     assert result.count == 1
+    assert indexes == [0, 1, 2, 3, 4, 5, 6]
 
     ingredients[7] = "beetroot"
     table = convert_ingredients_to_table(ingredients)
