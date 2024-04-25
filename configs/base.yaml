@@ -5,12 +5,16 @@ plancraft:
   max_steps: 20
   guidance: True
   quantize: False
+  environment:
+    symbolic: True
+    symbolic_observation_space: True
+    symbolic_action_space: True
 wandb:
   project: "plancraft"
   entity: "itl"
   mode: "online"
 launch:
-  command: "python text_env.py"
+  command: "python main.py"
   job_name: "plancraft-s2234411"
   gpu_limit: 1
   gpu_product: NVIDIA-A100-SXM4-80GB
