@@ -1,32 +1,36 @@
+import os
 import json
 import logging
-import os
 import warnings
-
-import hydra
-import torch
 
 from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.env_symbolic import SymbolicPlancraft
+from plancraft.config import Config
+
+import torch
 
 warnings.filterwarnings("ignore")
 logger = logging.getLogger(__name__)
 
 
 class Evaluator:
-    def __init__(self, cfg, output_dir: str, mode):
+    def __init__(
+        self,
+        cfg: Config,
+        output_dir: str,
+    ):
         self.cfg = cfg
+
+        if cfg.plancraft.environment.symbolic:
+            self.env = SymbolicPlancraft()
+        else:
+            self.env = RealPlancraft(
+                symbolic_observation_space=cfg.plancraft.environment.symbolic_observation_space,
+                symbolic_action_space=cfg.plancraft.environment.symbolic_action_space,
+            )
+
         self.output_dir = output_dir
-
-        self.record_frames = cfg["record"]["frames"]
-        self.frames = []
-
-        # if cfg["eval"]["model"] == "oracle":
-        #     self.model = OraclePlanner(cfg, self.env)
-        # else:
-        #     raise ValueError(f"Model {cfg['eval']['model']} not supported")
-
-        # self.no_op = self.env.action_space.no_op()
+        self.observations = []
 
     def reset(self, task_name: str, iteration: int = 0):
         # check that task directory exists
@@ -47,27 +51,18 @@ class Evaluator:
         obs = self.env.reset()
         logger.info(f"Evaluating the task is {self.task_name}")
         logger.info(f"Start position: {obs['compass']} {obs['gps']}")
-
         obs, _, _, info = self.env.step(self.no_op.copy())
         self.frames = [(obs["rgb"], "start")]
         # obs = preprocess_obs(obs)
 
+    def eval_task(self, task_name: str, iteration: int = 0):
+        self.reset(task_name, iteration)
+        self.eval_step()
+        self.observations.append(self.env.get_observation())
+        self.env.close()
 
-# def evaluate(cfg: dict, output_dir: str) -> None:
-# evaluate_task(task_name, cfg, output_dir)
-
-
-@hydra.main(config_path="configs", config_name="base", version_base=None)
-def main(cfg):
-    logger.info(cfg)
-    output_dir = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
-
-
-# with Display(size=(480, 640), visible=False) as disp:
-# display is active
-# logger.info(f"display is alive: {disp.is_alive()}")
-# evaluate(cfg, output_dir)
-
-
-if __name__ == "__main__":
-    main()
+    def evaluate(self):
+        for task in self.cfg.plancraft.tasks:
+            self.eval_task(task)
+        with open(os.path.join(self.output_dir, "observations.json"), "w") as f:
+            json.dump(self.observations, f, indent=4)

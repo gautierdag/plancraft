@@ -179,6 +179,9 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         return self.__class__.__doc__
 
 
+
+
+
 class RealPlancraft(_singleagent._SingleAgentEnv):
     def __init__(
         self,
@@ -198,3 +201,12 @@ class RealPlancraft(_singleagent._SingleAgentEnv):
         )
         super(RealPlancraft, self).__init__(env_spec=env_spec)
         self.reset()
+
+    def step(self, action: dict):
+        action.pop("reset_command")
+        return super().step(action)
+    
+
+
+    def fast_reset(self, new_inventory: list[dict]):
+    #     return "{} {}".format(self._command, json.dumps(inventory_items))
