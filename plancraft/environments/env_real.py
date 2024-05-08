@@ -10,7 +10,11 @@ from minerl.herobraine.hero.handler import Handler
 from minerl.herobraine.hero.handlers.agent.start import InventoryAgentStart
 from minerl.herobraine.hero.handlers.translation import TranslationHandler
 
-from plancraft.environments.actions import InventoryCommandAction, SmeltCommandAction
+from plancraft.environments.actions import (
+    InventoryCommandAction,
+    SmeltCommandAction,
+    InventoryResetAction,
+)
 
 
 MINUTE = 20 * 60
@@ -148,10 +152,15 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         """
         # Camera and mouse
         if self.symbolic_action_space:
-            return [InventoryCommandAction(), SmeltCommandAction()]
+            return [
+                InventoryCommandAction(),
+                SmeltCommandAction(),
+                InventoryResetAction(),
+            ]
         return [handlers.KeybasedCommandAction(v, v) for k, v in mc.KEYMAP.items()] + [
             handlers.CameraAction(),
             SmeltCommandAction(),
+            InventoryResetAction(),
         ]
 
     def is_from_folder(self, folder: str) -> bool:
@@ -179,9 +188,6 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         return self.__class__.__doc__
 
 
-
-
-
 class RealPlancraft(_singleagent._SingleAgentEnv):
     def __init__(
         self,
@@ -203,10 +209,8 @@ class RealPlancraft(_singleagent._SingleAgentEnv):
         self.reset()
 
     def step(self, action: dict):
-        action.pop("reset_command")
+        action.pop("inventory_reset", None)
         return super().step(action)
-    
-
 
     def fast_reset(self, new_inventory: list[dict]):
-    #     return "{} {}".format(self._command, json.dumps(inventory_items))
+        super().step({"inventory_reset": new_inventory})

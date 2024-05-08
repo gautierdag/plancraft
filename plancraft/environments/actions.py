@@ -73,16 +73,19 @@ class SmeltCommandAction(Action):
         return np.array([0, 0, 0], dtype=np.int32)
 
 
-class ResetInventoryAction(Action):
+class InventoryResetAction(Action):
     def __init__(self):
-        self._command = "reset_inventory"
-        super().__init__(self._command, spaces.Text(1))
+        self._command = "inventory_reset"
+        super().__init__(self._command, spaces.Text([1]))
 
     def to_string(self) -> str:
-        return "reset_inventory"
+        return "inventory_reset"
 
     def to_hero(self, inventory_items: list[dict]):
         return "{} {}".format(self._command, json.dumps(inventory_items))
 
     def xml_template(self) -> str:
-        return "<ResetInventory/>"
+        return "<InventoryResetCommands/>"
+
+    def from_universal(self, x):
+        return []
