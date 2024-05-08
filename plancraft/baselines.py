@@ -4,8 +4,6 @@ from typing import Union
 from copy import deepcopy
 import json
 
-from dotenv import load_dotenv
-
 from plancraft.prompts import (
     ONE_SHOT_SYSTEM_PROMPT,
     REACT_EXAMPLE,
@@ -13,8 +11,6 @@ from plancraft.prompts import (
 )
 
 from plancraft.llms import LLMGeneratorBase, Action, Plan, Thought
-
-load_dotenv()
 
 
 @dataclass
