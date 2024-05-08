@@ -197,7 +197,6 @@ class RealPlancraft(_singleagent._SingleAgentEnv):
         symbolic_observation_space=True,
         resolution=[260, 180],
     ):
-        preferred_spawn_biome = "plains"
         env_spec = PlancraftBaseEnvSpec(
             symbolic_action_space=symbolic_action_space,
             symbolic_observation_space=symbolic_observation_space,
