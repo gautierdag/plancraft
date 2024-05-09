@@ -9,6 +9,7 @@ plancraft:
     symbolic: True
     symbolic_observation_space: True
     symbolic_action_space: True
+  split: val.small
 wandb:
   project: "plancraft"
   entity: "itl"

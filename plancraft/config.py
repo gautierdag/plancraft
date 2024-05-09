@@ -1,10 +1,16 @@
-from pydantic import BaseModel
+from typing import Literal, Union, Optional
+
+from pydantic import BaseModel, TypeAdapter
+
+DatasetSplit = Literal["train", "val", "val.small", "test", "test.small"]
 
 
 class EnvironmentConfig(BaseModel):
     symbolic: bool
     symbolic_observation_space: bool
     symbolic_action_space: bool
+    preferred_spawn_biome: str = "plains"
+    resolution: list[int] = [260, 180]
 
 
 class PlancraftConfig(BaseModel):
@@ -15,7 +21,7 @@ class PlancraftConfig(BaseModel):
     guidance: bool
     quantize: bool
     environment: EnvironmentConfig
-    split: str
+    split: DatasetSplit = "val.small"
 
 
 class WandbConfig(BaseModel):
@@ -40,3 +46,21 @@ class Config(BaseModel):
     plancraft: PlancraftConfig
     wandb: WandbConfig
     launch: LaunchConfig
+
+
+class PlancraftExample(BaseModel):
+    target: str
+    inventory: dict[str, int]
+    slotted_inventory: list[dict[str, Union[str, int]]]
+    num_distractors: int
+    impossible: bool
+    optimal_path_length: Optional[int]
+    optimal_path: Optional[list[str]]
+    inventory_trace: Optional[list[dict[str, int]]]
+    items_used: Optional[int]
+    unique_items_used: Optional[int]
+    complexity: Optional[int]
+    complexity_bin: int
+    unseen_in_train: bool
+    unseen_in_val: bool
+    split: DatasetSplit

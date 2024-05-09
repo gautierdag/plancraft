@@ -99,7 +99,7 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         if symbolic_observation_space:
             mode += "-symbolic-obs"
 
-        if symbolic_observation_space:
+        if symbolic_action_space:
             cursor_size = 1
         else:
             cursor_size = 16
