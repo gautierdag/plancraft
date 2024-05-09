@@ -15,6 +15,7 @@ class PlancraftConfig(BaseModel):
     guidance: bool
     quantize: bool
     environment: EnvironmentConfig
+    split: str
 
 
 class WandbConfig(BaseModel):
@@ -30,8 +31,8 @@ class LaunchConfig(BaseModel):
     gpu_product: str
     cpu_request: int
     ram_request: str
-    interactive: bool
-    namespace: str
+    interactive: bool = False
+    namespace: str = "informatics"
     env_vars: dict[str, dict[str, str]]
 
 
