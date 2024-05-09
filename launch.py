@@ -6,6 +6,8 @@ import base64
 from kubernetes import client, config
 from kubejobs.jobs import KubernetesJob, KueueQueue
 
+from plancraft.config import Config
+
 
 def check_if_completed(job_name: str, namespace: str = "informatics") -> bool:
     # Load the kube config
@@ -46,13 +48,13 @@ def check_if_completed(job_name: str, namespace: str = "informatics") -> bool:
     return is_completed
 
 
-def send_message_command(launch_cfg: dict):
+def send_message_command(cfg: Config):
     # webhook - load from env
     config.load_kube_config()
     v1 = client.CoreV1Api()
 
-    secret_name = launch_cfg["env_vars"]["SLACK_WEBHOOK"]["secret_name"]
-    secret_key = launch_cfg["env_vars"]["SLACK_WEBHOOK"]["key"]
+    secret_name = cfg.launch.env_vars["SLACK_WEBHOOK"]["secret_name"]
+    secret_key = cfg.launch.env_vars["SLACK_WEBHOOK"]["key"]
 
     secret = v1.read_namespaced_secret(secret_name, "informatics").data
     webhook = base64.b64decode(secret[secret_key]).decode("utf-8")
@@ -63,9 +65,9 @@ def send_message_command(launch_cfg: dict):
     )
 
 
-def export_env_vars(launch_cfg: dict):
+def export_env_vars(cfg: Config):
     cmd = ""
-    for key in launch_cfg["env_vars"].keys():
+    for key in cfg.launch.env_vars.keys():
         cmd += f" export {key}=${key} &&"
     cmd = cmd.strip(" &&") + " ; "
     return cmd
@@ -73,19 +75,19 @@ def export_env_vars(launch_cfg: dict):
 
 @hydra.main(config_path="configs", config_name="base", version_base=None)
 def main(cfg: DictConfig):
-    launch_cfg = dict(cfg)["launch"]
-    job_name = launch_cfg["job_name"]
-    is_completed = check_if_completed(job_name, namespace=launch_cfg["namespace"])
+    cfg = Config(**dict(cfg))
+    job_name = cfg.launch.job_name
+    is_completed = check_if_completed(job_name, namespace=cfg.launch.namespace)
 
     if is_completed is True:
         print(f"Job '{job_name}' is completed. Launching a new job.")
 
         # TODO: make this interactive mode or not
-        if launch_cfg["interactive"]:
+        if cfg.launch.interactive:
             command = "while true; do sleep 60; done;"
         else:
             plancraft_cfg = dict(cfg)["plancraft"]
-            command = launch_cfg["command"]
+            command = cfg.launch.command
             for key, value in plancraft_cfg.items():
                 command += f" ++plancraft.{key}={value}"
             print(f"Command: {command}")
@@ -94,21 +96,19 @@ def main(cfg: DictConfig):
         print(f"Creating job for: {command}")
         job = KubernetesJob(
             name=job_name,
-            cpu_request=launch_cfg["cpu_request"],
-            ram_request=launch_cfg["ram_request"],
+            cpu_request=cfg.launch.cpu_request,
+            ram_request=cfg.launch.ram_request,
             image="docker.io/gautierdag/plancraft:latest",
             gpu_type="nvidia.com/gpu",
-            gpu_limit=launch_cfg["gpu_limit"],
-            gpu_product=launch_cfg["gpu_product"],
+            gpu_limit=cfg.launch.gpu_limit,
+            gpu_product=cfg.launch.gpu_product,
             backoff_limit=0,
             command=["/bin/bash", "-c", "--"],
-            args=[
-                export_env_vars(launch_cfg) + send_message_command(launch_cfg) + command
-            ],
+            args=[export_env_vars(cfg) + send_message_command(cfg) + command],
             user_email="gautier.dagan@ed.ac.uk",
-            namespace=launch_cfg["namespace"],
+            namespace=cfg.launch.namespace,
             kueue_queue_name=KueueQueue.INFORMATICS,
-            secret_env_vars=launch_cfg["env_vars"],
+            secret_env_vars=cfg.launch.env_vars,
             volume_mounts={
                 "nfs": {"mountPath": "/nfs", "server": "10.24.1.255", "path": "/"}
             },
