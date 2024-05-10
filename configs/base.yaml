@@ -2,7 +2,7 @@ plancraft:
   model: mistralai/Mistral-7B-Instruct-v0.2 
   num_generations: 5
   mode: "react"
-  max_steps: 20
+  max_steps: 100
   guidance: True
   quantize: False
   environment:

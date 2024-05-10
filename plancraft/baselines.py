@@ -56,7 +56,7 @@ def parse_step(action_step: Union[str, Action, Thought]) -> ActionStep:
             )
 
         # clean some escape characters
-        action_step = action_step.replace("\_", "_")
+        action_step = action_step.replace(r"\_", "_")
         # parse into a dict
         action_step_dict = get_dict_from_text(action_step)
 
@@ -231,3 +231,102 @@ class ReactLLM:
     def generate_step(self, observation: str, max_tokens=128) -> str:
         self.history.append({"role": "user", "content": observation})
         return self.generate(max_tokens=max_tokens)
+
+
+# import re
+# from dataclasses import dataclass
+# from typing import Union
+# from copy import deepcopy
+# import json
+
+# from plancraft.prompts import (
+#     REACT_EXAMPLE,
+#     REACT_SYSTEM_PROMPT,
+# )
+
+# class ReactLLM(BaseModel):
+#     def __init__(self, model, symbolic):
+#         self.model = model
+#         self.system_prompt = {
+#             "role": "system",
+#             "content": REACT_SYSTEM_PROMPT,
+#         }
+#         self.history = deepcopy(REACT_EXAMPLE)
+
+#         self.token_used = 0
+#         self.max_thinking_steps = 1
+#         self.num_thinking_steps = 0
+#         self.max_messages_window = 50
+
+#     def generate(self, max_tokens=256):
+#         # get the N last messages from the history
+#         message_window = self.history[-self.max_messages_window :]
+#         # remove the first assistant message if it is present
+#         if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+#             message_window = message_window[1:]
+
+#         # add the system prompt to the message window
+#         message_window = [self.system_prompt] + message_window
+
+#         # we force the model to think and then act
+#         thought_message, thinking_token_used = self.model.generate(
+#             messages=message_window,
+#             max_tokens=max_tokens,
+#             mode="think",  # used for guidance
+#             enforce_json='{"thought":',
+#         )
+#         if self.guidance:
+#             thought_chat_message = {
+#                 "role": "assistant",
+#                 "content": thought_message.json(),
+#             }
+#         else:
+#             thought_chat_message = {"role": "assistant", "content": thought_message}
+
+#         # add the thought message to the history and window
+#         self.history.append(thought_chat_message)
+#         message_window.append(thought_chat_message)
+#         self.history.append({"role": "user", "content": "OK"})
+#         message_window.append({"role": "user", "content": "OK"})
+
+#         self.num_thinking_steps += 1
+#         action_message, action_token_used = self.model.generate(
+#             messages=message_window,
+#             max_tokens=max_tokens,
+#             mode="action",  # used for guidance
+#             enforce_json='{"type":',
+#         )
+
+#         if self.guidance:
+#             action_chat_message = {
+#                 "role": "assistant",
+#                 "content": action_message.json(),
+#             }
+#         else:
+#             action_chat_message = {"role": "assistant", "content": action_message}
+
+#         self.history.append(action_chat_message)
+#         self.token_used += thinking_token_used + action_token_used
+#         print(
+#             f"Thinking token used: {thinking_token_used}, Action token used: {action_token_used}, Total token used: {thinking_token_used+action_token_used}"
+#         )
+#         return action_message
+
+#     def generate_initial_step(self, question: str, max_tokens=128) -> str:
+#         self.model.reset()
+#         initial_message = {
+#             "role": "user",
+#             "content": f"TASK: {question}\ninventory = {'diamond_axe'}",
+#         }
+#         self.history.append(initial_message)
+
+#         # add current task to the system prompt
+#         self.system_prompt["content"] = (
+#             self.system_prompt["content"] + f"\n\nCURRENT TASK: {question}"
+#         )
+
+#         return self.generate(max_tokens=max_tokens)
+
+#     def generate_step(self, observation: str, max_tokens=128) -> str:
+#         self.history.append({"role": "user", "content": observation})
+#         return self.generate(max_tokens=max_tokens)

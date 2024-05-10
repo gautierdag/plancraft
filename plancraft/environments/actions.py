@@ -99,11 +99,21 @@ class SymbolicMoveAction(BaseModel):
     slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
     quantity: Annotated[int, Field(strict=True, gt=0, le=64)]
 
+    def to_action_dict(self) -> dict:
+        return {
+            "inventory_command": [self.slot_from, self.slot_to, self.quantity],
+        }
+
 
 class SymbolicSmeltAction(BaseModel):
     slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
     slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
     quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
+
+    def to_action_dict(self) -> dict:
+        return {
+            "smelt": [self.slot_from, self.slot_to, self.quantity],
+        }
 
 
 class RealActionInteraction(BaseModel):
@@ -120,7 +130,7 @@ class RealActionInteraction(BaseModel):
             return -10
         return v
 
-    def to_dict(self):
+    def to_action_dict(self) -> dict:
         return {
             "camera": [self.mouse_direction_x, self.mouse_direction_y],
             "use": int(self.right_click),

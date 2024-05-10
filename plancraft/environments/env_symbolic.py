@@ -8,6 +8,7 @@ from plancraft.environments.recipes import (
     convert_ingredients_to_table,
 )
 from plancraft.environments.sampler import MAX_STACK_SIZE
+from plancraft.environments.actions import SymbolicAction
 
 
 class SymbolicPlancraft(Env):
@@ -58,14 +59,21 @@ class SymbolicPlancraft(Env):
                 "quantity": item["quantity"],
             }
 
-    def step(self, action: dict):
-        # do inventory command (move)
-        slot, slot_to, quantity = action["inventory_command"]
-        self.move_item(slot, slot_to, quantity)
+    def step(self, action: SymbolicAction | dict):
+        # action_dict = action.to_action_dict()
+        if not isinstance(action, dict):
+            action = action.to_action_dict()
 
-        # do smelt
-        slot, slot_to, quantity = action["smelt"]
-        self.smelt_item(slot, slot_to, quantity)
+        if "inventory_command" in action:
+            # do inventory command (move)
+            slot, slot_to, quantity = action["inventory_command"]
+            self.move_item(slot, slot_to, quantity)
+        elif "smelt" in action:
+            # do smelt
+            slot, slot_to, quantity = action["smelt"]
+            self.smelt_item(slot, slot_to, quantity)
+        else:
+            raise ValueError("Cannot parse action for Symbolic action")
 
         # convert to list for same format as minerl
         state_list = [

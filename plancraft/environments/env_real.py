@@ -14,6 +14,7 @@ from plancraft.environments.actions import (
     InventoryCommandAction,
     SmeltCommandAction,
     InventoryResetAction,
+    RealAction,
 )
 
 
@@ -207,8 +208,9 @@ class RealPlancraft(_singleagent._SingleAgentEnv):
         super(RealPlancraft, self).__init__(env_spec=env_spec)
         self.reset()
 
-    def step(self, action: dict):
-        action.pop("inventory_reset", None)
+    def step(self, action: RealAction | dict):
+        if not isinstance(action, dict):
+            action = action.to_action_dict()
         return super().step(action)
 
     def fast_reset(self, new_inventory: list[dict]):
