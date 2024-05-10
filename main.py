@@ -1,14 +1,16 @@
 import json
 import logging
-import os
 import warnings
 
 import hydra
 import torch
 
+import wandb
+import pandas as pd
+
+from plancraft.config import Config, PlancraftExample
 from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.env_symbolic import SymbolicPlancraft
-from plancraft.config import Config, PlancraftExample
 from plancraft.models import DummyModel
 
 warnings.filterwarnings("ignore")
@@ -98,18 +100,29 @@ class Evaluator:
         logger.info(
             f"Running evaluation over {len(self.examples)} examples {self.cfg.plancraft.num_generations} times."
         )
-        for example_idx in range(len(self.examples)):
-            for n in range(self.cfg.plancraft.num_generations):
-                # wandb.init(
-                #     project=wandb_cfg["project"],
-                #     entity=wandb_cfg["entity"],
-                #     mode=wandb_cfg["mode"],
-                #     group=model_name,
-                #     job_type="react",
-                #     config=dict(cfg),
-                # )
+        for n in range(self.cfg.plancraft.num_generations):
+            wandb.init(
+                project=self.cfg.wandb.project,
+                entity=self.cfg.wandb.entity,
+                mode=self.cfg.wandb.mode,
+                group=self.cfg.plancraft.model,
+                job_type=self.cfg.plancraft.mode,
+                config=self.cfg.model_dump(),
+            )
+            results = []
+            for example_idx in range(len(self.examples)):
                 result = self.eval_example(example_idx)
-        logger.info(f"Done")
+                results.append(result)
+
+            results_df = pd.DataFrame(results)
+            results_df["model_name"] = self.cfg.plancraft.model
+            results_df["mode"] = self.cfg.plancraft.mode
+
+            table = wandb.Table(dataframe=results_df)
+            wandb.log({"results": table})
+            wandb.finish()
+
+        logger.info("Done")
 
 
 @hydra.main(config_path="configs", config_name="base", version_base=None)

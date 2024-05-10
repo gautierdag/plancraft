@@ -2,12 +2,10 @@ import gc
 import time
 import os
 
-from enum import Enum
-
 import outlines
 from outlines.samplers import MultinomialSampler
 from pydantic import BaseModel
-from typing import Optional, Union, Literal
+from typing import Union
 
 import torch
 from dotenv import load_dotenv
@@ -20,121 +18,13 @@ from transformers import (
 )
 
 from plancraft.utils import get_downloaded_models
+from plancraft.environments.actions import SymbolicAction
 
 load_dotenv()
-
-MINECRAFT_ITEMS = Literal[
-    "anvil",
-    "armor_stand",
-    "bed",
-    "beef",
-    "boat",
-    "bowl",
-    "bucket",
-    "carpet",
-    "cauldron",
-    "chest",
-    "chest_minecart",
-    "coal",
-    "cobblestone",
-    "cobblestone_wall",
-    "cooked_beef",
-    "cooked_mutton",
-    "cooked_porkchop",
-    "crafting_table",
-    "diamond",
-    "diamond_shovel",
-    "fence",
-    "fence_gate",
-    "furnace",
-    "furnace_minecart",
-    "heavy_weighted_pressure_plate",
-    "hopper",
-    "hopper_minecart",
-    "iron_axe",
-    "iron_bars",
-    "iron_block",
-    "iron_boots",
-    "iron_chestplate",
-    "iron_door",
-    "iron_helmet",
-    "iron_hoe",
-    "iron_ingot",
-    "iron_leggings",
-    "iron_nugget",
-    "iron_ore",
-    "iron_pickaxe",
-    "iron_shovel",
-    "iron_sword",
-    "iron_trapdoor",
-    "item_frame",
-    "jukebox",
-    "leather",
-    "leather_boots",
-    "leather_chestplate",
-    "leather_helmet",
-    "leather_leggings",
-    "lever",
-    "log",
-    "minecart",
-    "mutton",
-    "oak_stairs",
-    "painting",
-    "planks",
-    "porkchop",
-    "quartz_block",
-    "rail",
-    "shears",
-    "shield",
-    "sign",
-    "stick",
-    "stone",
-    "stone_axe",
-    "stone_brick_stairs",
-    "stone_button",
-    "stone_hoe",
-    "stone_pickaxe",
-    "stone_pressure_plate",
-    "stone_shovel",
-    "stone_slab",
-    "stone_stairs",
-    "stone_sword",
-    "stonebrick",
-    "torch",
-    "trapdoor",
-    "tripwire_hook",
-    "wooden_axe",
-    "wooden_button",
-    "wooden_hoe",
-    "wooden_pickaxe",
-    "wooden_pressure_plate",
-    "wooden_shovel",
-    "wooden_slab",
-    "wooden_sword",
-    "wool",
-]
-
-
-class ActionType(str, Enum):
-    craft = "craft"
-    mine = "mine"
-    smelt = "smelt"
-
-
-# class Action(BaseModel):
-#     type: ActionType
-#     output: MINECRAFT_ITEMS
-#     quantity: int
-#     tool: Optional[MINECRAFT_ITEMS] = None
-#     materials: list[MINECRAFT_ITEMS] = []
 
 
 class Thought(BaseModel):
     thought: str
-
-
-class Plan(BaseModel):
-    actions: list[Union[Action, Thought]]
 
 
 class JSONStoppingCriteria(StoppingCriteria):
@@ -383,18 +273,16 @@ class GuidanceGenerator(LLMGeneratorBase):
 
         # react mode
         self.action_generator = outlines.generate.json(
-            self.model, Action, sampler=sampler
+            self.model, SymbolicAction, sampler=sampler
         )
         self.thought_generator = outlines.generate.json(
             self.model, Thought, sampler=sampler
         )
-        # full plan mode
-        self.plan_generator = outlines.generate.json(self.model, Plan, sampler=sampler)
 
     @torch.inference_mode()
     def generate(
         self, messages: list[dict], max_tokens=128, mode="think", **kwargs
-    ) -> tuple[Union[Action | Thought | Plan], int]:
+    ) -> tuple[Union[SymbolicAction | Thought], int]:
         message_text = self.model.tokenizer.tokenizer.apply_chat_template(
             messages,
             tokenize=False,
@@ -413,8 +301,6 @@ class GuidanceGenerator(LLMGeneratorBase):
                     result = self.thought_generator(message_text, max_tokens=max_tokens)
                 elif mode == "action":
                     result = self.action_generator(message_text, max_tokens=max_tokens)
-                elif mode == "plan":
-                    result = self.plan_generator(message_text, max_tokens=max_tokens)
                 else:
                     raise ValueError(f"Mode {mode} not supported")
             except Exception as e:

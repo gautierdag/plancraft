@@ -1,6 +1,6 @@
 from typing import Literal, Union, Optional
 
-from pydantic import BaseModel, TypeAdapter
+from pydantic import BaseModel
 
 DatasetSplit = Literal["train", "val", "val.small", "test", "test.small"]
 
