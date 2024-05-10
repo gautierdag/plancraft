@@ -1,12 +1,9 @@
 from plancraft.models.base import ABCModel
 
-from plancraft.environments.actions import (
-    SymbolicMoveAction,
-    SymbolicSmeltAction,
-)
+from plancraft.environments.actions import SymbolicAction
 
 from plancraft.config import Config
-from plancraft.prompts import (
+from plancraft.models.prompts import (
     # REACT_EXAMPLE,
     REACT_SYSTEM_PROMPT,
 )
@@ -94,10 +91,15 @@ class ReactModel(ABCModel):
         print(
             f"Thinking token used: {thinking_token_used}, Action token used: {action_token_used}, Total token used: {thinking_token_used+action_token_used}"
         )
-        return (action_message,)
+        return action_message
 
-    def step(self, observation: dict) -> SymbolicMoveAction | SymbolicSmeltAction:
-        return SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
+    def step(self, observation: dict) -> SymbolicAction:
+        # @TODO
+        # 1. parse observations from json/image to text
+        # 2. set up message history
+        # 3. set up react example actions taken from train
+        #
+        return self.generate(observation)
 
     @property
     def trace(self) -> dict:

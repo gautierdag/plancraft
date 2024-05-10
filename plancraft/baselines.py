@@ -4,8 +4,8 @@ from typing import Union
 from copy import deepcopy
 import json
 
-from plancraft.prompts import (
-    ONE_SHOT_SYSTEM_PROMPT,
+from plancraft.models.prompts import (
+    # ONE_SHOT_SYSTEM_PROMPT,
     REACT_EXAMPLE,
     REACT_SYSTEM_PROMPT,
 )
@@ -114,7 +114,7 @@ class OneShotLLM:
         messages = [
             {
                 "role": "user",
-                "content": f"{ONE_SHOT_SYSTEM_PROMPT}\nTASK: {question}\ninventory = {'diamond_axe'}",
+                # "content": f"{ONE_SHOT_SYSTEM_PROMPT}\nTASK: {question}\ninventory = {'diamond_axe'}",
             },
         ]
         response, token_used = self.model.generate(

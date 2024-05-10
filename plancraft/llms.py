@@ -316,7 +316,6 @@ class GuidanceGenerator(LLMGeneratorBase):
             )
             + prompt_tokens
         )
-        print(result)
         return result, total_tokens_used
 
 
