@@ -121,12 +121,12 @@ class ActionType(str, Enum):
     smelt = "smelt"
 
 
-class Action(BaseModel):
-    type: ActionType
-    output: MINECRAFT_ITEMS
-    quantity: int
-    tool: Optional[MINECRAFT_ITEMS] = None
-    materials: list[MINECRAFT_ITEMS] = []
+# class Action(BaseModel):
+#     type: ActionType
+#     output: MINECRAFT_ITEMS
+#     quantity: int
+#     tool: Optional[MINECRAFT_ITEMS] = None
+#     materials: list[MINECRAFT_ITEMS] = []
 
 
 class Thought(BaseModel):

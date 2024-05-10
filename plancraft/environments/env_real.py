@@ -14,6 +14,7 @@ from plancraft.environments.actions import (
     InventoryCommandAction,
     SmeltCommandAction,
     InventoryResetAction,
+    RealAction,
 )
 
 
@@ -99,7 +100,7 @@ class PlancraftBaseEnvSpec(HumanControlEnvSpec):
         if symbolic_observation_space:
             mode += "-symbolic-obs"
 
-        if symbolic_observation_space:
+        if symbolic_action_space:
             cursor_size = 1
         else:
             cursor_size = 16
@@ -207,8 +208,9 @@ class RealPlancraft(_singleagent._SingleAgentEnv):
         super(RealPlancraft, self).__init__(env_spec=env_spec)
         self.reset()
 
-    def step(self, action: dict):
-        action.pop("inventory_reset", None)
+    def step(self, action: RealAction | dict):
+        if not isinstance(action, dict):
+            action = action.to_action_dict()
         return super().step(action)
 
     def fast_reset(self, new_inventory: list[dict]):

@@ -1,4 +1,7 @@
 import json
+from typing_extensions import Annotated
+
+from pydantic import BaseModel, Field, field_validator
 
 import numpy as np
 from minerl.herobraine.hero import spaces
@@ -89,3 +92,54 @@ class InventoryResetAction(Action):
 
     def from_universal(self, x):
         return []
+
+
+class SymbolicMoveAction(BaseModel):
+    slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
+    slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
+    quantity: Annotated[int, Field(strict=True, gt=0, le=64)]
+
+    def to_action_dict(self) -> dict:
+        return {
+            "inventory_command": [self.slot_from, self.slot_to, self.quantity],
+        }
+
+
+class SymbolicSmeltAction(BaseModel):
+    slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
+    slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
+    quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
+
+    def to_action_dict(self) -> dict:
+        return {
+            "smelt": [self.slot_from, self.slot_to, self.quantity],
+        }
+
+
+class RealActionInteraction(BaseModel):
+    mouse_direction_x: float = 0
+    mouse_direction_y: float = 0
+    right_click: bool = False
+    left_click: bool = False
+
+    @field_validator("mouse_direction_x", "mouse_direction_y")
+    def prevent_zero(cls, v):
+        if v > 10:
+            return 10
+        elif v < -10:
+            return -10
+        return v
+
+    def to_action_dict(self) -> dict:
+        return {
+            "camera": [self.mouse_direction_x, self.mouse_direction_y],
+            "use": int(self.right_click),
+            "attack": int(self.left_click),
+        }
+
+
+# when symbolic action is true, can either move objects around or smelt
+SymbolicAction = SymbolicMoveAction | SymbolicSmeltAction
+
+# when symbolic action is false, then need to use mouse to move things around, but can use smelt action
+RealAction = RealActionInteraction | SymbolicSmeltAction
