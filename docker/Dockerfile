@@ -37,9 +37,15 @@ RUN pip3 install -r requirements.txt
 ARG CACHEBUST=1
 RUN git clone https://github.com/gautierdag/minerl.git /minerl
 RUN pip3 install -e /minerl --no-dependencies
+# For some reason needs to be installed separately
+RUN pip3 install flash-attn
 
 COPY entrypoint.sh /etc/entrypoint.sh
 RUN chmod 755 /etc/entrypoint.sh
+
+# Install Visual Studio Code (for interactive tunnelling)
+RUN curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alpine-x64' --output vscode_cli.tar.gz
+RUN tar -xf vscode_cli.tar.gz
 
 # copy above docker folder to /plancraft and set working directory
 COPY .. /plancraft
