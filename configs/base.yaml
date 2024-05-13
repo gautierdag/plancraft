@@ -1,10 +1,10 @@
 plancraft:
-  model: mistralai/Mistral-7B-Instruct-v0.2 
+  model: microsoft/Phi-3-mini-128k-instruct
   num_generations: 5
   mode: "react"
   max_steps: 100
-  guidance: True
-  quantize: False
+  outlines: True
+  quantize: int8
   environment:
     symbolic: True
     symbolic_observation_space: True
@@ -13,7 +13,7 @@ plancraft:
 wandb:
   project: "plancraft"
   entity: "itl"
-  mode: "online"
+  mode: "offline"
 launch:
   command: "python main.py"
   job_name: "plancraft-s2234411"

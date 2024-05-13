@@ -4,8 +4,8 @@ from typing import Union
 from copy import deepcopy
 import json
 
-from plancraft.prompts import (
-    ONE_SHOT_SYSTEM_PROMPT,
+from plancraft.models.prompts import (
+    # ONE_SHOT_SYSTEM_PROMPT,
     REACT_EXAMPLE,
     REACT_SYSTEM_PROMPT,
 )
@@ -114,14 +114,14 @@ class OneShotLLM:
         messages = [
             {
                 "role": "user",
-                "content": f"{ONE_SHOT_SYSTEM_PROMPT}\nTASK: {question}\ninventory = {'diamond_axe'}",
+                # "content": f"{ONE_SHOT_SYSTEM_PROMPT}\nTASK: {question}\ninventory = {'diamond_axe'}",
             },
         ]
         response, token_used = self.model.generate(
             messages=messages,
             temperature=temperature,
             max_tokens=max_tokens,
-            mode="plan",  # used for guidance
+            mode="plan",  # used for outlines
         )
 
         self.token_used += token_used
@@ -129,7 +129,7 @@ class OneShotLLM:
 
 
 class ReactLLM:
-    def __init__(self, model: LLMGeneratorBase, guidance=False):
+    def __init__(self, model: LLMGeneratorBase, outlines=False):
         self.model = model
         self.system_prompt = {
             "role": "system",
@@ -140,7 +140,7 @@ class ReactLLM:
         self.token_used = 0
         self.max_thinking_steps = 1
         self.num_thinking_steps = 0
-        self.guidance = guidance
+        self.outlines = outlines
         self.max_messages_window = 50
 
     @staticmethod
@@ -173,10 +173,10 @@ class ReactLLM:
         thought_message, thinking_token_used = self.model.generate(
             messages=message_window,
             max_tokens=max_tokens,
-            mode="think",  # used for guidance
+            mode="think",  # used for outlines
             enforce_json='{"thought":',
         )
-        if self.guidance:
+        if self.outlines:
             thought_chat_message = {
                 "role": "assistant",
                 "content": thought_message.json(),
@@ -194,11 +194,11 @@ class ReactLLM:
         action_message, action_token_used = self.model.generate(
             messages=message_window,
             max_tokens=max_tokens,
-            mode="action",  # used for guidance
+            mode="action",  # used for outlines
             enforce_json='{"type":',
         )
 
-        if self.guidance:
+        if self.outlines:
             action_chat_message = {
                 "role": "assistant",
                 "content": action_message.json(),
@@ -272,10 +272,10 @@ class ReactLLM:
 #         thought_message, thinking_token_used = self.model.generate(
 #             messages=message_window,
 #             max_tokens=max_tokens,
-#             mode="think",  # used for guidance
+#             mode="think",  # used for outlines
 #             enforce_json='{"thought":',
 #         )
-#         if self.guidance:
+#         if self.outlines:
 #             thought_chat_message = {
 #                 "role": "assistant",
 #                 "content": thought_message.json(),
@@ -293,11 +293,11 @@ class ReactLLM:
 #         action_message, action_token_used = self.model.generate(
 #             messages=message_window,
 #             max_tokens=max_tokens,
-#             mode="action",  # used for guidance
+#             mode="action",  # used for outlines
 #             enforce_json='{"type":',
 #         )
 
-#         if self.guidance:
+#         if self.outlines:
 #             action_chat_message = {
 #                 "role": "assistant",
 #                 "content": action_message.json(),
@@ -330,3 +330,101 @@ class ReactLLM:
 #     def generate_step(self, observation: str, max_tokens=128) -> str:
 #         self.history.append({"role": "user", "content": observation})
 #         return self.generate(max_tokens=max_tokens)
+
+
+MINECRAFT_ITEMS = Literal[
+    "anvil",
+    "armor_stand",
+    "bed",
+    "beef",
+    "boat",
+    "bowl",
+    "bucket",
+    "carpet",
+    "cauldron",
+    "chest",
+    "chest_minecart",
+    "coal",
+    "cobblestone",
+    "cobblestone_wall",
+    "cooked_beef",
+    "cooked_mutton",
+    "cooked_porkchop",
+    "crafting_table",
+    "diamond",
+    "diamond_shovel",
+    "fence",
+    "fence_gate",
+    "furnace",
+    "furnace_minecart",
+    "heavy_weighted_pressure_plate",
+    "hopper",
+    "hopper_minecart",
+    "iron_axe",
+    "iron_bars",
+    "iron_block",
+    "iron_boots",
+    "iron_chestplate",
+    "iron_door",
+    "iron_helmet",
+    "iron_hoe",
+    "iron_ingot",
+    "iron_leggings",
+    "iron_nugget",
+    "iron_ore",
+    "iron_pickaxe",
+    "iron_shovel",
+    "iron_sword",
+    "iron_trapdoor",
+    "item_frame",
+    "jukebox",
+    "leather",
+    "leather_boots",
+    "leather_chestplate",
+    "leather_helmet",
+    "leather_leggings",
+    "lever",
+    "log",
+    "minecart",
+    "mutton",
+    "oak_stairs",
+    "painting",
+    "planks",
+    "porkchop",
+    "quartz_block",
+    "rail",
+    "shears",
+    "shield",
+    "sign",
+    "stick",
+    "stone",
+    "stone_axe",
+    "stone_brick_stairs",
+    "stone_button",
+    "stone_hoe",
+    "stone_pickaxe",
+    "stone_pressure_plate",
+    "stone_shovel",
+    "stone_slab",
+    "stone_stairs",
+    "stone_sword",
+    "stonebrick",
+    "torch",
+    "trapdoor",
+    "tripwire_hook",
+    "wooden_axe",
+    "wooden_button",
+    "wooden_hoe",
+    "wooden_pickaxe",
+    "wooden_pressure_plate",
+    "wooden_shovel",
+    "wooden_slab",
+    "wooden_sword",
+    "wool",
+]
+
+
+# class ActionType(str, Enum):
+#     craft = "craft"
+#     mine = "mine"
+#     smelt = "smelt"

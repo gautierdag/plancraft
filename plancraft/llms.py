@@ -1,13 +1,12 @@
 import gc
 import time
 import os
-
-from enum import Enum
+import logging
 
 import outlines
 from outlines.samplers import MultinomialSampler
 from pydantic import BaseModel
-from typing import Optional, Union, Literal
+from typing import Union
 
 import torch
 from dotenv import load_dotenv
@@ -20,121 +19,15 @@ from transformers import (
 )
 
 from plancraft.utils import get_downloaded_models
+from plancraft.environments.actions import SymbolicAction, PydanticSymbolicAction
 
 load_dotenv()
 
-MINECRAFT_ITEMS = Literal[
-    "anvil",
-    "armor_stand",
-    "bed",
-    "beef",
-    "boat",
-    "bowl",
-    "bucket",
-    "carpet",
-    "cauldron",
-    "chest",
-    "chest_minecart",
-    "coal",
-    "cobblestone",
-    "cobblestone_wall",
-    "cooked_beef",
-    "cooked_mutton",
-    "cooked_porkchop",
-    "crafting_table",
-    "diamond",
-    "diamond_shovel",
-    "fence",
-    "fence_gate",
-    "furnace",
-    "furnace_minecart",
-    "heavy_weighted_pressure_plate",
-    "hopper",
-    "hopper_minecart",
-    "iron_axe",
-    "iron_bars",
-    "iron_block",
-    "iron_boots",
-    "iron_chestplate",
-    "iron_door",
-    "iron_helmet",
-    "iron_hoe",
-    "iron_ingot",
-    "iron_leggings",
-    "iron_nugget",
-    "iron_ore",
-    "iron_pickaxe",
-    "iron_shovel",
-    "iron_sword",
-    "iron_trapdoor",
-    "item_frame",
-    "jukebox",
-    "leather",
-    "leather_boots",
-    "leather_chestplate",
-    "leather_helmet",
-    "leather_leggings",
-    "lever",
-    "log",
-    "minecart",
-    "mutton",
-    "oak_stairs",
-    "painting",
-    "planks",
-    "porkchop",
-    "quartz_block",
-    "rail",
-    "shears",
-    "shield",
-    "sign",
-    "stick",
-    "stone",
-    "stone_axe",
-    "stone_brick_stairs",
-    "stone_button",
-    "stone_hoe",
-    "stone_pickaxe",
-    "stone_pressure_plate",
-    "stone_shovel",
-    "stone_slab",
-    "stone_stairs",
-    "stone_sword",
-    "stonebrick",
-    "torch",
-    "trapdoor",
-    "tripwire_hook",
-    "wooden_axe",
-    "wooden_button",
-    "wooden_hoe",
-    "wooden_pickaxe",
-    "wooden_pressure_plate",
-    "wooden_shovel",
-    "wooden_slab",
-    "wooden_sword",
-    "wool",
-]
-
-
-class ActionType(str, Enum):
-    craft = "craft"
-    mine = "mine"
-    smelt = "smelt"
-
-
-# class Action(BaseModel):
-#     type: ActionType
-#     output: MINECRAFT_ITEMS
-#     quantity: int
-#     tool: Optional[MINECRAFT_ITEMS] = None
-#     materials: list[MINECRAFT_ITEMS] = []
+logger = logging.getLogger(__name__)
 
 
 class Thought(BaseModel):
     thought: str
-
-
-class Plan(BaseModel):
-    actions: list[Union[Action, Thought]]
 
 
 class JSONStoppingCriteria(StoppingCriteria):
@@ -175,28 +68,32 @@ class LLMGeneratorBase:
         """
         Returns True if the model supports a system role
         """
+        current_dir = os.path.dirname(os.path.realpath(__file__))
         if "mistral" in model_name.lower():
             # get directory of current file
-            current_dir = os.path.dirname(os.path.realpath(__file__))
             chat_template = open(
                 current_dir + "/templates/mistral-instruct.jinja"
             ).read()
             chat_template = chat_template.replace("    ", "").replace("\n", "")
             # set the chat template
             tokenizer.chat_template = chat_template
-        if "gemma" in model_name.lower():
+        elif "gemma" in model_name.lower():
             # get directory of current file
-            current_dir = os.path.dirname(os.path.realpath(__file__))
             chat_template = open(current_dir + "/templates/gemma-instruct.jinja").read()
             chat_template = chat_template.replace("    ", "").replace("\n", "")
             # set the chat template
+            tokenizer.chat_template = chat_template
+        elif "phi" in model_name.lower():
+            chat_template = open(current_dir + "/templates/phi-instruct.jinja").read()
+            chat_template = chat_template.replace("    ", "").replace("\n", "")
             tokenizer.chat_template = chat_template
 
     @staticmethod
     def build_model_kwargs(model_name: str, **kwargs) -> tuple[str, dict]:
         model_kwargs = {
             "token": os.getenv("HF_TOKEN"),
-            "attn_implementation": "flash_attention_2",
+            # "attn_implementation": "flash_attention_2",
+            "trust_remote_code": True,
         }
         quantize = kwargs.get("quantize", False)
         if quantize == "int4":
@@ -214,7 +111,7 @@ class LLMGeneratorBase:
         if model_name in downloaded_models:
             model_kwargs["local_files_only"] = True
             model_name = downloaded_models[model_name]
-            print(f"Using local model {model_name}")
+            logger.info(f"Using local model {model_name}")
 
         return model_name, model_kwargs
 
@@ -265,15 +162,16 @@ class TransformersGenerator(LLMGeneratorBase):
             model_name, quantize=quantize
         )
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name, token=os.getenv("HF_TOKEN")
+            model_name, token=os.getenv("HF_TOKEN"), trust_remote_code=True
         )
         self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
 
         time_now = time.time()
-        print("Loading model")
+        logger.info("Loading model")
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="auto",
+            trust_remote_code=True,
             **model_kwargs,
         )
 
@@ -281,11 +179,11 @@ class TransformersGenerator(LLMGeneratorBase):
             self.tokenizer, device=self.model.device
         )
 
-        print(f"Model loaded in {time.time() - time_now:.2f} seconds")
+        logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
         time_now = time.time()
-        print("Compiling model to reduce overhead")
+        logger.info("Compiling model to reduce overhead")
         self.model = torch.compile(self.model, mode="reduce-overhead", fullgraph=True)
-        print(f"Model compiled in {time.time() - time_now:.2f} seconds")
+        logger.info(f"Model compiled in {time.time() - time_now:.2f} seconds")
 
         self.model.eval()
         if self.tokenizer.pad_token_id is None:
@@ -356,14 +254,14 @@ class TransformersGenerator(LLMGeneratorBase):
         return text_response, total_tokens_used
 
 
-class GuidanceGenerator(LLMGeneratorBase):
+class OutlinesGenerator(LLMGeneratorBase):
     def __init__(self, model_name: str, quantize=False, temperature=1.0, **kwargs):
         super().__init__(model_name, **kwargs)
         model_name, model_kwargs = self.build_model_kwargs(
             model_name, quantize=quantize
         )
         time_now = time.time()
-        print("Loading model")
+        logger.info("Loading model")
         self.model = outlines.models.transformers(
             model_name,
             device="auto",
@@ -375,7 +273,7 @@ class GuidanceGenerator(LLMGeneratorBase):
         # fix system prompt
         self.fix_tokenizer_system_prompt(model_name, self.model.tokenizer.tokenizer)
 
-        print(f"Model loaded in {time.time() - time_now:.2f} seconds")
+        logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
         self.bos_token = self.model.tokenizer.tokenizer.bos_token
 
         self.temperature = temperature
@@ -383,18 +281,16 @@ class GuidanceGenerator(LLMGeneratorBase):
 
         # react mode
         self.action_generator = outlines.generate.json(
-            self.model, Action, sampler=sampler
+            self.model, PydanticSymbolicAction, sampler=sampler
         )
         self.thought_generator = outlines.generate.json(
             self.model, Thought, sampler=sampler
         )
-        # full plan mode
-        self.plan_generator = outlines.generate.json(self.model, Plan, sampler=sampler)
 
     @torch.inference_mode()
     def generate(
         self, messages: list[dict], max_tokens=128, mode="think", **kwargs
-    ) -> tuple[Union[Action | Thought | Plan], int]:
+    ) -> tuple[Union[SymbolicAction | Thought], int]:
         message_text = self.model.tokenizer.tokenizer.apply_chat_template(
             messages,
             tokenize=False,
@@ -412,14 +308,14 @@ class GuidanceGenerator(LLMGeneratorBase):
                 if mode == "think":
                     result = self.thought_generator(message_text, max_tokens=max_tokens)
                 elif mode == "action":
-                    result = self.action_generator(message_text, max_tokens=max_tokens)
-                elif mode == "plan":
-                    result = self.plan_generator(message_text, max_tokens=max_tokens)
+                    result = self.action_generator(
+                        message_text, max_tokens=max_tokens
+                    ).root
                 else:
                     raise ValueError(f"Mode {mode} not supported")
             except Exception as e:
                 # sometimes json generation fails due to wrongly escaped characters
-                print("Constrained generation error", e)
+                logger.warn("Constrained generation error", e)
                 continue
 
         total_tokens_used = (
@@ -430,12 +326,11 @@ class GuidanceGenerator(LLMGeneratorBase):
             )
             + prompt_tokens
         )
-        print(result)
         return result, total_tokens_used
 
 
 def get_llm_generator(
-    model_name: str, guidance=False, quantize=False
+    model_name: str, outlines=False, quantize=False
 ) -> LLMGeneratorBase:
     """
     Returns a generator object for the specified model
@@ -444,8 +339,8 @@ def get_llm_generator(
         return OpenAIGenerator(model_name)
     if quantize:
         assert quantize in ["int4", "int8"], "Quantization must be int4 or int8"
-    if guidance:
-        return GuidanceGenerator(model_name, quantize=quantize)
+    if outlines:
+        return OutlinesGenerator(model_name, quantize=quantize)
     return TransformersGenerator(
         model_name,
         quantize=quantize,
