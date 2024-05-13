@@ -143,3 +143,7 @@ SymbolicAction = SymbolicMoveAction | SymbolicSmeltAction
 
 # when symbolic action is false, then need to use mouse to move things around, but can use smelt action
 RealAction = RealActionInteraction | SymbolicSmeltAction
+
+
+class PydanticSymbolicAction(BaseModel):
+    root: SymbolicMoveAction | SymbolicSmeltAction

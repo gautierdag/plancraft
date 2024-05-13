@@ -121,7 +121,7 @@ class OneShotLLM:
             messages=messages,
             temperature=temperature,
             max_tokens=max_tokens,
-            mode="plan",  # used for guidance
+            mode="plan",  # used for outlines
         )
 
         self.token_used += token_used
@@ -129,7 +129,7 @@ class OneShotLLM:
 
 
 class ReactLLM:
-    def __init__(self, model: LLMGeneratorBase, guidance=False):
+    def __init__(self, model: LLMGeneratorBase, outlines=False):
         self.model = model
         self.system_prompt = {
             "role": "system",
@@ -140,7 +140,7 @@ class ReactLLM:
         self.token_used = 0
         self.max_thinking_steps = 1
         self.num_thinking_steps = 0
-        self.guidance = guidance
+        self.outlines = outlines
         self.max_messages_window = 50
 
     @staticmethod
@@ -173,10 +173,10 @@ class ReactLLM:
         thought_message, thinking_token_used = self.model.generate(
             messages=message_window,
             max_tokens=max_tokens,
-            mode="think",  # used for guidance
+            mode="think",  # used for outlines
             enforce_json='{"thought":',
         )
-        if self.guidance:
+        if self.outlines:
             thought_chat_message = {
                 "role": "assistant",
                 "content": thought_message.json(),
@@ -194,11 +194,11 @@ class ReactLLM:
         action_message, action_token_used = self.model.generate(
             messages=message_window,
             max_tokens=max_tokens,
-            mode="action",  # used for guidance
+            mode="action",  # used for outlines
             enforce_json='{"type":',
         )
 
-        if self.guidance:
+        if self.outlines:
             action_chat_message = {
                 "role": "assistant",
                 "content": action_message.json(),
@@ -272,10 +272,10 @@ class ReactLLM:
 #         thought_message, thinking_token_used = self.model.generate(
 #             messages=message_window,
 #             max_tokens=max_tokens,
-#             mode="think",  # used for guidance
+#             mode="think",  # used for outlines
 #             enforce_json='{"thought":',
 #         )
-#         if self.guidance:
+#         if self.outlines:
 #             thought_chat_message = {
 #                 "role": "assistant",
 #                 "content": thought_message.json(),
@@ -293,11 +293,11 @@ class ReactLLM:
 #         action_message, action_token_used = self.model.generate(
 #             messages=message_window,
 #             max_tokens=max_tokens,
-#             mode="action",  # used for guidance
+#             mode="action",  # used for outlines
 #             enforce_json='{"type":',
 #         )
 
-#         if self.guidance:
+#         if self.outlines:
 #             action_chat_message = {
 #                 "role": "assistant",
 #                 "content": action_message.json(),
