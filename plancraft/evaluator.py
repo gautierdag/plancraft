@@ -69,7 +69,7 @@ class Evaluator:
 
         target = self.examples[example_idx].target
         target_question = (
-            f"Combine the items in the inventory to obtain an item of type {target}"
+            f"Craft an item of type: {target}"
         )
 
         # set global objective/target in model
