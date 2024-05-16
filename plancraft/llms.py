@@ -171,7 +171,6 @@ class TransformersGenerator(LLMGeneratorBase):
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="auto",
-            trust_remote_code=True,
             **model_kwargs,
         )
 
@@ -339,8 +338,8 @@ def get_llm_generator(
         return OpenAIGenerator(model_name)
     if quantize:
         assert quantize in ["int4", "int8"], "Quantization must be int4 or int8"
-    if outlines:
-        return OutlinesGenerator(model_name, quantize=quantize)
+    # if outlines:
+    # return OutlinesGenerator(model_name, quantize=quantize)
     return TransformersGenerator(
         model_name,
         quantize=quantize,

@@ -1,9 +1,9 @@
 plancraft:
-  model: microsoft/Phi-3-mini-128k-instruct
+  # model: microsoft/Phi-3-mini-128k-instruct
+  model: meta-llama/Meta-Llama-3-8B-Instruct
   num_generations: 5
   mode: "react"
   max_steps: 100
-  outlines: True
   quantize: int8
   environment:
     symbolic: True

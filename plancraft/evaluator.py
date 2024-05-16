@@ -68,9 +68,7 @@ class Evaluator:
         self.reset(example_idx)
 
         target = self.examples[example_idx].target
-        target_question = (
-            f"Craft an item of type: {target}"
-        )
+        target_question = f"Craft an item of type: {target}"
 
         # set global objective/target in model
         self.model.set_objective(target_question)
@@ -86,6 +84,8 @@ class Evaluator:
             action = self.model.step(obs)
             obs, _, done, _ = self.env.step(action)
             done = self.check_done(obs["inventory"], target)
+            if done:
+                logger.info(f"Done in {step} steps")
             observations.append(obs)
             step += 1
 

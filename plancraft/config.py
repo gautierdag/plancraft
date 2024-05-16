@@ -18,7 +18,6 @@ class PlancraftConfig(BaseModel):
     num_generations: int
     mode: str
     max_steps: int
-    outlines: bool
     quantize: Literal[False, "int4", "int8"]
     environment: EnvironmentConfig
     split: DatasetSplit = "val.small"
