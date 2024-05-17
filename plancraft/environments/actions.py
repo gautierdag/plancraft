@@ -95,6 +95,7 @@ class InventoryResetAction(Action):
 
 
 class SymbolicMoveAction(BaseModel):
+    action_type: str = "move"
     slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
     slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
     quantity: Annotated[int, Field(strict=True, gt=0, le=64)]
@@ -110,6 +111,7 @@ class SymbolicMoveAction(BaseModel):
 
 
 class SymbolicSmeltAction(BaseModel):
+    action_type: str = "smelt"
     slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
     slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
     quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1

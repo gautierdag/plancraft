@@ -31,6 +31,7 @@ class OracleModel(ABCModel):
         if not self.plan:
             self.plan = optimal_planner(observation["inventory"], self.target)
 
+        
         action = SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
         self.action_history.append(action)
         return action

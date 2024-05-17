@@ -227,7 +227,7 @@ class TransformersGenerator:
             new_message_start=overall_message,
             temperature=temperature,
         )
-        overall_message += f"{action} from slot "
+        overall_message += f" {action} from slot "
         slot_from, _ = decode_with_choices(
             self.model,
             self.tokenizer,
@@ -241,7 +241,7 @@ class TransformersGenerator:
             self.model,
             self.tokenizer,
             messages,
-            choices=[str(i) for i in range(47)],
+            choices=[str(i) for i in range(1, 47)],
             new_message_start=overall_message,
             temperature=temperature,
         )
@@ -250,7 +250,7 @@ class TransformersGenerator:
             self.model,
             self.tokenizer,
             messages,
-            choices=[str(i) for i in range(64)],
+            choices=[str(i) for i in range(1, 65)],
             new_message_start=overall_message,
             temperature=temperature,
         )
@@ -263,7 +263,7 @@ class TransformersGenerator:
             act = SymbolicMoveAction(
                 slot_from=slot_from, slot_to=slot_to, quantity=quantity
             )
-        # return the action and the number of tokens used
+        # return the action, message, and the number of tokens used
         return act, overall_message, generation_output.sequences.shape[-1]
 
 
@@ -283,9 +283,8 @@ class ReactModel(ABCModel):
         self.action_history = []
         self.history = []
         self.token_used = 0
-        self.max_thinking_steps = 1
         self.num_thinking_steps = 0
-        self.max_messages_window = 50
+        self.max_messages_window = 30
 
     def set_objective(self, objective: str):
         self.objective = objective
@@ -347,17 +346,24 @@ class ReactModel(ABCModel):
         logger.info(f"Observation: {observation_str}")
         self.history.append({"role": "user", "content": observation_str})
         action = self.generate()
-        logger.info(f"History: {self.history}")
+        self.action_history.append(action.model_dump())
         return action
 
     @property
     def trace(self) -> dict:
-        return {"objective": self.objective, "action_history": self.action_history}
+        return {
+            "objective": self.objective,
+            "action_history": self.action_history,
+            "history": self.history,
+            "num_thinking_steps": self.num_thinking_steps,
+            "token_used": self.token_used,
+        }
 
     def reset(self) -> None:
         self.llm.reset()
         self.action_history = []
         self.history = copy.deepcopy(REACT_EXAMPLE)
+        self.token_used = 0
         self.objective = ""
         self.system_prompt = {
             "role": "system",
