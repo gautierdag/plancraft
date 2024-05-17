@@ -23,6 +23,7 @@ class OracleModel(ABCModel):
     def set_objective(self, objective: str):
         self.objective = objective
         # objective="Craft an item of type: ...."
+        # this simply recovering the target item to craft
         self.target = objective.split(": ")[-1]
 
     def step(
@@ -30,8 +31,8 @@ class OracleModel(ABCModel):
     ) -> SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction:
         if not self.plan:
             self.plan = optimal_planner(observation["inventory"], self.target)
-
-        
+        # TODO: Implement the logic to return the next action in the plan
+        # note that plans abstract away crafting, so will need to decompose each craft step into the move steps
         action = SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
         self.action_history.append(action)
         return action

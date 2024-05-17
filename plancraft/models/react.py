@@ -30,23 +30,17 @@ load_dotenv()
 REACT_SYSTEM_PROMPT = """You are crafting in Minecraft.
 You need to decide on the next action.
 
-You must output an action in JSON format like the following:
-{
-    "slot_from": 1,
-    "slot_to": 1, 
-    "quantity": 1 
-}
+You must output an action like the following:
+act: move from slot X to slot Y with quantity Z
 
 There are two types of actions
 - move
 - smelt
 
 To assist with planning, you first generate some thoughts before answering. For example:
-{
-    "thought": "To craft an acacia_fence, I first need to craft acacia_planks."
-}
+think: To craft an acacia_fence, I first need to craft acacia_planks so I need to move the log from ...
 
-The first 10 slots in the inventory are reserved for crafting. 
+The first 10 slots in the inventory are reserved for crafting and correspond to the minecraft crafting table. 
 
 [1, 2, 3] 
 [4, 5, 6] -> [0]
@@ -55,14 +49,12 @@ The first 10 slots in the inventory are reserved for crafting.
 The crafting matrix is a 3x3 grid, and the output is sent to slot 0.
 You cannot move items into output slot 0.
 The remaining slots (10-46) are for storing items.
-
-Do not generate errors. Always generate valid JSON objects following the format above.
 """
 
 REACT_EXAMPLE = [
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory='[{"slot": 27,"type": "diorite", "quantity": 1},{"slot": 39,"type": "cobblestone", "quantity": 1}]'""",
+        "content": """TASK: Craft an item of type: andesite\ninventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
     },
     {
         "role": "assistant",
@@ -75,7 +67,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory=[{"slot": 4, "type": "diorite", "quantity": 1},{"slot": 39, "type": "cobblestone", "quantity": 1}]""",
+        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]""",
     },
     {
         "role": "assistant",
@@ -232,7 +224,7 @@ class TransformersGenerator:
             self.model,
             self.tokenizer,
             messages,
-            choices=[str(i) for i in range(47)],
+            choices=[str(i) for i in range(46)],
             new_message_start=overall_message,
             temperature=temperature,
         )
@@ -241,7 +233,7 @@ class TransformersGenerator:
             self.model,
             self.tokenizer,
             messages,
-            choices=[str(i) for i in range(1, 47)],
+            choices=[str(i) for i in range(1, 46)],
             new_message_start=overall_message,
             temperature=temperature,
         )
@@ -289,7 +281,7 @@ class ReactModel(ABCModel):
     def set_objective(self, objective: str):
         self.objective = objective
         self.system_prompt["content"] = (
-            self.system_prompt["content"] + f"\n\nCURRENT TASK: {objective}"
+            self.system_prompt["content"] + f"\nTASK: {objective}"
         )
 
     def generate(self, max_tokens=256):
@@ -338,7 +330,16 @@ class ReactModel(ABCModel):
     def convert_observation_to_text(self, observation: dict) -> str:
         # @TODO
         # 1. parse observations from json/image to text
-        inventory = [o for o in observation["inventory"] if o["quantity"] > 0]
+        inventory = []
+        for o in observation["inventory"]:
+            if o["quantity"] > 0:
+                inventory.append(
+                    {
+                        "type": o["type"],
+                        "slot": o["index"],
+                        "quantity": o["quantity"],
+                    }
+                )
         return f"TASK: {self.objective}\ninventory={json.dumps(inventory)}"
 
     def step(self, observation: dict) -> SymbolicAction:
@@ -347,6 +348,7 @@ class ReactModel(ABCModel):
         self.history.append({"role": "user", "content": observation_str})
         action = self.generate()
         self.action_history.append(action.model_dump())
+        logger.info(f"Action: {action.model_dump()}")
         return action
 
     @property
