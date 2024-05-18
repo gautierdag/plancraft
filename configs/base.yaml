@@ -2,7 +2,7 @@ plancraft:
   # model: microsoft/Phi-3-mini-128k-instruct
   model: meta-llama/Meta-Llama-3-8B-Instruct
   num_generations: 5
-  mode: "react"
+  mode: "oracle"
   max_steps: 100
   quantize: int8
   environment:

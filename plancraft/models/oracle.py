@@ -1,12 +1,13 @@
-from plancraft.models.base import ABCModel
+from collections import defaultdict
 
+from plancraft.config import Config
 from plancraft.environments.actions import (
-    SymbolicMoveAction,
     RealActionInteraction,
+    SymbolicMoveAction,
     SymbolicSmeltAction,
 )
-
 from plancraft.environments.planner import optimal_planner
+from plancraft.models.base import ABCModel
 
 
 class OracleModel(ABCModel):
@@ -14,8 +15,10 @@ class OracleModel(ABCModel):
     Oracle model returns actions that solve the task optimally
     """
 
-    def __init__(self, symbolic_move_action: bool = True, **kwargs):
-        assert symbolic_move_action, "Only symbolic move actions are supported"
+    def __init__(self, cfg: Config):
+        assert (
+            cfg.plancraft.environment.symbolic_action_space
+        ), "Only symbolic actions are supported"
         self.action_history = []
         self.plan = []
         self.plan_idx = 0
@@ -30,7 +33,11 @@ class OracleModel(ABCModel):
         self, observation: dict
     ) -> SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction:
         if not self.plan:
-            self.plan = optimal_planner(observation["inventory"], self.target)
+            inventory_dict = defaultdict(int)
+            for item in observation["inventory"]:
+                inventory_dict[item["type"]] += item["quantity"]
+            self.plan = optimal_planner(target=self.target, inventory=inventory_dict)
+
         # TODO: Implement the logic to return the next action in the plan
         # note that plans abstract away crafting, so will need to decompose each craft step into the move steps
         action = SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
