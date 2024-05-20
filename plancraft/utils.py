@@ -46,39 +46,6 @@ def resize_image(img, target_resolution=(128, 128)):
     return img
 
 
-def preprocess_obs(obs: dict, device=torch.device("cpu")) -> dict:
-    res_obs = {}
-    rgb = (
-        torch.from_numpy(obs["rgb"])
-        .unsqueeze(0)
-        .to(device=device, dtype=torch.float32)
-        .permute(0, 3, 1, 2)
-    )
-    res_obs["rgb"] = resize_image(rgb, target_resolution=(120, 160))
-    res_obs["voxels"] = (
-        torch.from_numpy(obs["voxels"])
-        .reshape(-1)
-        .unsqueeze(0)
-        .to(device=device, dtype=torch.long)
-    )
-    res_obs["compass"] = (
-        torch.from_numpy(obs["compass"])
-        .unsqueeze(0)
-        .to(device=device, dtype=torch.float32)
-    )
-    res_obs["gps"] = (
-        torch.from_numpy(obs["gps"] / np.array([1000.0, 100.0, 1000.0]))
-        .unsqueeze(0)
-        .to(device=device, dtype=torch.float32)
-    )
-    res_obs["biome"] = (
-        torch.from_numpy(obs["biome_id"])
-        .unsqueeze(0)
-        .to(device=device, dtype=torch.long)
-    )
-    return res_obs
-
-
 def save_frames_to_video(frames: list, out_path: str):
     imgs = []
     for id, (frame, goal) in enumerate(frames):
@@ -115,20 +82,3 @@ def save_frames_to_video(frames: list, out_path: str):
         duration=150,
         loop=0,
     )
-
-
-def stack_obs(prev_obs: dict, obs: dict) -> dict:
-    stacked_obs = {}
-    stacked_obs["rgb"] = torch.cat([prev_obs["rgb"], obs["rgb"]], dim=0)
-    stacked_obs["voxels"] = torch.cat([prev_obs["voxels"], obs["voxels"]], dim=0)
-    stacked_obs["compass"] = torch.cat([prev_obs["compass"], obs["compass"]], dim=0)
-    stacked_obs["gps"] = torch.cat([prev_obs["gps"], obs["gps"]], dim=0)
-    stacked_obs["biome"] = torch.cat([prev_obs["biome"], obs["biome"]], dim=0)
-    return stacked_obs
-
-
-def slice_obs(obs: dict, slice: torch.tensor) -> dict:
-    res = {}
-    for k, v in obs.items():
-        res[k] = v[slice]
-    return res

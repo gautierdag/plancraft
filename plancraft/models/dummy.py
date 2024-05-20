@@ -5,6 +5,7 @@ from plancraft.environments.actions import (
     RealActionInteraction,
     SymbolicSmeltAction,
 )
+from plancraft.config import Config
 
 
 class DummyModel(ABCModel):
@@ -12,8 +13,8 @@ class DummyModel(ABCModel):
     Dummy model returns actions that do nothing - use to test
     """
 
-    def __init__(self, symbolic_move_action: bool = True, **kwargs):
-        self.symbolic_move_action = symbolic_move_action
+    def __init__(self, cfg: Config):
+        self.symbolic_move_action = cfg.plancraft.environment.symbolic_action_space
         self.action_history = []
 
     def set_objective(self, objective: str):
