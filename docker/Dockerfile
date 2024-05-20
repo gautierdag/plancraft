@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/cuda:12.4.0-devel-ubuntu22.04
+FROM nvcr.io/nvidia/cuda:12.0.0-devel-ubuntu22.04
 
 RUN apt update
 RUN apt upgrade -y
