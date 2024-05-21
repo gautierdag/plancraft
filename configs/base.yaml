@@ -1,10 +1,11 @@
 plancraft:
   # model: microsoft/Phi-3-mini-128k-instruct
-  model: meta-llama/Meta-Llama-3-8B-Instruct
+  # model: meta-llama/Meta-Llama-3-8B-Instruct
+  model: CohereForAI/c4ai-command-r-v01
   num_generations: 5
   mode: "oracle"
-  max_steps: 100
-  quantize: int8
+  max_steps: 50
+  quantize: int4
   environment:
     symbolic: True
     symbolic_observation_space: True

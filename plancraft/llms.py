@@ -93,7 +93,7 @@ class LLMGeneratorBase:
         model_kwargs = {
             "token": os.getenv("HF_TOKEN"),
             # "attn_implementation": "flash_attention_2",
-            "trust_remote_code": True,
+            # "trust_remote_code": True,
         }
         quantize = kwargs.get("quantize", False)
         if quantize == "int4":

@@ -88,7 +88,7 @@ class TransformersGenerator:
             model_name, quantize=quantize
         )
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name, token=os.getenv("HF_TOKEN"), trust_remote_code=True
+            model_name, token=os.getenv("HF_TOKEN"), #trust_remote_code=True
         )
         self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
 
@@ -137,7 +137,7 @@ class TransformersGenerator:
         model_kwargs = {
             "token": os.getenv("HF_TOKEN"),
             # "attn_implementation": "flash_attention_2",
-            "trust_remote_code": True,
+            # "trust_remote_code": True,
         }
         quantize = kwargs.get("quantize", False)
         if quantize == "int4":
@@ -160,14 +160,15 @@ class TransformersGenerator:
         return model_name, model_kwargs
 
     def reset(self):
-        # TODO: could use past_key_values cache with a rolling window
-        # TODO: could also cache input ids / attention mask
-        # TODO: could explore bfill
-        # Remove cached tensors from memory
-        # clear cuda cache
-        torch.cuda.empty_cache()
-        # Manually invoke garbage collector
-        gc.collect()
+        # # TODO: could use past_key_values cache with a rolling window
+        # # TODO: could also cache input ids / attention mask
+        # # TODO: could explore bfill
+        # # Remove cached tensors from memory
+        # # clear cuda cache
+        # torch.cuda.empty_cache()
+        # # Manually invoke garbage collector
+        # gc.collect()
+        pass
 
     @torch.inference_mode()
     def generate_thought(

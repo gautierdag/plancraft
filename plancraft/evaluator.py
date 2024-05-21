@@ -1,5 +1,6 @@
 import json
 import logging
+import torch.multiprocessing as mp
 
 import pandas as pd
 import torch
@@ -64,14 +65,18 @@ class Evaluator:
         return False
 
     @torch.no_grad()
-    def eval_example(self, example_idx) -> dict:
+    def eval_example(self, example_idx, model, results):
         self.reset(example_idx)
+
+        # TODO: implement flow for impossible examples
+        if self.examples[example_idx].impossible:
+            return {}
 
         target = self.examples[example_idx].target
         target_question = f"Craft an item of type: {target}"
 
         # set global objective/target in model
-        self.model.set_objective(target_question)
+        model.set_objective(target_question)
 
         observations = []
 
@@ -81,7 +86,7 @@ class Evaluator:
         step = 0
 
         while step < self.cfg.plancraft.max_steps and not done:
-            action = self.model.step(obs)
+            action = model.step(obs)
             obs, _, done, _ = self.env.step(action)
             done = self.check_done(obs["inventory"], target)
             if done:
@@ -89,12 +94,14 @@ class Evaluator:
             observations.append(obs)
             step += 1
 
-        return {
-            "success": done,
-            "number_of_steps": step,
-            "model_trace": self.model.trace,
-            "observations": observations,
-        }
+        results.append(
+            {
+                "success": done,
+                "number_of_steps": step,
+                "model_trace": model.trace,
+                "observations": observations,
+            }
+        )
 
     def eval_all(self):
         logger.info(
