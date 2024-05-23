@@ -20,7 +20,7 @@ from plancraft.environments.actions import (
     SymbolicSmeltAction,
 )
 from plancraft.models.base import ABCModel
-from plancraft.models.utils import decode_with_choices, get_downloaded_models, tokenize
+from plancraft.models.utils import Trie, get_downloaded_models, tokenize
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +81,37 @@ REACT_EXAMPLE = [
 ]
 
 
+class ValidActionsLogitsProcessor(torch.nn.Module):
+    def __init__(self, choices: list[str], tokenizer: AutoTokenizer):
+        super().__init__()
+        self.choices = choices
+        self.tree = Trie()
+        self.start_idx = None
+        self.eos = tokenizer.eos_token_id
+        encoded_choices = tokenizer(choices, add_special_tokens=False)["input_ids"]
+        for choice in encoded_choices:
+            self.tree.insert(choice + [self.eos])
+
+    def forward(self, input_ids, scores):
+        if self.start_idx is None:
+            # Calculate start_idx during the first forward pass
+            self.start_idx = input_ids.shape[-1]
+
+        decoded_so_far = input_ids[:, self.start_idx :]
+        mask = torch.full_like(scores, float("-inf"))
+        for batch_idx in range(input_ids.shape[0]):
+            valid_next_tokens = self.tree.get_next(decoded_so_far[batch_idx].tolist())
+            # if no choice then we allow the model to generate eos
+            if len(valid_next_tokens) == 0:
+                valid_next_tokens = [self.eos]
+
+            mask[batch_idx, valid_next_tokens] = 0
+        return scores + mask
+
+    def reset(self):
+        self.start_idx = None
+
+
 class TransformersGenerator:
     def __init__(self, model_name: str, quantize=False, **kwargs):
         self.model_name = model_name
@@ -108,6 +139,19 @@ class TransformersGenerator:
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.model.config.pad_token_id = self.model.config.eos_token_id
         self.tokenizer.truncation_side = "left"
+
+        self.action_logit_processor = ValidActionsLogitsProcessor(
+            [" move", " smelt"], self.tokenizer
+        )
+        self.slot_from_processor = ValidActionsLogitsProcessor(
+            [str(i) for i in range(46)], self.tokenizer
+        )
+        self.slot_to_processor = ValidActionsLogitsProcessor(
+            [str(i) for i in range(1, 46)], self.tokenizer
+        )
+        self.quantity_processor = ValidActionsLogitsProcessor(
+            [str(i) for i in range(1, 65)], self.tokenizer
+        )
 
     @staticmethod
     def fix_tokenizer_system_prompt(model_name: str, tokenizer):
@@ -161,19 +205,19 @@ class TransformersGenerator:
 
         return model_name, model_kwargs
 
-    def reset(self):
-        # # TODO: could use past_key_values cache with a rolling window
-        # # TODO: could also cache input ids / attention mask
-        # # TODO: could explore bfill
-        # # Remove cached tensors from memory
-        # # clear cuda cache
-        torch.cuda.empty_cache()
-        # # Manually invoke garbage collector
-        gc.collect()
-        # pass
+    # def reset(self):
+    # # TODO: could use past_key_values cache with a rolling window
+    # # TODO: could also cache input ids / attention mask
+    # # TODO: could explore bfill
+    # # Remove cached tensors from memory
+    # # clear cuda cache
+    # torch.cuda.empty_cache()
+    # # Manually invoke garbage collector
+    # gc.collect()
+    # pass
 
     @torch.inference_mode()
-    def generate_thought(
+    def generate_thoughts(
         self,
         batch_messages: list[list[dict]],
         temperature=1.0,
@@ -184,8 +228,8 @@ class TransformersGenerator:
             self.model,
             self.tokenizer,
             batch_messages,
-            max_tokens,
-            new_message_start="think:",
+            start_messages_generation=["think:"] * len(batch_messages),
+            max_tokens=max_tokens,
         )
         prompt_tokens = tokenized_messages["input_ids"].shape[-1]
 
@@ -209,85 +253,151 @@ class TransformersGenerator:
             generation_output.sequences[:, prompt_tokens:],
             skip_special_tokens=True,
         )
-        # text_response = "think:" + text_response
-        text_responses = [f"think: {text_response}" for text_response in text_responses]
+        text_responses = [f"think:{text_response}" for text_response in text_responses]
         _, total_tokens_used = generation_output.sequences.shape
         return text_responses, total_tokens_used
 
-    @torch.inference_mode()
-    def generate_action(
+    def generate_with_processor(
         self,
-        messages: list[dict],
+        logits_processor: ValidActionsLogitsProcessor,
+        start_messages_generation: list[str],
+        batch_messages: list[list[dict]],
         temperature=1.0,
-    ) -> tuple[SymbolicAction, str, int]:
+    ) -> tuple[list[str], int]:
+        tokenized_messages = tokenize(
+            self.model,
+            self.tokenizer,
+            batch_messages,
+            start_messages_generation=start_messages_generation,
+        )
+
+        # sent to same device as model
+        tokenized_messages = {
+            k: v.to(self.model.device) for k, v in tokenized_messages.items()
+        }
+
+        # number of tokens in the prompt
+        prompt_tokens = tokenized_messages["input_ids"].shape[-1]
+
+        # Generate the initial action constrained to valid action tokens
+        generated_sequences = self.model.generate(
+            input_ids=tokenized_messages["input_ids"],
+            attention_mask=tokenized_messages["attention_mask"],
+            do_sample=True,
+            temperature=temperature,
+            max_new_tokens=logits_processor.tree.longest_sequence_length,
+            pad_token_id=self.tokenizer.pad_token_id,
+            return_dict_in_generate=True,
+            use_cache=True,
+            logits_processor=[logits_processor],
+        )
+
+        # reset the start index
+        logits_processor.reset()
+
+        # select only new tokens and decode the generated choices
+        generated_choices = self.tokenizer.batch_decode(
+            generated_sequences["sequences"][:, prompt_tokens:],
+            skip_special_tokens=True,
+        )
+        return generated_choices, generated_sequences["sequences"].shape[-1]
+
+    @torch.inference_mode()
+    def generate_actions(
+        self,
+        batch_messages: list[list[dict]],
+        temperature=1.0,
+    ) -> tuple[list[SymbolicAction], list[str], int]:
         """
         Select whether to smelt or move
         Then select the slots and quantity
         output should be constrained to something like:
             `act: move from slot 39 to slot 5 with quantity 1`
         """
-        overall_message = "act:"
-        action, _ = decode_with_choices(
-            self.model,
-            self.tokenizer,
-            messages,
-            choices=["move", "smelt"],
-            new_message_start=overall_message,
+        overall_messages = ["act:"] * len(batch_messages)
+        actions_selected, _ = self.generate_with_processor(
+            self.action_logit_processor,
+            batch_messages=batch_messages,
+            start_messages_generation=overall_messages,
             temperature=temperature,
         )
-        overall_message += f" {action} from slot "
-        slot_from, _ = decode_with_choices(
-            self.model,
-            self.tokenizer,
-            messages,
-            choices=[str(i) for i in range(46)],
-            new_message_start=overall_message,
+        overall_messages = [
+            f"{overall}{action} from slot "
+            for (overall, action) in zip(overall_messages, actions_selected)
+        ]
+        # select the slot from
+        slots_from_selected, _ = self.generate_with_processor(
+            self.slot_from_processor,
+            batch_messages=batch_messages,
+            start_messages_generation=overall_messages,
             temperature=temperature,
         )
-        overall_message += f"{slot_from} to slot "
-        slot_to, _ = decode_with_choices(
-            self.model,
-            self.tokenizer,
-            messages,
-            choices=[str(i) for i in range(1, 46)],
-            new_message_start=overall_message,
+        overall_messages = [
+            f"{overall}{slot_from} to slot "
+            for (overall, slot_from) in zip(overall_messages, slots_from_selected)
+        ]
+        # select the slot to
+        slots_to_selected, _ = self.generate_with_processor(
+            self.slot_to_processor,
+            batch_messages=batch_messages,
+            start_messages_generation=overall_messages,
             temperature=temperature,
         )
-        overall_message += f"{slot_to} with quantity "
-        quantity, num_tokens = decode_with_choices(
-            self.model,
-            self.tokenizer,
-            messages,
-            choices=[str(i) for i in range(1, 65)],
-            new_message_start=overall_message,
+        overall_messages = [
+            f"{overall}{slot_to} with quantity "
+            for (overall, slot_to) in zip(overall_messages, slots_to_selected)
+        ]
+        # select the quantity
+        quantities_selected, num_tokens = self.generate_with_processor(
+            self.quantity_processor,
+            batch_messages=batch_messages,
+            start_messages_generation=overall_messages,
             temperature=temperature,
         )
-        overall_message += f"{quantity}"
-        if action == "smelt":
-            act = SymbolicSmeltAction(
-                slot_from=slot_from, slot_to=slot_to, quantity=quantity
-            )
-        else:
-            act = SymbolicMoveAction(
-                slot_from=slot_from, slot_to=slot_to, quantity=quantity
-            )
-        # return the action, message, and the number of tokens used
-        return act, overall_message, num_tokens
+        overall_messages = [
+            f"{overall}{quantity}"
+            for (overall, quantity) in zip(overall_messages, quantities_selected)
+        ]
+
+        # parse the actions
+        actions = []
+        for action, slot_from, slot_to, quantity in zip(
+            actions_selected,
+            slots_from_selected,
+            slots_to_selected,
+            quantities_selected,
+        ):
+            if action == "smelt":
+                act = SymbolicSmeltAction(
+                    slot_from=int(slot_from),
+                    slot_to=int(slot_to),
+                    quantity=int(quantity),
+                )
+            else:
+                act = SymbolicMoveAction(
+                    slot_from=int(slot_from),
+                    slot_to=int(slot_to),
+                    quantity=int(quantity),
+                )
+            actions.append(act)
+        return actions, overall_messages, num_tokens
 
 
 class ReactModel(ABCModel):
     def __init__(self, cfg: Config, llm: TransformersGenerator):
         assert cfg.plancraft.environment.symbolic_action_space
 
-        self.llm = llm  # language model
-        self.system_prompt = {
-            "role": "system",
-            "content": REACT_SYSTEM_PROMPT,
-        }
-        self.action_history = []
-        self.history = []
-        self.token_used = 0
-        self.num_thinking_steps = 0
+        self.batch_size = cfg.plancraft.batch_size
+
+        # self.llm = llm  # language model
+        # self.system_prompt = {
+        #     "role": "system",
+        #     "content": REACT_SYSTEM_PROMPT,
+        # }
+        # self.action_history = []
+        # self.history = []
+        # self.token_used = 0
+        # self.num_thinking_steps = 0
         self.max_messages_window = 30
 
     def set_objective(self, objective: str):
@@ -354,35 +464,33 @@ class ReactModel(ABCModel):
                 )
         return f"TASK: {self.objective}\ninventory={json.dumps(inventory)}"
 
-    def step(self, observation: dict) -> SymbolicAction:
-        observation_str = self.convert_observation_to_text(observation)
-        logger.info(f"Observation: {observation_str}")
-        self.history.append({"role": "user", "content": observation_str})
-        action = self.generate()
-        self.action_history.append(action.model_dump())
-        logger.info(f"Action: {action.model_dump()}")
-        return action
+    def step(self, observations: list[dict]) -> list[SymbolicAction]:
+        pass
+        # observation_str = self.convert_observation_to_text(observation)
+        # logger.info(f"Observation: {observation_str}")
+        # self.history.append({"role": "user", "content": observation_str})
+        # action = self.generate()
+        # self.action_history.append(action.model_dump())
+        # logger.info(f"Action: {action.model_dump()}")
+        # return action
 
-    @property
-    def trace(self) -> dict:
-        return {
-            "objective": self.objective,
-            "action_history": self.action_history,
-            "history": self.history,
-            "num_thinking_steps": self.num_thinking_steps,
-            "token_used": self.token_used,
-        }
+    # @property
+    # def trace(self) -> dict:
+    #     return {
+    #         "objective": self.objective,
+    #         "action_history": self.action_history,
+    #         "history": self.history,
+    #         "num_thinking_steps": self.num_thinking_steps,
+    #         "token_used": self.token_used,
+    #     }
 
-    def reset(self) -> None:
-        self.llm.reset()
-        self.action_history = []
-        self.history = copy.deepcopy(REACT_EXAMPLE)
-        self.token_used = 0
-        self.objective = ""
-        self.system_prompt = {
-            "role": "system",
-            "content": REACT_SYSTEM_PROMPT,
-        }
-
-
-AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
+    # def reset(self) -> None:
+    # self.llm.reset()
+    # self.action_history = []
+    # self.history = copy.deepcopy(REACT_EXAMPLE)
+    # self.token_used = 0
+    # self.objective = ""
+    # self.system_prompt = {
+    #     "role": "system",
+    #     "content": REACT_SYSTEM_PROMPT,
+    # }

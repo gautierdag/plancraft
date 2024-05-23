@@ -38,7 +38,7 @@ class Evaluator:
 
         self.batch_size = cfg.plancraft.batch_size
         self.envs = [self.create_env(cfg) for _ in range(self.batch_size)]
-        self.models = [get_model(cfg, self.llm) for _ in range(self.batch_size)]
+        self.models = get_model(cfg, self.llm)
 
         self.record_frames = not (cfg.plancraft.environment.symbolic)
 
