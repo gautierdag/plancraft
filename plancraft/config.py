@@ -21,7 +21,7 @@ class PlancraftConfig(BaseModel):
     quantize: Literal[False, "int4", "int8"]
     environment: EnvironmentConfig
     split: DatasetSplit = "val.small"
-    num_processes: int = 1
+    batch_size: int = 1
 
 
 class WandbConfig(BaseModel):

@@ -61,33 +61,34 @@ class Trie:
 def tokenize(
     model: AutoModelForCausalLM,
     tokenizer: AutoTokenizer,
-    messages: list[dict],
+    batch_messages: list[list[dict]],
     max_tokens=256,
     new_message_start="act:",
-):
+) -> dict[str, torch.Tensor]:
     """
     Tokenize a list of messages and start the response message
     """
     message_text = tokenizer.apply_chat_template(
-        messages,
+        batch_messages,
         add_generation_prompt=True,
         tokenize=False,
     )
-    message_text += new_message_start
+    # add the start of the response message
+    message_text = [m + new_message_start for m in message_text]
+
     max_prompt_length = None
     # need to truncate if max_length is set
     if model.generation_config.max_length > max_tokens:
         max_prompt_length = model.generation_config.max_length - max_tokens
 
-    tokenized_messages = tokenizer.encode(
+    tokenized_messages = tokenizer(
         message_text,
         return_tensors="pt",
         truncation=True,
         max_length=max_prompt_length,
+        padding=True,
     )
-    tokenized_messages = tokenized_messages.to(model.device)
-    _, prompt_tokens = tokenized_messages.shape
-    return tokenized_messages, prompt_tokens
+    return tokenized_messages
 
 
 def decode_with_choices(
@@ -97,7 +98,7 @@ def decode_with_choices(
     choices: list[str],
     new_message_start: str = "act:",
     temperature=1.0,
-) -> tuple[str, dict]:
+) -> tuple[str, int]:
     """
     Uses the Trie data structure to constrain the generation over a set of choices
     Returns the generated choice and the full generated sequence
@@ -138,6 +139,7 @@ def decode_with_choices(
             return scores
 
     valid_actions = ValidActionsLogitsProcessor(choices)
+
     # Generate the initial action constrained to valid action tokens
     generated_sequence = model.generate(
         tokenized_messages,
@@ -154,4 +156,5 @@ def decode_with_choices(
     generated_choice = generated_sequence[0][0][prompt_tokens:]
     # decode the generated choice
     generated_choice = tokenizer.decode(generated_choice, skip_special_tokens=True)
-    return generated_choice, generated_sequence
+
+    return generated_choice, generated_sequence.sequences.shape[-1]

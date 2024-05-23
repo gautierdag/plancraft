@@ -88,7 +88,9 @@ class TransformersGenerator:
             model_name, quantize=quantize
         )
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name, token=os.getenv("HF_TOKEN"), #trust_remote_code=True
+            model_name,
+            token=os.getenv("HF_TOKEN"),  # trust_remote_code=True
+            padding_side="left",  # ensure that the padding is on the left
         )
         self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
 
@@ -165,24 +167,36 @@ class TransformersGenerator:
         # # TODO: could explore bfill
         # # Remove cached tensors from memory
         # # clear cuda cache
-        # torch.cuda.empty_cache()
+        torch.cuda.empty_cache()
         # # Manually invoke garbage collector
-        # gc.collect()
-        pass
+        gc.collect()
+        # pass
 
     @torch.inference_mode()
     def generate_thought(
         self,
-        messages: list[dict],
+        batch_messages: list[list[dict]],
         temperature=1.0,
         max_tokens=256,
         **kwargs,
     ) -> tuple[str, int]:
-        tokenized_messages, prompt_tokens = tokenize(
-            self.model, self.tokenizer, messages, max_tokens, new_message_start="think:"
+        tokenized_messages = tokenize(
+            self.model,
+            self.tokenizer,
+            batch_messages,
+            max_tokens,
+            new_message_start="think:",
         )
+        prompt_tokens = tokenized_messages["input_ids"].shape[-1]
+
+        # sent to same device as model
+        tokenized_messages = {
+            k: v.to(self.model.device) for k, v in tokenized_messages.items()
+        }
+
         generation_output = self.model.generate(
-            tokenized_messages,
+            input_ids=tokenized_messages["input_ids"],
+            attention_mask=tokenized_messages["attention_mask"],
             do_sample=True,
             temperature=temperature,
             max_new_tokens=max_tokens,
@@ -191,13 +205,14 @@ class TransformersGenerator:
             use_cache=True,
         )
         # decode the output
-        text_response = self.tokenizer.decode(
-            generation_output.sequences[0, prompt_tokens:],
+        text_responses = self.tokenizer.batch_decode(
+            generation_output.sequences[:, prompt_tokens:],
             skip_special_tokens=True,
         )
-        text_response = "think:" + text_response
+        # text_response = "think:" + text_response
+        text_responses = [f"think: {text_response}" for text_response in text_responses]
         _, total_tokens_used = generation_output.sequences.shape
-        return text_response, total_tokens_used
+        return text_responses, total_tokens_used
 
     @torch.inference_mode()
     def generate_action(
@@ -239,7 +254,7 @@ class TransformersGenerator:
             temperature=temperature,
         )
         overall_message += f"{slot_to} with quantity "
-        quantity, generation_output = decode_with_choices(
+        quantity, num_tokens = decode_with_choices(
             self.model,
             self.tokenizer,
             messages,
@@ -257,18 +272,14 @@ class TransformersGenerator:
                 slot_from=slot_from, slot_to=slot_to, quantity=quantity
             )
         # return the action, message, and the number of tokens used
-        return act, overall_message, generation_output.sequences.shape[-1]
+        return act, overall_message, num_tokens
 
 
 class ReactModel(ABCModel):
-    def __init__(self, cfg: Config):
+    def __init__(self, cfg: Config, llm: TransformersGenerator):
         assert cfg.plancraft.environment.symbolic_action_space
 
-        self.llm = TransformersGenerator(
-            model_name=cfg.plancraft.model,
-            quantize=cfg.plancraft.quantize,
-        )
-
+        self.llm = llm  # language model
         self.system_prompt = {
             "role": "system",
             "content": REACT_SYSTEM_PROMPT,
@@ -372,3 +383,6 @@ class ReactModel(ABCModel):
             "role": "system",
             "content": REACT_SYSTEM_PROMPT,
         }
+
+
+AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
