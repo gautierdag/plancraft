@@ -53,8 +53,8 @@ class OracleModel(ABCModel):
             # action = SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
 
     def step(
-        self, observation: dict
-    ) -> SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction:
+        self, observation: list[dict]
+    ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
         if not self.plan:
             inventory_dict = defaultdict(int)
             for item in observation["inventory"]:
@@ -68,7 +68,7 @@ class OracleModel(ABCModel):
         if not self.subplan:
             self.plan_idx += 1
             self.populate_subplan()
-        
+
         # if subplan is still empty
         if len(self.subplan) > 1:
             action = self.subplan.pop(0)
@@ -78,11 +78,3 @@ class OracleModel(ABCModel):
 
         self.action_history.append(action)
         return action
-
-    @property
-    def trace(self) -> dict:
-        return {"objective": self.objective, "action_history": self.action_history}
-
-    def reset(self) -> None:
-        self.action_history = []
-        self.objective = ""

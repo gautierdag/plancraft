@@ -19,7 +19,7 @@ from plancraft.environments.actions import (
     SymbolicMoveAction,
     SymbolicSmeltAction,
 )
-from plancraft.models.base import ABCModel
+from plancraft.models.base import ABCModel, History
 from plancraft.models.utils import Trie, get_downloaded_models, tokenize
 
 logger = logging.getLogger(__name__)
@@ -223,7 +223,7 @@ class TransformersGenerator:
         temperature=1.0,
         max_tokens=256,
         **kwargs,
-    ) -> tuple[str, int]:
+    ) -> tuple[list[str], int]:
         tokenized_messages = tokenize(
             self.model,
             self.tokenizer,
@@ -387,69 +387,20 @@ class ReactModel(ABCModel):
     def __init__(self, cfg: Config, llm: TransformersGenerator):
         assert cfg.plancraft.environment.symbolic_action_space
 
-        self.batch_size = cfg.plancraft.batch_size
+        # underlying language model
+        self.llm = llm
 
-        # self.llm = llm  # language model
-        # self.system_prompt = {
-        #     "role": "system",
-        #     "content": REACT_SYSTEM_PROMPT,
-        # }
-        # self.action_history = []
-        # self.history = []
-        # self.token_used = 0
-        # self.num_thinking_steps = 0
+        self.batch_size = cfg.plancraft.batch_size
+        self.histories = [History(objective="") for _ in range(self.batch_size)]
+
+        self.system_prompt = {
+            "role": "system",
+            "content": REACT_SYSTEM_PROMPT,
+        }
+        self.tokens_used = 0
         self.max_messages_window = 30
 
-    def set_objective(self, objective: str):
-        self.objective = objective
-        self.system_prompt["content"] = (
-            self.system_prompt["content"] + f"\nTASK: {objective}"
-        )
-
-    def generate(self, max_tokens=256):
-        # get the N last messages from the history
-        message_window = self.history[-self.max_messages_window :]
-
-        # remove the first assistant message if it is present
-        if len(message_window) > 0 and message_window[0]["role"] == "assistant":
-            message_window = message_window[1:]
-
-        # add the system prompt to the message window
-        message_window = [self.system_prompt] + message_window
-
-        # we force the model to think and then act
-        thought_message, thinking_token_used = self.llm.generate_thought(
-            messages=message_window,
-            max_tokens=max_tokens,
-        )
-        thought_chat_message = {
-            "role": "assistant",
-            "content": thought_message,
-        }
-        # add the thought message to the history and window
-        self.history.append(thought_chat_message)
-        message_window.append(thought_chat_message)
-
-        self.history.append({"role": "user", "content": "OK"})
-        message_window.append({"role": "user", "content": "OK"})
-
-        self.num_thinking_steps += 1
-        action, action_message, action_token_used = self.llm.generate_action(
-            messages=message_window,
-        )
-        action_chat_message = {
-            "role": "assistant",
-            "content": action_message,
-        }
-        self.history.append(action_chat_message)
-
-        self.token_used += thinking_token_used + action_token_used
-        logger.info(
-            f"Thinking token used: {thinking_token_used}, Action token used: {action_token_used}, Total token used: {thinking_token_used+action_token_used}"
-        )
-        return action
-
-    def convert_observation_to_text(self, observation: dict) -> str:
+    def convert_observation_to_text(self, observation: dict, objective: str) -> str:
         # @TODO
         # 1. parse observations from json/image to text
         inventory = []
@@ -462,27 +413,66 @@ class ReactModel(ABCModel):
                         "quantity": o["quantity"],
                     }
                 )
-        return f"TASK: {self.objective}\ninventory={json.dumps(inventory)}"
+        return f"TASK: {objective}\ninventory={json.dumps(inventory)}"
 
     def step(self, observations: list[dict]) -> list[SymbolicAction]:
-        pass
-        # observation_str = self.convert_observation_to_text(observation)
-        # logger.info(f"Observation: {observation_str}")
-        # self.history.append({"role": "user", "content": observation_str})
-        # action = self.generate()
-        # self.action_history.append(action.model_dump())
-        # logger.info(f"Action: {action.model_dump()}")
-        # return action
+        thought_messages_windows = []
 
-    # @property
-    # def trace(self) -> dict:
-    #     return {
-    #         "objective": self.objective,
-    #         "action_history": self.action_history,
-    #         "history": self.history,
-    #         "num_thinking_steps": self.num_thinking_steps,
-    #         "token_used": self.token_used,
-    #     }
+        # collect dialogue histories
+        for observation, history in zip(observations, self.histories):
+            # add observation to history
+            observation_str = self.convert_observation_to_text(
+                observation, objective=history.objective
+            )
+            history.add_message_to_history(content=observation_str, role="user")
+
+            message_window = history.dialogue_history[-self.max_messages_window :]
+            # remove the first assistant message if it is present
+            if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+                message_window = message_window[1:]
+            # add the system prompt if the first message is not a system message
+            if message_window[0]["role"] != "system":
+                message_window = [self.system_prompt] + message_window
+
+            thought_messages_windows.append(message_window)
+
+        # generate thoughts
+        thought_messages, thinking_token_used = self.llm.generate_thoughts(
+            messages=message_window,
+            max_tokens=256,
+        )
+
+        action_messages_windows = []
+        # update message window with thoughts and collect action messages
+        for thought_message, history in zip(thought_messages, self.histories):
+            # add thought message to history
+            history.add_message_to_history(content=thought_message, role="assistant")
+            history.add_message_to_history(content="OK", role="user")
+
+            message_window = history.dialogue_history[-self.max_messages_window :]
+            # remove the first assistant message if it is present
+            if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+                message_window = message_window[1:]
+            # add the system prompt if the first message is not a system message
+            if message_window[0]["role"] != "system":
+                message_window = [self.system_prompt] + message_window
+
+            action_messages_windows.append(message_window)
+
+        actions, action_messages, action_token_used = self.llm.generate_actions(
+            batch_messages=action_messages_windows,
+        )
+
+        for action, action_message, history in zip(
+            actions, action_messages, self.histories
+        ):
+            history.add_action_to_history(action)
+            history.add_message_to_history(content=action_message, role="assistant")
+
+        # NOTE: this overestimates the token used as it some batches might use less tokens
+        self.tokens_used += (thinking_token_used + action_token_used) * self.batch_size
+
+        return actions
 
     # def reset(self) -> None:
     # self.llm.reset()

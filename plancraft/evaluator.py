@@ -38,7 +38,7 @@ class Evaluator:
 
         self.batch_size = cfg.plancraft.batch_size
         self.envs = [self.create_env(cfg) for _ in range(self.batch_size)]
-        self.models = get_model(cfg, self.llm)
+        self.model = get_model(cfg, self.llm)
 
         self.record_frames = not (cfg.plancraft.environment.symbolic)
 
@@ -67,11 +67,13 @@ class Evaluator:
 
     def reset(
         self,
-        process_id: int = 0,
-        example_idx: int = 0,
+        example: PlancraftExample,
+        env_idx: int = 0,
     ):
-        current_inventory = self.examples[example_idx].slotted_inventory
-        self.envs[process_id].fast_reset(new_inventory=current_inventory)
+        current_inventory = example.slotted_inventory
+        self.envs[env_idx].fast_reset(new_inventory=current_inventory)
+        objective = f"Craft an item of type: {example.target}"
+        self.histories[env_idx].reset(objective=objective)
 
     def check_done(self, inventory: list[dict[str, int]], target: str):
         for item in inventory:
@@ -125,7 +127,7 @@ class Evaluator:
     #     }
 
     @torch.no_grad()
-    def eval_all(self, examples: list[int]):
+    def eval_batch(self, examples: list[int]):
         results = []
 
         while len(examples) > 0:
