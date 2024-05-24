@@ -475,24 +475,10 @@ class ReactModel(ABCModel):
             batch_messages=action_messages_windows,
         )
 
-        for action, action_message, history in zip(
-            actions, action_messages, self.histories
-        ):
-            history.add_action_to_history(action)
+        for action_message, history in zip(action_messages, self.histories):
             history.add_message_to_history(content=action_message, role="assistant")
 
         # NOTE: this overestimates the token used as it some batches might use less tokens
         self.tokens_used += (thinking_token_used + action_token_used) * self.batch_size
 
         return actions
-
-    # def reset(self) -> None:
-    # self.llm.reset()
-    # self.action_history = []
-    # self.history =
-    # self.token_used = 0
-    # self.objective = ""
-    # self.system_prompt = {
-    #     "role": "system",
-    #     "content": REACT_SYSTEM_PROMPT,
-    # }

@@ -81,44 +81,6 @@ class Evaluator:
                 return True
         return False
 
-    # @torch.no_grad()
-    # def eval_examples(self, examples: list[int]):
-    #     # assign examples to environments
-
-    #     # reset the environment
-    #     self.reset(env_id, example_idx)
-    #     # reset the model
-    #     model = self.models[env_id]
-    #     model.reset()
-
-    #     # get the environment
-    #     env = self.envs[env_id]
-
-    #     # TODO: implement flow for impossible examples
-    #     if self.examples[example_idx].impossible:
-    #         return {}
-
-    #     target = self.examples[example_idx].target
-    #     target_question = f"Craft an item of type: {target}"
-
-    #     # set global objective/target in model
-    #     model.set_objective(target_question)
-    #     observations = []
-
-    #     obs, _, _, info = env.step(self.no_op.copy())
-    #     observations.append(obs)
-    #     done = self.check_done(obs["inventory"], target)
-    #     step = 0
-
-    #     while step < self.cfg.plancraft.max_steps and not done:
-    #         action = model.step(obs)
-    #         obs, _, done, _ = env.step(action)
-    #         done = self.check_done(obs["inventory"], target)
-    #         if done:
-    #             logger.info(f"Done in {step} steps")
-    #         observations.append(obs)
-    #         step += 1
-
     #     return {
     #         "success": done,
     #         "number_of_steps": step,
@@ -127,58 +89,64 @@ class Evaluator:
     #     }
 
     @torch.no_grad()
-    def eval_examples(self, examples: list[PlancraftExample]):
+    def eval_all_examples(self) -> list:
+        examples_queue = self.examples.copy()
+        assigned_examples = {env_idx: None for env_idx in range(self.batch_size)}
+
         results = []
 
-        # while len(examples) > 0:
-        # @TODO - assign examples to environments
-        # reset the environment
+        actions = [self.no_op.copy() for _ in range(self.batch_size)]
+        observations = [None for _ in range(self.batch_size)]
+        done = [False for _ in range(self.batch_size)]
 
-        # for example in examples:
-        # results = []
-        # while len(examples) > 0:
-        # check if done with any of the examples
-        # assign examples to environments
-        # reset the environment
-        # self.reset(env_id, example_idx)
-        # reset the model
-        # model = self.models[env_id]
-        # model.reset()
+        while len(examples_queue) > 0:
+            # assign example to environment if not already assigned
+            for env_idx, example in assigned_examples.items():
+                if example is None and len(examples_queue) > 0:
+                    new_example = examples_queue.pop()
+                    # TODO: implement flow for impossible examples
+                    if new_example.impossible:
+                        continue
+                    assigned_examples[env_idx] = new_example
+                    self.reset(example, env_idx)
+                    actions[env_idx] = self.no_op.copy()
+                    continue
 
-        # get the environment
-        # env = self.envs[env_id]
+                num_steps = self.model.histories[env_idx].num_steps
+                if done[env_idx] or num_steps > self.cfg.plancraft.max_steps:
+                    # save results and reset
+                    results.append(
+                        {
+                            "success": done[env_idx],
+                            "number_of_steps": num_steps,
+                            "model_trace": self.model.histories[env_idx].trace(),
+                            "example": example.model_dump(),
+                        }
+                    )
+                    assigned_examples[env_idx] = None
+                    done[env_idx] = False
 
-        # TODO: implement flow for impossible examples
-        # if self.examples[example_idx].impossible:
-        # return {}
+            # step actions
+            obs_batch = []
+            obs_env_idx = []
+            for env_idx, example in assigned_examples.items():
+                if example is None:
+                    continue
+                obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
+                observations[env_idx] = obs
+                done[env_idx] = self.check_done(obs["inventory"], example.target)
+                if not done[env_idx]:
+                    obs_batch.append(obs)
+                    obs_env_idx.append(env_idx)
 
-        # target = self.examples[example_idx].target
-        # target_question = f"Craft an item of type: {target}"
+            # get actions from model (batched)
+            # only send observations for environments with examples
+            pred_actions = self.model.step(obs_batch)
+            for action, env_idx in zip(pred_actions, obs_env_idx):
+                actions[env_idx] = action
+                self.model.histories[env_idx].add_action_to_history(action)
 
-        # # set global objective/target in model
-        # model.set_objective(target_question)
-        # observations = []
-
-        # obs, _, _, info = env.step(self.no_op.copy())
-        # observations.append(obs)
-        # done = self.check_done(obs["inventory"], target)
-        # step = 0
-
-        # while step < self.cfg.plancraft.max_steps and not done:
-        #     action = model.step(obs)
-        #     obs, _, done, _ = env.step(action)
-        #     done = self.check_done(obs["inventory"], target)
-        #     if done:
-        #         logger.info(f"Done in {step} steps")
-        #     observations.append(obs)
-        #     step += 1
-
-        # return {
-        #     "success": done,
-        #     "number_of_steps": step,
-        #     "model_trace": model.trace,
-        #     "observations": observations,
-        # }
+        return results
 
     def eval_all(self):
         logger.info(
@@ -186,6 +154,7 @@ class Evaluator:
         )
         for n in range(self.cfg.plancraft.num_generations):
             logger.info(f"Generation {n+1}/{self.cfg.plancraft.num_generations}")
+
             # wandb.init(
             #     project=self.cfg.wandb.project,
             #     entity=self.cfg.wandb.entity,
@@ -195,13 +164,11 @@ class Evaluator:
             #     config=self.cfg.model_dump(),
             # )
 
-            # results_list = []
-            # while not results.empty():
-            # results_list.append(results.get())
-            # logger.info(f"Number of results: {len(results_list)}")
-            # results_df = pd.DataFrame(results_list)
-            # results_df["model_name"] = self.cfg.plancraft.model
-            # results_df["mode"] = self.cfg.plancraft.mode
+            results_list = self.eval_all_examples()
+
+            results_df = pd.DataFrame(results_list)
+            results_df["model_name"] = self.cfg.plancraft.model
+            results_df["mode"] = self.cfg.plancraft.mode
 
             # table = wandb.Table(dataframe=results_df)
             # wandb.log({"results": table})

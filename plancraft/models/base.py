@@ -1,5 +1,7 @@
 import abc
 
+from copy import copy
+
 from plancraft.environments.actions import (
     SymbolicMoveAction,
     RealActionInteraction,
@@ -22,7 +24,7 @@ class History:
         self.action_history.append(action.model_dump())
 
     def __str__(self):
-        return str(self.dialogue_history)
+    return str(self.dialogue_history)
 
     def reset(self, objective: str = "", initial_dialogue: list[dict] = []):
         self.dialogue_history = initial_dialogue
@@ -34,10 +36,14 @@ class History:
 
     def trace(self):
         return {
-            "dialogue_history": self.dialogue_history,
-            "action_history": self.action_history,
-            "objective": self.objective,
+            "dialogue_history": copy(self.dialogue_history),
+            "action_history": copy(self.action_history),
+            "objective": copy(self.objective),
         }
+
+    @property
+    def num_steps(self):
+        return len(self.action_history)
 
 
 class ABCModel(abc.ABC):
