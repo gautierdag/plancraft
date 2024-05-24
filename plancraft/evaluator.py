@@ -73,7 +73,7 @@ class Evaluator:
         current_inventory = example.slotted_inventory
         self.envs[env_idx].fast_reset(new_inventory=current_inventory)
         objective = f"Craft an item of type: {example.target}"
-        self.histories[env_idx].reset(objective=objective)
+        self.model.reset_history(history_idx=env_idx, objective=objective)
 
     def check_done(self, inventory: list[dict[str, int]], target: str):
         for item in inventory:
@@ -127,55 +127,58 @@ class Evaluator:
     #     }
 
     @torch.no_grad()
-    def eval_batch(self, examples: list[int]):
+    def eval_examples(self, examples: list[PlancraftExample]):
         results = []
 
-        while len(examples) > 0:
-            # check if done with any of the examples
+        # while len(examples) > 0:
+        # @TODO - assign examples to environments
+        # reset the environment
 
-            # assign examples to environments
-
-
+        # for example in examples:
+        # results = []
+        # while len(examples) > 0:
+        # check if done with any of the examples
+        # assign examples to environments
         # reset the environment
         # self.reset(env_id, example_idx)
         # reset the model
-        model = self.models[env_id]
-        model.reset()
+        # model = self.models[env_id]
+        # model.reset()
 
         # get the environment
-        env = self.envs[env_id]
+        # env = self.envs[env_id]
 
         # TODO: implement flow for impossible examples
-        if self.examples[example_idx].impossible:
-            return {}
+        # if self.examples[example_idx].impossible:
+        # return {}
 
-        target = self.examples[example_idx].target
-        target_question = f"Craft an item of type: {target}"
+        # target = self.examples[example_idx].target
+        # target_question = f"Craft an item of type: {target}"
 
-        # set global objective/target in model
-        model.set_objective(target_question)
-        observations = []
+        # # set global objective/target in model
+        # model.set_objective(target_question)
+        # observations = []
 
-        obs, _, _, info = env.step(self.no_op.copy())
-        observations.append(obs)
-        done = self.check_done(obs["inventory"], target)
-        step = 0
+        # obs, _, _, info = env.step(self.no_op.copy())
+        # observations.append(obs)
+        # done = self.check_done(obs["inventory"], target)
+        # step = 0
 
-        while step < self.cfg.plancraft.max_steps and not done:
-            action = model.step(obs)
-            obs, _, done, _ = env.step(action)
-            done = self.check_done(obs["inventory"], target)
-            if done:
-                logger.info(f"Done in {step} steps")
-            observations.append(obs)
-            step += 1
+        # while step < self.cfg.plancraft.max_steps and not done:
+        #     action = model.step(obs)
+        #     obs, _, done, _ = env.step(action)
+        #     done = self.check_done(obs["inventory"], target)
+        #     if done:
+        #         logger.info(f"Done in {step} steps")
+        #     observations.append(obs)
+        #     step += 1
 
-        return {
-            "success": done,
-            "number_of_steps": step,
-            "model_trace": model.trace,
-            "observations": observations,
-        }
+        # return {
+        #     "success": done,
+        #     "number_of_steps": step,
+        #     "model_trace": model.trace,
+        #     "observations": observations,
+        # }
 
     def eval_all(self):
         logger.info(
@@ -191,8 +194,6 @@ class Evaluator:
             #     job_type=self.cfg.plancraft.mode,
             #     config=self.cfg.model_dump(),
             # )
-
-           
 
             # results_list = []
             # while not results.empty():

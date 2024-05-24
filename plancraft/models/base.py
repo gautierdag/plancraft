@@ -8,10 +8,10 @@ from plancraft.environments.actions import (
 
 
 class History:
-    def __init__(self, objective: str):
-        self.dialogue_history = []
+    def __init__(self, objective: str = "", initial_dialogue: list[dict] = []):
+        self.dialogue_history = initial_dialogue
         self.action_history = []
-        self.objective = ""
+        self.objective = objective
 
     def add_message_to_history(self, content: str, role="user"):
         self.history.append({"role": role, "content": content})
@@ -24,8 +24,8 @@ class History:
     def __str__(self):
         return str(self.dialogue_history)
 
-    def reset(self, objective: str):
-        self.dialogue_history = []
+    def reset(self, objective: str = "", initial_dialogue: list[dict] = []):
+        self.dialogue_history = initial_dialogue
         self.action_history = []
         self.objective = objective
 
@@ -64,3 +64,6 @@ class ABCModel(abc.ABC):
         Return the trace of the model
         """
         raise NotImplementedError()
+
+    def reset_history(self, history_idx: int, objective: str = ""):
+        self.histories[history_idx].reset(objective=objective)

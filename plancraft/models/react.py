@@ -391,7 +391,10 @@ class ReactModel(ABCModel):
         self.llm = llm
 
         self.batch_size = cfg.plancraft.batch_size
-        self.histories = [History(objective="") for _ in range(self.batch_size)]
+        self.histories = [
+            History(initial_dialogue=copy.deepcopy(REACT_EXAMPLE))
+            for _ in range(self.batch_size)
+        ]
 
         self.system_prompt = {
             "role": "system",
@@ -399,6 +402,15 @@ class ReactModel(ABCModel):
         }
         self.tokens_used = 0
         self.max_messages_window = 30
+
+    def reset_history(
+        self,
+        history_idx: int,
+        objective: str,
+    ):
+        self.histories[history_idx].reset(
+            objective=objective, initial_dialogue=copy.deepcopy(REACT_EXAMPLE)
+        )
 
     def convert_observation_to_text(self, observation: dict, objective: str) -> str:
         # @TODO
@@ -477,7 +489,7 @@ class ReactModel(ABCModel):
     # def reset(self) -> None:
     # self.llm.reset()
     # self.action_history = []
-    # self.history = copy.deepcopy(REACT_EXAMPLE)
+    # self.history =
     # self.token_used = 0
     # self.objective = ""
     # self.system_prompt = {
