@@ -450,7 +450,7 @@ class ReactModel(ABCModel):
 
         # generate thoughts
         thought_messages, thinking_token_used = self.llm.generate_thoughts(
-            messages=message_window,
+            batch_messages=thought_messages_windows,
             max_tokens=256,
         )
 

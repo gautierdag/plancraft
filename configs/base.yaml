@@ -11,7 +11,7 @@ plancraft:
     symbolic_observation_space: True
     symbolic_action_space: True
   split: val.small
-  batch_size: 2
+  batch_size: 4
 wandb:
   project: "plancraft"
   entity: "itl"

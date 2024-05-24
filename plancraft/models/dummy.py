@@ -23,7 +23,7 @@ class DummyModel(ABCModel):
         self, batch_observations: list[dict]
     ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
         if self.symbolic_move_action:
-            [SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)] * len(
+            return [SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)] * len(
                 batch_observations
             )
         return [RealActionInteraction()] * len(batch_observations)

@@ -1,14 +1,19 @@
+import logging
+
 from gym import Env
 from minerl.herobraine.hero import spaces
+
+from plancraft.environments.actions import SymbolicAction
 from plancraft.environments.recipes import (
     RECIPES,
-    SmeltingRecipe,
-    ShapelessRecipe,
     ShapedRecipe,
+    ShapelessRecipe,
+    SmeltingRecipe,
     convert_ingredients_to_table,
 )
 from plancraft.environments.sampler import MAX_STACK_SIZE
-from plancraft.environments.actions import SymbolicAction
+
+logger = logging.getLogger(__name__)
 
 
 class SymbolicPlancraft(Env):
@@ -73,7 +78,8 @@ class SymbolicPlancraft(Env):
             slot, slot_to, quantity = action["smelt"]
             self.smelt_item(slot, slot_to, quantity)
         else:
-            raise ValueError("Cannot parse action for Symbolic action")
+            raise ValueError("Invalid action")
+            # logger.warn("Cannot parse action for Symbolic action")
 
         # convert to list for same format as minerl
         state_list = [

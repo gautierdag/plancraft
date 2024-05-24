@@ -24,7 +24,7 @@ class History:
         self.action_history.append(action.model_dump())
 
     def __str__(self):
-    return str(self.dialogue_history)
+        return str(self.dialogue_history)
 
     def reset(self, objective: str = "", initial_dialogue: list[dict] = []):
         self.dialogue_history = initial_dialogue
@@ -63,13 +63,13 @@ class ABCModel(abc.ABC):
         """
         raise NotImplementedError()
 
-    @property
-    @abc.abstractmethod
-    def histories(self) -> list[History]:
-        """
-        Return the trace of the model
-        """
-        raise NotImplementedError()
+    # @property
+    # # @abc.abstractmethod
+    # def histories(self) -> list[History]:
+    #     """
+    #     Return the trace of the model
+    #     """
+    #     raise NotImplementedError()
 
     def reset_history(self, history_idx: int, objective: str = ""):
         self.histories[history_idx].reset(objective=objective)

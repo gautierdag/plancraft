@@ -43,7 +43,12 @@ class Evaluator:
         self.record_frames = not (cfg.plancraft.environment.symbolic)
 
         # no_op action
-        self.no_op = self.envs[0].action_space.no_op()
+        if cfg.plancraft.environment.symbolic:
+            self.no_op = {
+                "inventory_command": (0, 0, 0),
+            }
+        else:
+            self.no_op = self.envs[0].action_space.no_op()
 
     def create_env(self, cfg: Config) -> RealPlancraft | SymbolicPlancraft:
         if cfg.plancraft.environment.symbolic:
@@ -81,13 +86,6 @@ class Evaluator:
                 return True
         return False
 
-    #     return {
-    #         "success": done,
-    #         "number_of_steps": step,
-    #         "model_trace": model.trace,
-    #         "observations": observations,
-    #     }
-
     @torch.no_grad()
     def eval_all_examples(self) -> list:
         examples_queue = self.examples.copy()
@@ -107,8 +105,9 @@ class Evaluator:
                     # TODO: implement flow for impossible examples
                     if new_example.impossible:
                         continue
+
                     assigned_examples[env_idx] = new_example
-                    self.reset(example, env_idx)
+                    self.reset(new_example, env_idx)
                     actions[env_idx] = self.no_op.copy()
                     continue
 
@@ -132,6 +131,7 @@ class Evaluator:
             for env_idx, example in assigned_examples.items():
                 if example is None:
                     continue
+
                 obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
                 observations[env_idx] = obs
                 done[env_idx] = self.check_done(obs["inventory"], example.target)
@@ -163,12 +163,16 @@ class Evaluator:
             #     job_type=self.cfg.plancraft.mode,
             #     config=self.cfg.model_dump(),
             # )
+            time_now = time.time()
 
             results_list = self.eval_all_examples()
 
             results_df = pd.DataFrame(results_list)
             results_df["model_name"] = self.cfg.plancraft.model
             results_df["mode"] = self.cfg.plancraft.mode
+
+            time_elapsed = time.time() - time_now
+            logger.info(f"Time elapsed: {time_elapsed:.2f}s")
 
             # table = wandb.Table(dataframe=results_df)
             # wandb.log({"results": table})
