@@ -22,7 +22,7 @@ class PlancraftConfig(BaseModel):
     environment: EnvironmentConfig
     split: DatasetSplit = "val.small"
     batch_size: int = 1
-
+    max_message_window: int = 30 # max number of messages to keep in dialogue history
 
 class WandbConfig(BaseModel):
     project: str

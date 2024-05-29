@@ -1,5 +1,4 @@
 import copy
-import gc
 import json
 import logging
 import os
@@ -134,6 +133,11 @@ class TransformersGenerator:
         )
         logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
 
+        # compile
+        time_now = time.time()
+        self.model = torch.compile(self.model)
+        logger.info(f"Model compiled in {time.time() - time_now:.2f} seconds")
+
         self.model.eval()
         if self.tokenizer.pad_token_id is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
@@ -152,6 +156,44 @@ class TransformersGenerator:
         self.quantity_processor = ValidActionsLogitsProcessor(
             [str(i) for i in range(1, 65)], self.tokenizer
         )
+
+        self.past_key_values_kwargs = {}
+        self.past_token_ids = None
+
+    def truncate_kv_cache(self, new_token_ids: torch.Tensor):
+        """
+        Truncate the key-value cache to the size which overlap the past_ids with the new_ids.
+        Uses:
+            past_ids: torch.Tensor [B, T]
+            new_ids: torch.Tensor [B, T]
+            kv_cache: tuple[tuple[torch.Tensor]]: tuple of key-value cache tensors
+
+        NOTE: this essentially implements System Prompt in the worst case when using batch_size==1
+        """
+        if (
+            self.past_token_ids is None
+            or "past_key_values" not in self.past_key_values_kwargs
+        ):
+            return
+
+        min_shape = min(self.past_token_ids.shape[-1], new_token_ids.shape[-1])
+        compare_past = (
+            self.past_token_ids[:, :min_shape] != new_token_ids[:, :min_shape]
+        )
+
+        # All tokens are the same - no need to truncate
+        if not compare_past.any():
+            return
+
+        # Find the first token that is different between the past and new tokens
+        seq_min = torch.argmax(compare_past.double(), dim=1).min()
+
+        # Truncate the key-value cache to the size which overlap the past_ids with the new_ids.
+        # assumes shape is [num_layers, num_heads, seq_len, hidden_size]
+        self.past_key_values_kwargs["past_key_values"] = [
+            [kv[:, :, :seq_min, :] for kv in kvs]
+            for kvs in self.past_key_values_kwargs["past_key_values"]
+        ]
 
     @staticmethod
     def fix_tokenizer_system_prompt(model_name: str, tokenizer):
@@ -205,16 +247,12 @@ class TransformersGenerator:
 
         return model_name, model_kwargs
 
-    # def reset(self):
-    # # TODO: could use past_key_values cache with a rolling window
-    # # TODO: could also cache input ids / attention mask
-    # # TODO: could explore bfill
-    # # Remove cached tensors from memory
-    # # clear cuda cache
-    # torch.cuda.empty_cache()
-    # # Manually invoke garbage collector
-    # gc.collect()
-    # pass
+    def reset(self):
+        # NOTE: past_key_values cache with a rolling window
+        #  is not maximally useful as the beggining shifts over time
+        #  and therefore cache is invalidated
+        self.past_key_values_kwargs = {}
+        self.past_token_ids = None
 
     @torch.inference_mode()
     def generate_thoughts(
@@ -238,7 +276,17 @@ class TransformersGenerator:
             k: v.to(self.model.device) for k, v in tokenized_messages.items()
         }
 
-        generation_output = self.model.generate(
+        # truncate the key-value cache
+        self.truncate_kv_cache(tokenized_messages["input_ids"])
+
+        if (
+            "past_key_values" in self.past_key_values_kwargs
+            and self.past_key_values_kwargs["past_key_values"][0][0].shape[-2]
+            > tokenized_messages["input_ids"].shape[-1]
+        ):
+            raise ValueError("Past key values are larger than the input_ids")
+
+        generated_sequences = self.model.generate(
             input_ids=tokenized_messages["input_ids"],
             attention_mask=tokenized_messages["attention_mask"],
             do_sample=True,
@@ -247,14 +295,21 @@ class TransformersGenerator:
             pad_token_id=self.tokenizer.pad_token_id,
             return_dict_in_generate=True,
             use_cache=True,
+            **self.past_key_values_kwargs,
         )
+        # cache the past key values
+        self.past_key_values_kwargs["past_key_values"] = (
+            generated_sequences.past_key_values
+        )
+        self.past_token_ids = generated_sequences.sequences
+
         # decode the output
         text_responses = self.tokenizer.batch_decode(
-            generation_output.sequences[:, prompt_tokens:],
+            generated_sequences.sequences[:, prompt_tokens:],
             skip_special_tokens=True,
         )
         text_responses = [f"think:{text_response}" for text_response in text_responses]
-        _, total_tokens_used = generation_output.sequences.shape
+        _, total_tokens_used = generated_sequences.sequences.shape
         return text_responses, total_tokens_used
 
     def generate_with_processor(
@@ -276,8 +331,18 @@ class TransformersGenerator:
             k: v.to(self.model.device) for k, v in tokenized_messages.items()
         }
 
+        # truncate the key-value cache
+        self.truncate_kv_cache(tokenized_messages["input_ids"])
+
         # number of tokens in the prompt
         prompt_tokens = tokenized_messages["input_ids"].shape[-1]
+
+        if (
+            "past_key_values" in self.past_key_values_kwargs
+            and self.past_key_values_kwargs["past_key_values"][0][0].shape[-2]
+            > tokenized_messages["input_ids"].shape[-1]
+        ):
+            raise ValueError("Past key values are larger than the input_ids")
 
         # Generate the initial action constrained to valid action tokens
         generated_sequences = self.model.generate(
@@ -290,7 +355,13 @@ class TransformersGenerator:
             return_dict_in_generate=True,
             use_cache=True,
             logits_processor=[logits_processor],
+            **self.past_key_values_kwargs,
         )
+        # cache the past key values
+        self.past_key_values_kwargs["past_key_values"] = (
+            generated_sequences.past_key_values
+        )
+        self.past_token_ids = generated_sequences.sequences
 
         # reset the start index
         logits_processor.reset()
@@ -401,7 +472,8 @@ class ReactModel(ABCModel):
             "content": REACT_SYSTEM_PROMPT,
         }
         self.tokens_used = 0
-        self.max_messages_window = 30
+        self.max_messages_window = cfg.plancraft.max_message_window
+        self.kv_cache = None
 
     def reset_history(
         self,
@@ -411,6 +483,7 @@ class ReactModel(ABCModel):
         self.histories[history_idx].reset(
             objective=objective, initial_dialogue=copy.deepcopy(REACT_EXAMPLE)
         )
+        self.llm.reset()
 
     def convert_observation_to_text(self, observation: dict, objective: str) -> str:
         # @TODO
@@ -428,6 +501,9 @@ class ReactModel(ABCModel):
         return f"TASK: {objective}\ninventory={json.dumps(inventory)}"
 
     def step(self, observations: list[dict]) -> list[SymbolicAction]:
+        if len(observations) == 0:
+            return []
+
         thought_messages_windows = []
 
         # collect dialogue histories
@@ -439,6 +515,7 @@ class ReactModel(ABCModel):
             history.add_message_to_history(content=observation_str, role="user")
 
             message_window = history.dialogue_history[-self.max_messages_window :]
+
             # remove the first assistant message if it is present
             if len(message_window) > 0 and message_window[0]["role"] == "assistant":
                 message_window = message_window[1:]
@@ -462,6 +539,7 @@ class ReactModel(ABCModel):
             history.add_message_to_history(content="OK", role="user")
 
             message_window = history.dialogue_history[-self.max_messages_window :]
+
             # remove the first assistant message if it is present
             if len(message_window) > 0 and message_window[0]["role"] == "assistant":
                 message_window = message_window[1:]

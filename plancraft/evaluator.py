@@ -4,7 +4,7 @@ import logging
 
 import pandas as pd
 import torch
-
+from tqdm import tqdm
 
 import wandb
 from plancraft.config import Config, PlancraftExample
@@ -87,7 +87,7 @@ class Evaluator:
         return False
 
     @torch.no_grad()
-    def eval_all_examples(self) -> list:
+    def eval_all_examples(self, progress_bar=False) -> list:
         examples_queue = self.examples.copy()
         assigned_examples = {env_idx: None for env_idx in range(self.batch_size)}
 
@@ -96,7 +96,8 @@ class Evaluator:
         actions = [self.no_op.copy() for _ in range(self.batch_size)]
         observations = [None for _ in range(self.batch_size)]
         done = [False for _ in range(self.batch_size)]
-
+        pbar = tqdm(total=len(self.examples)*self.cfg.plancraft.max_steps, disable=not progress_bar)
+        
         while len(examples_queue) > 0:
             # assign example to environment if not already assigned
             for env_idx, example in assigned_examples.items():
@@ -124,7 +125,8 @@ class Evaluator:
                     )
                     assigned_examples[env_idx] = None
                     done[env_idx] = False
-
+                    pbar.update(min(self.cfg.plancraft.max_steps-num_steps, 0))
+            
             # step actions
             obs_batch = []
             obs_env_idx = []
@@ -139,12 +141,15 @@ class Evaluator:
                     obs_batch.append(obs)
                     obs_env_idx.append(env_idx)
 
+            time_now = time.time()
             # get actions from model (batched)
             # only send observations for environments with examples
             pred_actions = self.model.step(obs_batch)
             for action, env_idx in zip(pred_actions, obs_env_idx):
                 actions[env_idx] = action
                 self.model.histories[env_idx].add_action_to_history(action)
+            logger.info(f"predicted {len(pred_actions)} actions in {time.time()-time_now:.2f}s")
+            pbar.update(len(obs_batch))
 
         return results
 
@@ -165,7 +170,7 @@ class Evaluator:
             # )
             time_now = time.time()
 
-            results_list = self.eval_all_examples()
+            results_list = self.eval_all_examples(progress_bar=True)
 
             results_df = pd.DataFrame(results_list)
             results_df["model_name"] = self.cfg.plancraft.model

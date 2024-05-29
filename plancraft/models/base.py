@@ -16,7 +16,7 @@ class History:
         self.objective = objective
 
     def add_message_to_history(self, content: str, role="user"):
-        self.history.append({"role": role, "content": content})
+        self.dialogue_history.append({"role": role, "content": content})
 
     def add_action_to_history(
         self, action: SymbolicSmeltAction | RealActionInteraction | SymbolicMoveAction
@@ -62,14 +62,6 @@ class ABCModel(abc.ABC):
         for each observation in the batch
         """
         raise NotImplementedError()
-
-    # @property
-    # # @abc.abstractmethod
-    # def histories(self) -> list[History]:
-    #     """
-    #     Return the trace of the model
-    #     """
-    #     raise NotImplementedError()
 
     def reset_history(self, history_idx: int, objective: str = ""):
         self.histories[history_idx].reset(objective=objective)
