@@ -119,7 +119,7 @@ class Evaluator:
                 return True
         return False
 
-    def check_stuck(self, env_idx: int, max_steps_no_change: int = 10)->bool:
+    def check_stuck(self, env_idx: int, max_steps_no_change: int = 10) -> bool:
         """
         If inventory content does not change for max_steps_no_change steps
         the agent is considered stuck.
@@ -190,32 +190,23 @@ class Evaluator:
                     pbar.update((self.cfg.plancraft.max_steps - num_steps) + 1)
 
             # step actions
-            obs_batch = []
-            obs_env_idx = []
             for env_idx, example in assigned_examples.items():
                 if example is None:
                     continue
-
                 obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
-                self.model.histories[env_idx].add_observation_to_history(obs)
-
                 observations[env_idx] = obs
                 done[env_idx] = self.check_done(obs["inventory"], example.target)
-                if not done[env_idx]:
-                    obs_batch.append(obs)
-                    obs_env_idx.append(env_idx)
+                # don't predict actions if observation is None
+                if done[env_idx]:
+                    observations[env_idx] = None
 
             time_now = time.time()
             # get actions from model (batched)
-            # only send observations for environments with examples
-            pred_actions = self.model.step(obs_batch)
-            for action, env_idx in zip(pred_actions, obs_env_idx):
-                actions[env_idx] = action
-                self.model.histories[env_idx].add_action_to_history(action)
+            actions = self.model.step(observations)
             logger.info(
-                f"predicted {len(pred_actions)} actions in {time.time()-time_now:.2f}s"
+                f"predicted {len(actions)} actions in {time.time()-time_now:.2f}s"
             )
-            pbar.update(len(obs_batch))
+            pbar.update(len(observations))
 
         return results
 
@@ -226,14 +217,14 @@ class Evaluator:
         for n in range(self.cfg.plancraft.num_generations):
             logger.info(f"Generation {n+1}/{self.cfg.plancraft.num_generations}")
 
-            wandb.init(
-                project=self.cfg.wandb.project,
-                entity=self.cfg.wandb.entity,
-                mode=self.cfg.wandb.mode,
-                group=self.cfg.plancraft.model,
-                job_type=self.cfg.plancraft.mode,
-                config=self.cfg.model_dump(),
-            )
+            # wandb.init(
+            #     project=self.cfg.wandb.project,
+            #     entity=self.cfg.wandb.entity,
+            #     mode=self.cfg.wandb.mode,
+            #     group=self.cfg.plancraft.model,
+            #     job_type=self.cfg.plancraft.mode,
+            #     config=self.cfg.model_dump(),
+            # )
             time_now = time.time()
 
             results_list = self.eval_all_examples(progress_bar=True)
@@ -246,12 +237,12 @@ class Evaluator:
             logger.info(f"Time elapsed: {time_elapsed:.2f}s")
 
             # Log each JSON file in the folder
-            folder_path = f"{self.output_dir}/{self.generation_number}"
-            wandb.save(f"{folder_path}/*.json")
+            # folder_path = f"{self.output_dir}/{self.generation_number}"
+            # wandb.save(f"{folder_path}/*.json")
 
-            table = wandb.Table(dataframe=results_df)
-            wandb.log({"results": table})
-            wandb.finish()
+            # table = wandb.Table(dataframe=results_df)
+            # wandb.log({"results": table})
+            # wandb.finish()
 
             self.generation_number += 1
 

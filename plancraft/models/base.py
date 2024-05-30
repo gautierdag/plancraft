@@ -23,6 +23,8 @@ class History:
     def add_action_to_history(
         self, action: SymbolicSmeltAction | RealActionInteraction | SymbolicMoveAction
     ):
+        if action is None:
+            return
         self.action_history.append(action.model_dump())
 
     def add_inventory_to_history(self, inventory: list[dict[str, int]]):
@@ -32,6 +34,8 @@ class History:
         self.images.append(image)
 
     def add_observation_to_history(self, observation: dict):
+        if observation is None:
+            return
         if "inventory" in observation:
             self.add_inventory_to_history(observation["inventory"])
         if "pov" in observation:

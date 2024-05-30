@@ -22,8 +22,23 @@ class DummyModel(ABCModel):
     def step(
         self, batch_observations: list[dict]
     ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
-        if self.symbolic_move_action:
-            return [SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)] * len(
-                batch_observations
-            )
-        return [RealActionInteraction()] * len(batch_observations)
+        out_actions = []
+        for observation, history in zip(batch_observations, self.histories):
+            if observation is None:
+                out_actions.append(None)
+                continue
+
+            # add observation to history
+            history.add_observation_to_history(observation)
+
+            # get action
+            if self.symbolic_move_action:
+                action = SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
+            else:
+                action = RealActionInteraction()
+            out_actions.append(action)
+
+            # add action to history
+            history.add_action_to_history(action)
+
+        return out_actions

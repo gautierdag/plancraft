@@ -508,14 +508,28 @@ class ReactModel(ABCModel):
         return f"TASK: {objective}\ninventory={json.dumps(inventory)}"
 
     def step(self, observations: list[dict]) -> list[SymbolicAction]:
-        if len(observations) == 0:
-            return []
+        assert len(observations) == self.batch_size == len(self.histories)
+
+        # filter out None observations
+        real_obs = []
+        real_obs_idx = []
+
+        for idx, (observation, history) in enumerate(zip(observations, self.histories)):
+            # add observation to history
+            history.add_observation_to_history(observation)
+            if observation is not None:
+                real_obs.append(observation)
+                real_obs_idx.append(idx)
+
+        if len(real_obs) == 0:
+            return [None] * len(observations)
 
         thought_messages_windows = []
 
         # collect dialogue histories
-        for observation, history in zip(observations, self.histories):
+        for observation, history_idx in zip(real_obs, real_obs_idx):
             # add observation to history
+            history = self.histories[history_idx]
             observation_str = self.convert_observation_to_text(
                 observation, objective=history.objective
             )
@@ -540,7 +554,9 @@ class ReactModel(ABCModel):
 
         action_messages_windows = []
         # update message window with thoughts and collect action messages
-        for thought_message, history in zip(thought_messages, self.histories):
+        for thought_message, history_idx in zip(thought_messages, real_obs_idx):
+            history = self.histories[history_idx]
+
             # add thought message to history
             history.add_message_to_history(content=thought_message, role="assistant")
             history.add_message_to_history(content="OK", role="user")
@@ -560,10 +576,19 @@ class ReactModel(ABCModel):
             batch_messages=action_messages_windows,
         )
 
-        for action_message, history in zip(action_messages, self.histories):
+        for action_message, history_idx in zip(action_messages, real_obs_idx):
+            history = self.histories[history_idx]
             history.add_message_to_history(content=action_message, role="assistant")
 
-        # NOTE: this overestimates the token used as it some batches might use less tokens
+        # NOTE: this overestimates the token used as some examples in the batch might use less tokens
         self.tokens_used += (thinking_token_used + action_token_used) * self.batch_size
+
+        # re-map actions to the correct index in the batch
+        out_actions = [None] * len(observations)
+        for idx, history_idx in enumerate(real_obs_idx):
+            out_actions[history_idx] = actions[idx]
+
+            # add to action history
+            self.histories[history_idx].add_action_to_history(actions[idx])
 
         return actions
