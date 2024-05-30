@@ -190,7 +190,6 @@ class SymbolicPlancraft(Env):
 
     def use_ingredients(self):
         # remove used ingredients from crafting table
-        print(self.ingredients_idxs)
         for idx in self.ingredients_idxs:
             self.state[idx + 1]["quantity"] -= 1
             if self.state[idx + 1]["quantity"] <= 0:

@@ -34,7 +34,7 @@ def find_free_inventory_slot(inventory: list[dict]) -> int:
 
 def find_item_in_inventory(target: str, inventory: list[dict]) -> int:
     for item in inventory:
-        if item["type"] == target:
+        if item["type"] == target and item["quantity"] > 0:
             if "slot" in item:
                 return item["slot"]
             elif "index" in item:
@@ -53,6 +53,32 @@ def get_inventory_counter(inventory: list[dict]) -> Counter:
             continue
         counter[item["type"]] += item["quantity"]
     return counter
+
+
+def get_crafting_slot_item(inventory: list[dict]) -> dict:
+    for item in inventory:
+        if "slot" in item and item["slot"] == 0 and item["quantity"] > 0:
+            return item
+        if "index" in item and item["index"] == 0 and item["quantity"] > 0:
+            return item
+    return None
+
+
+def update_inventory(
+    inventory: list[dict], slot_from: int, slot_to: int, quantity: int
+) -> list[dict]:
+    new_inventory = []
+    for item in inventory:
+        if "slot" in item and item["slot"] == slot_from:
+            item["quantity"] -= quantity
+        elif "index" in item and item["index"] == slot_from:
+            item["quantity"] -= quantity
+        elif "slot" in item and item["slot"] == slot_to:
+            item["quantity"] += quantity
+        elif "index" in item and item["index"] == slot_to:
+            item["quantity"] += quantity
+        new_inventory.append(item)
+    return new_inventory
 
 
 class OracleModel(ABCModel):
@@ -84,12 +110,21 @@ class OracleModel(ABCModel):
             target=target, inventory=inventory_counter
         )
 
-    def get_next_action(self, plan_idx: int, observation: dict):
+    def get_next_action(
+        self, plan_idx: int, observation: dict
+    ) -> SymbolicMoveAction | SymbolicSmeltAction:
         if len(self.subplans[plan_idx]) > 0:
             return self.subplans[plan_idx].pop(0)
-
         if len(self.plans[plan_idx]) == 0:
             raise ValueError("No more steps in plan")
+
+        # take item from crafting slot
+        if slot_item := get_crafting_slot_item(observation["inventory"]):
+            # move item from crafting slot to inventory
+            free_slot = find_free_inventory_slot(observation["inventory"])
+            return SymbolicMoveAction(
+                slot_from=0, slot_to=free_slot, quantity=slot_item["quantity"]
+            )
 
         plan_recipe, new_inventory = self.plans[plan_idx].pop(0)
         self.subplans[plan_idx] = []
@@ -105,21 +140,17 @@ class OracleModel(ABCModel):
             # add each item to crafting slots
             for item, quantity in items_to_use_counter.items():
                 from_slot = find_item_in_inventory(item, current_inventory)
-                for n in range(quantity):
+                for _ in range(quantity):
                     # low_level_plan.append(("move", item, from_slot, crafting_slot, 1))
                     action = SymbolicMoveAction(
                         slot_from=from_slot, slot_to=crafting_slot, quantity=1
                     )
+                    # update state of inventory
+                    current_inventory = update_inventory(
+                        current_inventory, from_slot, crafting_slot, 1
+                    )
                     self.subplans[plan_idx].append(action)
                     crafting_slot += 1
-
-            # take item from crafting slot
-            new_item, new_item_quantity = new_items.popitem()
-            free_slot = find_free_inventory_slot(current_inventory)
-            action = SymbolicMoveAction(
-                slot_from=0, slot_to=free_slot, quantity=new_item_quantity
-            )
-            self.subplans[plan_idx].append(action)
 
         # if plan_recipe is a smelting recipe
         elif isinstance(plan_recipe, SmeltingRecipe):
@@ -146,14 +177,13 @@ class OracleModel(ABCModel):
                                 slot_to=inventory_position,
                                 quantity=1,
                             )
+                            items_to_use_counter[item] -= 1
+                            # update state of inventory
+                            current_inventory = update_inventory(
+                                current_inventory, from_slot, inventory_position, 1
+                            )
                             self.subplans[plan_idx].append(action)
                             break
-            new_item, new_item_quantity = new_items.popitem()
-            free_slot = find_free_inventory_slot(current_inventory)
-            action = SymbolicMoveAction(
-                slot_from=0, slot_to=free_slot, quantity=new_item_quantity
-            )
-            self.subplans[plan_idx].append(action)
         else:
             raise NotImplementedError(f"Recipe type {type(plan_recipe)} not supported")
 

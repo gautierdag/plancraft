@@ -3,18 +3,19 @@ plancraft:
   model: meta-llama/Meta-Llama-3-8B-Instruct
   # model: CohereForAI/c4ai-command-r-v01
   num_generations: 1
-  mode: "react"
+  # mode: "react"
+  mode: "oracle"
   # mode: "dummy"
-  max_steps: 50
+  max_steps: 80
   quantize: int4
   environment:
     symbolic: True
     symbolic_observation_space: True
     symbolic_action_space: True
   split: val.small
-  batch_size: 2
+  batch_size: 1
   max_message_window: 30
-  resume: True
+  resume: False
   output_dir: "outputs"
 wandb:
   project: "plancraft"
