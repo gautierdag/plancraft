@@ -1,6 +1,8 @@
+import os
 import time
 import json
 import logging
+from collections import Counter
 
 import pandas as pd
 import torch
@@ -23,9 +25,12 @@ class Evaluator:
     The environment is created based on the configuration and the examples are loaded from the dataset.
     """
 
-    def __init__(self, cfg: Config, output_dir: str):
+    def __init__(self, cfg: Config):
         self.cfg = cfg
-        self.output_dir = output_dir
+        self.output_dir = (
+            f"{cfg.plancraft.output_dir}/{self.evaluator_name()}/{cfg.plancraft.split}"
+        )
+        self.generation_number = 0
 
         self.examples = self.load_dataset(cfg.plancraft.split)
 
@@ -49,6 +54,31 @@ class Evaluator:
             }
         else:
             self.no_op = self.envs[0].action_space.no_op()
+
+    def evaluator_name(self) -> str:
+        model_name = self.cfg.plancraft.model.split("/")[-1]
+        mode = self.cfg.plancraft.mode
+        if mode in ["dummy", "oracle"]:
+            return f"{mode}"
+        return (
+            f"{self.cfg.plancraft.mode}_{model_name}_stp{self.cfg.plancraft.max_steps}"
+        )
+
+    def save_results_dict(self, example: PlancraftExample, results_dict: dict):
+        output_dir = f"{self.output_dir}/{self.generation_number}"
+        os.makedirs(output_dir, exist_ok=True)
+        with open(
+            f"{output_dir}/{example.id}.json",
+            "w",
+        ) as f:
+            json.dump(results_dict, f, indent=4)
+
+    def load_results_dict(self, example: PlancraftExample) -> dict:
+        path = f"{self.output_dir}/{self.generation_number}/{example.id}.json"
+        if not os.path.exists(path) or not self.cfg.plancraft.resume:
+            return None
+        with open(path, "r") as f:
+            return json.load(f)
 
     def create_env(self, cfg: Config) -> RealPlancraft | SymbolicPlancraft:
         if cfg.plancraft.environment.symbolic:
@@ -81,10 +111,30 @@ class Evaluator:
         self.model.reset_history(history_idx=env_idx, objective=objective)
 
     def check_done(self, inventory: list[dict[str, int]], target: str):
+        """
+        Check that target object is obtained
+        """
         for item in inventory:
             if target == item["type"]:
                 return True
         return False
+
+    def check_stuck(self, env_idx: int, max_steps_no_change: int = 10)->bool:
+        """
+        If inventory content does not change for max_steps_no_change steps
+        the agent is considered stuck.
+        """
+        inventory_history = self.model.histories[env_idx].inventory_history
+        if len(inventory_history) < max_steps_no_change:
+            return False
+        inventory_history = inventory_history[-max_steps_no_change:]
+        counters = []
+        for inventory in inventory_history:
+            counter = Counter()
+            for item in inventory:
+                counter[item["type"]] += item["quantity"]
+            counters.append(counter)
+        return all(c == counters[0] for c in counters)
 
     @torch.no_grad()
     def eval_all_examples(self, progress_bar=False) -> list:
@@ -96,8 +146,11 @@ class Evaluator:
         actions = [self.no_op.copy() for _ in range(self.batch_size)]
         observations = [None for _ in range(self.batch_size)]
         done = [False for _ in range(self.batch_size)]
-        pbar = tqdm(total=len(self.examples)*self.cfg.plancraft.max_steps, disable=not progress_bar)
-        
+        pbar = tqdm(
+            total=len(self.examples) * self.cfg.plancraft.max_steps,
+            disable=not progress_bar,
+        )
+
         while len(examples_queue) > 0:
             # assign example to environment if not already assigned
             for env_idx, example in assigned_examples.items():
@@ -105,6 +158,11 @@ class Evaluator:
                     new_example = examples_queue.pop()
                     # TODO: implement flow for impossible examples
                     if new_example.impossible:
+                        pbar.update(self.cfg.plancraft.max_steps)
+                        continue
+                    if resume_result := self.load_results_dict(new_example):
+                        pbar.update(self.cfg.plancraft.max_steps)
+                        results.append(resume_result)
                         continue
 
                     assigned_examples[env_idx] = new_example
@@ -113,20 +171,24 @@ class Evaluator:
                     continue
 
                 num_steps = self.model.histories[env_idx].num_steps
-                if done[env_idx] or num_steps > self.cfg.plancraft.max_steps:
+                if (
+                    done[env_idx]
+                    or num_steps >= self.cfg.plancraft.max_steps
+                    or self.check_stuck(env_idx)
+                ):
                     # save results and reset
-                    results.append(
-                        {
-                            "success": done[env_idx],
-                            "number_of_steps": num_steps,
-                            "model_trace": self.model.histories[env_idx].trace(),
-                            "example": example.model_dump(),
-                        }
-                    )
+                    result = {
+                        "success": done[env_idx],
+                        "number_of_steps": num_steps,
+                        "model_trace": self.model.histories[env_idx].trace(),
+                        "example_id": example.id,
+                    }
+                    results.append(result)
+                    self.save_results_dict(example, result)
                     assigned_examples[env_idx] = None
                     done[env_idx] = False
-                    pbar.update(min(self.cfg.plancraft.max_steps-num_steps, 0))
-            
+                    pbar.update((self.cfg.plancraft.max_steps - num_steps) + 1)
+
             # step actions
             obs_batch = []
             obs_env_idx = []
@@ -135,6 +197,8 @@ class Evaluator:
                     continue
 
                 obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
+                self.model.histories[env_idx].add_observation_to_history(obs)
+
                 observations[env_idx] = obs
                 done[env_idx] = self.check_done(obs["inventory"], example.target)
                 if not done[env_idx]:
@@ -148,7 +212,9 @@ class Evaluator:
             for action, env_idx in zip(pred_actions, obs_env_idx):
                 actions[env_idx] = action
                 self.model.histories[env_idx].add_action_to_history(action)
-            logger.info(f"predicted {len(pred_actions)} actions in {time.time()-time_now:.2f}s")
+            logger.info(
+                f"predicted {len(pred_actions)} actions in {time.time()-time_now:.2f}s"
+            )
             pbar.update(len(obs_batch))
 
         return results
@@ -160,14 +226,14 @@ class Evaluator:
         for n in range(self.cfg.plancraft.num_generations):
             logger.info(f"Generation {n+1}/{self.cfg.plancraft.num_generations}")
 
-            # wandb.init(
-            #     project=self.cfg.wandb.project,
-            #     entity=self.cfg.wandb.entity,
-            #     mode=self.cfg.wandb.mode,
-            #     group=self.cfg.plancraft.model,
-            #     job_type=self.cfg.plancraft.mode,
-            #     config=self.cfg.model_dump(),
-            # )
+            wandb.init(
+                project=self.cfg.wandb.project,
+                entity=self.cfg.wandb.entity,
+                mode=self.cfg.wandb.mode,
+                group=self.cfg.plancraft.model,
+                job_type=self.cfg.plancraft.mode,
+                config=self.cfg.model_dump(),
+            )
             time_now = time.time()
 
             results_list = self.eval_all_examples(progress_bar=True)
@@ -179,8 +245,14 @@ class Evaluator:
             time_elapsed = time.time() - time_now
             logger.info(f"Time elapsed: {time_elapsed:.2f}s")
 
-            # table = wandb.Table(dataframe=results_df)
-            # wandb.log({"results": table})
-            # wandb.finish()
+            # Log each JSON file in the folder
+            folder_path = f"{self.output_dir}/{self.generation_number}"
+            wandb.save(f"{folder_path}/*.json")
+
+            table = wandb.Table(dataframe=results_df)
+            wandb.log({"results": table})
+            wandb.finish()
+
+            self.generation_number += 1
 
         logger.info("Done")

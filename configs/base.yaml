@@ -1,9 +1,10 @@
 plancraft:
-  model: microsoft/Phi-3-mini-128k-instruct
-  # model: meta-llama/Meta-Llama-3-8B-Instruct
+  # model: microsoft/Phi-3-mini-128k-instruct
+  model: meta-llama/Meta-Llama-3-8B-Instruct
   # model: CohereForAI/c4ai-command-r-v01
   num_generations: 1
   mode: "react"
+  # mode: "dummy"
   max_steps: 50
   quantize: int4
   environment:
@@ -11,8 +12,10 @@ plancraft:
     symbolic_observation_space: True
     symbolic_action_space: True
   split: val.small
-  batch_size: 1
-  max_message_window: 100
+  batch_size: 2
+  max_message_window: 30
+  resume: True
+  output_dir: "outputs"
 wandb:
   project: "plancraft"
   entity: "itl"

@@ -17,12 +17,15 @@ class PlancraftConfig(BaseModel):
     model: str
     num_generations: int
     mode: str
+    output_dir: str
     max_steps: int
     quantize: Literal[False, "int4", "int8"]
     environment: EnvironmentConfig
     split: DatasetSplit = "val.small"
     batch_size: int = 1
-    max_message_window: int = 30 # max number of messages to keep in dialogue history
+    max_message_window: int = 30  # max number of messages to keep in dialogue history
+    resume: bool = True  # resume inference
+
 
 class WandbConfig(BaseModel):
     project: str
@@ -64,3 +67,4 @@ class PlancraftExample(BaseModel):
     unseen_in_train: bool
     unseen_in_val: bool
     split: DatasetSplit
+    id: str

@@ -176,7 +176,14 @@ class TransformersGenerator:
         ):
             return
 
-        min_shape = min(self.past_token_ids.shape[-1], new_token_ids.shape[-1])
+        past_batch_size, past_seq_len = self.past_token_ids.shape
+        new_batch_size, new_seq_len = new_token_ids.shape
+
+        # If the batch size has changed, reset the cache
+        if past_batch_size != new_batch_size:
+            self.past_key_values_kwargs = {}
+
+        min_shape = min(past_seq_len, new_seq_len)
         compare_past = (
             self.past_token_ids[:, :min_shape] != new_token_ids[:, :min_shape]
         )

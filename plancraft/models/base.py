@@ -13,6 +13,8 @@ class History:
     def __init__(self, objective: str = "", initial_dialogue: list[dict] = []):
         self.dialogue_history = initial_dialogue
         self.action_history = []
+        self.inventory_history = []
+        self.images = []
         self.objective = objective
 
     def add_message_to_history(self, content: str, role="user"):
@@ -23,12 +25,26 @@ class History:
     ):
         self.action_history.append(action.model_dump())
 
+    def add_inventory_to_history(self, inventory: list[dict[str, int]]):
+        self.inventory_history.append(inventory)
+
+    def add_image_to_history(self, image):
+        self.images.append(image)
+
+    def add_observation_to_history(self, observation: dict):
+        if "inventory" in observation:
+            self.add_inventory_to_history(observation["inventory"])
+        if "pov" in observation:
+            self.add_image_to_history(observation["pov"])
+
     def __str__(self):
         return str(self.dialogue_history)
 
     def reset(self, objective: str = "", initial_dialogue: list[dict] = []):
         self.dialogue_history = initial_dialogue
         self.action_history = []
+        self.inventory_history = []
+        self.images = []
         self.objective = objective
 
     def set_objective(self, objective: str):
@@ -38,7 +54,9 @@ class History:
         return {
             "dialogue_history": copy(self.dialogue_history),
             "action_history": copy(self.action_history),
+            "inventory_history": copy(self.inventory_history),
             "objective": copy(self.objective),
+            "images": copy(self.images),
         }
 
     @property
