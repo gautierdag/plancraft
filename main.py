@@ -14,8 +14,7 @@ logger = logging.getLogger(__name__)
 def main(cfg):
     logger.info(cfg)
     cfg = Config(**dict(cfg))
-    output_dir = hydra.core.hydra_config.HydraConfig.get().runtime.output_dir
-    evaluator = Evaluator(cfg, output_dir)
+    evaluator = Evaluator(cfg)
     evaluator.eval_all()
 
 
