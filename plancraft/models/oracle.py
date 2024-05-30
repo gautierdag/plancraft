@@ -1,4 +1,5 @@
-from collections import defaultdict
+import logging
+from collections import Counter
 
 from plancraft.config import Config
 from plancraft.environments.actions import (
@@ -7,8 +8,51 @@ from plancraft.environments.actions import (
     SymbolicSmeltAction,
 )
 from plancraft.environments.planner import optimal_planner
-from plancraft.environments.recipes import ShapedRecipe, ShapelessRecipe, SmeltingRecipe
+from plancraft.environments.recipes import (
+    ShapedRecipe,
+    ShapelessRecipe,
+    SmeltingRecipe,
+    id_to_item,
+)
 from plancraft.models.base import ABCModel, History
+
+logger = logging.getLogger(__name__)
+
+
+def item_set_id_to_type(item_set_ids: set[int]):
+    return set(id_to_item(i) for i in item_set_ids)
+
+
+def find_free_inventory_slot(inventory: list[dict]) -> int:
+    for item in inventory:
+        if item["quantity"] == 0:
+            if "slot" in item and item["slot"] > 10:
+                return item["slot"]
+            elif "index" in item and item["index"] > 10:
+                return item["index"]
+
+
+def find_item_in_inventory(target: str, inventory: list[dict]) -> int:
+    for item in inventory:
+        if item["type"] == target:
+            if "slot" in item:
+                return item["slot"]
+            elif "index" in item:
+                return item["index"]
+            raise ValueError("Neither slot or index is set")
+
+
+def get_inventory_counter(inventory: list[dict]) -> Counter:
+    counter = Counter()
+    for item in inventory:
+        if "slot" in item and item["slot"] == 0:
+            continue
+        if "index" in item and item["index"] == 0:
+            continue
+        if item["type"] == "air":
+            continue
+        counter[item["type"]] += item["quantity"]
+    return counter
 
 
 class OracleModel(ABCModel):
@@ -24,62 +68,118 @@ class OracleModel(ABCModel):
             History(objective="") for _ in range(cfg.plancraft.batch_size)
         ]
         self.plans = [[] for _ in range(cfg.plancraft.batch_size)]
-        self.plan_idxs = [0 for _ in range(cfg.plancraft.batch_size)]
         self.subplans = [[] for _ in range(cfg.plancraft.batch_size)]
 
-    # def set_objective(self, objective: str):
-    #     self.objective = objective
-    #     # objective="Craft an item of type: ...."
-    #     # this simply recovering the target item to craft
-    #     self.target = objective.split(": ")[-1]
+    def reset_history(self, history_idx: int, objective: str = ""):
+        self.histories[history_idx].reset(objective=objective)
+        self.plans[history_idx] = []
+        self.subplans[history_idx] = []
 
-    def find_empty_slot(self, inventory):
-        for item in inventory:
-            if item["quantity"] == "0":
-                return item["slot"]
-        return None
+    def get_plan(self, plan_idx: int, observation: dict):
+        # objective="Craft an item of type: ...."
+        # this simply recovering the target item to craft
+        target = self.histories[plan_idx].objective.split(": ")[-1]
+        inventory_counter = get_inventory_counter(observation["inventory"])
+        self.plans[plan_idx] = optimal_planner(
+            target=target, inventory=inventory_counter
+        )
 
-    def populate_subplan(self):
-        subplan_task = self.plan[self.plan_idx]
-        if isinstance(subplan_task[0], ShapedRecipe):
-            # self.subplan = subplan_task[0].inputs
-            pass
-        elif isinstance(subplan_task[0], ShapelessRecipe):
-            # self.subplan = subplan_task[0].inputs
-            pass
-        elif isinstance(subplan_task[0], SmeltingRecipe):
-            pass
-            # target_item = SmeltingRecipe.result.item
-            # if the recipe is a smelting recipe, we need to move the input item to the furnace
-            # self.subplan = [SymbolicSmeltAction()
-            # action = SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
+    def get_next_action(self, plan_idx: int, observation: dict):
+        if len(self.subplans[plan_idx]) > 0:
+            return self.subplans[plan_idx].pop(0)
+
+        if len(self.plans[plan_idx]) == 0:
+            raise ValueError("No more steps in plan")
+
+        plan_recipe, new_inventory = self.plans[plan_idx].pop(0)
+        self.subplans[plan_idx] = []
+        new_inventory_counter = Counter(new_inventory)
+        current_inventory = observation["inventory"]
+        current_inventory_counter = get_inventory_counter(current_inventory)
+        items_to_use_counter = current_inventory_counter - new_inventory_counter
+        new_items = new_inventory_counter - current_inventory_counter
+        assert len(new_items) == 1
+
+        if isinstance(plan_recipe, ShapelessRecipe):
+            crafting_slot = 1
+            # add each item to crafting slots
+            for item, quantity in items_to_use_counter.items():
+                from_slot = find_item_in_inventory(item, current_inventory)
+                for n in range(quantity):
+                    # low_level_plan.append(("move", item, from_slot, crafting_slot, 1))
+                    action = SymbolicMoveAction(
+                        slot_from=from_slot, slot_to=crafting_slot, quantity=1
+                    )
+                    self.subplans[plan_idx].append(action)
+                    crafting_slot += 1
+
+            # take item from crafting slot
+            new_item, new_item_quantity = new_items.popitem()
+            free_slot = find_free_inventory_slot(current_inventory)
+            action = SymbolicMoveAction(
+                slot_from=0, slot_to=free_slot, quantity=new_item_quantity
+            )
+            self.subplans[plan_idx].append(action)
+
+        # if plan_recipe is a smelting recipe
+        elif isinstance(plan_recipe, SmeltingRecipe):
+            free_slot = find_free_inventory_slot(current_inventory)
+            assert len(items_to_use_counter) == 1, "smelting only supports one item"
+            for item, quantity in items_to_use_counter.items():
+                from_slot = find_item_in_inventory(item, current_inventory)
+                action = SymbolicSmeltAction(
+                    slot_from=from_slot, slot_to=free_slot, quantity=quantity
+                )
+                self.subplans[plan_idx].append(action)
+
+        # if plan_recipe is a shaped recipe
+        elif isinstance(plan_recipe, ShapedRecipe):
+            for i, row in enumerate(plan_recipe.kernel):
+                for j, item_set in enumerate(row):
+                    inventory_position = (i * 3) + j + 1
+                    valid_items = item_set_id_to_type(item_set)
+                    for item in valid_items:
+                        if items_to_use_counter[item] > 0:
+                            from_slot = find_item_in_inventory(item, current_inventory)
+                            action = SymbolicMoveAction(
+                                slot_from=from_slot,
+                                slot_to=inventory_position,
+                                quantity=1,
+                            )
+                            self.subplans[plan_idx].append(action)
+                            break
+            new_item, new_item_quantity = new_items.popitem()
+            free_slot = find_free_inventory_slot(current_inventory)
+            action = SymbolicMoveAction(
+                slot_from=0, slot_to=free_slot, quantity=new_item_quantity
+            )
+            self.subplans[plan_idx].append(action)
+        else:
+            raise NotImplementedError(f"Recipe type {type(plan_recipe)} not supported")
+
+        return self.subplans[plan_idx].pop(0)
 
     def step(
         self, batch_observations: list[dict]
     ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
-        return
-        # for i, observation in enumerate(batch_observations):
+        out_actions = []
+        assert len(batch_observations) == len(self.histories)
+        for plan_idx, observation in enumerate(batch_observations):
+            if observation is None:
+                out_actions.append(None)
+                continue
 
-        # if not self.plan:
-        #     inventory_dict = defaultdict(int)
-        #     for item in batch_observations["inventory"]:
-        #         inventory_dict[item["type"]] += item["quantity"]
-        #     self.plan = optimal_planner(target=self.target, inventory=inventory_dict)
+            # add observation to history
+            self.histories[plan_idx].add_observation_to_history(observation)
 
-        # TODO: Implement the logic to return the next action in the plan
-        # note that plans abstract away crafting, so will need to decompose each craft step into the move steps
+            # get action
+            if len(self.plans[plan_idx]) == 0:
+                self.get_plan(plan_idx, observation)
 
-        # if subplan is empty, move to the next plan
-        # if not self.subplan:
-        #     self.plan_idx += 1
-        #     self.populate_subplan()
+            action = self.get_next_action(plan_idx, observation)
+            out_actions.append(action)
 
-        # # if subplan is still empty
-        # if len(self.subplan) > 1:
-        #     action = self.subplan.pop(0)
-        # else:
-        #     # no op
-        #     action = SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
+            # add action to history
+            self.histories[plan_idx].add_action_to_history(action)
 
-        # self.action_history.append(action)
-        # return action
+        return out_actions

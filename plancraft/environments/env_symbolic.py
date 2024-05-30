@@ -102,7 +102,9 @@ class SymbolicPlancraft(Env):
         item = self.state[slot_from]
 
         # slot to is not empty or is the same type as item
-        if self.state[slot_to]["type"] == "air":
+        if (self.state[slot_to]["type"] == "air") or (
+            self.state[slot_to]["quantity"] <= 0
+        ):
             self.state[slot_to] = {"type": item["type"], "quantity": quantity}
             self.state[slot_from]["quantity"] -= quantity
         elif self.state[slot_to]["type"] == item["type"] and (
