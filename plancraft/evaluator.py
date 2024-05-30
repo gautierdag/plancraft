@@ -123,6 +123,8 @@ class Evaluator:
         """
         If inventory content does not change for max_steps_no_change steps
         the agent is considered stuck.
+
+        With N=10, the oracle solver can still solve 100% of the examples
         """
         inventory_history = self.model.histories[env_idx].inventory_history
         if len(inventory_history) < max_steps_no_change:
@@ -192,11 +194,13 @@ class Evaluator:
             # step actions
             for env_idx, example in assigned_examples.items():
                 if example is None:
+                    observations[env_idx] = None
                     continue
+
                 obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
                 observations[env_idx] = obs
                 done[env_idx] = self.check_done(obs["inventory"], example.target)
-                # don't predict actions if observation is None
+                # # don't predict actions if observation is None
                 if done[env_idx]:
                     observations[env_idx] = None
 
