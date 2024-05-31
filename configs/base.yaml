@@ -2,9 +2,9 @@ plancraft:
   # model: microsoft/Phi-3-mini-128k-instruct
   model: meta-llama/Meta-Llama-3-8B-Instruct
   # model: CohereForAI/c4ai-command-r-v01
-  num_generations: 1
-  # mode: "react"
-  mode: "oracle"
+  num_generations: 5
+  mode: "react"
+  # mode: "oracle"
   # mode: "dummy"
   max_steps: 80
   quantize: int4
@@ -20,7 +20,7 @@ plancraft:
 wandb:
   project: "plancraft"
   entity: "itl"
-  mode: "offline"
+  mode: "online"
 launch:
   command: "python main.py"
   job_name: "plancraft-s2234411"
