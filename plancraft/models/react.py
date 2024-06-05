@@ -49,7 +49,7 @@ The first 10 slots in the inventory are reserved for crafting and correspond to 
 
 The crafting matrix is a 3x3 grid, and the output is sent to slot 0.
 You cannot move or smelt items into output slot 0.
-The remaining slots (10-46) are for storing items.
+The remaining slots (10-45) are for storing items.
 """
 
 REACT_EXAMPLE = [
@@ -90,7 +90,7 @@ REACT_EXAMPLE = [
     {"role": "user", "content": "OK"},
     {
         "role": "assistant",
-        "content": """act: smelt from slot 45 to slot 46 with quantity 1""",
+        "content": """act: smelt from slot 45 to slot 44 with quantity 1""",
     },
 ]
 
@@ -197,6 +197,7 @@ class TransformersGenerator:
         # If the batch size has changed, reset the cache
         if past_batch_size != new_batch_size:
             self.past_key_values_kwargs = {}
+            return
 
         min_shape = min(past_seq_len, new_seq_len)
         compare_past = (
@@ -598,7 +599,7 @@ class ReactModel(ABCModel):
 
         self.system_prompt = {
             "role": "system",
-            "content": REACT_SYSTEM_PROMPT,
+            "content": copy.deepcopy(REACT_SYSTEM_PROMPT),
         }
         self.max_messages_window = cfg.plancraft.max_message_window
         self.kv_cache = None
@@ -717,4 +718,4 @@ class ReactModel(ABCModel):
             # add to action history
             self.histories[history_idx].add_action_to_history(actions[idx])
 
-        return actions
+        return out_actions

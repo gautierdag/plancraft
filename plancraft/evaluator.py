@@ -1,7 +1,9 @@
-import os
-import time
 import json
 import logging
+import os
+import random
+import string
+import time
 from collections import Counter
 
 import pandas as pd
@@ -13,7 +15,6 @@ from plancraft.config import Config, PlancraftExample
 from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.env_symbolic import SymbolicPlancraft
 from plancraft.models import get_model
-
 
 logger = logging.getLogger(__name__)
 
@@ -212,10 +213,19 @@ class Evaluator:
         logger.info(
             f"Running evaluation over {len(self.examples)} examples {self.cfg.plancraft.num_generations} times."
         )
+        run_name = (
+            f"{self.evaluator_name()} {self.cfg.plancraft.split}".replace(" ", "_")
+            .replace(".", "_")
+            .strip()
+        )
+
         for n in range(self.cfg.plancraft.num_generations):
             logger.info(f"Generation {n+1}/{self.cfg.plancraft.num_generations}")
+            random_str = "".join(random.choices(string.ascii_lowercase, k=5))
+            generation_run_name = run_name + f"_{random_str}"
 
             wandb.init(
+                name=generation_run_name,
                 project=self.cfg.wandb.project,
                 entity=self.cfg.wandb.entity,
                 mode=self.cfg.wandb.mode,
