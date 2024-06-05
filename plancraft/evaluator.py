@@ -196,14 +196,14 @@ class Evaluator:
                 if done[env_idx]:
                     observations[env_idx] = None
 
-            # time_now = time.time()
+            time_now = time.time()
+
             # get actions from model (batched)
             actions = self.model.step(observations)
-            # if actions[0]:
-            # logger.info(f"Action: {actions[0].model_dump()}")
-            # logger.info(
-            #     f"predicted {len(actions)} actions in {time.time()-time_now:.2f}s"
-            # )
+            if any(actions):
+                logger.info(
+                    f"predicted {len(actions)} actions in {time.time()-time_now:.2f}s"
+                )
             pbar.update(len(observations))
 
         return results

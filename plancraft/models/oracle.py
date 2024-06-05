@@ -128,7 +128,6 @@ class OracleModel(ABCModel):
             )
 
         plan_recipe, new_inventory = self.plans[plan_idx].pop(0)
-        # logger.info(f"Plan: {plan_recipe}")
         self.subplans[plan_idx] = []
         new_inventory_counter = Counter(new_inventory)
         current_inventory = observation["inventory"]
@@ -203,8 +202,6 @@ class OracleModel(ABCModel):
             if observation is None:
                 out_actions.append(None)
                 continue
-            # ob = [o for o in observation["inventory"] if o["quantity"] > 0]
-            # logger.info(f"Current Inventory {ob}")
 
             # add observation to history
             self.histories[plan_idx].add_observation_to_history(observation)
