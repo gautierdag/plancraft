@@ -6,7 +6,7 @@ from plancraft.models.react import ReactModel
 from plancraft.models.oracle import OracleModel
 
 
-def get_model(cfg: Config, llm_model=None) -> ABCModel:
+def get_model(cfg: Config) -> ABCModel:
     """
     Factory get model
     """
@@ -15,4 +15,4 @@ def get_model(cfg: Config, llm_model=None) -> ABCModel:
     if cfg.plancraft.mode == "oracle":
         return OracleModel(cfg)
 
-    return ReactModel(cfg, llm=llm_model)
+    return ReactModel(cfg)

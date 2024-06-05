@@ -16,6 +16,7 @@ class History:
         self.inventory_history = []
         self.images = []
         self.objective = objective
+        self.tokens_used = 0
 
     def add_message_to_history(self, content: str, role="user"):
         self.dialogue_history.append({"role": role, "content": content})
@@ -61,6 +62,7 @@ class History:
             "inventory_history": copy(self.inventory_history),
             "objective": copy(self.objective),
             "images": copy(self.images),
+            "tokens_used": copy(self.tokens_used),
         }
 
     @property

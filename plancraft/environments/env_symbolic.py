@@ -81,6 +81,8 @@ class SymbolicPlancraft(Env):
             raise ValueError("Invalid action")
             # logger.warn("Cannot parse action for Symbolic action")
 
+        self.clean_state()
+
         # convert to list for same format as minerl
         state_list = [
             {"type": item["type"], "quantity": item["quantity"], "index": idx}
@@ -88,6 +90,12 @@ class SymbolicPlancraft(Env):
         ]
 
         return {"inventory": state_list}, 0, False, {}
+
+    def clean_state(self):
+        # reset slot type if quantity is 0
+        for i in self.state.keys():
+            if self.state[i]["quantity"] == 0:
+                self.state[i]["type"] = "air"
 
     def move_item(self, slot_from: int, slot_to: int, quantity: int):
         if slot_from == slot_to or quantity < 1 or slot_to == 0:

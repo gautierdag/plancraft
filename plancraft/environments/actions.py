@@ -98,7 +98,7 @@ class SymbolicMoveAction(BaseModel):
     action_type: str = "move"
     slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
     slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    quantity: Annotated[int, Field(strict=True, gt=0, le=64)]
+    quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
 
     @field_validator("slot_from", "slot_to", "quantity", mode="before")
     def transform_str_to_int(cls, value) -> int:

@@ -2,10 +2,12 @@ import copy
 import json
 import logging
 import os
+import re
 import time
 
 import torch
 from dotenv import load_dotenv
+from openai import OpenAI
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -46,7 +48,7 @@ The first 10 slots in the inventory are reserved for crafting and correspond to 
 [7, 8, 9]
 
 The crafting matrix is a 3x3 grid, and the output is sent to slot 0.
-You cannot move items into output slot 0.
+You cannot move or smelt items into output slot 0.
 The remaining slots (10-46) are for storing items.
 """
 
@@ -70,12 +72,25 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: Now I need to move the cobblestone into position 5 to be right of the diorite..""",
+        "content": """think: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
     },
     {"role": "user", "content": "OK"},
     {
         "role": "assistant",
         "content": """act: move from slot 39 to slot 5 with quantity 1""",
+    },
+    {
+        "role": "user",
+        "content": """TASK: Craft an item of type: iron_ingot\ninventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
+    },
+    {
+        "role": "assistant",
+        "content": """think: think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """act: smelt from slot 45 to slot 46 with quantity 1""",
     },
 ]
 
@@ -461,12 +476,119 @@ class TransformersGenerator:
         return actions, overall_messages, num_tokens
 
 
+class OpenAIGenerator:
+    def __init__(self):
+        self.client = OpenAI()
+
+    def reset(self):
+        pass
+
+    def generate_thoughts(
+        self, batch_messages: list[list[dict]], max_tokens=256, temperature=1.0
+    ) -> tuple[list[str], int]:
+        thoughts = []
+        tokens_used = 0
+        for messages in batch_messages:
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0,
+                stop=["\n", "act:"],
+            )
+            content = response.choices[0].message.content
+            tokens_used += response.usage.total_tokens
+            thoughts.append(content)
+        return thoughts, tokens_used
+
+    def generate_actions(
+        self,
+        batch_messages: list[list[dict]],
+        temperature=1.0,
+    ) -> tuple[list[SymbolicAction], list[str], int]:
+        """
+        Select whether to smelt or move
+        Then select the slots and quantity
+        output should be constrained to something like:
+            `act: move from slot 39 to slot 5 with quantity 1`
+        """
+        actions = []
+        action_messages = []
+        tokens_used = 0
+        for messages in batch_messages:
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=messages,
+                temperature=temperature,
+                max_tokens=32,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0,
+                stop=["\n", "TASK:", "."],
+            )
+            content = response.choices[0].message.content
+            tokens_used += response.usage.total_tokens
+
+            # try to parse the actions using regex
+            action = None
+            slot_to = None
+            slot_from = None
+            quantity = None
+            try:
+                action = re.search(r"act: (move|smelt)", content).group(1)
+                slot_from = re.search(r"from slot (\d+)", content).group(1)
+                slot_to = re.search(r"to slot (\d+)", content).group(1)
+                quantity = re.search(r"with quantity (\d+)", content).group(1)
+            except AttributeError:
+                logger.warning(f"Failed to parse action: {content}")
+                action = "move"
+                slot_from = 0
+                slot_to = 0
+                quantity = 1
+
+            try:
+                if action == "smelt":
+                    act = SymbolicSmeltAction(
+                        slot_from=int(slot_from),
+                        slot_to=int(slot_to),
+                        quantity=int(quantity),
+                    )
+                else:
+                    act = SymbolicMoveAction(
+                        slot_from=int(slot_from),
+                        slot_to=int(slot_to),
+                        quantity=int(quantity),
+                    )
+            except Exception:
+                logger.warning(f"Failed to validate action: {content}")
+                act = SymbolicMoveAction(
+                    slot_from=0,
+                    slot_to=0,
+                    quantity=1,
+                )
+
+            actions.append(act)
+            action_messages.append(content)
+
+        return actions, action_messages, tokens_used
+
+
 class ReactModel(ABCModel):
-    def __init__(self, cfg: Config, llm: TransformersGenerator):
+    def __init__(self, cfg: Config):
         assert cfg.plancraft.environment.symbolic_action_space
 
         # underlying language model
-        self.llm = llm
+        if "gpt-4o" in cfg.plancraft.model:
+            self.llm = OpenAIGenerator()
+        # model is transformers based
+        else:
+            self.llm = TransformersGenerator(
+                model_name=cfg.plancraft.model,
+                quantize=cfg.plancraft.quantize,
+            )
 
         self.batch_size = cfg.plancraft.batch_size
         self.histories = [
@@ -478,7 +600,6 @@ class ReactModel(ABCModel):
             "role": "system",
             "content": REACT_SYSTEM_PROMPT,
         }
-        self.tokens_used = 0
         self.max_messages_window = cfg.plancraft.max_message_window
         self.kv_cache = None
 
@@ -529,14 +650,15 @@ class ReactModel(ABCModel):
         # collect dialogue histories
         for observation, history_idx in zip(real_obs, real_obs_idx):
             # add observation to history
-            history = self.histories[history_idx]
             observation_str = self.convert_observation_to_text(
                 observation, objective=history.objective
             )
-            history.add_message_to_history(content=observation_str, role="user")
-
-            message_window = history.dialogue_history[-self.max_messages_window :]
-
+            self.histories[history_idx].add_message_to_history(
+                content=observation_str, role="user"
+            )
+            message_window = self.histories[history_idx].dialogue_history[
+                -self.max_messages_window :
+            ]
             # remove the first assistant message if it is present
             if len(message_window) > 0 and message_window[0]["role"] == "assistant":
                 message_window = message_window[1:]
@@ -555,13 +677,19 @@ class ReactModel(ABCModel):
         action_messages_windows = []
         # update message window with thoughts and collect action messages
         for thought_message, history_idx in zip(thought_messages, real_obs_idx):
-            history = self.histories[history_idx]
-
             # add thought message to history
-            history.add_message_to_history(content=thought_message, role="assistant")
-            history.add_message_to_history(content="OK", role="user")
+            self.histories[history_idx].add_message_to_history(
+                content=thought_message, role="assistant"
+            )
+            self.histories[history_idx].add_message_to_history(
+                content="OK", role="user"
+            )
+            # add token used to history
+            self.histories[history_idx].tokens_used += thinking_token_used
 
-            message_window = history.dialogue_history[-self.max_messages_window :]
+            message_window = self.histories[history_idx].dialogue_history[
+                -self.max_messages_window :
+            ]
 
             # remove the first assistant message if it is present
             if len(message_window) > 0 and message_window[0]["role"] == "assistant":
@@ -577,17 +705,15 @@ class ReactModel(ABCModel):
         )
 
         for action_message, history_idx in zip(action_messages, real_obs_idx):
-            history = self.histories[history_idx]
-            history.add_message_to_history(content=action_message, role="assistant")
-
-        # NOTE: this overestimates the token used as some examples in the batch might use less tokens
-        self.tokens_used += (thinking_token_used + action_token_used) * self.batch_size
+            self.histories[history_idx].add_message_to_history(
+                content=action_message, role="assistant"
+            )
+            self.histories[history_idx].tokens_used += action_token_used
 
         # re-map actions to the correct index in the batch
         out_actions = [None] * len(observations)
         for idx, history_idx in enumerate(real_obs_idx):
             out_actions[history_idx] = actions[idx]
-
             # add to action history
             self.histories[history_idx].add_action_to_history(actions[idx])
 

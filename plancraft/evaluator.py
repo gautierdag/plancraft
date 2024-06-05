@@ -13,7 +13,7 @@ from plancraft.config import Config, PlancraftExample
 from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.env_symbolic import SymbolicPlancraft
 from plancraft.models import get_model
-from plancraft.models.react import TransformersGenerator
+
 
 logger = logging.getLogger(__name__)
 
@@ -34,16 +34,9 @@ class Evaluator:
 
         self.examples = self.load_dataset(cfg.plancraft.split)
 
-        self.llm = None
-        if cfg.plancraft.mode not in ["dummy", "oracle"]:
-            self.llm = TransformersGenerator(
-                model_name=cfg.plancraft.model,
-                quantize=cfg.plancraft.quantize,
-            )
-
         self.batch_size = cfg.plancraft.batch_size
         self.envs = [self.create_env(cfg) for _ in range(self.batch_size)]
-        self.model = get_model(cfg, self.llm)
+        self.model = get_model(cfg)
 
         self.record_frames = not (cfg.plancraft.environment.symbolic)
 
@@ -67,11 +60,10 @@ class Evaluator:
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"
         os.makedirs(output_dir, exist_ok=True)
-        with open(
-            f"{output_dir}/{example.id}.json",
-            "w",
-        ) as f:
+        json_path = f"{output_dir}/{example.id}.json"
+        with open(json_path, "w") as f:
             json.dump(results_dict, f, indent=4)
+        wandb.save(json_path, policy="now")
 
     def load_results_dict(self, example: PlancraftExample) -> dict:
         path = f"{self.output_dir}/{self.generation_number}/{example.id}.json"
@@ -204,12 +196,14 @@ class Evaluator:
                 if done[env_idx]:
                     observations[env_idx] = None
 
-            time_now = time.time()
+            # time_now = time.time()
             # get actions from model (batched)
             actions = self.model.step(observations)
-            logger.info(
-                f"predicted {len(actions)} actions in {time.time()-time_now:.2f}s"
-            )
+            # if actions[0]:
+            # logger.info(f"Action: {actions[0].model_dump()}")
+            # logger.info(
+            #     f"predicted {len(actions)} actions in {time.time()-time_now:.2f}s"
+            # )
             pbar.update(len(observations))
 
         return results
@@ -221,14 +215,14 @@ class Evaluator:
         for n in range(self.cfg.plancraft.num_generations):
             logger.info(f"Generation {n+1}/{self.cfg.plancraft.num_generations}")
 
-            # wandb.init(
-            #     project=self.cfg.wandb.project,
-            #     entity=self.cfg.wandb.entity,
-            #     mode=self.cfg.wandb.mode,
-            #     group=self.cfg.plancraft.model,
-            #     job_type=self.cfg.plancraft.mode,
-            #     config=self.cfg.model_dump(),
-            # )
+            wandb.init(
+                project=self.cfg.wandb.project,
+                entity=self.cfg.wandb.entity,
+                mode=self.cfg.wandb.mode,
+                group=self.cfg.plancraft.model,
+                job_type=self.cfg.plancraft.mode,
+                config=self.cfg.model_dump(),
+            )
             time_now = time.time()
 
             results_list = self.eval_all_examples(progress_bar=True)
@@ -240,13 +234,9 @@ class Evaluator:
             time_elapsed = time.time() - time_now
             logger.info(f"Time elapsed: {time_elapsed:.2f}s")
 
-            # Log each JSON file in the folder
-            # folder_path = f"{self.output_dir}/{self.generation_number}"
-            # wandb.save(f"{folder_path}/*.json")
-
-            # table = wandb.Table(dataframe=results_df)
-            # wandb.log({"results": table})
-            # wandb.finish()
+            table = wandb.Table(dataframe=results_df)
+            wandb.log({"results": table})
+            wandb.finish()
 
             self.generation_number += 1
 

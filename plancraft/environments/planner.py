@@ -24,7 +24,8 @@ def optimal_planner(
     steps=[],
     best_steps=None,
     max_steps=40,
-    timeout=10,
+    # timeout=10,
+    timeout=30,
 ) -> list[tuple[BaseRecipe, dict[str, int]]]:
     memo = {}
     # only look at recipes that are ancestors of the target

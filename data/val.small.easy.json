@@ -1,0 +1,2004 @@
+[
+    {
+        "target": "dark_oak_planks",
+        "inventory": {
+            "dark_oak_log": 1,
+            "acacia_leaves": 25,
+            "bowl": 2,
+            "stone_slab": 36,
+            "green_terracotta": 20
+        },
+        "slotted_inventory": [
+            {
+                "slot": 15,
+                "type": "dark_oak_log",
+                "quantity": 1
+            },
+            {
+                "slot": 40,
+                "type": "acacia_leaves",
+                "quantity": 25
+            },
+            {
+                "slot": 21,
+                "type": "bowl",
+                "quantity": 2
+            },
+            {
+                "slot": 28,
+                "type": "stone_slab",
+                "quantity": 36
+            },
+            {
+                "slot": 27,
+                "type": "green_terracotta",
+                "quantity": 20
+            }
+        ],
+        "num_distractors": 4,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "dark_oak_planks"
+        ],
+        "inventory_trace": [
+            {
+                "acacia_leaves": 25,
+                "bowl": 2,
+                "stone_slab": 36,
+                "green_terracotta": 20,
+                "dark_oak_planks": 4
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0578"
+    },
+    {
+        "target": "cooked_cod",
+        "inventory": {
+            "cod": 1,
+            "sea_pickle": 19,
+            "map": 63,
+            "cut_sandstone_slab": 61,
+            "diamond_horse_armor": 1,
+            "nether_gold_ore": 4,
+            "diorite_slab": 5,
+            "red_shulker_box": 1,
+            "chiseled_nether_bricks": 23,
+            "gravel": 20,
+            "player_head": 22,
+            "birch_fence": 38,
+            "netherite_hoe": 1,
+            "bubble_coral": 22,
+            "diamond_ore": 44,
+            "ghast_tear": 37,
+            "acacia_boat": 1
+        },
+        "slotted_inventory": [
+            {
+                "slot": 12,
+                "type": "cod",
+                "quantity": 1
+            },
+            {
+                "slot": 25,
+                "type": "sea_pickle",
+                "quantity": 19
+            },
+            {
+                "slot": 43,
+                "type": "map",
+                "quantity": 63
+            },
+            {
+                "slot": 42,
+                "type": "cut_sandstone_slab",
+                "quantity": 61
+            },
+            {
+                "slot": 13,
+                "type": "diamond_horse_armor",
+                "quantity": 1
+            },
+            {
+                "slot": 41,
+                "type": "nether_gold_ore",
+                "quantity": 4
+            },
+            {
+                "slot": 18,
+                "type": "diorite_slab",
+                "quantity": 5
+            },
+            {
+                "slot": 22,
+                "type": "red_shulker_box",
+                "quantity": 1
+            },
+            {
+                "slot": 27,
+                "type": "chiseled_nether_bricks",
+                "quantity": 23
+            },
+            {
+                "slot": 20,
+                "type": "gravel",
+                "quantity": 20
+            },
+            {
+                "slot": 28,
+                "type": "player_head",
+                "quantity": 22
+            },
+            {
+                "slot": 11,
+                "type": "birch_fence",
+                "quantity": 38
+            },
+            {
+                "slot": 29,
+                "type": "netherite_hoe",
+                "quantity": 1
+            },
+            {
+                "slot": 32,
+                "type": "bubble_coral",
+                "quantity": 22
+            },
+            {
+                "slot": 44,
+                "type": "diamond_ore",
+                "quantity": 44
+            },
+            {
+                "slot": 10,
+                "type": "ghast_tear",
+                "quantity": 37
+            },
+            {
+                "slot": 35,
+                "type": "acacia_boat",
+                "quantity": 1
+            }
+        ],
+        "num_distractors": 16,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "cooked_cod"
+        ],
+        "inventory_trace": [
+            {
+                "sea_pickle": 19,
+                "map": 63,
+                "cut_sandstone_slab": 61,
+                "diamond_horse_armor": 1,
+                "nether_gold_ore": 4,
+                "diorite_slab": 5,
+                "red_shulker_box": 1,
+                "chiseled_nether_bricks": 23,
+                "gravel": 20,
+                "player_head": 22,
+                "birch_fence": 38,
+                "netherite_hoe": 1,
+                "bubble_coral": 22,
+                "diamond_ore": 44,
+                "ghast_tear": 37,
+                "acacia_boat": 1,
+                "cooked_cod": 1
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0968"
+    },
+    {
+        "target": "spruce_pressure_plate",
+        "inventory": {
+            "spruce_planks": 2,
+            "birch_sapling": 49,
+            "gray_glazed_terracotta": 25,
+            "dark_oak_fence": 49,
+            "oak_stairs": 57,
+            "spawner": 34,
+            "minecart": 1,
+            "iron_axe": 1,
+            "soul_campfire": 39
+        },
+        "slotted_inventory": [
+            {
+                "slot": 27,
+                "type": "spruce_planks",
+                "quantity": 2
+            },
+            {
+                "slot": 14,
+                "type": "birch_sapling",
+                "quantity": 49
+            },
+            {
+                "slot": 33,
+                "type": "gray_glazed_terracotta",
+                "quantity": 25
+            },
+            {
+                "slot": 41,
+                "type": "dark_oak_fence",
+                "quantity": 49
+            },
+            {
+                "slot": 32,
+                "type": "oak_stairs",
+                "quantity": 57
+            },
+            {
+                "slot": 12,
+                "type": "spawner",
+                "quantity": 34
+            },
+            {
+                "slot": 13,
+                "type": "minecart",
+                "quantity": 1
+            },
+            {
+                "slot": 24,
+                "type": "iron_axe",
+                "quantity": 1
+            },
+            {
+                "slot": 35,
+                "type": "soul_campfire",
+                "quantity": 39
+            }
+        ],
+        "num_distractors": 8,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "spruce_pressure_plate"
+        ],
+        "inventory_trace": [
+            {
+                "birch_sapling": 49,
+                "gray_glazed_terracotta": 25,
+                "dark_oak_fence": 49,
+                "oak_stairs": 57,
+                "spawner": 34,
+                "minecart": 1,
+                "iron_axe": 1,
+                "soul_campfire": 39,
+                "spruce_pressure_plate": 1
+            }
+        ],
+        "items_used": 2.0,
+        "unique_items_used": 1.0,
+        "complexity": 2.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0827"
+    },
+    {
+        "target": "red_dye",
+        "inventory": {
+            "red_tulip": 1,
+            "mushroom_stem": 29,
+            "warped_wart_block": 56,
+            "bricks": 2,
+            "crafting_table": 47
+        },
+        "slotted_inventory": [
+            {
+                "slot": 16,
+                "type": "red_tulip",
+                "quantity": 1
+            },
+            {
+                "slot": 33,
+                "type": "mushroom_stem",
+                "quantity": 29
+            },
+            {
+                "slot": 23,
+                "type": "warped_wart_block",
+                "quantity": 56
+            },
+            {
+                "slot": 45,
+                "type": "bricks",
+                "quantity": 2
+            },
+            {
+                "slot": 38,
+                "type": "crafting_table",
+                "quantity": 47
+            }
+        ],
+        "num_distractors": 4,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "red_dye"
+        ],
+        "inventory_trace": [
+            {
+                "mushroom_stem": 29,
+                "warped_wart_block": 56,
+                "bricks": 2,
+                "crafting_table": 47,
+                "red_dye": 1
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0424"
+    },
+    {
+        "target": "sandstone_slab",
+        "inventory": {
+            "chiseled_sandstone": 2,
+            "sandstone": 1,
+            "cracked_polished_blackstone_bricks": 19,
+            "polished_blackstone_bricks": 63,
+            "polished_granite": 1,
+            "panda_spawn_egg": 20
+        },
+        "slotted_inventory": [
+            {
+                "slot": 13,
+                "type": "chiseled_sandstone",
+                "quantity": 2
+            },
+            {
+                "slot": 29,
+                "type": "sandstone",
+                "quantity": 1
+            },
+            {
+                "slot": 38,
+                "type": "cracked_polished_blackstone_bricks",
+                "quantity": 19
+            },
+            {
+                "slot": 43,
+                "type": "polished_blackstone_bricks",
+                "quantity": 63
+            },
+            {
+                "slot": 24,
+                "type": "polished_granite",
+                "quantity": 1
+            },
+            {
+                "slot": 32,
+                "type": "panda_spawn_egg",
+                "quantity": 20
+            }
+        ],
+        "num_distractors": 4,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "sandstone_slab"
+        ],
+        "inventory_trace": [
+            {
+                "cracked_polished_blackstone_bricks": 19,
+                "polished_blackstone_bricks": 63,
+                "polished_granite": 1,
+                "panda_spawn_egg": 20,
+                "sandstone_slab": 6
+            }
+        ],
+        "items_used": 3.0,
+        "unique_items_used": 2.0,
+        "complexity": 3.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0639"
+    },
+    {
+        "target": "dark_oak_planks",
+        "inventory": {
+            "dark_oak_wood": 1,
+            "chain_command_block": 17,
+            "purple_concrete": 43,
+            "jungle_fence_gate": 15,
+            "melon_seeds": 4
+        },
+        "slotted_inventory": [
+            {
+                "slot": 27,
+                "type": "dark_oak_wood",
+                "quantity": 1
+            },
+            {
+                "slot": 11,
+                "type": "chain_command_block",
+                "quantity": 17
+            },
+            {
+                "slot": 25,
+                "type": "purple_concrete",
+                "quantity": 43
+            },
+            {
+                "slot": 35,
+                "type": "jungle_fence_gate",
+                "quantity": 15
+            },
+            {
+                "slot": 37,
+                "type": "melon_seeds",
+                "quantity": 4
+            }
+        ],
+        "num_distractors": 4,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "dark_oak_planks"
+        ],
+        "inventory_trace": [
+            {
+                "chain_command_block": 17,
+                "purple_concrete": 43,
+                "jungle_fence_gate": 15,
+                "melon_seeds": 4,
+                "dark_oak_planks": 4
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0147"
+    },
+    {
+        "target": "brown_carpet",
+        "inventory": {
+            "brown_wool": 2,
+            "ender_chest": 53,
+            "dead_bubble_coral_block": 39,
+            "chipped_anvil": 30,
+            "green_dye": 60,
+            "brown_stained_glass": 58,
+            "nether_sprouts": 29,
+            "golden_axe": 1,
+            "snow_block": 62
+        },
+        "slotted_inventory": [
+            {
+                "slot": 12,
+                "type": "brown_wool",
+                "quantity": 2
+            },
+            {
+                "slot": 11,
+                "type": "ender_chest",
+                "quantity": 53
+            },
+            {
+                "slot": 16,
+                "type": "dead_bubble_coral_block",
+                "quantity": 39
+            },
+            {
+                "slot": 43,
+                "type": "chipped_anvil",
+                "quantity": 30
+            },
+            {
+                "slot": 41,
+                "type": "green_dye",
+                "quantity": 60
+            },
+            {
+                "slot": 42,
+                "type": "brown_stained_glass",
+                "quantity": 58
+            },
+            {
+                "slot": 28,
+                "type": "nether_sprouts",
+                "quantity": 29
+            },
+            {
+                "slot": 45,
+                "type": "golden_axe",
+                "quantity": 1
+            },
+            {
+                "slot": 17,
+                "type": "snow_block",
+                "quantity": 62
+            }
+        ],
+        "num_distractors": 8,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "brown_carpet"
+        ],
+        "inventory_trace": [
+            {
+                "ender_chest": 53,
+                "dead_bubble_coral_block": 39,
+                "chipped_anvil": 30,
+                "green_dye": 60,
+                "brown_stained_glass": 58,
+                "nether_sprouts": 29,
+                "golden_axe": 1,
+                "snow_block": 62,
+                "brown_carpet": 3
+            }
+        ],
+        "items_used": 2.0,
+        "unique_items_used": 1.0,
+        "complexity": 2.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0916"
+    },
+    {
+        "target": "pumpkin_seeds",
+        "inventory": {
+            "pumpkin": 1,
+            "zoglin_spawn_egg": 5,
+            "gray_wool": 19,
+            "wither_skeleton_spawn_egg": 62,
+            "skeleton_spawn_egg": 44
+        },
+        "slotted_inventory": [
+            {
+                "slot": 24,
+                "type": "pumpkin",
+                "quantity": 1
+            },
+            {
+                "slot": 35,
+                "type": "zoglin_spawn_egg",
+                "quantity": 5
+            },
+            {
+                "slot": 41,
+                "type": "gray_wool",
+                "quantity": 19
+            },
+            {
+                "slot": 16,
+                "type": "wither_skeleton_spawn_egg",
+                "quantity": 62
+            },
+            {
+                "slot": 42,
+                "type": "skeleton_spawn_egg",
+                "quantity": 44
+            }
+        ],
+        "num_distractors": 4,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "pumpkin_seeds"
+        ],
+        "inventory_trace": [
+            {
+                "zoglin_spawn_egg": 5,
+                "gray_wool": 19,
+                "wither_skeleton_spawn_egg": 62,
+                "skeleton_spawn_egg": 44,
+                "pumpkin_seeds": 4
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0402"
+    },
+    {
+        "target": "chain",
+        "inventory": {
+            "iron_nugget": 2,
+            "iron_ingot": 1,
+            "music_disc_mall": 1,
+            "trident": 1,
+            "light_blue_banner": 9,
+            "dead_horn_coral": 52,
+            "white_concrete": 26,
+            "iron_axe": 1,
+            "infested_cobblestone": 52,
+            "stone_pickaxe": 1
+        },
+        "slotted_inventory": [
+            {
+                "slot": 40,
+                "type": "iron_nugget",
+                "quantity": 2
+            },
+            {
+                "slot": 25,
+                "type": "iron_ingot",
+                "quantity": 1
+            },
+            {
+                "slot": 45,
+                "type": "music_disc_mall",
+                "quantity": 1
+            },
+            {
+                "slot": 10,
+                "type": "trident",
+                "quantity": 1
+            },
+            {
+                "slot": 20,
+                "type": "light_blue_banner",
+                "quantity": 9
+            },
+            {
+                "slot": 22,
+                "type": "dead_horn_coral",
+                "quantity": 52
+            },
+            {
+                "slot": 42,
+                "type": "white_concrete",
+                "quantity": 26
+            },
+            {
+                "slot": 24,
+                "type": "iron_axe",
+                "quantity": 1
+            },
+            {
+                "slot": 23,
+                "type": "infested_cobblestone",
+                "quantity": 52
+            },
+            {
+                "slot": 16,
+                "type": "stone_pickaxe",
+                "quantity": 1
+            }
+        ],
+        "num_distractors": 8,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "chain"
+        ],
+        "inventory_trace": [
+            {
+                "music_disc_mall": 1,
+                "trident": 1,
+                "light_blue_banner": 9,
+                "dead_horn_coral": 52,
+                "white_concrete": 26,
+                "iron_axe": 1,
+                "infested_cobblestone": 52,
+                "stone_pickaxe": 1,
+                "chain": 1
+            }
+        ],
+        "items_used": 3.0,
+        "unique_items_used": 2.0,
+        "complexity": 3.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": true,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0657"
+    },
+    {
+        "target": "red_dye",
+        "inventory": {
+            "rose_bush": 1,
+            "stripped_warped_stem": 63,
+            "honey_bottle": 8,
+            "warped_nylium": 3,
+            "quartz_pillar": 64,
+            "cat_spawn_egg": 36,
+            "lapis_ore": 12,
+            "sandstone_slab": 34,
+            "brown_glazed_terracotta": 63
+        },
+        "slotted_inventory": [
+            {
+                "slot": 18,
+                "type": "rose_bush",
+                "quantity": 1
+            },
+            {
+                "slot": 15,
+                "type": "stripped_warped_stem",
+                "quantity": 63
+            },
+            {
+                "slot": 16,
+                "type": "honey_bottle",
+                "quantity": 8
+            },
+            {
+                "slot": 12,
+                "type": "warped_nylium",
+                "quantity": 3
+            },
+            {
+                "slot": 33,
+                "type": "quartz_pillar",
+                "quantity": 64
+            },
+            {
+                "slot": 11,
+                "type": "cat_spawn_egg",
+                "quantity": 36
+            },
+            {
+                "slot": 35,
+                "type": "lapis_ore",
+                "quantity": 12
+            },
+            {
+                "slot": 39,
+                "type": "sandstone_slab",
+                "quantity": 34
+            },
+            {
+                "slot": 17,
+                "type": "brown_glazed_terracotta",
+                "quantity": 63
+            }
+        ],
+        "num_distractors": 8,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "red_dye"
+        ],
+        "inventory_trace": [
+            {
+                "stripped_warped_stem": 63,
+                "honey_bottle": 8,
+                "warped_nylium": 3,
+                "quartz_pillar": 64,
+                "cat_spawn_egg": 36,
+                "lapis_ore": 12,
+                "sandstone_slab": 34,
+                "brown_glazed_terracotta": 63,
+                "red_dye": 2
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0895"
+    },
+    {
+        "target": "cooked_cod",
+        "inventory": {
+            "cod": 1,
+            "sea_pickle": 19,
+            "map": 63,
+            "cut_sandstone_slab": 61,
+            "diamond_horse_armor": 1,
+            "nether_gold_ore": 4,
+            "diorite_slab": 5,
+            "red_shulker_box": 1,
+            "chiseled_nether_bricks": 23,
+            "gravel": 20,
+            "player_head": 22,
+            "birch_fence": 38,
+            "netherite_hoe": 1,
+            "bubble_coral": 22,
+            "diamond_ore": 44,
+            "ghast_tear": 37,
+            "acacia_boat": 1
+        },
+        "slotted_inventory": [
+            {
+                "slot": 12,
+                "type": "cod",
+                "quantity": 1
+            },
+            {
+                "slot": 25,
+                "type": "sea_pickle",
+                "quantity": 19
+            },
+            {
+                "slot": 43,
+                "type": "map",
+                "quantity": 63
+            },
+            {
+                "slot": 42,
+                "type": "cut_sandstone_slab",
+                "quantity": 61
+            },
+            {
+                "slot": 13,
+                "type": "diamond_horse_armor",
+                "quantity": 1
+            },
+            {
+                "slot": 41,
+                "type": "nether_gold_ore",
+                "quantity": 4
+            },
+            {
+                "slot": 18,
+                "type": "diorite_slab",
+                "quantity": 5
+            },
+            {
+                "slot": 22,
+                "type": "red_shulker_box",
+                "quantity": 1
+            },
+            {
+                "slot": 27,
+                "type": "chiseled_nether_bricks",
+                "quantity": 23
+            },
+            {
+                "slot": 20,
+                "type": "gravel",
+                "quantity": 20
+            },
+            {
+                "slot": 28,
+                "type": "player_head",
+                "quantity": 22
+            },
+            {
+                "slot": 11,
+                "type": "birch_fence",
+                "quantity": 38
+            },
+            {
+                "slot": 29,
+                "type": "netherite_hoe",
+                "quantity": 1
+            },
+            {
+                "slot": 32,
+                "type": "bubble_coral",
+                "quantity": 22
+            },
+            {
+                "slot": 44,
+                "type": "diamond_ore",
+                "quantity": 44
+            },
+            {
+                "slot": 10,
+                "type": "ghast_tear",
+                "quantity": 37
+            },
+            {
+                "slot": 35,
+                "type": "acacia_boat",
+                "quantity": 1
+            }
+        ],
+        "num_distractors": 16,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "cooked_cod"
+        ],
+        "inventory_trace": [
+            {
+                "sea_pickle": 19,
+                "map": 63,
+                "cut_sandstone_slab": 61,
+                "diamond_horse_armor": 1,
+                "nether_gold_ore": 4,
+                "diorite_slab": 5,
+                "red_shulker_box": 1,
+                "chiseled_nether_bricks": 23,
+                "gravel": 20,
+                "player_head": 22,
+                "birch_fence": 38,
+                "netherite_hoe": 1,
+                "bubble_coral": 22,
+                "diamond_ore": 44,
+                "ghast_tear": 37,
+                "acacia_boat": 1,
+                "cooked_cod": 1
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0968"
+    },
+    {
+        "target": "sponge",
+        "inventory": {
+            "wet_sponge": 1,
+            "pink_stained_glass": 43,
+            "music_disc_13": 1,
+            "polished_andesite": 44,
+            "red_concrete": 41,
+            "dispenser": 20,
+            "nether_brick": 18,
+            "zombified_piglin_spawn_egg": 29,
+            "dropper": 4,
+            "pillager_spawn_egg": 8,
+            "smooth_quartz_stairs": 22,
+            "lantern": 6,
+            "wooden_hoe": 1,
+            "andesite_stairs": 52,
+            "prismarine_brick_slab": 1,
+            "mycelium": 20,
+            "mushroom_stew": 1
+        },
+        "slotted_inventory": [
+            {
+                "slot": 37,
+                "type": "wet_sponge",
+                "quantity": 1
+            },
+            {
+                "slot": 38,
+                "type": "pink_stained_glass",
+                "quantity": 43
+            },
+            {
+                "slot": 39,
+                "type": "music_disc_13",
+                "quantity": 1
+            },
+            {
+                "slot": 41,
+                "type": "polished_andesite",
+                "quantity": 44
+            },
+            {
+                "slot": 13,
+                "type": "red_concrete",
+                "quantity": 41
+            },
+            {
+                "slot": 15,
+                "type": "dispenser",
+                "quantity": 20
+            },
+            {
+                "slot": 34,
+                "type": "nether_brick",
+                "quantity": 18
+            },
+            {
+                "slot": 30,
+                "type": "zombified_piglin_spawn_egg",
+                "quantity": 29
+            },
+            {
+                "slot": 20,
+                "type": "dropper",
+                "quantity": 4
+            },
+            {
+                "slot": 43,
+                "type": "pillager_spawn_egg",
+                "quantity": 8
+            },
+            {
+                "slot": 25,
+                "type": "smooth_quartz_stairs",
+                "quantity": 22
+            },
+            {
+                "slot": 10,
+                "type": "lantern",
+                "quantity": 6
+            },
+            {
+                "slot": 24,
+                "type": "wooden_hoe",
+                "quantity": 1
+            },
+            {
+                "slot": 40,
+                "type": "andesite_stairs",
+                "quantity": 52
+            },
+            {
+                "slot": 44,
+                "type": "prismarine_brick_slab",
+                "quantity": 1
+            },
+            {
+                "slot": 42,
+                "type": "mycelium",
+                "quantity": 20
+            },
+            {
+                "slot": 32,
+                "type": "mushroom_stew",
+                "quantity": 1
+            }
+        ],
+        "num_distractors": 16,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "sponge"
+        ],
+        "inventory_trace": [
+            {
+                "pink_stained_glass": 43,
+                "music_disc_13": 1,
+                "polished_andesite": 44,
+                "red_concrete": 41,
+                "dispenser": 20,
+                "nether_brick": 18,
+                "zombified_piglin_spawn_egg": 29,
+                "dropper": 4,
+                "pillager_spawn_egg": 8,
+                "smooth_quartz_stairs": 22,
+                "lantern": 6,
+                "wooden_hoe": 1,
+                "andesite_stairs": 52,
+                "prismarine_brick_slab": 1,
+                "mycelium": 20,
+                "mushroom_stew": 1,
+                "sponge": 1
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0468"
+    },
+    {
+        "target": "coal",
+        "inventory": {
+            "coal_block": 1,
+            "cracked_polished_blackstone_bricks": 51,
+            "diamond_sword": 1,
+            "lime_banner": 5,
+            "cooked_salmon": 51,
+            "large_fern": 19,
+            "blackstone": 21,
+            "iron_nugget": 27,
+            "blue_concrete": 54,
+            "purple_dye": 38,
+            "horn_coral": 47,
+            "enchanted_golden_apple": 37,
+            "music_disc_cat": 1,
+            "jungle_fence": 64,
+            "orange_glazed_terracotta": 3,
+            "black_bed": 1,
+            "purpur_slab": 38
+        },
+        "slotted_inventory": [
+            {
+                "slot": 15,
+                "type": "coal_block",
+                "quantity": 1
+            },
+            {
+                "slot": 24,
+                "type": "cracked_polished_blackstone_bricks",
+                "quantity": 51
+            },
+            {
+                "slot": 37,
+                "type": "diamond_sword",
+                "quantity": 1
+            },
+            {
+                "slot": 32,
+                "type": "lime_banner",
+                "quantity": 5
+            },
+            {
+                "slot": 44,
+                "type": "cooked_salmon",
+                "quantity": 51
+            },
+            {
+                "slot": 34,
+                "type": "large_fern",
+                "quantity": 19
+            },
+            {
+                "slot": 25,
+                "type": "blackstone",
+                "quantity": 21
+            },
+            {
+                "slot": 23,
+                "type": "iron_nugget",
+                "quantity": 27
+            },
+            {
+                "slot": 31,
+                "type": "blue_concrete",
+                "quantity": 54
+            },
+            {
+                "slot": 10,
+                "type": "purple_dye",
+                "quantity": 38
+            },
+            {
+                "slot": 11,
+                "type": "horn_coral",
+                "quantity": 47
+            },
+            {
+                "slot": 19,
+                "type": "enchanted_golden_apple",
+                "quantity": 37
+            },
+            {
+                "slot": 43,
+                "type": "music_disc_cat",
+                "quantity": 1
+            },
+            {
+                "slot": 14,
+                "type": "jungle_fence",
+                "quantity": 64
+            },
+            {
+                "slot": 26,
+                "type": "orange_glazed_terracotta",
+                "quantity": 3
+            },
+            {
+                "slot": 36,
+                "type": "black_bed",
+                "quantity": 1
+            },
+            {
+                "slot": 30,
+                "type": "purpur_slab",
+                "quantity": 38
+            }
+        ],
+        "num_distractors": 16,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "coal"
+        ],
+        "inventory_trace": [
+            {
+                "cracked_polished_blackstone_bricks": 51,
+                "diamond_sword": 1,
+                "lime_banner": 5,
+                "cooked_salmon": 51,
+                "large_fern": 19,
+                "blackstone": 21,
+                "iron_nugget": 27,
+                "blue_concrete": 54,
+                "purple_dye": 38,
+                "horn_coral": 47,
+                "enchanted_golden_apple": 37,
+                "music_disc_cat": 1,
+                "jungle_fence": 64,
+                "orange_glazed_terracotta": 3,
+                "black_bed": 1,
+                "purpur_slab": 38,
+                "coal": 9
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0677"
+    },
+    {
+        "target": "wheat",
+        "inventory": {
+            "hay_block": 1,
+            "pumpkin": 44,
+            "zombie_horse_spawn_egg": 12,
+            "dead_horn_coral": 62,
+            "polished_granite_slab": 29
+        },
+        "slotted_inventory": [
+            {
+                "slot": 42,
+                "type": "hay_block",
+                "quantity": 1
+            },
+            {
+                "slot": 14,
+                "type": "pumpkin",
+                "quantity": 44
+            },
+            {
+                "slot": 39,
+                "type": "zombie_horse_spawn_egg",
+                "quantity": 12
+            },
+            {
+                "slot": 35,
+                "type": "dead_horn_coral",
+                "quantity": 62
+            },
+            {
+                "slot": 22,
+                "type": "polished_granite_slab",
+                "quantity": 29
+            }
+        ],
+        "num_distractors": 4,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "wheat"
+        ],
+        "inventory_trace": [
+            {
+                "pumpkin": 44,
+                "zombie_horse_spawn_egg": 12,
+                "dead_horn_coral": 62,
+                "polished_granite_slab": 29,
+                "wheat": 9
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0521"
+    },
+    {
+        "target": "cracked_nether_bricks",
+        "inventory": {
+            "nether_bricks": 1,
+            "blaze_rod": 48,
+            "light_gray_stained_glass": 7,
+            "diamond_ore": 46,
+            "damaged_anvil": 20,
+            "oak_wood": 31,
+            "magenta_terracotta": 37,
+            "orange_dye": 62,
+            "acacia_pressure_plate": 47,
+            "iron_horse_armor": 1,
+            "purpur_pillar": 57,
+            "cyan_dye": 53,
+            "poisonous_potato": 52,
+            "dead_brain_coral_block": 39,
+            "diamond_hoe": 1,
+            "magma_cream": 62,
+            "polished_diorite_slab": 62
+        },
+        "slotted_inventory": [
+            {
+                "slot": 35,
+                "type": "nether_bricks",
+                "quantity": 1
+            },
+            {
+                "slot": 11,
+                "type": "blaze_rod",
+                "quantity": 48
+            },
+            {
+                "slot": 10,
+                "type": "light_gray_stained_glass",
+                "quantity": 7
+            },
+            {
+                "slot": 19,
+                "type": "diamond_ore",
+                "quantity": 46
+            },
+            {
+                "slot": 22,
+                "type": "damaged_anvil",
+                "quantity": 20
+            },
+            {
+                "slot": 20,
+                "type": "oak_wood",
+                "quantity": 31
+            },
+            {
+                "slot": 39,
+                "type": "magenta_terracotta",
+                "quantity": 37
+            },
+            {
+                "slot": 38,
+                "type": "orange_dye",
+                "quantity": 62
+            },
+            {
+                "slot": 17,
+                "type": "acacia_pressure_plate",
+                "quantity": 47
+            },
+            {
+                "slot": 41,
+                "type": "iron_horse_armor",
+                "quantity": 1
+            },
+            {
+                "slot": 18,
+                "type": "purpur_pillar",
+                "quantity": 57
+            },
+            {
+                "slot": 40,
+                "type": "cyan_dye",
+                "quantity": 53
+            },
+            {
+                "slot": 23,
+                "type": "poisonous_potato",
+                "quantity": 52
+            },
+            {
+                "slot": 26,
+                "type": "dead_brain_coral_block",
+                "quantity": 39
+            },
+            {
+                "slot": 27,
+                "type": "diamond_hoe",
+                "quantity": 1
+            },
+            {
+                "slot": 14,
+                "type": "magma_cream",
+                "quantity": 62
+            },
+            {
+                "slot": 44,
+                "type": "polished_diorite_slab",
+                "quantity": 62
+            }
+        ],
+        "num_distractors": 16,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "cracked_nether_bricks"
+        ],
+        "inventory_trace": [
+            {
+                "blaze_rod": 48,
+                "light_gray_stained_glass": 7,
+                "diamond_ore": 46,
+                "damaged_anvil": 20,
+                "oak_wood": 31,
+                "magenta_terracotta": 37,
+                "orange_dye": 62,
+                "acacia_pressure_plate": 47,
+                "iron_horse_armor": 1,
+                "purpur_pillar": 57,
+                "cyan_dye": 53,
+                "poisonous_potato": 52,
+                "dead_brain_coral_block": 39,
+                "diamond_hoe": 1,
+                "magma_cream": 62,
+                "polished_diorite_slab": 62,
+                "cracked_nether_bricks": 1
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0115"
+    },
+    {
+        "target": "diamond",
+        "inventory": {
+            "diamond_ore": 1,
+            "birch_boat": 1,
+            "panda_spawn_egg": 59,
+            "crimson_stem": 12,
+            "green_dye": 2,
+            "green_stained_glass": 4,
+            "magenta_bed": 1,
+            "oak_button": 56,
+            "warped_fence": 15
+        },
+        "slotted_inventory": [
+            {
+                "slot": 45,
+                "type": "diamond_ore",
+                "quantity": 1
+            },
+            {
+                "slot": 22,
+                "type": "birch_boat",
+                "quantity": 1
+            },
+            {
+                "slot": 35,
+                "type": "panda_spawn_egg",
+                "quantity": 59
+            },
+            {
+                "slot": 34,
+                "type": "crimson_stem",
+                "quantity": 12
+            },
+            {
+                "slot": 12,
+                "type": "green_dye",
+                "quantity": 2
+            },
+            {
+                "slot": 29,
+                "type": "green_stained_glass",
+                "quantity": 4
+            },
+            {
+                "slot": 20,
+                "type": "magenta_bed",
+                "quantity": 1
+            },
+            {
+                "slot": 43,
+                "type": "oak_button",
+                "quantity": 56
+            },
+            {
+                "slot": 41,
+                "type": "warped_fence",
+                "quantity": 15
+            }
+        ],
+        "num_distractors": 8,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "diamond"
+        ],
+        "inventory_trace": [
+            {
+                "birch_boat": 1,
+                "panda_spawn_egg": 59,
+                "crimson_stem": 12,
+                "green_dye": 2,
+                "green_stained_glass": 4,
+                "magenta_bed": 1,
+                "oak_button": 56,
+                "warped_fence": 15,
+                "diamond": 1
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0159"
+    },
+    {
+        "target": "chain",
+        "inventory": {
+            "iron_nugget": 2,
+            "iron_ingot": 1,
+            "snow": 59,
+            "dark_oak_stairs": 59,
+            "conduit": 55,
+            "black_carpet": 41,
+            "polished_granite_slab": 50,
+            "dead_tube_coral_fan": 44,
+            "soul_sand": 39,
+            "oak_stairs": 25
+        },
+        "slotted_inventory": [
+            {
+                "slot": 10,
+                "type": "iron_nugget",
+                "quantity": 2
+            },
+            {
+                "slot": 20,
+                "type": "iron_ingot",
+                "quantity": 1
+            },
+            {
+                "slot": 22,
+                "type": "snow",
+                "quantity": 59
+            },
+            {
+                "slot": 15,
+                "type": "dark_oak_stairs",
+                "quantity": 59
+            },
+            {
+                "slot": 18,
+                "type": "conduit",
+                "quantity": 55
+            },
+            {
+                "slot": 37,
+                "type": "black_carpet",
+                "quantity": 41
+            },
+            {
+                "slot": 29,
+                "type": "polished_granite_slab",
+                "quantity": 50
+            },
+            {
+                "slot": 23,
+                "type": "dead_tube_coral_fan",
+                "quantity": 44
+            },
+            {
+                "slot": 42,
+                "type": "soul_sand",
+                "quantity": 39
+            },
+            {
+                "slot": 32,
+                "type": "oak_stairs",
+                "quantity": 25
+            }
+        ],
+        "num_distractors": 8,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "chain"
+        ],
+        "inventory_trace": [
+            {
+                "snow": 59,
+                "dark_oak_stairs": 59,
+                "conduit": 55,
+                "black_carpet": 41,
+                "polished_granite_slab": 50,
+                "dead_tube_coral_fan": 44,
+                "soul_sand": 39,
+                "oak_stairs": 25,
+                "chain": 1
+            }
+        ],
+        "items_used": 3.0,
+        "unique_items_used": 2.0,
+        "complexity": 3.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": true,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0813"
+    },
+    {
+        "target": "coal",
+        "inventory": {
+            "coal_block": 1,
+            "cracked_polished_blackstone_bricks": 51,
+            "diamond_sword": 1,
+            "lime_banner": 5,
+            "cooked_salmon": 51,
+            "large_fern": 19,
+            "blackstone": 21,
+            "iron_nugget": 27,
+            "blue_concrete": 54,
+            "purple_dye": 38,
+            "horn_coral": 47,
+            "enchanted_golden_apple": 37,
+            "music_disc_cat": 1,
+            "jungle_fence": 64,
+            "orange_glazed_terracotta": 3,
+            "black_bed": 1,
+            "purpur_slab": 38
+        },
+        "slotted_inventory": [
+            {
+                "slot": 15,
+                "type": "coal_block",
+                "quantity": 1
+            },
+            {
+                "slot": 24,
+                "type": "cracked_polished_blackstone_bricks",
+                "quantity": 51
+            },
+            {
+                "slot": 37,
+                "type": "diamond_sword",
+                "quantity": 1
+            },
+            {
+                "slot": 32,
+                "type": "lime_banner",
+                "quantity": 5
+            },
+            {
+                "slot": 44,
+                "type": "cooked_salmon",
+                "quantity": 51
+            },
+            {
+                "slot": 34,
+                "type": "large_fern",
+                "quantity": 19
+            },
+            {
+                "slot": 25,
+                "type": "blackstone",
+                "quantity": 21
+            },
+            {
+                "slot": 23,
+                "type": "iron_nugget",
+                "quantity": 27
+            },
+            {
+                "slot": 31,
+                "type": "blue_concrete",
+                "quantity": 54
+            },
+            {
+                "slot": 10,
+                "type": "purple_dye",
+                "quantity": 38
+            },
+            {
+                "slot": 11,
+                "type": "horn_coral",
+                "quantity": 47
+            },
+            {
+                "slot": 19,
+                "type": "enchanted_golden_apple",
+                "quantity": 37
+            },
+            {
+                "slot": 43,
+                "type": "music_disc_cat",
+                "quantity": 1
+            },
+            {
+                "slot": 14,
+                "type": "jungle_fence",
+                "quantity": 64
+            },
+            {
+                "slot": 26,
+                "type": "orange_glazed_terracotta",
+                "quantity": 3
+            },
+            {
+                "slot": 36,
+                "type": "black_bed",
+                "quantity": 1
+            },
+            {
+                "slot": 30,
+                "type": "purpur_slab",
+                "quantity": 38
+            }
+        ],
+        "num_distractors": 16,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "coal"
+        ],
+        "inventory_trace": [
+            {
+                "cracked_polished_blackstone_bricks": 51,
+                "diamond_sword": 1,
+                "lime_banner": 5,
+                "cooked_salmon": 51,
+                "large_fern": 19,
+                "blackstone": 21,
+                "iron_nugget": 27,
+                "blue_concrete": 54,
+                "purple_dye": 38,
+                "horn_coral": 47,
+                "enchanted_golden_apple": 37,
+                "music_disc_cat": 1,
+                "jungle_fence": 64,
+                "orange_glazed_terracotta": 3,
+                "black_bed": 1,
+                "purpur_slab": 38,
+                "coal": 9
+            }
+        ],
+        "items_used": 1.0,
+        "unique_items_used": 1.0,
+        "complexity": 1.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": false,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0677"
+    },
+    {
+        "target": "polished_diorite_slab",
+        "inventory": {
+            "polished_diorite": 3,
+            "pig_spawn_egg": 24,
+            "netherite_pickaxe": 1,
+            "netherite_chestplate": 1,
+            "iron_ingot": 23,
+            "spruce_log": 14,
+            "polished_andesite": 17,
+            "redstone_torch": 51,
+            "magenta_carpet": 40,
+            "nether_brick_fence": 37,
+            "glass_bottle": 33,
+            "stripped_crimson_hyphae": 42,
+            "azure_bluet": 40,
+            "bat_spawn_egg": 43,
+            "pumpkin": 46,
+            "hopper_minecart": 1,
+            "yellow_wool": 4
+        },
+        "slotted_inventory": [
+            {
+                "slot": 19,
+                "type": "polished_diorite",
+                "quantity": 3
+            },
+            {
+                "slot": 40,
+                "type": "pig_spawn_egg",
+                "quantity": 24
+            },
+            {
+                "slot": 13,
+                "type": "netherite_pickaxe",
+                "quantity": 1
+            },
+            {
+                "slot": 12,
+                "type": "netherite_chestplate",
+                "quantity": 1
+            },
+            {
+                "slot": 24,
+                "type": "iron_ingot",
+                "quantity": 23
+            },
+            {
+                "slot": 34,
+                "type": "spruce_log",
+                "quantity": 14
+            },
+            {
+                "slot": 10,
+                "type": "polished_andesite",
+                "quantity": 17
+            },
+            {
+                "slot": 16,
+                "type": "redstone_torch",
+                "quantity": 51
+            },
+            {
+                "slot": 25,
+                "type": "magenta_carpet",
+                "quantity": 40
+            },
+            {
+                "slot": 44,
+                "type": "nether_brick_fence",
+                "quantity": 37
+            },
+            {
+                "slot": 42,
+                "type": "glass_bottle",
+                "quantity": 33
+            },
+            {
+                "slot": 41,
+                "type": "stripped_crimson_hyphae",
+                "quantity": 42
+            },
+            {
+                "slot": 14,
+                "type": "azure_bluet",
+                "quantity": 40
+            },
+            {
+                "slot": 17,
+                "type": "bat_spawn_egg",
+                "quantity": 43
+            },
+            {
+                "slot": 29,
+                "type": "pumpkin",
+                "quantity": 46
+            },
+            {
+                "slot": 43,
+                "type": "hopper_minecart",
+                "quantity": 1
+            },
+            {
+                "slot": 38,
+                "type": "yellow_wool",
+                "quantity": 4
+            }
+        ],
+        "num_distractors": 16,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "polished_diorite_slab"
+        ],
+        "inventory_trace": [
+            {
+                "pig_spawn_egg": 24,
+                "netherite_pickaxe": 1,
+                "netherite_chestplate": 1,
+                "iron_ingot": 23,
+                "spruce_log": 14,
+                "polished_andesite": 17,
+                "redstone_torch": 51,
+                "magenta_carpet": 40,
+                "nether_brick_fence": 37,
+                "glass_bottle": 33,
+                "stripped_crimson_hyphae": 42,
+                "azure_bluet": 40,
+                "bat_spawn_egg": 43,
+                "pumpkin": 46,
+                "hopper_minecart": 1,
+                "yellow_wool": 4,
+                "polished_diorite_slab": 6
+            }
+        ],
+        "items_used": 3.0,
+        "unique_items_used": 1.0,
+        "complexity": 3.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": true,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0642"
+    },
+    {
+        "target": "cobblestone_slab",
+        "inventory": {
+            "cobblestone": 3,
+            "tropical_fish_bucket": 1,
+            "orange_concrete_powder": 16,
+            "stone_pressure_plate": 59,
+            "golden_axe": 1,
+            "purple_carpet": 13,
+            "dark_oak_button": 55,
+            "map": 5,
+            "netherite_axe": 1
+        },
+        "slotted_inventory": [
+            {
+                "slot": 11,
+                "type": "cobblestone",
+                "quantity": 3
+            },
+            {
+                "slot": 31,
+                "type": "tropical_fish_bucket",
+                "quantity": 1
+            },
+            {
+                "slot": 16,
+                "type": "orange_concrete_powder",
+                "quantity": 16
+            },
+            {
+                "slot": 30,
+                "type": "stone_pressure_plate",
+                "quantity": 59
+            },
+            {
+                "slot": 23,
+                "type": "golden_axe",
+                "quantity": 1
+            },
+            {
+                "slot": 37,
+                "type": "purple_carpet",
+                "quantity": 13
+            },
+            {
+                "slot": 24,
+                "type": "dark_oak_button",
+                "quantity": 55
+            },
+            {
+                "slot": 36,
+                "type": "map",
+                "quantity": 5
+            },
+            {
+                "slot": 20,
+                "type": "netherite_axe",
+                "quantity": 1
+            }
+        ],
+        "num_distractors": 8,
+        "impossible": false,
+        "optimal_path_length": 1.0,
+        "optimal_path": [
+            "cobblestone_slab"
+        ],
+        "inventory_trace": [
+            {
+                "tropical_fish_bucket": 1,
+                "orange_concrete_powder": 16,
+                "stone_pressure_plate": 59,
+                "golden_axe": 1,
+                "purple_carpet": 13,
+                "dark_oak_button": 55,
+                "map": 5,
+                "netherite_axe": 1,
+                "cobblestone_slab": 6
+            }
+        ],
+        "items_used": 3.0,
+        "unique_items_used": 1.0,
+        "complexity": 3.0,
+        "complexity_bin": 0.0,
+        "unseen_in_train": true,
+        "unseen_in_val": false,
+        "split": "val",
+        "id": "VAL0101"
+    }
+]

@@ -67,16 +67,17 @@ def get_crafting_slot_item(inventory: list[dict]) -> dict:
 def update_inventory(
     inventory: list[dict], slot_from: int, slot_to: int, quantity: int
 ) -> list[dict]:
+    """
+    decrements quantity of item in slot_from
+    NOTE: we don't care about incrementing the items in slot_to
+
+    """
     new_inventory = []
     for item in inventory:
         if "slot" in item and item["slot"] == slot_from:
             item["quantity"] -= quantity
         elif "index" in item and item["index"] == slot_from:
             item["quantity"] -= quantity
-        elif "slot" in item and item["slot"] == slot_to:
-            item["quantity"] += quantity
-        elif "index" in item and item["index"] == slot_to:
-            item["quantity"] += quantity
         new_inventory.append(item)
     return new_inventory
 
@@ -127,6 +128,7 @@ class OracleModel(ABCModel):
             )
 
         plan_recipe, new_inventory = self.plans[plan_idx].pop(0)
+        # logger.info(f"Plan: {plan_recipe}")
         self.subplans[plan_idx] = []
         new_inventory_counter = Counter(new_inventory)
         current_inventory = observation["inventory"]
@@ -137,10 +139,12 @@ class OracleModel(ABCModel):
 
         if isinstance(plan_recipe, ShapelessRecipe):
             crafting_slot = 1
+
             # add each item to crafting slots
             for item, quantity in items_to_use_counter.items():
-                from_slot = find_item_in_inventory(item, current_inventory)
-                for _ in range(quantity):
+                n = 0
+                while n < quantity:
+                    from_slot = find_item_in_inventory(item, current_inventory)
                     # low_level_plan.append(("move", item, from_slot, crafting_slot, 1))
                     action = SymbolicMoveAction(
                         slot_from=from_slot, slot_to=crafting_slot, quantity=1
@@ -151,6 +155,7 @@ class OracleModel(ABCModel):
                     )
                     self.subplans[plan_idx].append(action)
                     crafting_slot += 1
+                    n += 1
 
         # if plan_recipe is a smelting recipe
         elif isinstance(plan_recipe, SmeltingRecipe):
@@ -198,6 +203,8 @@ class OracleModel(ABCModel):
             if observation is None:
                 out_actions.append(None)
                 continue
+            # ob = [o for o in observation["inventory"] if o["quantity"] > 0]
+            # logger.info(f"Current Inventory {ob}")
 
             # add observation to history
             self.histories[plan_idx].add_observation_to_history(observation)
