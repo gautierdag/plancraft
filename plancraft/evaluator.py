@@ -91,8 +91,7 @@ class Evaluator:
             symbolic_action_space=cfg.plancraft.environment.symbolic_action_space,
             symbolic_observation_space=cfg.plancraft.environment.symbolic_observation_space,
             preferred_spawn_biome=cfg.plancraft.environment.preferred_spawn_biome,
-            # resolution=cfg.plancraft.environment.resolution,
-            resolution=[512, 512],
+            resolution=cfg.plancraft.environment.resolution,
         )
 
     def close_envs(self):

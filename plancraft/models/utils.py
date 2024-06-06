@@ -1,8 +1,36 @@
+import base64
 import glob
+import io
 import pathlib
 
+import numpy as np
 import torch
+from PIL import Image
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+
+def numpy_to_base64(img_array: np.ndarray, image_format: str = "PNG") -> str:
+    """
+    Convert a NumPy array to a base64 encoded string.
+
+    Parameters:
+    - img_array: np.ndarray - Input image array.
+    - image_format: str - The format to save the image in (e.g., "PNG", "JPEG").
+
+    Returns:
+    - str - Base64 encoded string of the image.
+    """
+    # Convert NumPy array to image
+    image = Image.fromarray(img_array)
+
+    # Save the image to a bytes buffer
+    buffered = io.BytesIO()
+    image.save(buffered, format=image_format)
+
+    # Encode the bytes to a base64 string
+    img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+    return img_str
 
 
 def get_downloaded_models() -> dict:

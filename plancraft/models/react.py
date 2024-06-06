@@ -23,7 +23,12 @@ from plancraft.environments.actions import (
     SymbolicSmeltAction,
 )
 from plancraft.models.base import ABCModel, History
-from plancraft.models.utils import Trie, get_downloaded_models, tokenize
+from plancraft.models.utils import (
+    Trie,
+    get_downloaded_models,
+    tokenize,
+    numpy_to_base64,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -295,6 +300,21 @@ class TransformersGenerator:
         self.past_key_values_kwargs = {}
         self.past_token_ids = None
 
+    def prepare_messages(
+        self, history: History, max_messages_window: int, system_prompt: dict
+    ) -> list[dict]:
+        """
+        Prepare the messages using a history
+        """
+        message_window = history.dialogue_history[-max_messages_window:]
+        # remove the first assistant message if it is present
+        if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+            message_window = message_window[1:]
+        # add the system prompt if the first message is not a system message
+        if message_window[0]["role"] != "system":
+            message_window = [system_prompt] + message_window
+        return message_window
+
     @torch.inference_mode()
     def generate_thoughts(
         self,
@@ -512,8 +532,47 @@ class OpenAIGenerator:
     def reset(self):
         pass
 
+    def prepare_messages(
+        self, history: History, max_messages_window: int, system_prompt: dict
+    ) -> list[dict]:
+        """
+        Prepare the image messages for the model
+        """
+        message_window = history.dialogue_history[-max_messages_window:]
+        # remove the first assistant message if it is present
+        if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+            message_window = message_window[1:]
+        # add the system prompt if the first message is not a system message
+        if message_window[0]["role"] != "system":
+            message_window = [system_prompt] + message_window
+
+        if self.is_multimodal:
+            img_idx = -1
+            # iterate through the messages in reverse order to assign images
+            for i in range(len(message_window) - 1, -1, -1):
+                new_content_list = []
+                for content in message_window[i]["content"]:
+                    if content["type"] == "text":
+                        new_content_list.append(content)
+                    elif content["type"] == "image":
+                        base64_image = numpy_to_base64(history.images[img_idx])
+                        img_idx -= 1
+                        new_content = {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/jpeg;base64,{base64_image}"
+                            },
+                        }
+                        new_content_list.append(new_content)
+                    message_window[i]["content"] = new_content_list
+        return message_window
+
     def generate_thoughts(
-        self, batch_messages: list[list[dict]], max_tokens=256, temperature=1.0
+        self,
+        batch_messages: list[list[dict]],
+        max_tokens=256,
+        temperature=1.0,
+        **kwargs,
     ) -> tuple[list[str], int]:
         thoughts = []
         tokens_used = 0
@@ -537,6 +596,7 @@ class OpenAIGenerator:
         self,
         batch_messages: list[list[dict]],
         temperature=1.0,
+        **kwargs,
     ) -> tuple[list[SymbolicAction], list[str], int]:
         """
         Select whether to smelt or move
@@ -615,7 +675,7 @@ class ReactModel(ABCModel):
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
-            self.llm = OpenAIGenerator()
+            self.llm = OpenAIGenerator(is_multimodal=self.is_multimodal)
         # model is transformers based
         else:
             self.llm = TransformersGenerator(
@@ -703,16 +763,11 @@ class ReactModel(ABCModel):
             self.histories[history_idx].add_message_to_history(
                 content=observation_message, role="user"
             )
-            message_window = self.histories[history_idx].dialogue_history[
-                -self.max_messages_window :
-            ]
-            # remove the first assistant message if it is present
-            if len(message_window) > 0 and message_window[0]["role"] == "assistant":
-                message_window = message_window[1:]
-            # add the system prompt if the first message is not a system message
-            if message_window[0]["role"] != "system":
-                message_window = [self.system_prompt] + message_window
-
+            message_window = self.llm.prepare_messages(
+                history=self.histories[history_idx],
+                max_messages_window=self.max_messages_window,
+                system_prompt=self.system_prompt,
+            )
             thought_messages_windows.append(message_window)
 
         # generate thoughts
@@ -734,17 +789,11 @@ class ReactModel(ABCModel):
             # add token used to history
             self.histories[history_idx].tokens_used += thinking_token_used
 
-            message_window = self.histories[history_idx].dialogue_history[
-                -self.max_messages_window :
-            ]
-
-            # remove the first assistant message if it is present
-            if len(message_window) > 0 and message_window[0]["role"] == "assistant":
-                message_window = message_window[1:]
-            # add the system prompt if the first message is not a system message
-            if message_window[0]["role"] != "system":
-                message_window = [self.system_prompt] + message_window
-
+            message_window = self.llm.prepare_messages(
+                history=self.histories[history_idx],
+                max_messages_window=self.max_messages_window,
+                system_prompt=self.system_prompt,
+            )
             action_messages_windows.append(message_window)
 
         actions, action_messages, action_token_used = self.llm.generate_actions(

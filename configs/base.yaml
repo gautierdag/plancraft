@@ -3,10 +3,10 @@ plancraft:
   # model: meta-llama/Meta-Llama-3-8B-Instruct
   # model: CohereForAI/c4ai-command-r-v01
   # model: "gpt-4o"
-  model: mistralai/Mistral-7B-Instruct-v0.2
+  # model: mistralai/Mistral-7B-Instruct-v0.2
   num_generations: 1
-  # mode: "react"
-  mode: "oracle"
+  mode: "react"
+  # mode: "oracle"
   # mode: "dummy"
   max_steps: 80
   quantize: False
@@ -14,6 +14,7 @@ plancraft:
     symbolic: False
     symbolic_observation_space: True
     symbolic_action_space: True
+    resolution: [512, 512]
   split: val.small.easy
   batch_size: 1
   max_message_window: 30
