@@ -29,77 +29,15 @@ from plancraft.models.utils import (
     tokenize,
     numpy_to_base64,
 )
+from plancraft.models.react_prompts import (
+    REACT_EXAMPLE,
+    REACT_EXAMPLE_IMGS,
+    REACT_SYSTEM_PROMPT,
+)
 
 logger = logging.getLogger(__name__)
 
 load_dotenv()
-
-
-REACT_SYSTEM_PROMPT = """You are crafting in Minecraft.
-You need to decide on the next action.
-
-You must output an action like the following:
-act: move from slot X to slot Y with quantity Z
-
-There are two types of actions
-- move
-- smelt
-
-To assist with planning, you first generate some thoughts before answering. For example:
-think: To craft an acacia_fence, I first need to craft acacia_planks so I need to move the log from ...
-
-The first 10 slots in the inventory are reserved for crafting and correspond to the minecraft crafting table. 
-
-[1, 2, 3] 
-[4, 5, 6] -> [0]
-[7, 8, 9]
-
-The crafting matrix is a 3x3 grid, and the output is sent to slot 0.
-You cannot move or smelt items into output slot 0.
-The remaining slots (10-45) are for storing items.
-"""
-
-REACT_EXAMPLE = [
-    {
-        "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
-    },
-    {"role": "user", "content": "OK"},
-    {
-        "role": "assistant",
-        "content": """act: move from slot 27 to slot 4 with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
-    },
-    {"role": "user", "content": "OK"},
-    {
-        "role": "assistant",
-        "content": """act: move from slot 39 to slot 5 with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """TASK: Craft an item of type: iron_ingot\ninventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
-    },
-    {"role": "user", "content": "OK"},
-    {
-        "role": "assistant",
-        "content": """act: smelt from slot 45 to slot 44 with quantity 1""",
-    },
-]
 
 
 class ValidActionsLogitsProcessor(torch.nn.Module):
@@ -565,6 +503,7 @@ class OpenAIGenerator:
                         }
                         new_content_list.append(new_content)
                     message_window[i]["content"] = new_content_list
+            assert False, message_window
         return message_window
 
     def generate_thoughts(
@@ -671,7 +610,7 @@ class ReactModel(ABCModel):
             cfg.plancraft.environment.symbolic_action_space
         ), "Real action space unsupported"
 
-        self.is_multimodal = cfg.plancraft.environment.symbolic
+        self.is_multimodal = not cfg.plancraft.environment.symbolic
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
@@ -684,6 +623,8 @@ class ReactModel(ABCModel):
             )
 
         self.batch_size = cfg.plancraft.batch_size
+    
+
         self.histories = [
             History(
                 initial_dialogue=copy.deepcopy(REACT_EXAMPLE),

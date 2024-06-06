@@ -10,13 +10,19 @@ from plancraft.environments.actions import (
 
 
 class History:
-    def __init__(self, objective: str = "", initial_dialogue: list[dict] = []):
+    def __init__(
+        self,
+        objective: str = "",
+        initial_dialogue: list[dict] = [],
+        is_multimodal=False,
+    ):
         self.dialogue_history = initial_dialogue
         self.action_history = []
         self.inventory_history = []
         self.images = []
         self.objective = objective
         self.tokens_used = 0
+        self.is_multimodal = is_multimodal
 
     def add_message_to_history(self, content: str | dict, role="user"):
         if isinstance(content, dict):
