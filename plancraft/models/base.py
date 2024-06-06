@@ -18,8 +18,13 @@ class History:
         self.objective = objective
         self.tokens_used = 0
 
-    def add_message_to_history(self, content: str, role="user"):
-        self.dialogue_history.append({"role": role, "content": content})
+    def add_message_to_history(self, content: str | dict, role="user"):
+        if isinstance(content, dict):
+            assert "content" in content, "content key not found in message"
+            content["role"] = role
+            self.dialogue_history.append(content)
+        else:
+            self.dialogue_history.append({"role": role, "content": content})
 
     def add_action_to_history(
         self, action: SymbolicSmeltAction | RealActionInteraction | SymbolicMoveAction
@@ -61,7 +66,6 @@ class History:
             "action_history": copy(self.action_history),
             "inventory_history": copy(self.inventory_history),
             "objective": copy(self.objective),
-            "images": copy(self.images),
             "tokens_used": copy(self.tokens_used),
         }
 

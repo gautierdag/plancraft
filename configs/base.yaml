@@ -1,16 +1,17 @@
 plancraft:
   # model: microsoft/Phi-3-mini-128k-instruct
   # model: meta-llama/Meta-Llama-3-8B-Instruct
-  model: CohereForAI/c4ai-command-r-v01
+  # model: CohereForAI/c4ai-command-r-v01
   # model: "gpt-4o"
-  num_generations: 5
-  mode: "react"
-  # mode: "oracle"
+  model: mistralai/Mistral-7B-Instruct-v0.2
+  num_generations: 1
+  # mode: "react"
+  mode: "oracle"
   # mode: "dummy"
   max_steps: 80
-  quantize: int4
+  quantize: False
   environment:
-    symbolic: True
+    symbolic: False
     symbolic_observation_space: True
     symbolic_action_space: True
   split: val.small.easy
@@ -21,7 +22,7 @@ plancraft:
 wandb:
   project: "plancraft"
   entity: "itl"
-  mode: "online"
+  mode: "offline"
 launch:
   command: "python main.py"
   job_name: "plancraft-s2234411"

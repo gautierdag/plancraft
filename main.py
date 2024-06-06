@@ -16,6 +16,7 @@ def main(cfg):
     cfg = Config(**dict(cfg))
     evaluator = Evaluator(cfg)
     evaluator.eval_all()
+    evaluator.close_envs()
 
 
 if __name__ == "__main__":

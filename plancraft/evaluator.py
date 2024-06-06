@@ -7,6 +7,7 @@ import time
 from collections import Counter
 
 import pandas as pd
+import imageio
 import torch
 from tqdm import tqdm
 
@@ -66,6 +67,13 @@ class Evaluator:
             json.dump(results_dict, f, indent=4)
         wandb.save(json_path, policy="now")
 
+    def save_images(self, example: PlancraftExample, frames: list):
+        if len(frames) == 0:
+            return
+        output_dir = f"{self.output_dir}/{self.generation_number}"
+        os.makedirs(output_dir, exist_ok=True)
+        imageio.mimsave(f"{output_dir}/{example.id}.gif", frames)
+
     def load_results_dict(self, example: PlancraftExample) -> dict:
         path = f"{self.output_dir}/{self.generation_number}/{example.id}.json"
         if not os.path.exists(path) or not self.cfg.plancraft.resume:
@@ -81,7 +89,8 @@ class Evaluator:
             symbolic_action_space=cfg.plancraft.environment.symbolic_action_space,
             symbolic_observation_space=cfg.plancraft.environment.symbolic_observation_space,
             preferred_spawn_biome=cfg.plancraft.environment.preferred_spawn_biome,
-            resolution=cfg.plancraft.environment.resolution,
+            # resolution=cfg.plancraft.environment.resolution,
+            resolution=[512, 512],
         )
 
     def close_envs(self):
@@ -109,7 +118,11 @@ class Evaluator:
         """
         for item in inventory:
             if target == item["type"]:
-                return True
+                # ensure item is taken out of crafting slot
+                if "slot" in item and item["slot"] != 0:
+                    return True
+                if "index" in item and item["index"] != 0:
+                    return True
         return False
 
     def check_stuck(self, env_idx: int, max_steps_no_change: int = 10) -> bool:
@@ -180,6 +193,7 @@ class Evaluator:
                     }
                     results.append(result)
                     self.save_results_dict(example, result)
+                    self.save_images(example, self.model.histories[env_idx].images)
                     assigned_examples[env_idx] = None
                     done[env_idx] = False
                     pbar.update((self.cfg.plancraft.max_steps - num_steps) + 1)
@@ -195,6 +209,7 @@ class Evaluator:
                 done[env_idx] = self.check_done(obs["inventory"], example.target)
                 # # don't predict actions if observation is None
                 if done[env_idx]:
+                    # add final observation to history
                     observations[env_idx] = None
 
             time_now = time.time()
@@ -221,8 +236,8 @@ class Evaluator:
 
         for n in range(self.cfg.plancraft.num_generations):
             logger.info(f"Generation {n+1}/{self.cfg.plancraft.num_generations}")
-            random_str = "".join(random.choices(string.ascii_lowercase, k=5))
-            generation_run_name = run_name + f"_{random_str}"
+            run_id = "".join(random.choices(string.ascii_lowercase, k=5))
+            generation_run_name = run_name + f"_{run_id}"
 
             wandb.init(
                 name=generation_run_name,

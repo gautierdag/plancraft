@@ -10,6 +10,8 @@ from dotenv import load_dotenv
 from openai import OpenAI
 from transformers import (
     AutoModelForCausalLM,
+    AutoModelForVision2Seq,
+    AutoProcessor,
     AutoTokenizer,
     BitsAndBytesConfig,
 )
@@ -85,7 +87,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+        "content": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -132,26 +134,42 @@ class TransformersGenerator:
         model_name, model_kwargs = self.build_model_kwargs(
             model_name, quantize=quantize
         )
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name,
-            token=os.getenv("HF_TOKEN"),  # trust_remote_code=True
-            padding_side="left",  # ensure that the padding is on the left
-        )
-        self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
-
-        time_now = time.time()
-        logger.info("Loading model")
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            device_map="auto",
-            **model_kwargs,
-        )
-        logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+        self.processor = None
+        if "idefics" in model_name:
+            self.processor = AutoProcessor.from_pretrained(
+                model_name,
+                **model_kwargs,
+            )
+            self.tokenizer = self.processor.tokenizer
+            logger.info("Loading model")
+            time_now = time.time()
+            self.model = AutoModelForVision2Seq.from_pretrained(
+                model_name,
+                device_map="auto",
+                **model_kwargs,
+            )
+            logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+        else:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                model_name,
+                token=os.getenv("HF_TOKEN"),  # trust_remote_code=True
+                padding_side="left",  # ensure that the padding is on the left
+            )
+            logger.info("Loading model")
+            time_now = time.time()
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name,
+                device_map="auto",
+                **model_kwargs,
+            )
+            logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
 
         # compile
         time_now = time.time()
         self.model = torch.compile(self.model)
         logger.info(f"Model compiled in {time.time() - time_now:.2f} seconds")
+
+        self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
 
         self.model.eval()
         if self.tokenizer.pad_token_id is None:
@@ -285,6 +303,15 @@ class TransformersGenerator:
         max_tokens=256,
         **kwargs,
     ) -> tuple[list[str], int]:
+        # if self.is_multimodal:
+        #     prompt = self.processor.apply_chat_template(
+        #         batch_messages, add_generation_prompt=True
+        #     )
+        #     # get the images
+        #     inputs = self.processor(
+        #         text=prompt, images=[], return_tensors="pt", padding=True
+        #     )
+        # else:
         tokenized_messages = tokenize(
             self.model,
             self.tokenizer,
@@ -478,8 +505,9 @@ class TransformersGenerator:
 
 
 class OpenAIGenerator:
-    def __init__(self):
+    def __init__(self, is_multimodal=False):
         self.client = OpenAI()
+        self.is_multimodal = is_multimodal
 
     def reset(self):
         pass
@@ -579,7 +607,11 @@ class OpenAIGenerator:
 
 class ReactModel(ABCModel):
     def __init__(self, cfg: Config):
-        assert cfg.plancraft.environment.symbolic_action_space
+        assert (
+            cfg.plancraft.environment.symbolic_action_space
+        ), "Real action space unsupported"
+
+        self.is_multimodal = cfg.plancraft.environment.symbolic
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
@@ -593,7 +625,10 @@ class ReactModel(ABCModel):
 
         self.batch_size = cfg.plancraft.batch_size
         self.histories = [
-            History(initial_dialogue=copy.deepcopy(REACT_EXAMPLE))
+            History(
+                initial_dialogue=copy.deepcopy(REACT_EXAMPLE),
+                is_multimodal=self.is_multimodal,
+            )
             for _ in range(self.batch_size)
         ]
 
@@ -614,20 +649,30 @@ class ReactModel(ABCModel):
         )
         self.llm.reset()
 
-    def convert_observation_to_text(self, observation: dict, objective: str) -> str:
-        # @TODO
-        # 1. parse observations from json/image to text
-        inventory = []
-        for o in observation["inventory"]:
-            if o["quantity"] > 0:
-                inventory.append(
-                    {
-                        "type": o["type"],
-                        "slot": o["index"],
-                        "quantity": o["quantity"],
-                    }
-                )
-        return f"TASK: {objective}\ninventory={json.dumps(inventory)}"
+    def convert_observation_to_message(
+        self, observation: dict, objective: str
+    ) -> str | dict:
+        if self.is_multimodal:
+            content_message = {
+                "content": [
+                    {"type": "image"},
+                    {"type": "text", "text": f"TASK: {objective}"},
+                ]
+            }
+            return content_message
+        else:
+            # if not multimodal, we only have text - we just dump a JSON of the inventory
+            inventory = []
+            for o in observation["inventory"]:
+                if o["quantity"] > 0:
+                    inventory.append(
+                        {
+                            "type": o["type"],
+                            "slot": o["index"],
+                            "quantity": o["quantity"],
+                        }
+                    )
+            return f"TASK: {objective}\ninventory={json.dumps(inventory)}"
 
     def step(self, observations: list[dict]) -> list[SymbolicAction]:
         assert len(observations) == self.batch_size == len(self.histories)
@@ -638,8 +683,9 @@ class ReactModel(ABCModel):
 
         for idx, (observation, history) in enumerate(zip(observations, self.histories)):
             # add observation to history
-            history.add_observation_to_history(observation)
             if observation is not None:
+                # note if image is present this adds the image to the history
+                history.add_observation_to_history(observation)
                 real_obs.append(observation)
                 real_obs_idx.append(idx)
 
@@ -651,11 +697,11 @@ class ReactModel(ABCModel):
         # collect dialogue histories
         for observation, history_idx in zip(real_obs, real_obs_idx):
             # add observation to history
-            observation_str = self.convert_observation_to_text(
-                observation, objective=history.objective
+            observation_message = self.convert_observation_to_message(
+                observation, objective=self.histories[history_idx].objective
             )
             self.histories[history_idx].add_message_to_history(
-                content=observation_str, role="user"
+                content=observation_message, role="user"
             )
             message_window = self.histories[history_idx].dialogue_history[
                 -self.max_messages_window :
