@@ -51,13 +51,15 @@ class Evaluator:
             self.no_op = self.envs[0].action_space.no_op()
 
     def evaluator_name(self) -> str:
+        symb_str = "real"
+        if self.cfg.plancraft.environment.symbolic:
+            symb_str = "symb"
+
         model_name = self.cfg.plancraft.model.split("/")[-1]
         mode = self.cfg.plancraft.mode
         if mode in ["dummy", "oracle"]:
-            return f"{mode}"
-        return (
-            f"{self.cfg.plancraft.mode}_{model_name}_stp{self.cfg.plancraft.max_steps}"
-        )
+            return f"{mode}_{symb_str}"
+        return f"{self.cfg.plancraft.mode}_{symb_str}_{model_name}_stp{self.cfg.plancraft.max_steps}"
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"
