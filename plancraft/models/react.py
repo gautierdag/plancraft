@@ -34,6 +34,7 @@ from plancraft.models.react_prompts import (
     REACT_EXAMPLE_IMGS,
     REACT_SYSTEM_PROMPT,
 )
+from plancraft.models.few_shot_images import load_prompt_images
 
 logger = logging.getLogger(__name__)
 
@@ -239,7 +240,11 @@ class TransformersGenerator:
         self.past_token_ids = None
 
     def prepare_messages(
-        self, history: History, max_messages_window: int, system_prompt: dict
+        self,
+        history: History,
+        max_messages_window: int,
+        system_prompt: dict,
+        prompt_images: list = [],
     ) -> list[dict]:
         """
         Prepare the messages using a history
@@ -471,7 +476,11 @@ class OpenAIGenerator:
         pass
 
     def prepare_messages(
-        self, history: History, max_messages_window: int, system_prompt: dict
+        self,
+        history: History,
+        max_messages_window: int,
+        system_prompt: dict,
+        prompt_images: list = [],
     ) -> list[dict]:
         """
         Prepare the image messages for the model
@@ -485,7 +494,10 @@ class OpenAIGenerator:
             message_window = [system_prompt] + message_window
 
         if self.is_multimodal:
+            image_list = prompt_images + history.images
+
             img_idx = -1
+            seen_images = 0
             # iterate through the messages in reverse order to assign images
             for i in range(len(message_window) - 1, -1, -1):
                 new_content_list = []
@@ -493,8 +505,9 @@ class OpenAIGenerator:
                     if content["type"] == "text":
                         new_content_list.append(content)
                     elif content["type"] == "image":
-                        base64_image = numpy_to_base64(history.images[img_idx])
+                        base64_image = numpy_to_base64(image_list[img_idx])
                         img_idx -= 1
+                        seen_images + 1
                         new_content = {
                             "type": "image_url",
                             "image_url": {
@@ -503,6 +516,7 @@ class OpenAIGenerator:
                         }
                         new_content_list.append(new_content)
                     message_window[i]["content"] = new_content_list
+            assert seen_images <= len(image_list), "Too many images"
             assert False, message_window
         return message_window
 
@@ -623,20 +637,32 @@ class ReactModel(ABCModel):
             )
 
         self.batch_size = cfg.plancraft.batch_size
-    
+        self.prompt_images = []
+
+        examples = copy.deepcopy(REACT_EXAMPLE)
+        self.system_prompt = {
+            "role": "system",
+            "content": copy.deepcopy(REACT_SYSTEM_PROMPT),
+        }
+
+        if self.is_multimodal:
+            examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
+            self.prompt_images = load_prompt_images()
+            self.system_prompt = {
+                "role": "system",
+                "content": [
+                    {"text": copy.deepcopy(REACT_SYSTEM_PROMPT), "type": "text"}
+                ],
+            }
 
         self.histories = [
             History(
-                initial_dialogue=copy.deepcopy(REACT_EXAMPLE),
+                initial_dialogue=examples,
                 is_multimodal=self.is_multimodal,
             )
             for _ in range(self.batch_size)
         ]
 
-        self.system_prompt = {
-            "role": "system",
-            "content": copy.deepcopy(REACT_SYSTEM_PROMPT),
-        }
         self.max_messages_window = cfg.plancraft.max_message_window
         self.kv_cache = None
 
@@ -645,8 +671,12 @@ class ReactModel(ABCModel):
         history_idx: int,
         objective: str,
     ):
+        examples = copy.deepcopy(REACT_EXAMPLE)
+        if self.is_multimodal:
+            examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
+
         self.histories[history_idx].reset(
-            objective=objective, initial_dialogue=copy.deepcopy(REACT_EXAMPLE)
+            objective=objective, initial_dialogue=examples
         )
         self.llm.reset()
 
@@ -708,6 +738,7 @@ class ReactModel(ABCModel):
                 history=self.histories[history_idx],
                 max_messages_window=self.max_messages_window,
                 system_prompt=self.system_prompt,
+                prompt_images=self.prompt_images,
             )
             thought_messages_windows.append(message_window)
 
@@ -734,6 +765,7 @@ class ReactModel(ABCModel):
                 history=self.histories[history_idx],
                 max_messages_window=self.max_messages_window,
                 system_prompt=self.system_prompt,
+                prompt_images=self.prompt_images,
             )
             action_messages_windows.append(message_window)
 
