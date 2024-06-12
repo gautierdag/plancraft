@@ -196,8 +196,11 @@ class RealPlancraft(_singleagent._SingleAgentEnv):
         preferred_spawn_biome="plains",
         symbolic_action_space=False,
         symbolic_observation_space=True,
-        resolution=[260, 180],
+        resolution=[512, 512],
+        crop=True,
     ):
+        self.crop = crop
+        self.resolution = resolution
         env_spec = PlancraftBaseEnvSpec(
             symbolic_action_space=symbolic_action_space,
             symbolic_observation_space=symbolic_observation_space,
@@ -211,7 +214,11 @@ class RealPlancraft(_singleagent._SingleAgentEnv):
     def step(self, action: RealAction | dict):
         if not isinstance(action, dict):
             action = action.to_action_dict()
-        return super().step(action)
+        obs, rew, done, info = super().step(action)
+        if "pov" in obs and self.crop and self.resolution == [512, 512]:
+            # crop at position x=174, y=170 with width=164 and height=173
+            obs["pov"] = obs["pov"][174 : 174 + 164, 170 : 168 + 173]
+        return obs, rew, done, info
 
     def fast_reset(self, new_inventory: list[dict]):
         super().step({"inventory_reset": new_inventory})

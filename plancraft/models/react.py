@@ -517,7 +517,6 @@ class OpenAIGenerator:
                         new_content_list.append(new_content)
                     message_window[i]["content"] = new_content_list
             assert seen_images <= len(image_list), "Too many images"
-            assert False, message_window
         return message_window
 
     def generate_thoughts(
@@ -686,8 +685,8 @@ class ReactModel(ABCModel):
         if self.is_multimodal:
             content_message = {
                 "content": [
-                    {"type": "image"},
                     {"type": "text", "text": f"TASK: {objective}"},
+                    {"type": "image"},
                 ]
             }
             return content_message

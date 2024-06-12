@@ -30,7 +30,17 @@ class History:
             content["role"] = role
             self.dialogue_history.append(content)
         else:
-            self.dialogue_history.append({"role": role, "content": content})
+            # fix for listed content type
+            if self.is_multimodal:
+                return self.add_message_to_history(
+                    content={
+                        "content": [{"type": "text", "text": content}],
+                        "role": role,
+                    },
+                    role=role,
+                )
+            else:
+                self.dialogue_history.append({"role": role, "content": content})
 
     def add_action_to_history(
         self, action: SymbolicSmeltAction | RealActionInteraction | SymbolicMoveAction

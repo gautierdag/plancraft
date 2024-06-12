@@ -51,6 +51,19 @@ REACT_EXAMPLE = [
     },
     {
         "role": "user",
+        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "andesite", "slot": 0,  "quantity": 1},{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 5, "quantity": 1}]""",
+    },
+    {
+        "role": "assistant",
+        "content": """think: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
+    },
+    {"role": "user", "content": "OK"},
+    {
+        "role": "assistant",
+        "content": """act: move from slot 0 to slot 15 with quantity 1""",
+    },
+    {
+        "role": "user",
         "content": """TASK: Craft an item of type: iron_ingot\ninventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
     },
     {
@@ -114,6 +127,32 @@ REACT_EXAMPLE_IMGS = [
             {
                 "type": "text",
                 "text": """act: move from slot 39 to slot 5 with quantity 1""",
+            }
+        ],
+    },
+    {
+        "role": "user",
+        "content": [
+            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "image"},
+        ],
+    },
+    {
+        "role": "assistant",
+        "content": [
+            {
+                "type": "text",
+                "text": """think: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
+            }
+        ],
+    },
+    {"role": "user", "content": [{"type": "text", "text": "OK"}]},
+    {
+        "role": "assistant",
+        "content": [
+            {
+                "type": "text",
+                "text": """act: move from slot 0 to slot 15 with quantity 1""",
             }
         ],
     },
