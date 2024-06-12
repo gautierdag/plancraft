@@ -199,6 +199,7 @@ class RealPlancraft(_singleagent._SingleAgentEnv):
         resolution=[512, 512],
         crop=True,
     ):
+        # NOTE: crop is only supported for resolution 512x512 (default)
         self.crop = crop
         self.resolution = resolution
         env_spec = PlancraftBaseEnvSpec(

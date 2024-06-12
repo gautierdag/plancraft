@@ -92,6 +92,7 @@ def tokenize(
     batch_messages: list[list[dict]],
     start_messages_generation: list[str],
     max_tokens=256,
+    images=None,
 ) -> dict[str, torch.Tensor]:
     """
     Tokenize a list of messages and start the response message
@@ -118,11 +119,24 @@ def tokenize(
     if model.generation_config.max_length > max_tokens:
         max_prompt_length = model.generation_config.max_length - max_tokens
 
-    tokenized_messages = tokenizer(
-        message_texts,
-        return_tensors="pt",
-        truncation=True,
-        max_length=max_prompt_length,
-        padding=True,
-    )
+    if images:
+        assert len(images) == len(
+            batch_messages
+        ), "Length of images should be equal to batch_messages"
+        tokenized_messages = tokenizer(
+            message_texts,
+            return_tensors="pt",
+            truncation=True,
+            max_length=max_prompt_length,
+            padding=True,
+            images=images,
+        )
+    else:
+        tokenized_messages = tokenizer(
+            message_texts,
+            return_tensors="pt",
+            truncation=True,
+            max_length=max_prompt_length,
+            padding=True,
+        )
     return tokenized_messages

@@ -2,9 +2,10 @@ plancraft:
   # model: microsoft/Phi-3-mini-128k-instruct
   # model: meta-llama/Meta-Llama-3-8B-Instruct
   # model: CohereForAI/c4ai-command-r-v01
-  model: "gpt-4o"
+  # model: "gpt-4o"
   # model: mistralai/Mistral-7B-Instruct-v0.2
-  num_generations: 1
+  model: HuggingFaceM4/idefics2-8b-chatty
+  num_generations: 5
   mode: "react"
   # mode: "oracle"
   # mode: "dummy"
@@ -14,7 +15,6 @@ plancraft:
     symbolic: False
     symbolic_observation_space: True
     symbolic_action_space: True
-    resolution: [512, 512]
   split: val.small.easy
   batch_size: 1
   max_message_window: 30
@@ -23,7 +23,7 @@ plancraft:
 wandb:
   project: "plancraft"
   entity: "itl"
-  mode: "offline"
+  mode: "online"
 launch:
   command: "python main.py"
   job_name: "plancraft-s2234411"

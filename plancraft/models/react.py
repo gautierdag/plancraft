@@ -8,6 +8,7 @@ import time
 import torch
 from dotenv import load_dotenv
 from openai import OpenAI
+from PIL import Image
 from transformers import (
     AutoModelForCausalLM,
     AutoModelForVision2Seq,
@@ -23,18 +24,18 @@ from plancraft.environments.actions import (
     SymbolicSmeltAction,
 )
 from plancraft.models.base import ABCModel, History
-from plancraft.models.utils import (
-    Trie,
-    get_downloaded_models,
-    tokenize,
-    numpy_to_base64,
-)
+from plancraft.models.few_shot_images import load_prompt_images
 from plancraft.models.react_prompts import (
     REACT_EXAMPLE,
     REACT_EXAMPLE_IMGS,
     REACT_SYSTEM_PROMPT,
 )
-from plancraft.models.few_shot_images import load_prompt_images
+from plancraft.models.utils import (
+    Trie,
+    get_downloaded_models,
+    numpy_to_base64,
+    tokenize,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -73,18 +74,21 @@ class ValidActionsLogitsProcessor(torch.nn.Module):
 
 
 class TransformersGenerator:
-    def __init__(self, model_name: str, quantize=False, **kwargs):
+    def __init__(self, model_name: str, quantize=False, is_multimodal=False, **kwargs):
         self.model_name = model_name
+        self.is_multimodal = is_multimodal
         model_name, model_kwargs = self.build_model_kwargs(
             model_name, quantize=quantize
         )
         self.processor = None
         if "idefics" in model_name:
-            self.processor = AutoProcessor.from_pretrained(
+            assert is_multimodal, "Idefics model requires multimodal input"
+            self.tokenizer = AutoProcessor.from_pretrained(
                 model_name,
                 **model_kwargs,
             )
-            self.tokenizer = self.processor.tokenizer
+            self.tokenizer.eos_token_id = self.tokenizer.tokenizer.eos_token_id
+            self.pad_token_id = self.tokenizer.tokenizer.pad_token_id
             logger.info("Loading model")
             time_now = time.time()
             self.model = AutoModelForVision2Seq.from_pretrained(
@@ -99,6 +103,7 @@ class TransformersGenerator:
                 token=os.getenv("HF_TOKEN"),  # trust_remote_code=True
                 padding_side="left",  # ensure that the padding is on the left
             )
+            self.pad_token_id = self.tokenizer.pad_token_id
             logger.info("Loading model")
             time_now = time.time()
             self.model = AutoModelForCausalLM.from_pretrained(
@@ -116,7 +121,7 @@ class TransformersGenerator:
         self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
 
         self.model.eval()
-        if self.tokenizer.pad_token_id is None:
+        if self.pad_token_id is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.model.config.pad_token_id = self.model.config.eos_token_id
         self.tokenizer.truncation_side = "left"
@@ -245,7 +250,7 @@ class TransformersGenerator:
         max_messages_window: int,
         system_prompt: dict,
         prompt_images: list = [],
-    ) -> list[dict]:
+    ) -> tuple[list[dict], list]:
         """
         Prepare the messages using a history
         """
@@ -256,7 +261,21 @@ class TransformersGenerator:
         # add the system prompt if the first message is not a system message
         if message_window[0]["role"] != "system":
             message_window = [system_prompt] + message_window
-        return message_window
+
+        image_window = []
+        if self.is_multimodal:
+            image_list = prompt_images + history.images
+            image_count = 0
+            # iterate through the messages in reverse order to assign images
+            for m in message_window:
+                for content in m["content"]:
+                    if content["type"] == "image":
+                        image_count += 1
+            assert image_count <= len(image_list), "Too many images"
+            image_window = image_list[-image_count:]
+            image_window = [Image.fromarray(img) for img in image_window]
+
+        return message_window, image_window
 
     @torch.inference_mode()
     def generate_thoughts(
@@ -266,21 +285,16 @@ class TransformersGenerator:
         max_tokens=256,
         **kwargs,
     ) -> tuple[list[str], int]:
-        # if self.is_multimodal:
-        #     prompt = self.processor.apply_chat_template(
-        #         batch_messages, add_generation_prompt=True
-        #     )
-        #     # get the images
-        #     inputs = self.processor(
-        #         text=prompt, images=[], return_tensors="pt", padding=True
-        #     )
-        # else:
+        if self.is_multimodal:
+            assert "images" in kwargs, "Images required for multimodal model"
+
         tokenized_messages = tokenize(
             self.model,
             self.tokenizer,
             batch_messages,
             start_messages_generation=["think:"] * len(batch_messages),
             max_tokens=max_tokens,
+            images=kwargs.get("images", None),
         )
         prompt_tokens = tokenized_messages["input_ids"].shape[-1]
 
@@ -300,12 +314,11 @@ class TransformersGenerator:
             raise ValueError("Past key values are larger than the input_ids")
 
         generated_sequences = self.model.generate(
-            input_ids=tokenized_messages["input_ids"],
-            attention_mask=tokenized_messages["attention_mask"],
+            **tokenized_messages,
             do_sample=True,
             temperature=temperature,
             max_new_tokens=max_tokens,
-            pad_token_id=self.tokenizer.pad_token_id,
+            pad_token_id=self.pad_token_id,
             return_dict_in_generate=True,
             use_cache=True,
             **self.past_key_values_kwargs,
@@ -331,14 +344,18 @@ class TransformersGenerator:
         start_messages_generation: list[str],
         batch_messages: list[list[dict]],
         temperature=1.0,
+        **kwargs,
     ) -> tuple[list[str], int]:
+        if self.is_multimodal:
+            assert "images" in kwargs, "Images required for multimodal model"
+
         tokenized_messages = tokenize(
             self.model,
             self.tokenizer,
             batch_messages,
             start_messages_generation=start_messages_generation,
+            images=kwargs.get("images", None),
         )
-
         # sent to same device as model
         tokenized_messages = {
             k: v.to(self.model.device) for k, v in tokenized_messages.items()
@@ -359,12 +376,11 @@ class TransformersGenerator:
 
         # Generate the initial action constrained to valid action tokens
         generated_sequences = self.model.generate(
-            input_ids=tokenized_messages["input_ids"],
-            attention_mask=tokenized_messages["attention_mask"],
+            **tokenized_messages,
             do_sample=True,
             temperature=temperature,
             max_new_tokens=logits_processor.tree.longest_sequence_length,
-            pad_token_id=self.tokenizer.pad_token_id,
+            pad_token_id=self.pad_token_id,
             return_dict_in_generate=True,
             use_cache=True,
             logits_processor=[logits_processor],
@@ -391,6 +407,7 @@ class TransformersGenerator:
         self,
         batch_messages: list[list[dict]],
         temperature=1.0,
+        **kwargs,
     ) -> tuple[list[SymbolicAction], list[str], int]:
         """
         Select whether to smelt or move
@@ -404,6 +421,7 @@ class TransformersGenerator:
             batch_messages=batch_messages,
             start_messages_generation=overall_messages,
             temperature=temperature,
+            **kwargs,
         )
         overall_messages = [
             f"{overall}{action} from slot "
@@ -415,6 +433,7 @@ class TransformersGenerator:
             batch_messages=batch_messages,
             start_messages_generation=overall_messages,
             temperature=temperature,
+            **kwargs,
         )
         overall_messages = [
             f"{overall}{slot_from} to slot "
@@ -426,6 +445,7 @@ class TransformersGenerator:
             batch_messages=batch_messages,
             start_messages_generation=overall_messages,
             temperature=temperature,
+            **kwargs,
         )
         overall_messages = [
             f"{overall}{slot_to} with quantity "
@@ -437,6 +457,7 @@ class TransformersGenerator:
             batch_messages=batch_messages,
             start_messages_generation=overall_messages,
             temperature=temperature,
+            **kwargs,
         )
         overall_messages = [
             f"{overall}{quantity}"
@@ -481,7 +502,7 @@ class OpenAIGenerator:
         max_messages_window: int,
         system_prompt: dict,
         prompt_images: list = [],
-    ) -> list[dict]:
+    ) -> tuple[list[dict], list]:
         """
         Prepare the image messages for the model
         """
@@ -517,7 +538,8 @@ class OpenAIGenerator:
                         new_content_list.append(new_content)
                     message_window[i]["content"] = new_content_list
             assert seen_images <= len(image_list), "Too many images"
-        return message_window
+
+        return message_window, []
 
     def generate_thoughts(
         self,
@@ -633,6 +655,7 @@ class ReactModel(ABCModel):
             self.llm = TransformersGenerator(
                 model_name=cfg.plancraft.model,
                 quantize=cfg.plancraft.quantize,
+                is_multimodal=self.is_multimodal,
             )
 
         self.batch_size = cfg.plancraft.batch_size
@@ -723,7 +746,7 @@ class ReactModel(ABCModel):
             return [None] * len(observations)
 
         thought_messages_windows = []
-
+        thought_images_windows = []
         # collect dialogue histories
         for observation, history_idx in zip(real_obs, real_obs_idx):
             # add observation to history
@@ -733,21 +756,24 @@ class ReactModel(ABCModel):
             self.histories[history_idx].add_message_to_history(
                 content=observation_message, role="user"
             )
-            message_window = self.llm.prepare_messages(
+            message_window, image_window = self.llm.prepare_messages(
                 history=self.histories[history_idx],
                 max_messages_window=self.max_messages_window,
                 system_prompt=self.system_prompt,
                 prompt_images=self.prompt_images,
             )
             thought_messages_windows.append(message_window)
+            thought_images_windows.append(image_window)
 
         # generate thoughts
         thought_messages, thinking_token_used = self.llm.generate_thoughts(
             batch_messages=thought_messages_windows,
             max_tokens=256,
+            images=thought_images_windows,
         )
 
         action_messages_windows = []
+        action_images_windows = []
         # update message window with thoughts and collect action messages
         for thought_message, history_idx in zip(thought_messages, real_obs_idx):
             # add thought message to history
@@ -760,16 +786,17 @@ class ReactModel(ABCModel):
             # add token used to history
             self.histories[history_idx].tokens_used += thinking_token_used
 
-            message_window = self.llm.prepare_messages(
+            message_window, image_window = self.llm.prepare_messages(
                 history=self.histories[history_idx],
                 max_messages_window=self.max_messages_window,
                 system_prompt=self.system_prompt,
                 prompt_images=self.prompt_images,
             )
             action_messages_windows.append(message_window)
+            action_images_windows.append(image_window)
 
         actions, action_messages, action_token_used = self.llm.generate_actions(
-            batch_messages=action_messages_windows,
+            batch_messages=action_messages_windows, images=action_images_windows
         )
 
         for action_message, history_idx in zip(action_messages, real_obs_idx):

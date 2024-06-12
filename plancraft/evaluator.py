@@ -240,15 +240,15 @@ class Evaluator:
             run_id = "".join(random.choices(string.ascii_lowercase, k=5))
             generation_run_name = run_name + f"_{run_id}"
 
-            # wandb.init(
-            #     name=generation_run_name,
-            #     project=self.cfg.wandb.project,
-            #     entity=self.cfg.wandb.entity,
-            #     mode=self.cfg.wandb.mode,
-            #     group=self.cfg.plancraft.model,
-            #     job_type=self.cfg.plancraft.mode,
-            #     config=self.cfg.model_dump(),
-            # )
+            wandb.init(
+                name=generation_run_name,
+                project=self.cfg.wandb.project,
+                entity=self.cfg.wandb.entity,
+                mode=self.cfg.wandb.mode,
+                group=self.cfg.plancraft.model,
+                job_type=self.cfg.plancraft.mode,
+                config=self.cfg.model_dump(),
+            )
             time_now = time.time()
 
             results_list = self.eval_all_examples(progress_bar=True)
@@ -260,9 +260,9 @@ class Evaluator:
             time_elapsed = time.time() - time_now
             logger.info(f"Time elapsed: {time_elapsed:.2f}s")
 
-            # table = wandb.Table(dataframe=results_df)
-            # wandb.log({"results": table})
-            # wandb.finish()
+            table = wandb.Table(dataframe=results_df)
+            wandb.log({"results": table})
+            wandb.finish()
 
             self.generation_number += 1
 

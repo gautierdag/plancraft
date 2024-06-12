@@ -12,7 +12,7 @@ class EnvironmentConfig(BaseModel):
     symbolic_observation_space: bool
     symbolic_action_space: bool
     preferred_spawn_biome: str = "plains"
-    resolution: list[int] = [260, 180]
+    resolution: list[int] = [512, 512]
 
 
 class PlancraftConfig(BaseModel):
