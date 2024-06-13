@@ -59,7 +59,13 @@ class History:
         if observation is None:
             return
         if "inventory" in observation:
-            self.add_inventory_to_history(observation["inventory"])
+            clean_inv = []
+            # remove empty slots
+            for item in observation["inventory"]:
+                if item["quantity"] > 0:
+                    clean_inv.append(item)
+
+            self.add_inventory_to_history(clean_inv)
         if "pov" in observation:
             self.add_image_to_history(observation["pov"])
 

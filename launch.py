@@ -6,7 +6,7 @@ import base64
 from kubernetes import client, config
 from kubejobs.jobs import KubernetesJob, KueueQueue
 
-from plancraft.config import Config
+from plancraft.config import EvalConfig
 
 
 def check_if_completed(job_name: str, namespace: str = "informatics") -> bool:
@@ -48,7 +48,7 @@ def check_if_completed(job_name: str, namespace: str = "informatics") -> bool:
     return is_completed
 
 
-def send_message_command(cfg: Config):
+def send_message_command(cfg: EvalConfig):
     # webhook - load from env
     config.load_kube_config()
     v1 = client.CoreV1Api()
@@ -65,7 +65,7 @@ def send_message_command(cfg: Config):
     )
 
 
-def export_env_vars(cfg: Config):
+def export_env_vars(cfg: EvalConfig):
     cmd = ""
     for key in cfg.launch.env_vars.keys():
         cmd += f" export {key}=${key} &&"
@@ -75,7 +75,7 @@ def export_env_vars(cfg: Config):
 
 @hydra.main(config_path="configs", config_name="base", version_base=None)
 def main(cfg: DictConfig):
-    cfg = Config(**dict(cfg))
+    cfg = EvalConfig(**dict(cfg))
     job_name = cfg.launch.job_name
     is_completed = check_if_completed(job_name, namespace=cfg.launch.namespace)
 

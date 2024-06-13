@@ -17,7 +17,7 @@ from transformers import (
     BitsAndBytesConfig,
 )
 
-from plancraft.config import Config
+from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     SymbolicAction,
     SymbolicMoveAction,
@@ -156,6 +156,11 @@ class TransformersGenerator:
             self.past_token_ids is None
             or "past_key_values" not in self.past_key_values_kwargs
         ):
+            return
+
+        # caching doesn't seem to work with multimodal models
+        if self.is_multimodal:
+            self.past_key_values_kwargs = {}
             return
 
         past_batch_size, past_seq_len = self.past_token_ids.shape
@@ -640,7 +645,7 @@ class OpenAIGenerator:
 
 
 class ReactModel(ABCModel):
-    def __init__(self, cfg: Config):
+    def __init__(self, cfg: EvalConfig):
         assert (
             cfg.plancraft.environment.symbolic_action_space
         ), "Real action space unsupported"

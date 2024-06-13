@@ -12,6 +12,7 @@ env = RealPlancraft(
     symbolic_action_space=True,
     symbolic_observation_space=True,
     resolution=[512, 512],
+    crop=True,
 )
 
 actions = [

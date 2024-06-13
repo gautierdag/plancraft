@@ -1,12 +1,12 @@
 from plancraft.models.base import ABCModel
 
-from plancraft.config import Config
+from plancraft.config import EvalConfig
 from plancraft.models.dummy import DummyModel
 from plancraft.models.react import ReactModel
 from plancraft.models.oracle import OracleModel
 
 
-def get_model(cfg: Config) -> ABCModel:
+def get_model(cfg: EvalConfig) -> ABCModel:
     """
     Factory get model
     """

@@ -1,7 +1,8 @@
 import logging
+import copy
 from collections import Counter
 
-from plancraft.config import Config
+from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     RealActionInteraction,
     SymbolicMoveAction,
@@ -87,7 +88,7 @@ class OracleModel(ABCModel):
     Oracle model returns actions that solve the task optimally
     """
 
-    def __init__(self, cfg: Config):
+    def __init__(self, cfg: EvalConfig):
         assert (
             cfg.plancraft.environment.symbolic_action_space
         ), "Only symbolic actions are supported for oracle"
@@ -119,10 +120,12 @@ class OracleModel(ABCModel):
         if len(self.plans[plan_idx]) == 0:
             raise ValueError("No more steps in plan")
 
+        observed_inventory = copy.deepcopy(observation["inventory"])
+
         # take item from crafting slot
-        if slot_item := get_crafting_slot_item(observation["inventory"]):
+        if slot_item := get_crafting_slot_item(observed_inventory):
             # move item from crafting slot to inventory
-            free_slot = find_free_inventory_slot(observation["inventory"])
+            free_slot = find_free_inventory_slot(observed_inventory)
             return SymbolicMoveAction(
                 slot_from=0, slot_to=free_slot, quantity=slot_item["quantity"]
             )
@@ -130,7 +133,7 @@ class OracleModel(ABCModel):
         plan_recipe, new_inventory = self.plans[plan_idx].pop(0)
         self.subplans[plan_idx] = []
         new_inventory_counter = Counter(new_inventory)
-        current_inventory = observation["inventory"]
+        current_inventory = observed_inventory
         current_inventory_counter = get_inventory_counter(current_inventory)
         items_to_use_counter = current_inventory_counter - new_inventory_counter
         new_items = new_inventory_counter - current_inventory_counter

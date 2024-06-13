@@ -12,7 +12,7 @@ import torch
 from tqdm import tqdm
 
 import wandb
-from plancraft.config import Config, PlancraftExample
+from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.env_symbolic import SymbolicPlancraft
 from plancraft.models import get_model
@@ -27,7 +27,7 @@ class Evaluator:
     The environment is created based on the configuration and the examples are loaded from the dataset.
     """
 
-    def __init__(self, cfg: Config):
+    def __init__(self, cfg: EvalConfig):
         self.cfg = cfg
         self.output_dir = (
             f"{cfg.plancraft.output_dir}/{self.evaluator_name()}/{cfg.plancraft.split}"
@@ -83,7 +83,7 @@ class Evaluator:
         with open(path, "r") as f:
             return json.load(f)
 
-    def create_env(self, cfg: Config) -> RealPlancraft | SymbolicPlancraft:
+    def create_env(self, cfg: EvalConfig) -> RealPlancraft | SymbolicPlancraft:
         if cfg.plancraft.environment.symbolic:
             return SymbolicPlancraft(inventory=self.examples[0].slotted_inventory)
         return RealPlancraft(
@@ -260,7 +260,15 @@ class Evaluator:
             time_elapsed = time.time() - time_now
             logger.info(f"Time elapsed: {time_elapsed:.2f}s")
 
-            table = wandb.Table(dataframe=results_df)
+            wandb.log(
+                {
+                    "avg_success_rate": results_df["success"].mean(),
+                    "avg_number_of_steps": results_df["number_of_steps"].mean(),
+                }
+            )
+            table = wandb.Table(
+                dataframe=results_df[["success", "number_of_steps", "example_id"]]
+            )
             wandb.log({"results": table})
             wandb.finish()
 

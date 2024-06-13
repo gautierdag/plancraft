@@ -5,9 +5,9 @@ plancraft:
   # model: "gpt-4o"
   # model: mistralai/Mistral-7B-Instruct-v0.2
   model: HuggingFaceM4/idefics2-8b-chatty
-  num_generations: 5
-  mode: "react"
-  # mode: "oracle"
+  num_generations: 1
+  # mode: "react"
+  mode: "oracle"
   # mode: "dummy"
   max_steps: 80
   quantize: False
@@ -15,15 +15,15 @@ plancraft:
     symbolic: False
     symbolic_observation_space: True
     symbolic_action_space: True
-  split: val.small.easy
+  split: train
   batch_size: 1
   max_message_window: 30
-  resume: False
+  resume: True
   output_dir: "outputs"
 wandb:
   project: "plancraft"
   entity: "itl"
-  mode: "online"
+  mode: "disabled"
 launch:
   command: "python main.py"
   job_name: "plancraft-s2234411"

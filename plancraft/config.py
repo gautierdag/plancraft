@@ -47,7 +47,7 @@ class LaunchConfig(BaseModel):
     env_vars: dict[str, dict[str, str]]
 
 
-class Config(BaseModel):
+class EvalConfig(BaseModel):
     plancraft: PlancraftConfig
     wandb: WandbConfig
     launch: LaunchConfig
