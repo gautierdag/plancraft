@@ -15,10 +15,10 @@ plancraft:
     symbolic: False
     symbolic_observation_space: True
     symbolic_action_space: True
-  split: train
+  split: val
   batch_size: 1
   max_message_window: 30
-  resume: True
+  resume: False
   output_dir: "outputs"
 wandb:
   project: "plancraft"

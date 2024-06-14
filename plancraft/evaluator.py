@@ -174,6 +174,10 @@ class Evaluator:
                         results.append(resume_result)
                         continue
 
+                    print("Assigning examples to environments...")
+                    print(f"env_idx: {env_idx}")
+                    print(f"example: {new_example}")
+
                     assigned_examples[env_idx] = new_example
                     self.reset(new_example, env_idx)
                     actions[env_idx] = self.no_op.copy()
