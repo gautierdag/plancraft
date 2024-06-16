@@ -117,10 +117,12 @@ class Evaluator:
             for item in current_inventory:
                 slot = item["slot"]
                 if (
-                    obs["inventory"][slot]["type"] == item["type"]
-                    and obs["inventory"][slot]["quantity"] == item["quantity"]
-                ):
+                    obs["inventory"][slot]["type"] != item["type"]
+                    or obs["inventory"][slot]["quantity"] != item["quantity"]
+                ) and item["type"] != "air":
                     logger.warn(f"Inventory does not match expected for slot {slot}")
+                    logger.warn(f"Expected {item}")
+                    logger.warn(f"Got {obs['inventory'][slot]}")
                     # try again
                     self.reset(example, env_idx)
 
