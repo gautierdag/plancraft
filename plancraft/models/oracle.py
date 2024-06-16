@@ -199,8 +199,6 @@ class OracleModel(ABCModel):
     def step(
         self, batch_observations: list[dict]
     ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
-        print("Obs")
-        print(batch_observations[0]["inventory"])
         out_actions = []
         assert len(batch_observations) == len(self.histories)
         for plan_idx, observation in enumerate(batch_observations):
@@ -220,6 +218,4 @@ class OracleModel(ABCModel):
 
             # add action to history
             self.histories[plan_idx].add_action_to_history(action)
-        print("Act")
-        print(out_actions[0])
         return out_actions

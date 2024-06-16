@@ -85,9 +85,9 @@ class Evaluator:
 
     def create_env(self, cfg: EvalConfig) -> RealPlancraft | SymbolicPlancraft:
         if cfg.plancraft.environment.symbolic:
-            return SymbolicPlancraft(inventory=self.examples[0].slotted_inventory)
+            return SymbolicPlancraft(inventory=[])
         return RealPlancraft(
-            inventory=self.examples[0].slotted_inventory,
+            inventory=[],
             symbolic_action_space=cfg.plancraft.environment.symbolic_action_space,
             symbolic_observation_space=cfg.plancraft.environment.symbolic_observation_space,
             preferred_spawn_biome=cfg.plancraft.environment.preferred_spawn_biome,
@@ -110,6 +110,20 @@ class Evaluator:
     ):
         current_inventory = example.slotted_inventory
         self.envs[env_idx].fast_reset(new_inventory=current_inventory)
+        # do a no op to an initial observation
+        obs, _, _, _ = self.envs[env_idx].step(self.no_op)
+        # assert that the inventory is correct
+        if "inventory" in obs:
+            for item in current_inventory:
+                slot = item["slot"]
+                if (
+                    obs["inventory"][slot]["type"] == item["type"]
+                    and obs["inventory"][slot]["quantity"] == item["quantity"]
+                ):
+                    logger.warn(f"Inventory does not match expected for slot {slot}")
+                    # try again
+                    self.reset(example, env_idx)
+
         objective = f"Craft an item of type: {example.target}"
         self.model.reset_history(history_idx=env_idx, objective=objective)
 
@@ -174,9 +188,9 @@ class Evaluator:
                         results.append(resume_result)
                         continue
 
-                    print("Assigning examples to environments...")
-                    print(f"env_idx: {env_idx}")
-                    print(f"example: {new_example}")
+                    # print("Assigning examples to environments...")
+                    # print(f"env_idx: {env_idx}")
+                    # print(f"example: {new_example}")
 
                     assigned_examples[env_idx] = new_example
                     self.reset(new_example, env_idx)

@@ -18,7 +18,7 @@ plancraft:
   split: val
   batch_size: 1
   max_message_window: 30
-  resume: False
+  resume: True
   output_dir: "outputs"
 wandb:
   project: "plancraft"
