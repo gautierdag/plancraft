@@ -183,3 +183,127 @@ REACT_EXAMPLE_IMGS = [
         ],
     },
 ]
+
+
+ACT_SYSTEM_PROMPT = """You are crafting in Minecraft.
+You need to decide on the next action.
+
+You must output an action like the following:
+act: move from slot X to slot Y with quantity Z
+
+There are two types of actions
+- move
+- smelt
+
+The first 10 slots in the inventory are reserved for crafting and correspond to the minecraft crafting table. 
+
+[1, 2, 3] 
+[4, 5, 6] -> [0]
+[7, 8, 9]
+
+The crafting matrix is a 3x3 grid, and the output is sent to slot 0.
+You cannot move or smelt items into output slot 0.
+The remaining slots (10-45) are for storing items.
+"""
+
+ACT_EXAMPLE = [
+    {
+        "role": "user",
+        "content": """TASK: Craft an item of type: andesite\ninventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
+    },
+    {
+        "role": "assistant",
+        "content": """act: move from slot 27 to slot 4 with quantity 1""",
+    },
+    {
+        "role": "user",
+        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]""",
+    },
+    {
+        "role": "assistant",
+        "content": """act: move from slot 39 to slot 5 with quantity 1""",
+    },
+    {
+        "role": "user",
+        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "andesite", "slot": 0,  "quantity": 1},{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 5, "quantity": 1}]""",
+    },
+    {
+        "role": "assistant",
+        "content": """act: move from slot 0 to slot 15 with quantity 1""",
+    },
+    {
+        "role": "user",
+        "content": """TASK: Craft an item of type: iron_ingot\ninventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
+    },
+    {
+        "role": "assistant",
+        "content": """act: smelt from slot 45 to slot 44 with quantity 1""",
+    },
+]
+
+ACT_EXAMPLE_IMGS = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "image"},
+        ],
+    },
+    {
+        "role": "assistant",
+        "content": [
+            {
+                "type": "text",
+                "text": """act: move from slot 27 to slot 4 with quantity 1""",
+            }
+        ],
+    },
+    {
+        "role": "user",
+        "content": [
+            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "image"},
+        ],
+    },
+    {
+        "role": "assistant",
+        "content": [
+            {
+                "type": "text",
+                "text": """act: move from slot 39 to slot 5 with quantity 1""",
+            }
+        ],
+    },
+    {
+        "role": "user",
+        "content": [
+            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "image"},
+        ],
+    },
+    {
+        "role": "assistant",
+        "content": [
+            {
+                "type": "text",
+                "text": """act: move from slot 0 to slot 15 with quantity 1""",
+            }
+        ],
+    },
+    {
+        "role": "user",
+        "content": [
+            {"type": "text", "text": """TASK: Craft an item of type: iron_ingot"""},
+            {"type": "image"},
+        ],
+    },
+    {
+        "role": "assistant",
+        "content": [
+            {
+                "type": "text",
+                "text": """act: smelt from slot 45 to slot 44 with quantity 1""",
+            }
+        ],
+    },
+]

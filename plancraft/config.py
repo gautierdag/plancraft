@@ -18,14 +18,14 @@ class EnvironmentConfig(BaseModel):
 class PlancraftConfig(BaseModel):
     model: str
     num_generations: int
-    mode: str
+    mode: Literal["react", "act", "oracle", "dummy"] = "react"
     output_dir: str
     max_steps: int
     quantize: Literal[False, "int4", "int8"]
     environment: EnvironmentConfig
     split: DatasetSplit = "val.small"
     batch_size: int = 1
-    max_message_window: int = 30  # max number of messages to keep in dialogue history
+    max_message_window: int = 30  # max number of messages to keep in dialogue history (30 is around 8k llama3 tokens)
     resume: bool = True  # resume inference
 
 

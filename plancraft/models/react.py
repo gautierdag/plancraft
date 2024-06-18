@@ -88,7 +88,6 @@ class TransformersGenerator:
                 **model_kwargs,
             )
             self.tokenizer.eos_token_id = self.tokenizer.tokenizer.eos_token_id
-            self.pad_token_id = self.tokenizer.tokenizer.pad_token_id
             logger.info("Loading model")
             time_now = time.time()
             self.model = AutoModelForVision2Seq.from_pretrained(
@@ -97,13 +96,17 @@ class TransformersGenerator:
                 **model_kwargs,
             )
             logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+            # set pad_token_id
+            if self.tokenizer.tokenizer.pad_token_id:
+                self.pad_token_id = self.tokenizer.tokenizer.pad_token_id
+            else:
+                self.pad_token_id = self.tokenizer.tokenizer.eos_token_id
         else:
             self.tokenizer = AutoTokenizer.from_pretrained(
                 model_name,
                 token=os.getenv("HF_TOKEN"),  # trust_remote_code=True
                 padding_side="left",  # ensure that the padding is on the left
             )
-            self.pad_token_id = self.tokenizer.pad_token_id
             logger.info("Loading model")
             time_now = time.time()
             self.model = AutoModelForCausalLM.from_pretrained(
@@ -112,6 +115,12 @@ class TransformersGenerator:
                 **model_kwargs,
             )
             logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+            # set pad_token_id
+            if self.tokenizer.pad_token_id:
+                self.pad_token_id = self.tokenizer.pad_token_id
+            else:
+                self.tokenizer.pad_token = self.tokenizer.eos_token
+                self.pad_token_id = self.tokenizer.eos_token_id
 
         # compile
         time_now = time.time()
@@ -239,6 +248,9 @@ class TransformersGenerator:
             model_kwargs["local_files_only"] = True
             model_name = downloaded_models[model_name]
             logger.info(f"Using local model {model_name}")
+        if "/plancraft/outputs" in model_name:
+            model_kwargs["local_files_only"] = True
+            logger.info(f"Using local model {model_name}")
 
         return model_name, model_kwargs
 
@@ -299,7 +311,7 @@ class TransformersGenerator:
             batch_messages,
             start_messages_generation=["think:"] * len(batch_messages),
             max_tokens=max_tokens,
-            images=kwargs.get("images", None),
+            images=kwargs.get("images") if self.is_multimodal else None,
         )
         prompt_tokens = tokenized_messages["input_ids"].shape[-1]
 
@@ -323,7 +335,7 @@ class TransformersGenerator:
             do_sample=True,
             temperature=temperature,
             max_new_tokens=max_tokens,
-            pad_token_id=self.pad_token_id,
+            pad_token_id=self.tokenizer.pad_token_id,
             return_dict_in_generate=True,
             use_cache=True,
             **self.past_key_values_kwargs,
@@ -359,7 +371,7 @@ class TransformersGenerator:
             self.tokenizer,
             batch_messages,
             start_messages_generation=start_messages_generation,
-            images=kwargs.get("images", None),
+            images=kwargs.get("images") if self.is_multimodal else None,
         )
         # sent to same device as model
         tokenized_messages = {
