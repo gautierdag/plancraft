@@ -1,25 +1,25 @@
 plancraft:
-  # model: microsoft/Phi-3-mini-128k-instruct
-  # model: meta-llama/Meta-Llama-3-8B-Instruct
+  # model: meta-llama/Meta-Llama-3-70B-Instruct
   # model: CohereForAI/c4ai-command-r-v01
   # model: "gpt-4o"
-  # model: mistralai/Mistral-7B-Instruct-v0.2
+  # model: mistralai/Mistral-7B-Instruct-v0.3
+  # model: oracle
   model: HuggingFaceM4/idefics2-8b-chatty
   # model: /plancraft/outputs/training/checkpoint-490
   num_generations: 1
-  mode: "act"
-  # mode: "oracle"
+  # mode: "react"
+  mode: "oracle"
   # mode: "dummy"
   max_steps: 80
   quantize: False
   environment:
-    symbolic: False
+    symbolic: True
     symbolic_observation_space: True
     symbolic_action_space: True
-  split: val.small.easy
+  split: train
   batch_size: 1
   max_message_window: 30
-  resume: False
+  resume: True
   output_dir: "outputs"
 wandb:
   project: "plancraft"
