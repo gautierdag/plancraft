@@ -53,16 +53,18 @@ class EvalConfig(BaseModel):
     launch: LaunchConfig
 
 
-class TrainConfig(EvalConfig):
-    
+class TrainingArgs(BaseModel):
+    base_model: str = "llama3"
+
     # training specific config
     lora: bool = True
+    qlora: bool = False
+    use_adapter: bool = False
+
     lora_alpha: int = 16
     lora_dropout: float = 0.1
     lora_r: int = 64
     # training data args
-    oversample_long_dialogue: bool = True
-    num_oversampling: int = 3
     seed: int = 42
     # model args
     batch_size: int = 1
@@ -73,12 +75,11 @@ class TrainConfig(EvalConfig):
     learning_rate: float = 2e-4
     max_grad_norm: float = 0.3
     warmup_ratio: float = 0.03
-    group_by_length: bool = True
-    lr_scheduler_type: str = "cosine"
-    optimizer: str = "adamw_torch"
-    gradient_checkpointing: bool = True
     num_train_epochs: int = 3
 
+
+class TrainConfig(EvalConfig):
+    training: TrainingArgs
 
 
 class PlancraftExample(BaseModel):

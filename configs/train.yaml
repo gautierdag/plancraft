@@ -1,15 +1,24 @@
+training: 
+  base_model: "idefics2"
+  lora: False
+  qlora: True
+  use_adapter: True
+  lora_r: 32
+  lora_alpha: 16
+  lora_dropout: 0.1
+  seed: 42
+  batch_size: 1
+  max_steps: 80
+  max_seq_length: 8142
+  gradient_accumulation_steps: 4
+  learning_rate: 2e-4
+  max_grad_norm: 0.3
+  warmup_ratio: 0.03
+  num_train_epochs: 3
 plancraft:
   model: meta-llama/Meta-Llama-3-70B-Instruct
-  # model: CohereForAI/c4ai-command-r-v01
-  # model: "gpt-4o"
-  # model: mistralai/Mistral-7B-Instruct-v0.3
-  # model: oracle
-  # model: HuggingFaceM4/idefics2-8b-chatty
-  # model: /plancraft/outputs/training/checkpoint-490
   num_generations: 1
   mode: "act"
-  # mode: "oracle"
-  # mode: "dummy"
   max_steps: 80
   quantize: False
   environment:
@@ -22,7 +31,7 @@ plancraft:
   resume: True
   output_dir: "outputs"
 wandb:
-  project: "plancraft"
+  project: "plancraft-train"
   entity: "itl"
   mode: "online"
 launch:
