@@ -4,9 +4,14 @@ import logging
 import warnings
 
 import lightning as L
+from lightning.pytorch.callbacks import (
+    EarlyStopping,
+    ModelCheckpoint,
+    LearningRateMonitor,
+)
 import torch
 from lightning.pytorch.loggers import WandbLogger
-from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+from peft import LoraConfig
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset
 from transformers import (
@@ -167,7 +172,6 @@ def get_collate_fn(
                 )
             messages_batch.append(text)
         if processor:
-            mask_token_id = image_token_id
             batch = processor(
                 text=messages_batch,
                 images=images_batch,
@@ -177,10 +181,9 @@ def get_collate_fn(
                 return_tensors="pt",
             )
             labels = batch["input_ids"].clone()
-            labels[labels == pad_token_id] = mask_token_id
+            labels[labels == pad_token_id] = -100
             batch["labels"] = labels
         else:
-            mask_token_id = -100
             batch = tokenizer(
                 messages_batch,
                 truncation=True,
@@ -200,7 +203,7 @@ def get_collate_fn(
                 mask = track_assistant_response(
                     batch, tokenizer, template_name=template_name
                 )
-            labels[mask == 0] = mask_token_id
+            labels[mask == 0] = -100
 
         return batch
 
@@ -208,30 +211,46 @@ def get_collate_fn(
 
 
 class PLWrapperModule(L.LightningModule):
-    def __init__(self, config, model):
+    def __init__(self, config: TrainConfig, model, total_steps: int):
         super().__init__()
         self.config = config
         self.model = model
-        self.batch_size = config.get("batch_size", 1)
+        self.total_steps = total_steps
 
     def training_step(self, batch, batch_idx):
         outputs = self.model(**batch)
         loss = outputs.loss
-        self.log("train_loss", loss.item(), on_step=True, prog_bar=True)
+        self.log("train_loss", outputs.loss.item(), on_step=True, prog_bar=True)
         return loss
 
     def validation_step(self, batch, batch_idx, dataset_idx=0):
         outputs = self.model(**batch)
-        loss = outputs.loss
-        # self.log("val_loss", loss)
-        self.log("val_loss", loss.item())
+        self.log("val_loss", outputs.loss.item())
+
+    def on_after_backward(self):
+        # Inspect gradients for NaNs and Infs
+        for name, param in self.named_parameters():
+            if param.grad is not None:
+                if torch.isnan(param.grad).any():
+                    print(f"NaN values found in gradients of {name}")
+                if torch.isinf(param.grad).any():
+                    print(f"Infinite values found in gradients of {name}")
+            if torch.isnan(param.data).any():
+                print(f"NaN values found in data of {name}")
+            if torch.isinf(param.data).any():
+                print(f"Infinite values found in data of {name}")
 
     def configure_optimizers(self):
         # you could also add a learning rate scheduler if you want
         optimizer = torch.optim.AdamW(
-            self.parameters(), lr=self.config.get("lr", 0.0002)
+            self.parameters(), lr=self.config.training.learning_rate
         )
-        return optimizer
+        # warmup with cosine decay
+        num_warmup_steps = int(self.total_steps * self.config.training.warmup_ratio)
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
+            optimizer, T_0=num_warmup_steps, T_mult=1
+        )
+        return [optimizer], [scheduler]
 
 
 TEMPLATES = {
@@ -250,10 +269,25 @@ TEMPLATES = {
 def main(cfg):
     logger.info(cfg)
     cfg = TrainConfig(**dict(cfg))
+    torch.set_float32_matmul_precision("medium")
+
+    bnb_config = None
+    if cfg.training.qlora:
+        bnb_config = BitsAndBytesConfig(
+            # load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=torch.float16,
+        )
+
     if cfg.training.base_model == "llama3":
         model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForCausalLM.from_pretrained(model_name)
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            device_map="cpu",
+            torch_dtype=torch.float16,
+            quantization_config=bnb_config,
+        )
         train_dataset = PlancraftDialogueDataset(
             mm=False, max_window_size=cfg.plancraft.max_message_window, split="train"
         )
@@ -265,50 +299,28 @@ def main(cfg):
             only_assistant=True,
             template_name=cfg.training.base_model,
         )
+        target_modules = [
+            "q_proj",
+            "v_proj",
+            "k_proj",
+            "out_proj",
+        ]
     elif cfg.training.base_model == "idefics2":
         model_name = "/nfs/public/hf/models/HuggingFaceM4/idefics2-8b-chatty"
+        # model_name = "HuggingFaceM4/idefics2-8b-chatty"
         processor = AutoProcessor.from_pretrained(model_name, do_image_splitting=False)
-        if cfg.training.lora or cfg.training.qlora:
-            if cfg.training.qlora:
-                bnb_config = BitsAndBytesConfig(
-                    # load_in_4bit=True,
-                    device_map="cpu",
-                    bnb_4bit_quant_type="nf4",
-                    bnb_4bit_compute_dtype=torch.float16,
-                )
         model = Idefics2ForConditionalGeneration.from_pretrained(
             model_name,
-            torch_dtype=torch.float16,
-            quantization_config=bnb_config if cfg.training.qlora else None,
+            device_map="cpu",
+            # torch_dtype=torch.float16,
+            quantization_config=bnb_config,
         )
-        if cfg.training.use_adapter:
-            lora_config = LoraConfig(
-                r=cfg.training.lora_r,
-                lora_alpha=cfg.training.lora_alpha,
-                lora_dropout=cfg.training.lora_dropout,
-                target_modules=".*(text_model|modality_projection|perceiver_resampler).*(down_proj|gate_proj|up_proj|k_proj|q_proj|v_proj|o_proj).*$",
-                use_dora=False if cfg.training.qlora else True,
-                init_lora_weights="gaussian",
-            )
-            model.add_adapter(lora_config)
-            model.enable_adapters()
-        else:
-            lora_config = LoraConfig(
-                r=cfg.training.lora_r,
-                lora_alpha=cfg.training.lora_alpha,
-                lora_dropout=cfg.training.lora_dropout,
-                target_modules=".*(text_model|modality_projection|perceiver_resampler).*(down_proj|gate_proj|up_proj|k_proj|q_proj|v_proj|o_proj).*$",
-                use_dora=False if cfg.training.qlora else True,
-                init_lora_weights="gaussian",
-            )
-
-            model = prepare_model_for_kbit_training(model)
-            model = get_peft_model(model, lora_config)
-
         train_dataset = PlancraftDialogueDataset(
-            mm=True, max_window_size=30, split="train"
+            mm=True, max_window_size=cfg.plancraft.max_message_window, split="train"
         )
-        val_dataset = PlancraftDialogueDataset(mm=True, max_window_size=30, split="val")
+        val_dataset = PlancraftDialogueDataset(
+            mm=True, max_window_size=cfg.plancraft.max_message_window, split="val"
+        )
         collate_fn = get_collate_fn(
             processor=processor,
             only_assistant=True,
@@ -316,26 +328,48 @@ def main(cfg):
             pad_token_id=processor.tokenizer.pad_token_id,
             image_token_id=model.image_token_id,
         )
+        target_modules = ".*(text_model|modality_projection|perceiver_resampler).*(down_proj|gate_proj|up_proj|k_proj|q_proj|v_proj|o_proj).*$"
     else:
         raise ValueError(f"Model {cfg.training.base_model} not supported")
 
-    model_module = PLWrapperModule(config={}, model=model)
+    lora_config = LoraConfig(
+        r=cfg.training.lora_r,
+        lora_alpha=cfg.training.lora_alpha,
+        lora_dropout=cfg.training.lora_dropout,
+        target_modules=target_modules,
+        use_dora=True,
+        init_lora_weights="gaussian",
+        # task_type="CAUSAL_LM",
+    )
+    model.add_adapter(lora_config)
+    model.enable_adapters()
+
+    dataset_length = len(train_dataset)
+    total_steps = (
+        dataset_length // cfg.training.batch_size
+    ) * cfg.training.num_train_epochs
+
+    model_module = PLWrapperModule(config=cfg, model=model, total_steps=total_steps)
     train_loader = DataLoader(
         train_dataset,
-        batch_size=1,
+        batch_size=cfg.training.batch_size,
         shuffle=True,
         collate_fn=collate_fn,
-        num_workers=12,
+        num_workers=cfg.training.num_workers,
     )
     val_loader = DataLoader(
         val_dataset,
-        batch_size=1,
+        batch_size=cfg.training.batch_size,
         shuffle=False,
         collate_fn=collate_fn,
-        num_workers=12,
+        num_workers=cfg.training.num_workers,
     )
 
-    name = f"{cfg.training.base_model}-lora-{cfg.training.lora}-qlora-{cfg.training.qlora}-adapter-{cfg.training.use_adapter}"
+    name = (
+        f"{cfg.training.base_model}-r{cfg.training.lora_r}-a{cfg.training.lora_alpha}"
+    )
+    if cfg.training.qlora:
+        name += "-qlora"
 
     wandb_logger = WandbLogger(
         project=cfg.wandb.project,
@@ -346,22 +380,31 @@ def main(cfg):
     )
 
     trainer = L.Trainer(
-        accelerator="gpu",
+        accelerator="cuda",
+        # devices="auto",
         devices=[0],
-        max_epochs=3,
+        # strategy="fsdp",
+        max_epochs=cfg.training.num_train_epochs,
         check_val_every_n_epoch=1,
-        gradient_clip_val=1.0,
-        accumulate_grad_batches=8,
+        gradient_clip_val=cfg.training.max_grad_norm,
+        accumulate_grad_batches=cfg.training.gradient_accumulation_steps,
         num_sanity_val_steps=0,
         logger=wandb_logger,
+        precision="16-mixed",
         log_every_n_steps=1,
-        limit_val_batches=10,
+        limit_val_batches=20,
+        # detect_anomaly=True,
+        # callbacks=[
+        #     ModelCheckpoint(dirpath=f"outputs/{name}"),
+        #     EarlyStopping(monitor="val_loss", patience=1),
+        #     LearningRateMonitor(logging_interval="step"),
+        # ],
     )
     trainer.fit(
         model_module, train_dataloaders=train_loader, val_dataloaders=val_loader
     )
     # save model
-    model_module.model.save_pretrained("outputs/tmp_model")
+    model_module.model.save_pretrained(f"outputs/{name}/final")
 
 
 if __name__ == "__main__":

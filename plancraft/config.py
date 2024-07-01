@@ -56,10 +56,8 @@ class EvalConfig(BaseModel):
 class TrainingArgs(BaseModel):
     base_model: str = "llama3"
 
-    # training specific config
-    lora: bool = True
+    # uses less space but not working with multi-gpu training..
     qlora: bool = False
-    use_adapter: bool = False
 
     lora_alpha: int = 16
     lora_dropout: float = 0.1
@@ -76,6 +74,7 @@ class TrainingArgs(BaseModel):
     max_grad_norm: float = 0.3
     warmup_ratio: float = 0.03
     num_train_epochs: int = 3
+    num_workers: int = 1
 
 
 class TrainConfig(EvalConfig):
