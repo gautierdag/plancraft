@@ -11,7 +11,7 @@ from lightning.pytorch.callbacks import (
 )
 import torch
 from lightning.pytorch.loggers import WandbLogger
-from peft import LoraConfig
+from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset
 from transformers import (
@@ -227,30 +227,28 @@ class PLWrapperModule(L.LightningModule):
         outputs = self.model(**batch)
         self.log("val_loss", outputs.loss.item())
 
-    def on_after_backward(self):
-        # Inspect gradients for NaNs and Infs
-        for name, param in self.named_parameters():
-            if param.grad is not None:
-                if torch.isnan(param.grad).any():
-                    print(f"NaN values found in gradients of {name}")
-                if torch.isinf(param.grad).any():
-                    print(f"Infinite values found in gradients of {name}")
-            if torch.isnan(param.data).any():
-                print(f"NaN values found in data of {name}")
-            if torch.isinf(param.data).any():
-                print(f"Infinite values found in data of {name}")
-
     def configure_optimizers(self):
         # you could also add a learning rate scheduler if you want
         optimizer = torch.optim.AdamW(
             self.parameters(), lr=self.config.training.learning_rate
         )
+
         # warmup with cosine decay
         num_warmup_steps = int(self.total_steps * self.config.training.warmup_ratio)
-        scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(
-            optimizer, T_0=num_warmup_steps, T_mult=1
-        )
-        return [optimizer], [scheduler]
+
+        def warm_decay(step):
+            if step < num_warmup_steps:
+                return step / num_warmup_steps
+            return num_warmup_steps**0.5 * step**-0.5
+
+        scheduler_dict = {
+            "scheduler": torch.optim.lr_scheduler.LambdaLR(optimizer, warm_decay),
+            "interval": "step",
+            "frequency": 1,
+            "name": "learning_rate",
+        }
+
+        return [optimizer], [scheduler_dict]
 
 
 TEMPLATES = {
@@ -271,55 +269,44 @@ def main(cfg):
     cfg = TrainConfig(**dict(cfg))
     torch.set_float32_matmul_precision("medium")
 
-    bnb_config = None
-    if cfg.training.qlora:
-        bnb_config = BitsAndBytesConfig(
-            # load_in_4bit=True,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_compute_dtype=torch.float16,
-        )
-
     if cfg.training.base_model == "llama3":
         model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="cpu",
-            torch_dtype=torch.float16,
-            quantization_config=bnb_config,
+            torch_dtype=torch.bfloat16,
         )
         train_dataset = PlancraftDialogueDataset(
-            mm=False, max_window_size=cfg.plancraft.max_message_window, split="train"
+            mm=False, max_window_size=cfg.training.max_window_length, split="train"
         )
         val_dataset = PlancraftDialogueDataset(
-            mm=False, max_window_size=cfg.plancraft.max_message_window, split="val"
+            mm=False, max_window_size=cfg.training.max_window_length, split="val"
         )
         collate_fn = get_collate_fn(
             tokenizer=tokenizer,
             only_assistant=True,
             template_name=cfg.training.base_model,
+            max_length=cfg.training.max_seq_length,
         )
         target_modules = [
             "q_proj",
             "v_proj",
             "k_proj",
-            "out_proj",
         ]
     elif cfg.training.base_model == "idefics2":
         model_name = "/nfs/public/hf/models/HuggingFaceM4/idefics2-8b-chatty"
-        # model_name = "HuggingFaceM4/idefics2-8b-chatty"
         processor = AutoProcessor.from_pretrained(model_name, do_image_splitting=False)
         model = Idefics2ForConditionalGeneration.from_pretrained(
             model_name,
             device_map="cpu",
-            # torch_dtype=torch.float16,
-            quantization_config=bnb_config,
+            torch_dtype=torch.bfloat16,
         )
         train_dataset = PlancraftDialogueDataset(
-            mm=True, max_window_size=cfg.plancraft.max_message_window, split="train"
+            mm=True, max_window_size=cfg.training.max_window_length, split="train"
         )
         val_dataset = PlancraftDialogueDataset(
-            mm=True, max_window_size=cfg.plancraft.max_message_window, split="val"
+            mm=True, max_window_size=cfg.training.max_window_length, split="val"
         )
         collate_fn = get_collate_fn(
             processor=processor,
@@ -327,6 +314,7 @@ def main(cfg):
             template_name=cfg.training.base_model,
             pad_token_id=processor.tokenizer.pad_token_id,
             image_token_id=model.image_token_id,
+            max_length=cfg.training.max_seq_length,
         )
         target_modules = ".*(text_model|modality_projection|perceiver_resampler).*(down_proj|gate_proj|up_proj|k_proj|q_proj|v_proj|o_proj).*$"
     else:
@@ -339,10 +327,12 @@ def main(cfg):
         target_modules=target_modules,
         use_dora=True,
         init_lora_weights="gaussian",
-        # task_type="CAUSAL_LM",
+        bias="none",
+        task_type="CAUSAL_LM",
     )
-    model.add_adapter(lora_config)
-    model.enable_adapters()
+    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
+    model = get_peft_model(model, lora_config, adapter_name="default", mixed=True)
+    model.print_trainable_parameters()
 
     dataset_length = len(train_dataset)
     total_steps = (
@@ -356,6 +346,7 @@ def main(cfg):
         shuffle=True,
         collate_fn=collate_fn,
         num_workers=cfg.training.num_workers,
+        pin_memory=True,
     )
     val_loader = DataLoader(
         val_dataset,
@@ -363,13 +354,12 @@ def main(cfg):
         shuffle=False,
         collate_fn=collate_fn,
         num_workers=cfg.training.num_workers,
+        pin_memory=True,
     )
 
     name = (
         f"{cfg.training.base_model}-r{cfg.training.lora_r}-a{cfg.training.lora_alpha}"
     )
-    if cfg.training.qlora:
-        name += "-qlora"
 
     wandb_logger = WandbLogger(
         project=cfg.wandb.project,
@@ -378,33 +368,32 @@ def main(cfg):
         config=cfg.model_dump(),
         name=name,
     )
-
     trainer = L.Trainer(
-        accelerator="cuda",
-        # devices="auto",
-        devices=[0],
-        # strategy="fsdp",
+        accelerator="gpu",
+        devices="auto",
+        strategy="deepspeed_stage_2",
         max_epochs=cfg.training.num_train_epochs,
         check_val_every_n_epoch=1,
         gradient_clip_val=cfg.training.max_grad_norm,
+        gradient_clip_algorithm="norm",
         accumulate_grad_batches=cfg.training.gradient_accumulation_steps,
         num_sanity_val_steps=0,
         logger=wandb_logger,
-        precision="16-mixed",
+        precision="bf16-true",
         log_every_n_steps=1,
         limit_val_batches=20,
-        # detect_anomaly=True,
-        # callbacks=[
-        #     ModelCheckpoint(dirpath=f"outputs/{name}"),
-        #     EarlyStopping(monitor="val_loss", patience=1),
-        #     LearningRateMonitor(logging_interval="step"),
-        # ],
+        callbacks=[
+            ModelCheckpoint(dirpath=f"outputs/{name}"),
+            EarlyStopping(monitor="val_loss", patience=1),
+            LearningRateMonitor(logging_interval="step"),
+        ],
     )
     trainer.fit(
         model_module, train_dataloaders=train_loader, val_dataloaders=val_loader
     )
     # save model
-    model_module.model.save_pretrained(f"outputs/{name}/final")
+    merged_model = model_module.model.merge_and_unload()
+    merged_model.save_pretrained(f"outputs/{name}/final")
 
 
 if __name__ == "__main__":

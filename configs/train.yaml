@@ -1,21 +1,21 @@
 training: 
-  base_model: "llama3"
-  qlora: True
+  base_model: "idefics2"
   lora_r: 64
   lora_alpha: 32
   lora_dropout: 0.1
   seed: 42
   batch_size: 1
-  max_steps: 80
   max_seq_length: 8142
   gradient_accumulation_steps: 4
-  learning_rate: 1e-5
+  max_window_length: 30
+  learning_rate: 2e-4
   max_grad_norm: 0.3
-  warmup_ratio: 0.03
+  warmup_ratio: 0.05
   num_train_epochs: 3
   num_workers: 12
 plancraft:
   model: meta-llama/Meta-Llama-3-70B-Instruct
+  tokenizer: meta-llama/Meta-Llama-3-70B-Instruct
   num_generations: 1
   mode: "act"
   max_steps: 80
@@ -32,7 +32,7 @@ plancraft:
 wandb:
   project: "plancraft-train"
   entity: "itl"
-  mode: "offline"
+  mode: "online"
 launch:
   command: "python main.py"
   job_name: "plancraft-s2234411"

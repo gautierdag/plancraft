@@ -39,6 +39,7 @@ class ActModel(ABCModel):
         else:
             self.llm = TransformersGenerator(
                 model_name=cfg.plancraft.model,
+                tokenizer_name=cfg.plancraft.tokenizer,
                 quantize=cfg.plancraft.quantize,
                 is_multimodal=self.is_multimodal,
             )

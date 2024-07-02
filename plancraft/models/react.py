@@ -74,8 +74,19 @@ class ValidActionsLogitsProcessor(torch.nn.Module):
 
 
 class TransformersGenerator:
-    def __init__(self, model_name: str, quantize=False, is_multimodal=False, **kwargs):
+    def __init__(
+        self,
+        model_name: str,
+        tokenizer_name: str = "same",
+        quantize=False,
+        is_multimodal=False,
+        **kwargs,
+    ):
         self.model_name = model_name
+
+        if tokenizer_name == "same":
+            tokenizer_name = model_name
+
         self.is_multimodal = is_multimodal
         model_name, model_kwargs = self.build_model_kwargs(
             model_name, quantize=quantize
@@ -84,7 +95,7 @@ class TransformersGenerator:
         if "idefics" in model_name:
             assert is_multimodal, "Idefics model requires multimodal input"
             self.tokenizer = AutoProcessor.from_pretrained(
-                model_name,
+                tokenizer_name,
                 **model_kwargs,
             )
             self.tokenizer.eos_token_id = self.tokenizer.tokenizer.eos_token_id
@@ -103,7 +114,7 @@ class TransformersGenerator:
                 self.pad_token_id = self.tokenizer.tokenizer.eos_token_id
         else:
             self.tokenizer = AutoTokenizer.from_pretrained(
-                model_name,
+                tokenizer_name,
                 token=os.getenv("HF_TOKEN"),  # trust_remote_code=True
                 padding_side="left",  # ensure that the padding is on the left
             )
@@ -671,6 +682,7 @@ class ReactModel(ABCModel):
         else:
             self.llm = TransformersGenerator(
                 model_name=cfg.plancraft.model,
+                tokenizer_name=cfg.plancraft.tokenizer,
                 quantize=cfg.plancraft.quantize,
                 is_multimodal=self.is_multimodal,
             )

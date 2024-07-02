@@ -17,6 +17,7 @@ class EnvironmentConfig(BaseModel):
 
 class PlancraftConfig(BaseModel):
     model: str
+    tokenizer: str
     num_generations: int
     mode: Literal["react", "act", "oracle", "dummy"] = "react"
     output_dir: str
@@ -66,8 +67,8 @@ class TrainingArgs(BaseModel):
     seed: int = 42
     # model args
     batch_size: int = 1
-    max_steps: int = -1
     max_seq_length: int = 8142
+    max_window_length: int = 30
     # training args
     gradient_accumulation_steps: int = 4
     learning_rate: float = 2e-4
