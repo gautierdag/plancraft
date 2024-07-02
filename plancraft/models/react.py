@@ -16,6 +16,8 @@ from transformers import (
     AutoTokenizer,
     BitsAndBytesConfig,
 )
+from transformers.cache_utils import DynamicCache
+
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
@@ -341,6 +343,10 @@ class TransformersGenerator:
         ):
             raise ValueError("Past key values are larger than the input_ids")
 
+        past_key_values = self.past_key_values_kwargs.get("past_key_values", None)
+        if past_key_values is not None:
+            past_key_values = DynamicCache.from_legacy_cache(past_key_values)
+
         generated_sequences = self.model.generate(
             **tokenized_messages,
             do_sample=True,
@@ -349,7 +355,7 @@ class TransformersGenerator:
             pad_token_id=self.tokenizer.pad_token_id,
             return_dict_in_generate=True,
             use_cache=True,
-            **self.past_key_values_kwargs,
+            past_key_values=past_key_values,
         )
         # cache the past key values
         self.past_key_values_kwargs["past_key_values"] = (
@@ -402,6 +408,10 @@ class TransformersGenerator:
         ):
             raise ValueError("Past key values are larger than the input_ids")
 
+        past_key_values = self.past_key_values_kwargs.get("past_key_values", None)
+        if past_key_values is not None:
+            past_key_values = DynamicCache.from_legacy_cache(past_key_values)
+
         # Generate the initial action constrained to valid action tokens
         generated_sequences = self.model.generate(
             **tokenized_messages,
@@ -412,7 +422,7 @@ class TransformersGenerator:
             return_dict_in_generate=True,
             use_cache=True,
             logits_processor=[logits_processor],
-            **self.past_key_values_kwargs,
+            past_key_values=past_key_values,
         )
         # cache the past key values
         self.past_key_values_kwargs["past_key_values"] = (
