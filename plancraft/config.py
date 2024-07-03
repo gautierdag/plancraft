@@ -78,8 +78,10 @@ class TrainingArgs(BaseModel):
     num_workers: int = 1
 
 
-class TrainConfig(EvalConfig):
+class TrainConfig(BaseModel):
     training: TrainingArgs
+    wandb: WandbConfig
+    launch: LaunchConfig
 
 
 class PlancraftExample(BaseModel):

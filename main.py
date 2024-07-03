@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore")
 logger = logging.getLogger(__name__)
 
 
-@hydra.main(config_path="configs", config_name="base", version_base=None)
+@hydra.main(config_path="configs", config_name="eval", version_base=None)
 def main(cfg):
     logger.info(cfg)
     cfg = EvalConfig(**dict(cfg))

@@ -1,28 +1,24 @@
 import json
-import random
 import logging
+import random
 import warnings
 
-import lightning as L
-from lightning.pytorch.callbacks import (
-    EarlyStopping,
-    ModelCheckpoint,
-    LearningRateMonitor,
-)
+import hydra
 import torch
-from lightning.pytorch.loggers import WandbLogger
-from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
+from peft import LoraConfig, get_peft_model
 from PIL import Image
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
 from transformers import (
     AutoModelForCausalLM,
     AutoProcessor,
     AutoTokenizer,
-    BitsAndBytesConfig,
+    EarlyStoppingCallback,
     Idefics2ForConditionalGeneration,
+    Trainer,
+    TrainingArguments,
 )
 
-import hydra
+import wandb
 from plancraft.config import TrainConfig
 
 warnings.filterwarnings("ignore")
@@ -38,6 +34,7 @@ class PlancraftDialogueDataset(Dataset):
         max_window_size=30,
     ):
         super().__init__()
+        self.split = split
         file_path = f"{dataset_dir}/{split}.jsonl"
         if mm:
             file_path = f"{dataset_dir}/{split}.mm.jsonl"
@@ -70,6 +67,8 @@ class PlancraftDialogueDataset(Dataset):
         self.max_window_size = max_window_size
 
     def __len__(self) -> int:
+        if self.split == "val":
+            return int(len(self.dataset) * 0.05)
         return len(self.dataset)
 
     def __getitem__(self, idx: int) -> tuple[dict, list]:
@@ -191,6 +190,7 @@ def get_collate_fn(
                 return_tensors="pt",
             )
             labels = batch["input_ids"].clone()
+            # NOTE: off by one error?
             batch["labels"] = labels
 
         # add mask for assistant response
@@ -208,47 +208,6 @@ def get_collate_fn(
         return batch
 
     return collate_fn
-
-
-class PLWrapperModule(L.LightningModule):
-    def __init__(self, config: TrainConfig, model, total_steps: int):
-        super().__init__()
-        self.config = config
-        self.model = model
-        self.total_steps = total_steps
-
-    def training_step(self, batch, batch_idx):
-        outputs = self.model(**batch)
-        loss = outputs.loss
-        self.log("train_loss", outputs.loss.item(), on_step=True, prog_bar=True)
-        return loss
-
-    def validation_step(self, batch, batch_idx, dataset_idx=0):
-        outputs = self.model(**batch)
-        self.log("val_loss", outputs.loss.item())
-
-    def configure_optimizers(self):
-        # you could also add a learning rate scheduler if you want
-        optimizer = torch.optim.AdamW(
-            self.parameters(), lr=self.config.training.learning_rate
-        )
-
-        # warmup with cosine decay
-        num_warmup_steps = int(self.total_steps * self.config.training.warmup_ratio)
-
-        def warm_decay(step):
-            if step < num_warmup_steps:
-                return step / num_warmup_steps
-            return num_warmup_steps**0.5 * step**-0.5
-
-        scheduler_dict = {
-            "scheduler": torch.optim.lr_scheduler.LambdaLR(optimizer, warm_decay),
-            "interval": "step",
-            "frequency": 1,
-            "name": "learning_rate",
-        }
-
-        return [optimizer], [scheduler_dict]
 
 
 TEMPLATES = {
@@ -274,8 +233,9 @@ def main(cfg):
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            device_map="cpu",
+            device_map="auto",
             torch_dtype=torch.bfloat16,
+            attn_implementation="flash_attention_2",
         )
         train_dataset = PlancraftDialogueDataset(
             mm=False, max_window_size=cfg.training.max_window_length, split="train"
@@ -299,7 +259,7 @@ def main(cfg):
         processor = AutoProcessor.from_pretrained(model_name, do_image_splitting=False)
         model = Idefics2ForConditionalGeneration.from_pretrained(
             model_name,
-            device_map="cpu",
+            device_map="auto",
             torch_dtype=torch.bfloat16,
         )
         train_dataset = PlancraftDialogueDataset(
@@ -330,69 +290,68 @@ def main(cfg):
         bias="none",
         task_type="CAUSAL_LM",
     )
-    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
-    model = get_peft_model(model, lora_config, adapter_name="default", mixed=True)
+    # model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
+    model = get_peft_model(model, lora_config, adapter_name="default")
     model.print_trainable_parameters()
 
-    dataset_length = len(train_dataset)
-    total_steps = (
-        dataset_length // cfg.training.batch_size
-    ) * cfg.training.num_train_epochs
+    name = f"hf-{cfg.training.base_model}-r{cfg.training.lora_r}-a{cfg.training.lora_alpha}"
 
-    model_module = PLWrapperModule(config=cfg, model=model, total_steps=total_steps)
-    train_loader = DataLoader(
-        train_dataset,
-        batch_size=cfg.training.batch_size,
-        shuffle=True,
-        collate_fn=collate_fn,
-        num_workers=cfg.training.num_workers,
-        pin_memory=True,
-    )
-    val_loader = DataLoader(
-        val_dataset,
-        batch_size=cfg.training.batch_size,
-        shuffle=False,
-        collate_fn=collate_fn,
-        num_workers=cfg.training.num_workers,
-        pin_memory=True,
-    )
-
-    name = (
-        f"{cfg.training.base_model}-r{cfg.training.lora_r}-a{cfg.training.lora_alpha}"
-    )
-
-    wandb_logger = WandbLogger(
+    wandb.init(
         project=cfg.wandb.project,
         entity=cfg.wandb.entity,
         mode=cfg.wandb.mode,
         config=cfg.model_dump(),
         name=name,
     )
-    trainer = L.Trainer(
-        accelerator="gpu",
-        devices="auto",
-        strategy="deepspeed_stage_2",
-        max_epochs=cfg.training.num_train_epochs,
-        check_val_every_n_epoch=1,
-        gradient_clip_val=cfg.training.max_grad_norm,
-        gradient_clip_algorithm="norm",
-        accumulate_grad_batches=cfg.training.gradient_accumulation_steps,
-        num_sanity_val_steps=0,
-        logger=wandb_logger,
-        precision="bf16-true",
-        log_every_n_steps=1,
-        limit_val_batches=20,
-        callbacks=[
-            ModelCheckpoint(dirpath=f"outputs/{name}"),
-            EarlyStopping(monitor="val_loss", patience=1),
-            LearningRateMonitor(logging_interval="step"),
-        ],
+
+    # ds_config = {
+    #     "zero_optimization": {
+    #         "stage": 2,
+    #         "offload_optimizer": {
+    #             "device": "cpu",
+    #             "pin_memory": True,
+    #         },
+    #     },
+    # }
+
+    training_args = TrainingArguments(
+        output_dir=f"outputs/{name}",
+        evaluation_strategy="epoch",
+        save_strategy="epoch",
+        per_device_train_batch_size=cfg.training.batch_size,
+        per_device_eval_batch_size=cfg.training.batch_size,
+        num_train_epochs=cfg.training.num_train_epochs,
+        gradient_accumulation_steps=cfg.training.gradient_accumulation_steps,
+        max_grad_norm=cfg.training.max_grad_norm,
+        learning_rate=cfg.training.learning_rate,
+        optim="adamw_hf",
+        lr_scheduler_type="cosine",
+        warmup_ratio=cfg.training.warmup_ratio,
+        dataloader_num_workers=cfg.training.num_workers,
+        logging_dir=f"outputs/logs/{name}",
+        logging_steps=1,
+        save_total_limit=3,
+        load_best_model_at_end=True,
+        metric_for_best_model="eval_loss",
+        gradient_checkpointing=False,
+        bf16=True if torch.cuda.is_bf16_supported() else False,  # bf16 support check
+        report_to="wandb",
     )
-    trainer.fit(
-        model_module, train_dataloaders=train_loader, val_dataloaders=val_loader
+
+    # Initialize the Huggingface Trainer
+    trainer = Trainer(
+        model=model,
+        args=training_args,
+        train_dataset=train_dataset,
+        eval_dataset=val_dataset,
+        data_collator=collate_fn,
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=1)],
     )
+
+    trainer.train()
+
     # save model
-    merged_model = model_module.model.merge_and_unload()
+    merged_model = model.merge_and_unload()
     merged_model.save_pretrained(f"outputs/{name}/final")
 
 

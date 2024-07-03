@@ -1,6 +1,6 @@
 training: 
   base_model: "idefics2"
-  lora_r: 64
+  lora_r: 16
   lora_alpha: 32
   lora_dropout: 0.1
   seed: 42
@@ -13,22 +13,6 @@ training:
   warmup_ratio: 0.05
   num_train_epochs: 3
   num_workers: 12
-plancraft:
-  model: meta-llama/Meta-Llama-3-70B-Instruct
-  tokenizer: meta-llama/Meta-Llama-3-70B-Instruct
-  num_generations: 1
-  mode: "act"
-  max_steps: 80
-  quantize: False
-  environment:
-    symbolic: True
-    symbolic_observation_space: True
-    symbolic_action_space: True
-  split: val.small
-  batch_size: 1
-  max_message_window: 30
-  resume: True
-  output_dir: "outputs"
 wandb:
   project: "plancraft-train"
   entity: "itl"
