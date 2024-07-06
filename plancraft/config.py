@@ -27,6 +27,7 @@ class PlancraftConfig(BaseModel):
     split: DatasetSplit = "val.small"
     batch_size: int = 1
     max_message_window: int = 30  # max number of messages to keep in dialogue history (30 is around 8k llama3 tokens)
+    hot_cache: bool = True  # whether to cache the dialogue history between steps
     resume: bool = True  # resume inference
 
 
@@ -68,7 +69,7 @@ class TrainingArgs(BaseModel):
     # model args
     batch_size: int = 1
     max_seq_length: int = 8142
-    max_window_length: int = 30
+    max_message_window: int = 30
     # training args
     gradient_accumulation_steps: int = 4
     learning_rate: float = 2e-4

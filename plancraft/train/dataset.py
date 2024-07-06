@@ -1,115 +1,14 @@
-import random
 import json
-from datasets import Dataset
-from collections import defaultdict
+import random
 
+import torch
+from PIL import Image
+from torch.utils.data import Dataset
 from transformers import (
-    AutoTokenizer,
+    AutoProcessor,
     AutoTokenizer,
 )
 
-
-def sample_window(example, max_window_size=30):
-    # add system message
-    new_messages = [example["messages"][0]]
-    num_steps = len(example["messages"]) - 1
-
-    start = random.randint(1, num_steps)
-    if start % 2 == 0:
-        start = start + 1
-    window_size = min(max_window_size, start)
-    new_messages = new_messages + example["messages"][start - window_size + 1 : start]
-    # print(f"window size: {window_size}, start: {start}, num_steps: {num_steps}")
-    # new_messages = new_messages + example["messages"][start : start + window_size]
-    return new_messages
-
-
-def oversample_long_dialogue_dataset(
-    examples: list[dict], max_window_size=30, num_oversampling=3
-):
-    window_train = []
-    for example in examples:
-        if len(example["messages"]) > max_window_size:
-            for _ in range(num_oversampling):
-                window_train.append(
-                    {
-                        "messages": sample_window(
-                            example, max_window_size=max_window_size
-                        )
-                    }
-                )
-        else:
-            window_train.append({"messages": example["messages"]})
-    return window_train
-
-
-def apply_chat_template(example, tokenizer):
-    messages = example["messages"]
-    # We add an empty system message if there is none
-    if messages[0]["role"] != "system":
-        messages.insert(0, {"role": "system", "content": ""})
-    example["text"] = tokenizer.apply_chat_template(messages, tokenize=False)
-
-    return example
-
-
-def get_oa_training_data(
-    tokenizer: AutoTokenizer,
-    data_dir: str,
-    seed=42,
-    max_window_size=30,
-    num_oversampling=3,
-):
-    print("Loading tokenizer")
-    tokenizer.pad_token = tokenizer.eos_token
-
-    print("Loading data")
-    data = defaultdict(list)
-    for split in ["train", "val"]:
-        with open(f"{data_dir}/oracle/{split}.jsonl", "r") as f:
-            for line in f:
-                data[split].append(json.loads(line))
-
-    # oversample to account for window size
-    train_dataset = Dataset.from_list(
-        oversample_long_dialogue_dataset(
-            data["train"],
-            max_window_size=max_window_size,
-            num_oversampling=num_oversampling,
-        )
-    )
-    val_dataset = Dataset.from_list(
-        oversample_long_dialogue_dataset(
-            data["val"],
-            max_window_size=max_window_size,
-            num_oversampling=num_oversampling,
-        )
-    )
-
-    # shuffle
-    train_dataset = train_dataset.shuffle(seed=seed)
-    val_dataset = val_dataset.shuffle(seed=seed)
-
-    train_dataset = train_dataset.map(
-        lambda x: apply_chat_template(x, tokenizer),
-        batched=False,
-        num_proc=6,
-        remove_columns=["messages"],
-        desc="Applying chat template to train dataset",
-    )
-    val_dataset = val_dataset.map(
-        lambda x: apply_chat_template(x, tokenizer),
-        batched=False,
-        num_proc=6,
-        remove_columns=["messages"],
-        desc="Applying chat template to val dataset",
-    )
-
-    return train_dataset, val_dataset
-
-
-import torch
-from torch.utils.data import DataLoader
 
 TEMPLATES = {
     "idefics2": {
@@ -121,6 +20,78 @@ TEMPLATES = {
         "user": "<|start_header_id|>user<|end_header_id|>\n\n",
     },
 }
+
+
+class PlancraftDialogueDataset(Dataset):
+    def __init__(
+        self,
+        dataset_dir: str = "data/oracle",
+        mm=False,
+        split="train",
+        max_message_window=30,
+    ):
+        super().__init__()
+        self.split = split
+        file_path = f"{dataset_dir}/{split}.jsonl"
+        if mm:
+            file_path = f"{dataset_dir}/{split}.mm.jsonl"
+
+        print("Loading dialogue")
+        data = []
+        with open(file_path, "r") as f:
+            for line in f:
+                data.append(json.loads(line))
+
+        if mm:
+            print("Loading images")
+            # load images
+            for example in data:
+                example["images"] = []
+                example["message_idx_to_image_idx"] = {}
+                i = 0
+                for message_idx, message in enumerate(example["messages"]):
+                    for content in message["content"]:
+                        if content["type"] == "image":
+                            img_path = (
+                                f"{dataset_dir}/{split}/{example['example_id']}_{i}.png"
+                            )
+                            img = Image.open(img_path).convert("RGB")
+                            example["images"].append(img)
+                            example["message_idx_to_image_idx"][message_idx] = i
+                            i += 1
+
+        self.dataset = data
+        self.max_message_window = max_message_window
+
+    def __len__(self) -> int:
+        if self.split == "val":
+            return int(len(self.dataset) * 0.05)
+        return len(self.dataset)
+
+    def __getitem__(self, idx: int) -> tuple[dict, list]:
+        example = self.dataset[idx]
+        if len(example["messages"]) > self.max_message_window:
+            # add system message
+            messages = [example["messages"][0]]
+            # sample window
+            user_messages_idxs = list(
+                range(self.max_message_window, len(example["messages"]), 2)
+            )
+            end = random.choice(user_messages_idxs)
+            start = end - self.max_message_window + 1
+            assert start != 0
+            # add window
+            messages = messages + example["messages"][start : end + 1]
+            images = []
+            if "images" in example:
+                for message_idx in range(start, end):
+                    if message_idx in example["message_idx_to_image_idx"]:
+                        image_idx = example["message_idx_to_image_idx"][message_idx]
+                        images.append(example["images"][image_idx])
+        else:
+            messages = example["messages"]
+            images = example.get("images", [])
+        return messages, images
 
 
 def track_assistant_response(
@@ -179,6 +150,10 @@ def get_collate_fn(
     image_token_id=None,
 ):
     assert tokenizer or processor and not (tokenizer and processor)
+    # if processor then must have image_token_id
+    assert not processor or image_token_id
+
+    assert template_name in TEMPLATES
 
     def collate_fn(batch):
         messages_batch = []
@@ -204,10 +179,7 @@ def get_collate_fn(
                 return_tensors="pt",
             )
             labels = batch["input_ids"].clone()
-            if pad_token_id is not None:
-                labels[labels == pad_token_id] = -100
-            if image_token_id is not None:
-                labels[labels == image_token_id] = -100
+            labels[labels == pad_token_id] = -100
             batch["labels"] = labels
         else:
             batch = tokenizer(
@@ -217,6 +189,7 @@ def get_collate_fn(
                 return_tensors="pt",
             )
             labels = batch["input_ids"].clone()
+            # NOTE: off by one error?
             batch["labels"] = labels
 
         # add mask for assistant response
@@ -236,14 +209,39 @@ def get_collate_fn(
     return collate_fn
 
 
-dataset = PlancraftDialogueDataset(mm=True, max_window_size=30)
-
-loader = DataLoader(
-    dataset,
-    batch_size=1,
-    shuffle=True,
-    collate_fn=get_collate_fn(
-        processor=processor, only_assistant=True, template_name="idefics2"
-    ),
-)
-batch = next(iter(loader))
+def get_dataset_and_collate(
+    template_name: str, max_length: int, max_message_window: int
+):
+    if template_name == "llama3":
+        model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        train_dataset = PlancraftDialogueDataset(
+            mm=False, max_message_window=max_message_window, split="train"
+        )
+        val_dataset = PlancraftDialogueDataset(
+            mm=False, max_message_window=max_message_window, split="val"
+        )
+        collate_fn = get_collate_fn(
+            tokenizer=tokenizer,
+            only_assistant=True,
+            template_name=template_name,
+            max_length=max_length,
+        )
+    elif template_name == "idefics2":
+        model_name = "/nfs/public/hf/models/HuggingFaceM4/idefics2-8b-chatty"
+        processor = AutoProcessor.from_pretrained(model_name, do_image_splitting=False)
+        train_dataset = PlancraftDialogueDataset(
+            mm=True, max_message_window=max_message_window, split="train"
+        )
+        val_dataset = PlancraftDialogueDataset(
+            mm=True, max_message_window=max_message_window, split="val"
+        )
+        collate_fn = get_collate_fn(
+            processor=processor,
+            only_assistant=True,
+            template_name=template_name,
+            pad_token_id=processor.tokenizer.pad_token_id,
+            image_token_id=32001,
+            max_length=max_length,
+        )
+    return train_dataset, val_dataset, collate_fn

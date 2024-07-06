@@ -82,9 +82,11 @@ class TransformersGenerator:
         tokenizer_name: str = "same",
         quantize=False,
         is_multimodal=False,
+        use_hot_cache=True,
         **kwargs,
     ):
         self.model_name = model_name
+        self.use_hot_cache = use_hot_cache
 
         if tokenizer_name == "same":
             tokenizer_name = model_name
@@ -356,11 +358,13 @@ class TransformersGenerator:
             return_dict_in_generate=True,
             use_cache=True,
             past_key_values=past_key_values,
+            return_legacy_cache=True,
         )
         # cache the past key values
-        self.past_key_values_kwargs["past_key_values"] = (
-            generated_sequences.past_key_values
-        )
+        if self.use_hot_cache:
+            self.past_key_values_kwargs["past_key_values"] = (
+                generated_sequences.past_key_values
+            )
         self.past_token_ids = generated_sequences.sequences
 
         # decode the output
@@ -423,11 +427,13 @@ class TransformersGenerator:
             use_cache=True,
             logits_processor=[logits_processor],
             past_key_values=past_key_values,
+            return_legacy_cache=True,
         )
         # cache the past key values
-        self.past_key_values_kwargs["past_key_values"] = (
-            generated_sequences.past_key_values
-        )
+        if self.use_hot_cache:
+            self.past_key_values_kwargs["past_key_values"] = (
+                generated_sequences.past_key_values
+            )
         self.past_token_ids = generated_sequences.sequences
 
         # reset the start index
@@ -690,11 +696,13 @@ class ReactModel(ABCModel):
             self.llm = OpenAIGenerator(is_multimodal=self.is_multimodal)
         # model is transformers based
         else:
+            print(cfg.plancraft.hot_cache)
             self.llm = TransformersGenerator(
                 model_name=cfg.plancraft.model,
                 tokenizer_name=cfg.plancraft.tokenizer,
                 quantize=cfg.plancraft.quantize,
                 is_multimodal=self.is_multimodal,
+                use_hot_cache=cfg.plancraft.hot_cache,
             )
 
         self.batch_size = cfg.plancraft.batch_size

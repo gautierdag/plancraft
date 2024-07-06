@@ -3,24 +3,27 @@ plancraft:
   # model: CohereForAI/c4ai-command-r-v01
   # model: "gpt-4o"
   # model: mistralai/Mistral-7B-Instruct-v0.3
-  # model: oracle
+  model: oracle
   # model: HuggingFaceM4/idefics2-8b-chatty
   # model: /plancraft/outputs/llama3-r64-a32/final
+  # model: google/gemma-2-9b-it
+  # tokenizer: google/gemma-2-9b-it
   # model: /plancraft/outputs/hf-llama3-r16-a32/final
-  # tokenizer: meta-llama/Meta-Llama-3-8B-Instruct
-  model: /plancraft/outputs/hf-idefics2-r16-a32/final
-  tokenizer: /nfs/public/hf/models/HuggingFaceM4/idefics2-8b-chatty
+  # tokenizer: /nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct
+  # model: /plancraft/outputs/hf-idefics2-r16-a32/final
+  # tokenizer: /nfs/public/hf/models/HuggingFaceM4/idefics2-8b-chatty
   num_generations: 1
-  mode: "act"
-  # mode: "oracle"
+  # mode: "react"
+  mode: "oracle"
   # mode: "dummy"
+  hot_cache: True
   max_steps: 80
   quantize: False
   environment:
-    symbolic: False
+    symbolic: True
     symbolic_observation_space: True
     symbolic_action_space: True
-  split: val.small.easy
+  split: val
   batch_size: 1
   max_message_window: 30
   resume: False

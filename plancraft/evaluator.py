@@ -75,6 +75,8 @@ class Evaluator:
         output_dir = f"{self.output_dir}/{self.generation_number}"
         os.makedirs(output_dir, exist_ok=True)
         imageio.mimsave(f"{output_dir}/{example.id}.gif", frames)
+        # upload to wandb
+        wandb.save(f"{output_dir}/{example.id}.gif", policy="now")
 
     def load_results_dict(self, example: PlancraftExample) -> dict:
         path = f"{self.output_dir}/{self.generation_number}/{example.id}.json"

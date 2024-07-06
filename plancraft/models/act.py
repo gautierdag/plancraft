@@ -42,6 +42,7 @@ class ActModel(ABCModel):
                 tokenizer_name=cfg.plancraft.tokenizer,
                 quantize=cfg.plancraft.quantize,
                 is_multimodal=self.is_multimodal,
+                use_hot_cache=cfg.plancraft.hot_cache,
             )
 
         self.batch_size = cfg.plancraft.batch_size
