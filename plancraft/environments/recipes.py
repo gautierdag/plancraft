@@ -227,6 +227,14 @@ class ShapelessRecipe(BaseRecipe):
     def __repr__(self):
         return f"ShapelessRecipe({self.ingredients}, {self.result})"
 
+    def __prompt_repr__(self)->str:
+        # use to get a simple representation of the recipe for prompting
+        out = []
+        for ingredients in self.ingredients:
+            ingredients_string = ", ".join([f"{count} {i}" for i, count in ingredients.items()])
+            out.append(f"{ingredients_string} -> {self.result.count} {self.result.item}")
+        return "\n".join(out)
+
 
 class ShapedRecipe(BaseRecipe):
     def __init__(self, recipe):
@@ -382,6 +390,20 @@ class ShapedRecipe(BaseRecipe):
     def __repr__(self) -> str:
         return f"ShapedRecipe({self.kernel}, {self.result})"
 
+    def __prompt_repr__(self)->str:
+        string_kernel = []
+        for row in self.kernel:
+            row_col = []
+            for col in row:
+                valid_items = [str(id_to_item(i)) for i in col]
+                if valid_items[0] == "None":
+                    valid_items[0] = "empty"
+                row_col.append("|".join(valid_items))
+            string_kernel.append("\t".join(row_col))
+        result_row = (len(self.kernel) // 2)
+        string_kernel[result_row] = string_kernel[result_row] + f" -> {self.result.count} {self.result.item}"
+        return "\n".join(string_kernel)
+
 
 class SmeltingRecipe(BaseRecipe):
     def __init__(self, recipe):
@@ -427,6 +449,13 @@ class SmeltingRecipe(BaseRecipe):
 
     def __repr__(self) -> str:
         return f"SmeltingRecipe({self.ingredient}, {self.result})"
+    
+    def __prompt_repr__(self)->str:
+        # use to get a simple representation of the recipe for prompting
+        out = []
+        for i in self.ingredient:
+            out.append(f"1 {i} -> {self.result.count} {self.result.item}")
+        return "\n".join(out)
 
 
 def recipe_factory(recipe: dict) -> BaseRecipe:
