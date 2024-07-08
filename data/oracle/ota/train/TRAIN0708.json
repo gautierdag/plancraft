@@ -1,0 +1,66 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: chain\ninventory=[{\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 10}, {\"type\": \"gray_banner\", \"quantity\": 9, \"index\": 13}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 17}, {\"type\": \"crimson_hyphae\", \"quantity\": 18, \"index\": 25}, {\"type\": \"iron_nugget\", \"quantity\": 2, \"index\": 26}, {\"type\": \"netherite_sword\", \"quantity\": 1, \"index\": 29}, {\"type\": \"black_stained_glass_pane\", \"quantity\": 45, \"index\": 36}, {\"type\": \"warped_trapdoor\", \"quantity\": 13, \"index\": 42}, {\"type\": \"cyan_banner\", \"quantity\": 12, \"index\": 44}, {\"type\": \"andesite_wall\", \"quantity\": 58, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a chain I need to move 1 iron_nugget from slot 26 to the crafting grid (eg., slot 1)."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 26 to slot 1 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: chain\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 10}, {\"type\": \"gray_banner\", \"quantity\": 9, \"index\": 13}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 17}, {\"type\": \"crimson_hyphae\", \"quantity\": 18, \"index\": 25}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 26}, {\"type\": \"netherite_sword\", \"quantity\": 1, \"index\": 29}, {\"type\": \"black_stained_glass_pane\", \"quantity\": 45, \"index\": 36}, {\"type\": \"warped_trapdoor\", \"quantity\": 13, \"index\": 42}, {\"type\": \"cyan_banner\", \"quantity\": 12, \"index\": 44}, {\"type\": \"andesite_wall\", \"quantity\": 58, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a chain I need to move 1 iron_ingot from slot 17 to the crafting grid (eg., slot 4)."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 17 to slot 4 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: chain\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 10}, {\"type\": \"gray_banner\", \"quantity\": 9, \"index\": 13}, {\"type\": \"crimson_hyphae\", \"quantity\": 18, \"index\": 25}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 26}, {\"type\": \"netherite_sword\", \"quantity\": 1, \"index\": 29}, {\"type\": \"black_stained_glass_pane\", \"quantity\": 45, \"index\": 36}, {\"type\": \"warped_trapdoor\", \"quantity\": 13, \"index\": 42}, {\"type\": \"cyan_banner\", \"quantity\": 12, \"index\": 44}, {\"type\": \"andesite_wall\", \"quantity\": 58, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a chain I need to move 1 iron_nugget from slot 26 to the crafting grid (eg., slot 7)."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 26 to slot 7 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: chain\ninventory=[{\"type\": \"chain\", \"quantity\": 1, \"index\": 0}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 7}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 10}, {\"type\": \"gray_banner\", \"quantity\": 9, \"index\": 13}, {\"type\": \"crimson_hyphae\", \"quantity\": 18, \"index\": 25}, {\"type\": \"netherite_sword\", \"quantity\": 1, \"index\": 29}, {\"type\": \"black_stained_glass_pane\", \"quantity\": 45, \"index\": 36}, {\"type\": \"warped_trapdoor\", \"quantity\": 13, \"index\": 42}, {\"type\": \"cyan_banner\", \"quantity\": 12, \"index\": 44}, {\"type\": \"andesite_wall\", \"quantity\": 58, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Now I can craft the chain by moving it from the craft slot (0) to a free inventory slot (eg., 11)."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 0 to slot 11 with quantity 1"
+    }
+]

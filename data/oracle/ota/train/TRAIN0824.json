@@ -1,0 +1,82 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: prismarine\ninventory=[{\"type\": \"dragon_breath\", \"quantity\": 55, \"index\": 11}, {\"type\": \"granite\", \"quantity\": 16, \"index\": 12}, {\"type\": \"nether_brick\", \"quantity\": 62, \"index\": 13}, {\"type\": \"cobblestone\", \"quantity\": 40, \"index\": 14}, {\"type\": \"birch_button\", \"quantity\": 37, \"index\": 17}, {\"type\": \"blue_banner\", \"quantity\": 12, \"index\": 18}, {\"type\": \"prismarine_shard\", \"quantity\": 4, \"index\": 20}, {\"type\": \"dark_oak_leaves\", \"quantity\": 45, \"index\": 24}, {\"type\": \"music_disc_13\", \"quantity\": 1, \"index\": 26}, {\"type\": \"cut_sandstone\", \"quantity\": 8, \"index\": 29}, {\"type\": \"enderman_spawn_egg\", \"quantity\": 20, \"index\": 30}, {\"type\": \"warped_fungus_on_a_stick\", \"quantity\": 1, \"index\": 31}, {\"type\": \"red_stained_glass\", \"quantity\": 17, \"index\": 34}, {\"type\": \"light_gray_shulker_box\", \"quantity\": 1, \"index\": 37}, {\"type\": \"hoglin_spawn_egg\", \"quantity\": 28, \"index\": 38}, {\"type\": \"oak_stairs\", \"quantity\": 60, \"index\": 41}, {\"type\": \"ender_chest\", \"quantity\": 2, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft prismarine, I need to place 1 prismarine_shard in the crafting grid. The only prismarine_shard in my inventory is at slot 20, so I will move it to slot 1."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 20 to slot 1 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: prismarine\ninventory=[{\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dragon_breath\", \"quantity\": 55, \"index\": 11}, {\"type\": \"granite\", \"quantity\": 16, \"index\": 12}, {\"type\": \"nether_brick\", \"quantity\": 62, \"index\": 13}, {\"type\": \"cobblestone\", \"quantity\": 40, \"index\": 14}, {\"type\": \"birch_button\", \"quantity\": 37, \"index\": 17}, {\"type\": \"blue_banner\", \"quantity\": 12, \"index\": 18}, {\"type\": \"prismarine_shard\", \"quantity\": 3, \"index\": 20}, {\"type\": \"dark_oak_leaves\", \"quantity\": 45, \"index\": 24}, {\"type\": \"music_disc_13\", \"quantity\": 1, \"index\": 26}, {\"type\": \"cut_sandstone\", \"quantity\": 8, \"index\": 29}, {\"type\": \"enderman_spawn_egg\", \"quantity\": 20, \"index\": 30}, {\"type\": \"warped_fungus_on_a_stick\", \"quantity\": 1, \"index\": 31}, {\"type\": \"red_stained_glass\", \"quantity\": 17, \"index\": 34}, {\"type\": \"light_gray_shulker_box\", \"quantity\": 1, \"index\": 37}, {\"type\": \"hoglin_spawn_egg\", \"quantity\": 28, \"index\": 38}, {\"type\": \"oak_stairs\", \"quantity\": 60, \"index\": 41}, {\"type\": \"ender_chest\", \"quantity\": 2, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I need to place 2 prismarine_shard in the crafting grid. The only prismarine_shard in my inventory is at slot 20, so I will move it to slot 2."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 20 to slot 2 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: prismarine\ninventory=[{\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 1}, {\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 2}, {\"type\": \"dragon_breath\", \"quantity\": 55, \"index\": 11}, {\"type\": \"granite\", \"quantity\": 16, \"index\": 12}, {\"type\": \"nether_brick\", \"quantity\": 62, \"index\": 13}, {\"type\": \"cobblestone\", \"quantity\": 40, \"index\": 14}, {\"type\": \"birch_button\", \"quantity\": 37, \"index\": 17}, {\"type\": \"blue_banner\", \"quantity\": 12, \"index\": 18}, {\"type\": \"prismarine_shard\", \"quantity\": 2, \"index\": 20}, {\"type\": \"dark_oak_leaves\", \"quantity\": 45, \"index\": 24}, {\"type\": \"music_disc_13\", \"quantity\": 1, \"index\": 26}, {\"type\": \"cut_sandstone\", \"quantity\": 8, \"index\": 29}, {\"type\": \"enderman_spawn_egg\", \"quantity\": 20, \"index\": 30}, {\"type\": \"warped_fungus_on_a_stick\", \"quantity\": 1, \"index\": 31}, {\"type\": \"red_stained_glass\", \"quantity\": 17, \"index\": 34}, {\"type\": \"light_gray_shulker_box\", \"quantity\": 1, \"index\": 37}, {\"type\": \"hoglin_spawn_egg\", \"quantity\": 28, \"index\": 38}, {\"type\": \"oak_stairs\", \"quantity\": 60, \"index\": 41}, {\"type\": \"ender_chest\", \"quantity\": 2, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I need to place 2 prismarine_shard in the crafting grid. The only prismarine_shard in my inventory is at slot 20, so I will move it to slot 4."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 20 to slot 4 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: prismarine\ninventory=[{\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 1}, {\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 2}, {\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dragon_breath\", \"quantity\": 55, \"index\": 11}, {\"type\": \"granite\", \"quantity\": 16, \"index\": 12}, {\"type\": \"nether_brick\", \"quantity\": 62, \"index\": 13}, {\"type\": \"cobblestone\", \"quantity\": 40, \"index\": 14}, {\"type\": \"birch_button\", \"quantity\": 37, \"index\": 17}, {\"type\": \"blue_banner\", \"quantity\": 12, \"index\": 18}, {\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 20}, {\"type\": \"dark_oak_leaves\", \"quantity\": 45, \"index\": 24}, {\"type\": \"music_disc_13\", \"quantity\": 1, \"index\": 26}, {\"type\": \"cut_sandstone\", \"quantity\": 8, \"index\": 29}, {\"type\": \"enderman_spawn_egg\", \"quantity\": 20, \"index\": 30}, {\"type\": \"warped_fungus_on_a_stick\", \"quantity\": 1, \"index\": 31}, {\"type\": \"red_stained_glass\", \"quantity\": 17, \"index\": 34}, {\"type\": \"light_gray_shulker_box\", \"quantity\": 1, \"index\": 37}, {\"type\": \"hoglin_spawn_egg\", \"quantity\": 28, \"index\": 38}, {\"type\": \"oak_stairs\", \"quantity\": 60, \"index\": 41}, {\"type\": \"ender_chest\", \"quantity\": 2, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I need to place 2 prismarine_shard in the crafting grid. The only prismarine_shard in my inventory is at slot 20, so I will move it to slot 5."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 20 to slot 5 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: prismarine\ninventory=[{\"type\": \"prismarine\", \"quantity\": 1, \"index\": 0}, {\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 1}, {\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 2}, {\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 4}, {\"type\": \"prismarine_shard\", \"quantity\": 1, \"index\": 5}, {\"type\": \"dragon_breath\", \"quantity\": 55, \"index\": 11}, {\"type\": \"granite\", \"quantity\": 16, \"index\": 12}, {\"type\": \"nether_brick\", \"quantity\": 62, \"index\": 13}, {\"type\": \"cobblestone\", \"quantity\": 40, \"index\": 14}, {\"type\": \"birch_button\", \"quantity\": 37, \"index\": 17}, {\"type\": \"blue_banner\", \"quantity\": 12, \"index\": 18}, {\"type\": \"dark_oak_leaves\", \"quantity\": 45, \"index\": 24}, {\"type\": \"music_disc_13\", \"quantity\": 1, \"index\": 26}, {\"type\": \"cut_sandstone\", \"quantity\": 8, \"index\": 29}, {\"type\": \"enderman_spawn_egg\", \"quantity\": 20, \"index\": 30}, {\"type\": \"warped_fungus_on_a_stick\", \"quantity\": 1, \"index\": 31}, {\"type\": \"red_stained_glass\", \"quantity\": 17, \"index\": 34}, {\"type\": \"light_gray_shulker_box\", \"quantity\": 1, \"index\": 37}, {\"type\": \"hoglin_spawn_egg\", \"quantity\": 28, \"index\": 38}, {\"type\": \"oak_stairs\", \"quantity\": 60, \"index\": 41}, {\"type\": \"ender_chest\", \"quantity\": 2, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I have crafted prismarine, so I will move it to a free slot in my inventory."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 0 to slot 15 with quantity 1"
+    }
+]

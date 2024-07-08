@@ -1,0 +1,130 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: scaffolding\ninventory=[{\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"gunpowder\", \"quantity\": 38, \"index\": 14}, {\"type\": \"emerald_block\", \"quantity\": 28, \"index\": 15}, {\"type\": \"jack_o_lantern\", \"quantity\": 55, \"index\": 17}, {\"type\": \"ladder\", \"quantity\": 43, \"index\": 19}, {\"type\": \"baked_potato\", \"quantity\": 12, \"index\": 22}, {\"type\": \"polished_blackstone_wall\", \"quantity\": 9, \"index\": 23}, {\"type\": \"bamboo\", \"quantity\": 6, \"index\": 24}, {\"type\": \"crimson_fence_gate\", \"quantity\": 19, \"index\": 25}, {\"type\": \"polished_blackstone_button\", \"quantity\": 27, \"index\": 27}, {\"type\": \"phantom_spawn_egg\", \"quantity\": 58, \"index\": 29}, {\"type\": \"villager_spawn_egg\", \"quantity\": 46, \"index\": 30}, {\"type\": \"respawn_anchor\", \"quantity\": 10, \"index\": 34}, {\"type\": \"string\", \"quantity\": 1, \"index\": 37}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 14, \"index\": 42}, {\"type\": \"black_terracotta\", \"quantity\": 49, \"index\": 43}, {\"type\": \"honeycomb\", \"quantity\": 41, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I need to craft scaffolding, and to do that I need to craft a stick. I need to place two bamboo side by side to craft a stick. I will first move the bamboo from slot 24 to slot 1."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 24 to slot 1 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: scaffolding\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"gunpowder\", \"quantity\": 38, \"index\": 14}, {\"type\": \"emerald_block\", \"quantity\": 28, \"index\": 15}, {\"type\": \"jack_o_lantern\", \"quantity\": 55, \"index\": 17}, {\"type\": \"ladder\", \"quantity\": 43, \"index\": 19}, {\"type\": \"baked_potato\", \"quantity\": 12, \"index\": 22}, {\"type\": \"polished_blackstone_wall\", \"quantity\": 9, \"index\": 23}, {\"type\": \"bamboo\", \"quantity\": 5, \"index\": 24}, {\"type\": \"crimson_fence_gate\", \"quantity\": 19, \"index\": 25}, {\"type\": \"polished_blackstone_button\", \"quantity\": 27, \"index\": 27}, {\"type\": \"phantom_spawn_egg\", \"quantity\": 58, \"index\": 29}, {\"type\": \"villager_spawn_egg\", \"quantity\": 46, \"index\": 30}, {\"type\": \"respawn_anchor\", \"quantity\": 10, \"index\": 34}, {\"type\": \"string\", \"quantity\": 1, \"index\": 37}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 14, \"index\": 42}, {\"type\": \"black_terracotta\", \"quantity\": 49, \"index\": 43}, {\"type\": \"honeycomb\", \"quantity\": 41, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Now I need to move the string from slot 37 to slot 2 to complete the stick recipe."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 37 to slot 2 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: scaffolding\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"gunpowder\", \"quantity\": 38, \"index\": 14}, {\"type\": \"emerald_block\", \"quantity\": 28, \"index\": 15}, {\"type\": \"jack_o_lantern\", \"quantity\": 55, \"index\": 17}, {\"type\": \"ladder\", \"quantity\": 43, \"index\": 19}, {\"type\": \"baked_potato\", \"quantity\": 12, \"index\": 22}, {\"type\": \"polished_blackstone_wall\", \"quantity\": 9, \"index\": 23}, {\"type\": \"bamboo\", \"quantity\": 5, \"index\": 24}, {\"type\": \"crimson_fence_gate\", \"quantity\": 19, \"index\": 25}, {\"type\": \"polished_blackstone_button\", \"quantity\": 27, \"index\": 27}, {\"type\": \"phantom_spawn_egg\", \"quantity\": 58, \"index\": 29}, {\"type\": \"villager_spawn_egg\", \"quantity\": 46, \"index\": 30}, {\"type\": \"respawn_anchor\", \"quantity\": 10, \"index\": 34}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 14, \"index\": 42}, {\"type\": \"black_terracotta\", \"quantity\": 49, \"index\": 43}, {\"type\": \"honeycomb\", \"quantity\": 41, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Next I will move the bamboo from slot 24 to slot 3 to craft the scaffolding."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 24 to slot 3 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: scaffolding\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 3}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"gunpowder\", \"quantity\": 38, \"index\": 14}, {\"type\": \"emerald_block\", \"quantity\": 28, \"index\": 15}, {\"type\": \"jack_o_lantern\", \"quantity\": 55, \"index\": 17}, {\"type\": \"ladder\", \"quantity\": 43, \"index\": 19}, {\"type\": \"baked_potato\", \"quantity\": 12, \"index\": 22}, {\"type\": \"polished_blackstone_wall\", \"quantity\": 9, \"index\": 23}, {\"type\": \"bamboo\", \"quantity\": 4, \"index\": 24}, {\"type\": \"crimson_fence_gate\", \"quantity\": 19, \"index\": 25}, {\"type\": \"polished_blackstone_button\", \"quantity\": 27, \"index\": 27}, {\"type\": \"phantom_spawn_egg\", \"quantity\": 58, \"index\": 29}, {\"type\": \"villager_spawn_egg\", \"quantity\": 46, \"index\": 30}, {\"type\": \"respawn_anchor\", \"quantity\": 10, \"index\": 34}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 14, \"index\": 42}, {\"type\": \"black_terracotta\", \"quantity\": 49, \"index\": 43}, {\"type\": \"honeycomb\", \"quantity\": 41, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Next I will move the bamboo from slot 24 to slot 4 to craft the scaffolding."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 24 to slot 4 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: scaffolding\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 3}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 4}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"gunpowder\", \"quantity\": 38, \"index\": 14}, {\"type\": \"emerald_block\", \"quantity\": 28, \"index\": 15}, {\"type\": \"jack_o_lantern\", \"quantity\": 55, \"index\": 17}, {\"type\": \"ladder\", \"quantity\": 43, \"index\": 19}, {\"type\": \"baked_potato\", \"quantity\": 12, \"index\": 22}, {\"type\": \"polished_blackstone_wall\", \"quantity\": 9, \"index\": 23}, {\"type\": \"bamboo\", \"quantity\": 3, \"index\": 24}, {\"type\": \"crimson_fence_gate\", \"quantity\": 19, \"index\": 25}, {\"type\": \"polished_blackstone_button\", \"quantity\": 27, \"index\": 27}, {\"type\": \"phantom_spawn_egg\", \"quantity\": 58, \"index\": 29}, {\"type\": \"villager_spawn_egg\", \"quantity\": 46, \"index\": 30}, {\"type\": \"respawn_anchor\", \"quantity\": 10, \"index\": 34}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 14, \"index\": 42}, {\"type\": \"black_terracotta\", \"quantity\": 49, \"index\": 43}, {\"type\": \"honeycomb\", \"quantity\": 41, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Next I will move the bamboo from slot 24 to slot 6 to craft the scaffolding."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 24 to slot 6 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: scaffolding\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 3}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 4}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 6}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"gunpowder\", \"quantity\": 38, \"index\": 14}, {\"type\": \"emerald_block\", \"quantity\": 28, \"index\": 15}, {\"type\": \"jack_o_lantern\", \"quantity\": 55, \"index\": 17}, {\"type\": \"ladder\", \"quantity\": 43, \"index\": 19}, {\"type\": \"baked_potato\", \"quantity\": 12, \"index\": 22}, {\"type\": \"polished_blackstone_wall\", \"quantity\": 9, \"index\": 23}, {\"type\": \"bamboo\", \"quantity\": 2, \"index\": 24}, {\"type\": \"crimson_fence_gate\", \"quantity\": 19, \"index\": 25}, {\"type\": \"polished_blackstone_button\", \"quantity\": 27, \"index\": 27}, {\"type\": \"phantom_spawn_egg\", \"quantity\": 58, \"index\": 29}, {\"type\": \"villager_spawn_egg\", \"quantity\": 46, \"index\": 30}, {\"type\": \"respawn_anchor\", \"quantity\": 10, \"index\": 34}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 14, \"index\": 42}, {\"type\": \"black_terracotta\", \"quantity\": 49, \"index\": 43}, {\"type\": \"honeycomb\", \"quantity\": 41, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Next I will move the bamboo from slot 24 to slot 7 to craft the scaffolding."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 24 to slot 7 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: scaffolding\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 3}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 4}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 6}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 7}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"gunpowder\", \"quantity\": 38, \"index\": 14}, {\"type\": \"emerald_block\", \"quantity\": 28, \"index\": 15}, {\"type\": \"jack_o_lantern\", \"quantity\": 55, \"index\": 17}, {\"type\": \"ladder\", \"quantity\": 43, \"index\": 19}, {\"type\": \"baked_potato\", \"quantity\": 12, \"index\": 22}, {\"type\": \"polished_blackstone_wall\", \"quantity\": 9, \"index\": 23}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 24}, {\"type\": \"crimson_fence_gate\", \"quantity\": 19, \"index\": 25}, {\"type\": \"polished_blackstone_button\", \"quantity\": 27, \"index\": 27}, {\"type\": \"phantom_spawn_egg\", \"quantity\": 58, \"index\": 29}, {\"type\": \"villager_spawn_egg\", \"quantity\": 46, \"index\": 30}, {\"type\": \"respawn_anchor\", \"quantity\": 10, \"index\": 34}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 14, \"index\": 42}, {\"type\": \"black_terracotta\", \"quantity\": 49, \"index\": 43}, {\"type\": \"honeycomb\", \"quantity\": 41, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Next I will move the bamboo from slot 24 to slot 9 to craft the scaffolding."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 24 to slot 9 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: scaffolding\ninventory=[{\"type\": \"scaffolding\", \"quantity\": 6, \"index\": 0}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 3}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 4}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 6}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 7}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 9}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"gunpowder\", \"quantity\": 38, \"index\": 14}, {\"type\": \"emerald_block\", \"quantity\": 28, \"index\": 15}, {\"type\": \"jack_o_lantern\", \"quantity\": 55, \"index\": 17}, {\"type\": \"ladder\", \"quantity\": 43, \"index\": 19}, {\"type\": \"baked_potato\", \"quantity\": 12, \"index\": 22}, {\"type\": \"polished_blackstone_wall\", \"quantity\": 9, \"index\": 23}, {\"type\": \"crimson_fence_gate\", \"quantity\": 19, \"index\": 25}, {\"type\": \"polished_blackstone_button\", \"quantity\": 27, \"index\": 27}, {\"type\": \"phantom_spawn_egg\", \"quantity\": 58, \"index\": 29}, {\"type\": \"villager_spawn_egg\", \"quantity\": 46, \"index\": 30}, {\"type\": \"respawn_anchor\", \"quantity\": 10, \"index\": 34}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 14, \"index\": 42}, {\"type\": \"black_terracotta\", \"quantity\": 49, \"index\": 43}, {\"type\": \"honeycomb\", \"quantity\": 41, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Next I will move the scaffolding from slot 0 to slot 11 to complete the task."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 0 to slot 11 with quantity 6"
+    }
+]

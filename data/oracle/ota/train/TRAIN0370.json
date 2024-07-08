@@ -1,0 +1,18 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: terracotta\ninventory=[{\"type\": \"lime_dye\", \"quantity\": 25, \"index\": 12}, {\"type\": \"red_tulip\", \"quantity\": 29, \"index\": 14}, {\"type\": \"cod_bucket\", \"quantity\": 1, \"index\": 29}, {\"type\": \"clay\", \"quantity\": 1, \"index\": 34}, {\"type\": \"fletching_table\", \"quantity\": 49, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft terracotta, I need to smelt clay at slot 34 into an empty slot (eg., 11)."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: smelt from slot 34 to slot 11 with quantity 1"
+    }
+]

@@ -1,0 +1,114 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: diamond_shovel\ninventory=[{\"type\": \"black_concrete\", \"quantity\": 23, \"index\": 10}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 12}, {\"type\": \"sponge\", \"quantity\": 13, \"index\": 14}, {\"type\": \"coal_block\", \"quantity\": 7, \"index\": 15}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 17}, {\"type\": \"purple_dye\", \"quantity\": 3, \"index\": 18}, {\"type\": \"blast_furnace\", \"quantity\": 21, \"index\": 19}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 20}, {\"type\": \"spruce_stairs\", \"quantity\": 62, \"index\": 22}, {\"type\": \"sunflower\", \"quantity\": 24, \"index\": 24}, {\"type\": \"purple_concrete_powder\", \"quantity\": 11, \"index\": 25}, {\"type\": \"brain_coral_block\", \"quantity\": 54, \"index\": 26}, {\"type\": \"ghast_tear\", \"quantity\": 54, \"index\": 27}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"acacia_leaves\", \"quantity\": 31, \"index\": 34}, {\"type\": \"lilac\", \"quantity\": 60, \"index\": 40}, {\"type\": \"brick_slab\", \"quantity\": 7, \"index\": 41}, {\"type\": \"farmland\", \"quantity\": 21, \"index\": 42}, {\"type\": \"seagrass\", \"quantity\": 64, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a diamond shovel, I need to craft a stick first. I have 1 dark oak plank at slot 30, and I need to place it in the crafting table in order to craft 4 sticks. I will move it to slot 1."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 30 to slot 1 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: diamond_shovel\ninventory=[{\"type\": \"dark_oak_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"black_concrete\", \"quantity\": 23, \"index\": 10}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 12}, {\"type\": \"sponge\", \"quantity\": 13, \"index\": 14}, {\"type\": \"coal_block\", \"quantity\": 7, \"index\": 15}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 17}, {\"type\": \"purple_dye\", \"quantity\": 3, \"index\": 18}, {\"type\": \"blast_furnace\", \"quantity\": 21, \"index\": 19}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 20}, {\"type\": \"spruce_stairs\", \"quantity\": 62, \"index\": 22}, {\"type\": \"sunflower\", \"quantity\": 24, \"index\": 24}, {\"type\": \"purple_concrete_powder\", \"quantity\": 11, \"index\": 25}, {\"type\": \"brain_coral_block\", \"quantity\": 54, \"index\": 26}, {\"type\": \"ghast_tear\", \"quantity\": 54, \"index\": 27}, {\"type\": \"acacia_leaves\", \"quantity\": 31, \"index\": 34}, {\"type\": \"lilac\", \"quantity\": 60, \"index\": 40}, {\"type\": \"brick_slab\", \"quantity\": 7, \"index\": 41}, {\"type\": \"farmland\", \"quantity\": 21, \"index\": 42}, {\"type\": \"seagrass\", \"quantity\": 64, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I have 1 jungle plank at slot 17, and I need to place it in the crafting table in order to craft 4 sticks. I will move it to slot 4."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 17 to slot 4 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: diamond_shovel\ninventory=[{\"type\": \"stick\", \"quantity\": 4, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"black_concrete\", \"quantity\": 23, \"index\": 10}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 12}, {\"type\": \"sponge\", \"quantity\": 13, \"index\": 14}, {\"type\": \"coal_block\", \"quantity\": 7, \"index\": 15}, {\"type\": \"purple_dye\", \"quantity\": 3, \"index\": 18}, {\"type\": \"blast_furnace\", \"quantity\": 21, \"index\": 19}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 20}, {\"type\": \"spruce_stairs\", \"quantity\": 62, \"index\": 22}, {\"type\": \"sunflower\", \"quantity\": 24, \"index\": 24}, {\"type\": \"purple_concrete_powder\", \"quantity\": 11, \"index\": 25}, {\"type\": \"brain_coral_block\", \"quantity\": 54, \"index\": 26}, {\"type\": \"ghast_tear\", \"quantity\": 54, \"index\": 27}, {\"type\": \"acacia_leaves\", \"quantity\": 31, \"index\": 34}, {\"type\": \"lilac\", \"quantity\": 60, \"index\": 40}, {\"type\": \"brick_slab\", \"quantity\": 7, \"index\": 41}, {\"type\": \"farmland\", \"quantity\": 21, \"index\": 42}, {\"type\": \"seagrass\", \"quantity\": 64, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I have crafted 4 sticks and I will move them to a free inventory slot (eg., 11)."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 0 to slot 11 with quantity 4"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: diamond_shovel\ninventory=[{\"type\": \"black_concrete\", \"quantity\": 23, \"index\": 10}, {\"type\": \"stick\", \"quantity\": 4, \"index\": 11}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 12}, {\"type\": \"sponge\", \"quantity\": 13, \"index\": 14}, {\"type\": \"coal_block\", \"quantity\": 7, \"index\": 15}, {\"type\": \"purple_dye\", \"quantity\": 3, \"index\": 18}, {\"type\": \"blast_furnace\", \"quantity\": 21, \"index\": 19}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 20}, {\"type\": \"spruce_stairs\", \"quantity\": 62, \"index\": 22}, {\"type\": \"sunflower\", \"quantity\": 24, \"index\": 24}, {\"type\": \"purple_concrete_powder\", \"quantity\": 11, \"index\": 25}, {\"type\": \"brain_coral_block\", \"quantity\": 54, \"index\": 26}, {\"type\": \"ghast_tear\", \"quantity\": 54, \"index\": 27}, {\"type\": \"acacia_leaves\", \"quantity\": 31, \"index\": 34}, {\"type\": \"lilac\", \"quantity\": 60, \"index\": 40}, {\"type\": \"brick_slab\", \"quantity\": 7, \"index\": 41}, {\"type\": \"farmland\", \"quantity\": 21, \"index\": 42}, {\"type\": \"seagrass\", \"quantity\": 64, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a diamond shovel, I need to place 1 diamond and 2 sticks in the crafting table. I have 1 diamond at slot 12, and I need to place it in the crafting table in order to craft the shovel. I will move it to slot 1."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 12 to slot 1 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: diamond_shovel\ninventory=[{\"type\": \"diamond\", \"quantity\": 1, \"index\": 1}, {\"type\": \"black_concrete\", \"quantity\": 23, \"index\": 10}, {\"type\": \"stick\", \"quantity\": 4, \"index\": 11}, {\"type\": \"sponge\", \"quantity\": 13, \"index\": 14}, {\"type\": \"coal_block\", \"quantity\": 7, \"index\": 15}, {\"type\": \"purple_dye\", \"quantity\": 3, \"index\": 18}, {\"type\": \"blast_furnace\", \"quantity\": 21, \"index\": 19}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 20}, {\"type\": \"spruce_stairs\", \"quantity\": 62, \"index\": 22}, {\"type\": \"sunflower\", \"quantity\": 24, \"index\": 24}, {\"type\": \"purple_concrete_powder\", \"quantity\": 11, \"index\": 25}, {\"type\": \"brain_coral_block\", \"quantity\": 54, \"index\": 26}, {\"type\": \"ghast_tear\", \"quantity\": 54, \"index\": 27}, {\"type\": \"acacia_leaves\", \"quantity\": 31, \"index\": 34}, {\"type\": \"lilac\", \"quantity\": 60, \"index\": 40}, {\"type\": \"brick_slab\", \"quantity\": 7, \"index\": 41}, {\"type\": \"farmland\", \"quantity\": 21, \"index\": 42}, {\"type\": \"seagrass\", \"quantity\": 64, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a diamond shovel, I need to place 1 diamond and 2 sticks in the crafting table. I have 4 sticks at slot 11, and I need to place 2 of them in the crafting table in order to craft the shovel. I will move 1 of them to slot 4."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 11 to slot 4 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: diamond_shovel\ninventory=[{\"type\": \"diamond\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"black_concrete\", \"quantity\": 23, \"index\": 10}, {\"type\": \"stick\", \"quantity\": 3, \"index\": 11}, {\"type\": \"sponge\", \"quantity\": 13, \"index\": 14}, {\"type\": \"coal_block\", \"quantity\": 7, \"index\": 15}, {\"type\": \"purple_dye\", \"quantity\": 3, \"index\": 18}, {\"type\": \"blast_furnace\", \"quantity\": 21, \"index\": 19}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 20}, {\"type\": \"spruce_stairs\", \"quantity\": 62, \"index\": 22}, {\"type\": \"sunflower\", \"quantity\": 24, \"index\": 24}, {\"type\": \"purple_concrete_powder\", \"quantity\": 11, \"index\": 25}, {\"type\": \"brain_coral_block\", \"quantity\": 54, \"index\": 26}, {\"type\": \"ghast_tear\", \"quantity\": 54, \"index\": 27}, {\"type\": \"acacia_leaves\", \"quantity\": 31, \"index\": 34}, {\"type\": \"lilac\", \"quantity\": 60, \"index\": 40}, {\"type\": \"brick_slab\", \"quantity\": 7, \"index\": 41}, {\"type\": \"farmland\", \"quantity\": 21, \"index\": 42}, {\"type\": \"seagrass\", \"quantity\": 64, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a diamond shovel, I need to place 1 diamond and 2 sticks in the crafting table. I have 3 sticks at slot 11, and I need to place 2 of them in the crafting table in order to craft the shovel. I will move 1 of them to slot 7."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 11 to slot 7 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: diamond_shovel\ninventory=[{\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 0}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 7}, {\"type\": \"black_concrete\", \"quantity\": 23, \"index\": 10}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 11}, {\"type\": \"sponge\", \"quantity\": 13, \"index\": 14}, {\"type\": \"coal_block\", \"quantity\": 7, \"index\": 15}, {\"type\": \"purple_dye\", \"quantity\": 3, \"index\": 18}, {\"type\": \"blast_furnace\", \"quantity\": 21, \"index\": 19}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 20}, {\"type\": \"spruce_stairs\", \"quantity\": 62, \"index\": 22}, {\"type\": \"sunflower\", \"quantity\": 24, \"index\": 24}, {\"type\": \"purple_concrete_powder\", \"quantity\": 11, \"index\": 25}, {\"type\": \"brain_coral_block\", \"quantity\": 54, \"index\": 26}, {\"type\": \"ghast_tear\", \"quantity\": 54, \"index\": 27}, {\"type\": \"acacia_leaves\", \"quantity\": 31, \"index\": 34}, {\"type\": \"lilac\", \"quantity\": 60, \"index\": 40}, {\"type\": \"brick_slab\", \"quantity\": 7, \"index\": 41}, {\"type\": \"farmland\", \"quantity\": 21, \"index\": 42}, {\"type\": \"seagrass\", \"quantity\": 64, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a diamond shovel, I need to place 1 diamond and 2 sticks in the crafting table. I have 3 sticks at slot 11, and I need to place 2 of them in the crafting table in order to craft the shovel. I will move 1 of them to slot 7."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 0 to slot 12 with quantity 1"
+    }
+]

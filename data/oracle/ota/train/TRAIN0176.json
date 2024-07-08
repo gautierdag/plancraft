@@ -1,0 +1,18 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: black_glazed_terracotta\ninventory=[{\"type\": \"jack_o_lantern\", \"quantity\": 21, \"index\": 11}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 21, \"index\": 13}, {\"type\": \"vindicator_spawn_egg\", \"quantity\": 47, \"index\": 15}, {\"type\": \"crying_obsidian\", \"quantity\": 34, \"index\": 16}, {\"type\": \"nether_sprouts\", \"quantity\": 38, \"index\": 17}, {\"type\": \"ender_eye\", \"quantity\": 16, \"index\": 19}, {\"type\": \"dark_oak_planks\", \"quantity\": 21, \"index\": 20}, {\"type\": \"lever\", \"quantity\": 40, \"index\": 21}, {\"type\": \"stonecutter\", \"quantity\": 48, \"index\": 22}, {\"type\": \"stripped_birch_log\", \"quantity\": 21, \"index\": 36}, {\"type\": \"nether_star\", \"quantity\": 55, \"index\": 37}, {\"type\": \"prismarine_wall\", \"quantity\": 39, \"index\": 38}, {\"type\": \"brain_coral_block\", \"quantity\": 15, \"index\": 39}, {\"type\": \"fire_coral\", \"quantity\": 62, \"index\": 40}, {\"type\": \"magenta_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"black_terracotta\", \"quantity\": 1, \"index\": 44}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 45}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft black glazed terracotta, I need to smelt black terracotta at slot 44 into an empty slot (eg., 12)."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: smelt from slot 44 to slot 12 with quantity 1"
+    }
+]

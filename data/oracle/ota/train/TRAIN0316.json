@@ -1,0 +1,50 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: chiseled_red_sandstone\ninventory=[{\"type\": \"red_sandstone_slab\", \"quantity\": 2, \"index\": 13}, {\"type\": \"potion\", \"quantity\": 1, \"index\": 15}, {\"type\": \"heart_of_the_sea\", \"quantity\": 50, \"index\": 20}, {\"type\": \"blackstone_wall\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hay_block\", \"quantity\": 34, \"index\": 34}, {\"type\": \"wheat\", \"quantity\": 14, \"index\": 36}, {\"type\": \"granite_stairs\", \"quantity\": 18, \"index\": 40}, {\"type\": \"jungle_door\", \"quantity\": 34, \"index\": 41}, {\"type\": \"polished_diorite_slab\", \"quantity\": 11, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft chiseled_red_sandstone, I need to place 2 red_sandstone_slab in the crafting grid, so I will move 1 red_sandstone_slab from slot 13 to slot 1"
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 13 to slot 1 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: chiseled_red_sandstone\ninventory=[{\"type\": \"red_sandstone_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_sandstone_slab\", \"quantity\": 1, \"index\": 13}, {\"type\": \"potion\", \"quantity\": 1, \"index\": 15}, {\"type\": \"heart_of_the_sea\", \"quantity\": 50, \"index\": 20}, {\"type\": \"blackstone_wall\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hay_block\", \"quantity\": 34, \"index\": 34}, {\"type\": \"wheat\", \"quantity\": 14, \"index\": 36}, {\"type\": \"granite_stairs\", \"quantity\": 18, \"index\": 40}, {\"type\": \"jungle_door\", \"quantity\": 34, \"index\": 41}, {\"type\": \"polished_diorite_slab\", \"quantity\": 11, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft chiseled_red_sandstone, I need to place 2 red_sandstone_slab in the crafting grid, so I will move 1 red_sandstone_slab from slot 13 to slot 4"
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 13 to slot 4 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: chiseled_red_sandstone\ninventory=[{\"type\": \"chiseled_red_sandstone\", \"quantity\": 1, \"index\": 0}, {\"type\": \"red_sandstone_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_sandstone_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"potion\", \"quantity\": 1, \"index\": 15}, {\"type\": \"heart_of_the_sea\", \"quantity\": 50, \"index\": 20}, {\"type\": \"blackstone_wall\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hay_block\", \"quantity\": 34, \"index\": 34}, {\"type\": \"wheat\", \"quantity\": 14, \"index\": 36}, {\"type\": \"granite_stairs\", \"quantity\": 18, \"index\": 40}, {\"type\": \"jungle_door\", \"quantity\": 34, \"index\": 41}, {\"type\": \"polished_diorite_slab\", \"quantity\": 11, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft chiseled_red_sandstone, I need to place 2 red_sandstone_slab in the crafting grid, so I will move 1 red_sandstone_slab from slot 0 to slot 11"
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 0 to slot 11 with quantity 1"
+    }
+]

@@ -1,0 +1,130 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: soul_campfire\ninventory=[{\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 3, \"index\": 14}, {\"type\": \"light_gray_dye\", \"quantity\": 40, \"index\": 17}, {\"type\": \"purple_concrete\", \"quantity\": 19, \"index\": 18}, {\"type\": \"lily_of_the_valley\", \"quantity\": 41, \"index\": 22}, {\"type\": \"cyan_banner\", \"quantity\": 3, \"index\": 24}, {\"type\": \"soul_sand\", \"quantity\": 1, \"index\": 25}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 34}, {\"type\": \"note_block\", \"quantity\": 24, \"index\": 35}, {\"type\": \"gray_terracotta\", \"quantity\": 64, \"index\": 37}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 38}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 40}, {\"type\": \"crimson_roots\", \"quantity\": 26, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a soul_campfire, I need to place 1 stick, 1 soul_sand, and 3 lily_of_the_valley in the crafting table. I will first move the stick from slot 14 to slot 2."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 14 to slot 2 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: soul_campfire\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 2}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 14}, {\"type\": \"light_gray_dye\", \"quantity\": 40, \"index\": 17}, {\"type\": \"purple_concrete\", \"quantity\": 19, \"index\": 18}, {\"type\": \"lily_of_the_valley\", \"quantity\": 41, \"index\": 22}, {\"type\": \"cyan_banner\", \"quantity\": 3, \"index\": 24}, {\"type\": \"soul_sand\", \"quantity\": 1, \"index\": 25}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 34}, {\"type\": \"note_block\", \"quantity\": 24, \"index\": 35}, {\"type\": \"gray_terracotta\", \"quantity\": 64, \"index\": 37}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 38}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 40}, {\"type\": \"crimson_roots\", \"quantity\": 26, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I will now move the second stick from slot 14 to slot 4."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 14 to slot 4 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: soul_campfire\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 14}, {\"type\": \"light_gray_dye\", \"quantity\": 40, \"index\": 17}, {\"type\": \"purple_concrete\", \"quantity\": 19, \"index\": 18}, {\"type\": \"lily_of_the_valley\", \"quantity\": 41, \"index\": 22}, {\"type\": \"cyan_banner\", \"quantity\": 3, \"index\": 24}, {\"type\": \"soul_sand\", \"quantity\": 1, \"index\": 25}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 34}, {\"type\": \"note_block\", \"quantity\": 24, \"index\": 35}, {\"type\": \"gray_terracotta\", \"quantity\": 64, \"index\": 37}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 38}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 40}, {\"type\": \"crimson_roots\", \"quantity\": 26, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Now I will move the soul_sand from slot 25 to slot 5."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 25 to slot 5 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: soul_campfire\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"soul_sand\", \"quantity\": 1, \"index\": 5}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 14}, {\"type\": \"light_gray_dye\", \"quantity\": 40, \"index\": 17}, {\"type\": \"purple_concrete\", \"quantity\": 19, \"index\": 18}, {\"type\": \"lily_of_the_valley\", \"quantity\": 41, \"index\": 22}, {\"type\": \"cyan_banner\", \"quantity\": 3, \"index\": 24}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 34}, {\"type\": \"note_block\", \"quantity\": 24, \"index\": 35}, {\"type\": \"gray_terracotta\", \"quantity\": 64, \"index\": 37}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 38}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 40}, {\"type\": \"crimson_roots\", \"quantity\": 26, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Now I will move the last stick from slot 14 to slot 6."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 14 to slot 6 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: soul_campfire\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"soul_sand\", \"quantity\": 1, \"index\": 5}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 6}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 11}, {\"type\": \"light_gray_dye\", \"quantity\": 40, \"index\": 17}, {\"type\": \"purple_concrete\", \"quantity\": 19, \"index\": 18}, {\"type\": \"lily_of_the_valley\", \"quantity\": 41, \"index\": 22}, {\"type\": \"cyan_banner\", \"quantity\": 3, \"index\": 24}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 34}, {\"type\": \"note_block\", \"quantity\": 24, \"index\": 35}, {\"type\": \"gray_terracotta\", \"quantity\": 64, \"index\": 37}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 38}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 40}, {\"type\": \"crimson_roots\", \"quantity\": 26, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Now I will move the dark_oak_wood from slot 34 to slot 7."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 34 to slot 7 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: soul_campfire\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"soul_sand\", \"quantity\": 1, \"index\": 5}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 6}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 7}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 11}, {\"type\": \"light_gray_dye\", \"quantity\": 40, \"index\": 17}, {\"type\": \"purple_concrete\", \"quantity\": 19, \"index\": 18}, {\"type\": \"lily_of_the_valley\", \"quantity\": 41, \"index\": 22}, {\"type\": \"cyan_banner\", \"quantity\": 3, \"index\": 24}, {\"type\": \"note_block\", \"quantity\": 24, \"index\": 35}, {\"type\": \"gray_terracotta\", \"quantity\": 64, \"index\": 37}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 38}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 40}, {\"type\": \"crimson_roots\", \"quantity\": 26, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Now I will move the acacia_wood from slot 38 to slot 8."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 38 to slot 8 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: soul_campfire\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"soul_sand\", \"quantity\": 1, \"index\": 5}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 6}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 7}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 8}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 11}, {\"type\": \"light_gray_dye\", \"quantity\": 40, \"index\": 17}, {\"type\": \"purple_concrete\", \"quantity\": 19, \"index\": 18}, {\"type\": \"lily_of_the_valley\", \"quantity\": 41, \"index\": 22}, {\"type\": \"cyan_banner\", \"quantity\": 3, \"index\": 24}, {\"type\": \"note_block\", \"quantity\": 24, \"index\": 35}, {\"type\": \"gray_terracotta\", \"quantity\": 64, \"index\": 37}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 40}, {\"type\": \"crimson_roots\", \"quantity\": 26, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Now I will move the stripped_jungle_wood from slot 40 to slot 9."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 40 to slot 9 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: soul_campfire\ninventory=[{\"type\": \"soul_campfire\", \"quantity\": 1, \"index\": 0}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"soul_sand\", \"quantity\": 1, \"index\": 5}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 6}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 7}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 8}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 9}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 11}, {\"type\": \"light_gray_dye\", \"quantity\": 40, \"index\": 17}, {\"type\": \"purple_concrete\", \"quantity\": 19, \"index\": 18}, {\"type\": \"lily_of_the_valley\", \"quantity\": 41, \"index\": 22}, {\"type\": \"cyan_banner\", \"quantity\": 3, \"index\": 24}, {\"type\": \"note_block\", \"quantity\": 24, \"index\": 35}, {\"type\": \"gray_terracotta\", \"quantity\": 64, \"index\": 37}, {\"type\": \"crimson_roots\", \"quantity\": 26, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: Now I will move the crafted soul_campfire from slot 0 to slot 12."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 0 to slot 12 with quantity 1"
+    }
+]

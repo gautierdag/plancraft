@@ -1,0 +1,50 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: mojang_banner_pattern\ninventory=[{\"type\": \"smooth_sandstone_stairs\", \"quantity\": 4, \"index\": 10}, {\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 13}, {\"type\": \"guardian_spawn_egg\", \"quantity\": 29, \"index\": 17}, {\"type\": \"enchanted_golden_apple\", \"quantity\": 1, \"index\": 22}, {\"type\": \"fletching_table\", \"quantity\": 34, \"index\": 23}, {\"type\": \"jungle_slab\", \"quantity\": 40, \"index\": 29}, {\"type\": \"gold_ingot\", \"quantity\": 18, \"index\": 37}, {\"type\": \"paper\", \"quantity\": 1, \"index\": 38}, {\"type\": \"jungle_boat\", \"quantity\": 1, \"index\": 39}, {\"type\": \"experience_bottle\", \"quantity\": 12, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a mojang_banner_pattern, I need to move an enchanted_golden_apple from slot 22 to the crafting table."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 22 to slot 1 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: mojang_banner_pattern\ninventory=[{\"type\": \"enchanted_golden_apple\", \"quantity\": 1, \"index\": 1}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 4, \"index\": 10}, {\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 13}, {\"type\": \"guardian_spawn_egg\", \"quantity\": 29, \"index\": 17}, {\"type\": \"fletching_table\", \"quantity\": 34, \"index\": 23}, {\"type\": \"jungle_slab\", \"quantity\": 40, \"index\": 29}, {\"type\": \"gold_ingot\", \"quantity\": 18, \"index\": 37}, {\"type\": \"paper\", \"quantity\": 1, \"index\": 38}, {\"type\": \"jungle_boat\", \"quantity\": 1, \"index\": 39}, {\"type\": \"experience_bottle\", \"quantity\": 12, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a mojang_banner_pattern, I need to move a paper from slot 38 to the crafting table."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 38 to slot 2 with quantity 1"
+    },
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: mojang_banner_pattern\ninventory=[{\"type\": \"mojang_banner_pattern\", \"quantity\": 1, \"index\": 0}, {\"type\": \"enchanted_golden_apple\", \"quantity\": 1, \"index\": 1}, {\"type\": \"paper\", \"quantity\": 1, \"index\": 2}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 4, \"index\": 10}, {\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 13}, {\"type\": \"guardian_spawn_egg\", \"quantity\": 29, \"index\": 17}, {\"type\": \"fletching_table\", \"quantity\": 34, \"index\": 23}, {\"type\": \"jungle_slab\", \"quantity\": 40, \"index\": 29}, {\"type\": \"gold_ingot\", \"quantity\": 18, \"index\": 37}, {\"type\": \"jungle_boat\", \"quantity\": 1, \"index\": 39}, {\"type\": \"experience_bottle\", \"quantity\": 12, \"index\": 44}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: To craft a mojang_banner_pattern, I need to move the resulting item from the crafting table to an empty slot (eg., 11)."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: move from slot 0 to slot 11 with quantity 1"
+    }
+]

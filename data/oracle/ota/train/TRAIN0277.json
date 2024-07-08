@@ -1,0 +1,18 @@
+[
+    {
+        "role": "user",
+        "content": "TASK: Craft an item of type: green_glazed_terracotta\ninventory=[{\"type\": \"brown_bed\", \"quantity\": 1, \"index\": 14}, {\"type\": \"magma_block\", \"quantity\": 64, \"index\": 15}, {\"type\": \"golden_axe\", \"quantity\": 1, \"index\": 23}, {\"type\": \"infested_mossy_stone_bricks\", \"quantity\": 31, \"index\": 26}, {\"type\": \"lilac\", \"quantity\": 55, \"index\": 30}, {\"type\": \"honeycomb_block\", \"quantity\": 33, \"index\": 31}, {\"type\": \"purple_shulker_box\", \"quantity\": 1, \"index\": 41}, {\"type\": \"green_terracotta\", \"quantity\": 1, \"index\": 42}, {\"type\": \"redstone\", \"quantity\": 18, \"index\": 43}]"
+    },
+    {
+        "role": "assistant",
+        "content": "thought: I need to smelt the green_terracotta in slot 42 to make green_glazed_terracotta."
+    },
+    {
+        "role": "user",
+        "content": "Ok"
+    },
+    {
+        "role": "assistant",
+        "content": "act: smelt from slot 42 to slot 11 with quantity 1"
+    }
+]
