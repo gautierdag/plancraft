@@ -137,13 +137,14 @@ if __name__ == "__main__":
         with open(f"data/oracle/{split}.jsonl", "r") as f:
             for line in f:
                 dialogues.append(json.loads(line))
+        
         dialogue_df = pd.DataFrame(dialogues)
         df = pd.merge(df, dialogue_df, left_on="id", right_on="example_id", how="inner")
         os.makedirs(f"data/oracle/ota/{split}", exist_ok=True)
         for i, row in df.iterrows():
             print(f"Processing {split}: {i}/{len(df)}")
             example_id = row["id"]
-            path = f"data/oracle/ota/{split}/{example_id}.jsonl"
+            path = f"data/oracle/ota/{split}/{example_id}.json"
             if os.path.exists(path):
                 continue
             output_messages = generate_thoughts(row, model, tokenizer)
