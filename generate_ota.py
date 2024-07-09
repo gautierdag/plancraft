@@ -28,6 +28,8 @@ Examples:
 
 TASK: Craft an item of type: andesite
 Crafting path: [andesite]
+Relevant recipes:
+1 diorite, 1 cobblestone -> 2 andesite
 
 1. inventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'
 action: move from slot 27 to slot 4 with quantity 1
@@ -43,6 +45,12 @@ thought: Now I can craft the andesite by moving it from the craft slot (0) to a 
 
 TASK: Craft an item of type: iron_ingot
 Crafting path: [iron_ingot]
+Relevant recipes:
+1 iron_ore -> 1 iron_ingot
+iron_nugget	iron_nugget	iron_nugget
+iron_nugget	iron_nugget	iron_nugget -> 1 iron_ingot
+iron_nugget	iron_nugget	iron_nugget
+1 iron_block -> 9 iron_ingot
 
 1. inventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]
 action: smelt from slot 45 to slot 44 with quantity 1
@@ -50,6 +58,7 @@ thought: To craft an iron_ingot, I need to smelt the iron_ore at slot 45 into an
 
 """
 
+from plancraft.environments.recipes import RECIPES
 
 def generate_thoughts(
     row, model, tokenizer, max_window_size=30
@@ -57,7 +66,11 @@ def generate_thoughts(
     step = 1
     task_message = BASE_PROMPT + row.messages[1]["content"].split("\n")[0]
     task_message += f"\nCrafting path: {row.optimal_path}"
-
+    recipe_message = ["\nRelevant recipes:"]
+    for target in set(row.optimal_path):
+        for recipe_possible in RECIPES[target]:
+            recipe_message.append(recipe_possible.__prompt_repr__())
+    task_message += "\n".join(recipe_message)
     OTA_texts = []
     OTA_messages = []
     for i in range(1, len(row.messages), 2):
@@ -101,8 +114,6 @@ def generate_thoughts(
         OTA_messages.append({"role": "user", "content": "Ok"})
         # Action
         OTA_messages.append(assistant_entry)
-
-        # task_message = generated_text
         step += 1
 
     return OTA_messages
@@ -137,14 +148,13 @@ if __name__ == "__main__":
         with open(f"data/oracle/{split}.jsonl", "r") as f:
             for line in f:
                 dialogues.append(json.loads(line))
-        
         dialogue_df = pd.DataFrame(dialogues)
         df = pd.merge(df, dialogue_df, left_on="id", right_on="example_id", how="inner")
-        os.makedirs(f"data/oracle/ota/{split}", exist_ok=True)
+        os.makedirs(f"data/oracle/ota-v2/{split}", exist_ok=True)
         for i, row in df.iterrows():
             print(f"Processing {split}: {i}/{len(df)}")
             example_id = row["id"]
-            path = f"data/oracle/ota/{split}/{example_id}.json"
+            path = f"data/oracle/ota-v2/{split}/{example_id}.json"
             if os.path.exists(path):
                 continue
             output_messages = generate_thoughts(row, model, tokenizer)
