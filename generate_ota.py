@@ -140,7 +140,6 @@ if __name__ == "__main__":
     )
 
     for split in ["train", "val"]:
-        split = "train"
         with open(f"data/{split}.json", "r") as f:
             examples = json.load(f)
         df = pd.DataFrame(examples)
