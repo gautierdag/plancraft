@@ -93,7 +93,7 @@ class ActModel(ABCModel):
         if self.is_multimodal:
             content_message = {
                 "content": [
-                    {"type": "text", "text": f"TASK: {objective}"},
+                    {"type": "text", "text": f"{objective}"},
                     {"type": "image"},
                 ]
             }
@@ -110,7 +110,7 @@ class ActModel(ABCModel):
                             "quantity": o["quantity"],
                         }
                     )
-            return f"TASK: {objective}\ninventory={json.dumps(inventory)}"
+            return f"{objective}\ninventory={json.dumps(inventory)}"
 
     def step(self, observations: list[dict]) -> list[SymbolicAction]:
         assert len(observations) == self.batch_size == len(self.histories)

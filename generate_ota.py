@@ -10,6 +10,8 @@ from transformers import (
     StopStringCriteria,
 )
 
+from plancraft.environments.recipes import RECIPES
+
 BASE_PROMPT = """
 You are crafting in Minecraft.
 
@@ -58,19 +60,24 @@ thought: To craft an iron_ingot, I need to smelt the iron_ore at slot 45 into an
 
 """
 
-from plancraft.environments.recipes import RECIPES
+def generate_task_message(example_text, optimal_path: list[str]):
+    task_message = BASE_PROMPT + example_text
+    task_message += f"\nCrafting path: {optimal_path}"
+    recipe_message = ["\nRelevant recipes:"]
+    for target in set(optimal_path):
+        for recipe_possible in RECIPES[target]:
+            recipe_message.append(recipe_possible.__prompt_repr__())
+    task_message += "\n".join(recipe_message)
+    return task_message
 
 def generate_thoughts(
     row, model, tokenizer, max_window_size=30
 ) -> list[dict[str, str]]:
     step = 1
-    task_message = BASE_PROMPT + row.messages[1]["content"].split("\n")[0]
-    task_message += f"\nCrafting path: {row.optimal_path}"
-    recipe_message = ["\nRelevant recipes:"]
-    for target in set(row.optimal_path):
-        for recipe_possible in RECIPES[target]:
-            recipe_message.append(recipe_possible.__prompt_repr__())
-    task_message += "\n".join(recipe_message)
+    task_message = BASE_PROMPT
+    optimal_path = row.optimal_path
+    initial_text = row.messages[1]["content"].split("\n")[0]
+    task_message = generate_task_message(initial_text, optimal_path)
     OTA_texts = []
     OTA_messages = []
     for i in range(1, len(row.messages), 2):
@@ -80,12 +87,18 @@ def generate_thoughts(
         assert assistant_entry["role"] == "assistant"
         inventory = user_entry["content"].split("inventory=")[1]
         action = assistant_entry["content"]
-        current_step_text = (
-            f"\n\n{step}. inventory={inventory}\naction: {action}\nthought:"
-        )
-        prompt = (
-            task_message + "".join(OTA_texts[-max_window_size:]) + current_step_text
-        )
+
+        # step without thought
+        current_step_text = f"inventory={inventory}\n{action.replace('act:', 'action:')}\nthought:"
+
+        # history of the last max_window_size steps
+        current_step_text_all = "".join([f"\n\n{s+1}. {t}" for s, t in enumerate(OTA_texts[-(max_window_size+1):] + [current_step_text])])
+
+        # regenerate task message based on path left
+        task_message = generate_task_message(initial_text, optimal_path)
+
+        prompt = task_message + current_step_text_all
+
         tokenized_prompt = tokenizer(
             prompt, return_tensors="pt", max_length=8192, truncation=True
         )
@@ -98,14 +111,21 @@ def generate_thoughts(
             top_p=0.9,
             stopping_criteria=[stopping_criteria],
             pad_token_id=tokenizer.eos_token_id,
+            repetition_penalty=1.05,
         )
         # Decode the generated output
-        generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True).rstrip(
+        generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True).strip(
             "\n"
         )
-        thought = generated_text.split("thought:")[-1].strip()
+        thought = generated_text.split("thought:")[-1].strip().split("\n")[0]
+        OTA_texts.append(f"{current_step_text} {thought}")
 
-        OTA_texts.append(f"{current_step_text}{thought}")
+        # if crafting of recipe is done -> reset the current trace and pop the recipe
+        # this allows the model to generate thoughts for each subtask separately
+        # to limit hallucinations / off-task responses
+        if "move from slot 0 " in action:
+            optimal_path.pop(0)
+            OTA_texts = []
 
         # Observation
         OTA_messages.append(user_entry)

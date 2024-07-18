@@ -1,3 +1,4 @@
+import glob
 import json
 import random
 
@@ -8,7 +9,6 @@ from transformers import (
     AutoProcessor,
     AutoTokenizer,
 )
-
 
 TEMPLATES = {
     "idefics2": {
@@ -26,23 +26,46 @@ class PlancraftDialogueDataset(Dataset):
     def __init__(
         self,
         dataset_dir: str = "data/oracle",
-        mm=False,
+        use_images=False,
+        trace_mode="oa",
         split="train",
         max_message_window=30,
     ):
         super().__init__()
         self.split = split
-        file_path = f"{dataset_dir}/{split}.jsonl"
-        if mm:
-            file_path = f"{dataset_dir}/{split}.mm.jsonl"
+        self.use_images = use_images
+        self.trace_mode = trace_mode
 
-        print("Loading dialogue")
+        assert trace_mode in ["oa", "ota"], f"Invalid trace mode {trace_mode}"
+
+        print("Loading dialogue dataset")
         data = []
-        with open(file_path, "r") as f:
-            for line in f:
-                data.append(json.loads(line))
+        for example_path in glob.glob(f"{dataset_dir}/{split}/{trace_mode}/*.json"):
+            with open(example_path) as f:
+                messages = json.load(f)
 
-        if mm:
+                # convert to use list of content items instead of a single string
+                if use_images:
+                    content_messages = []
+                    for message in messages:
+                        new_message = {
+                            "role": message["role"],
+                            "content": [{"text": message["content"], "type": "text"}],
+                        }
+                        if message["role"] == "user" and message["content"] != "Ok":
+                            new_message["content"] = [{"type": "image"}] + new_message[
+                                "content"
+                            ]
+                        content_messages.append(new_message)
+                    messages = content_messages
+
+                example = {
+                    "messages": messages,
+                    "example_id": example_path.split("/")[-1].split(".json")[0],
+                }
+                data.append(example)
+
+        if use_images:
             print("Loading images")
             # load images
             for example in data:
@@ -52,14 +75,11 @@ class PlancraftDialogueDataset(Dataset):
                 for message_idx, message in enumerate(example["messages"]):
                     for content in message["content"]:
                         if content["type"] == "image":
-                            img_path = (
-                                f"{dataset_dir}/{split}/{example['example_id']}_{i}.png"
-                            )
+                            img_path = f"{dataset_dir}/{split}/imgs/{example['example_id']}_{i}.png"
                             img = Image.open(img_path).convert("RGB")
                             example["images"].append(img)
                             example["message_idx_to_image_idx"][message_idx] = i
                             i += 1
-
         self.dataset = data
         self.max_message_window = max_message_window
 
@@ -210,16 +230,22 @@ def get_collate_fn(
 
 
 def get_dataset_and_collate(
-    template_name: str, max_length: int, max_message_window: int
+    template_name: str, max_length: int, max_message_window: int, trace_mode="oa"
 ):
     if template_name == "llama3":
         model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         train_dataset = PlancraftDialogueDataset(
-            mm=False, max_message_window=max_message_window, split="train"
+            use_images=False,
+            max_message_window=max_message_window,
+            split="train",
+            trace_mode=trace_mode,
         )
         val_dataset = PlancraftDialogueDataset(
-            mm=False, max_message_window=max_message_window, split="val"
+            use_images=False,
+            max_message_window=max_message_window,
+            split="val",
+            trace_mode=trace_mode,
         )
         collate_fn = get_collate_fn(
             tokenizer=tokenizer,
@@ -231,10 +257,16 @@ def get_dataset_and_collate(
         model_name = "/nfs/public/hf/models/HuggingFaceM4/idefics2-8b-chatty"
         processor = AutoProcessor.from_pretrained(model_name, do_image_splitting=False)
         train_dataset = PlancraftDialogueDataset(
-            mm=True, max_message_window=max_message_window, split="train"
+            use_images=True,
+            max_message_window=max_message_window,
+            split="train",
+            trace_mode=trace_mode,
         )
         val_dataset = PlancraftDialogueDataset(
-            mm=True, max_message_window=max_message_window, split="val"
+            use_images=True,
+            max_message_window=max_message_window,
+            split="val",
+            trace_mode=trace_mode,
         )
         collate_fn = get_collate_fn(
             processor=processor,

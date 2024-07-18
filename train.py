@@ -54,6 +54,7 @@ def main(cfg):
         template_name=cfg.training.base_model,
         max_length=cfg.training.max_seq_length,
         max_message_window=cfg.training.max_message_window,
+        trace_mode=cfg.training.trace_mode,
     )
 
     lora_config = LoraConfig(
@@ -69,7 +70,7 @@ def main(cfg):
     model = get_peft_model(model, lora_config, adapter_name="default")
     model.print_trainable_parameters()
 
-    name = f"hf-{cfg.training.base_model}-r{cfg.training.lora_r}-a{cfg.training.lora_alpha}"
+    name = f"{cfg.training.trace_mode}-{cfg.training.base_model}-r{cfg.training.lora_r}-a{cfg.training.lora_alpha}"
 
     wandb.init(
         project=cfg.wandb.project,

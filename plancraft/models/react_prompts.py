@@ -25,7 +25,7 @@ The remaining slots (10-45) are for storing items.
 REACT_EXAMPLE = [
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
+        "content": """Craft an item of type: andesite\ninventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
     },
     {
         "role": "assistant",
@@ -38,7 +38,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]""",
+        "content": """Craft an item of type: andesite\ninventory=[{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]""",
     },
     {
         "role": "assistant",
@@ -51,7 +51,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "andesite", "slot": 0,  "quantity": 1},{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 5, "quantity": 1}]""",
+        "content": """Craft an item of type: andesite\ninventory=[{"type": "andesite", "slot": 0,  "quantity": 1},{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 5, "quantity": 1}]""",
     },
     {
         "role": "assistant",
@@ -64,7 +64,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: iron_ingot\ninventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
+        "content": """Craft an item of type: iron_ingot\ninventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
     },
     {
         "role": "assistant",
@@ -81,7 +81,7 @@ REACT_EXAMPLE_IMGS = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "text", "text": """Craft an item of type: andesite"""},
             {"type": "image"},
         ],
     },
@@ -107,7 +107,7 @@ REACT_EXAMPLE_IMGS = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "text", "text": """Craft an item of type: andesite"""},
             {"type": "image"},
         ],
     },
@@ -133,7 +133,7 @@ REACT_EXAMPLE_IMGS = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "text", "text": """Craft an item of type: andesite"""},
             {"type": "image"},
         ],
     },
@@ -159,7 +159,7 @@ REACT_EXAMPLE_IMGS = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": """TASK: Craft an item of type: iron_ingot"""},
+            {"type": "text", "text": """Craft an item of type: iron_ingot"""},
             {"type": "image"},
         ],
     },
@@ -209,7 +209,7 @@ The remaining slots (10-45) are for storing items.
 ACT_EXAMPLE = [
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
+        "content": """Craft an item of type: andesite\ninventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
     },
     {
         "role": "assistant",
@@ -217,7 +217,7 @@ ACT_EXAMPLE = [
     },
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]""",
+        "content": """Craft an item of type: andesite\ninventory=[{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]""",
     },
     {
         "role": "assistant",
@@ -225,7 +225,7 @@ ACT_EXAMPLE = [
     },
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: andesite\ninventory=[{"type": "andesite", "slot": 0,  "quantity": 1},{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 5, "quantity": 1}]""",
+        "content": """Craft an item of type: andesite\ninventory=[{"type": "andesite", "slot": 0,  "quantity": 1},{"type": "diorite", "slot": 4,  "quantity": 1},{"type": "cobblestone", "slot": 5, "quantity": 1}]""",
     },
     {
         "role": "assistant",
@@ -233,7 +233,7 @@ ACT_EXAMPLE = [
     },
     {
         "role": "user",
-        "content": """TASK: Craft an item of type: iron_ingot\ninventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
+        "content": """Craft an item of type: iron_ingot\ninventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'""",
     },
     {
         "role": "assistant",
@@ -245,7 +245,7 @@ ACT_EXAMPLE_IMGS = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "text", "text": """Craft an item of type: andesite"""},
             {"type": "image"},
         ],
     },
@@ -261,7 +261,7 @@ ACT_EXAMPLE_IMGS = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "text", "text": """Craft an item of type: andesite"""},
             {"type": "image"},
         ],
     },
@@ -277,7 +277,7 @@ ACT_EXAMPLE_IMGS = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": """TASK: Craft an item of type: andesite"""},
+            {"type": "text", "text": """Craft an item of type: andesite"""},
             {"type": "image"},
         ],
     },
@@ -293,7 +293,7 @@ ACT_EXAMPLE_IMGS = [
     {
         "role": "user",
         "content": [
-            {"type": "text", "text": """TASK: Craft an item of type: iron_ingot"""},
+            {"type": "text", "text": """Craft an item of type: iron_ingot"""},
             {"type": "image"},
         ],
     },
