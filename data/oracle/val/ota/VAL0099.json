@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: stone\ninventory=[{\"type\": \"golden_axe\", \"quantity\": 1, \"index\": 12}, {\"type\": \"red_stained_glass\", \"quantity\": 49, \"index\": 13}, {\"type\": \"detector_rail\", \"quantity\": 15, \"index\": 14}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 15}, {\"type\": \"black_concrete_powder\", \"quantity\": 48, \"index\": 16}, {\"type\": \"magma_cream\", \"quantity\": 11, \"index\": 18}, {\"type\": \"quartz\", \"quantity\": 18, \"index\": 21}, {\"type\": \"quartz_block\", \"quantity\": 3, \"index\": 22}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 14, \"index\": 23}, {\"type\": \"obsidian\", \"quantity\": 55, \"index\": 24}, {\"type\": \"prismarine_slab\", \"quantity\": 21, \"index\": 28}, {\"type\": \"black_carpet\", \"quantity\": 63, \"index\": 31}, {\"type\": \"gray_shulker_box\", \"quantity\": 1, \"index\": 34}, {\"type\": \"polished_blackstone_brick_slab\", \"quantity\": 41, \"index\": 35}, {\"type\": \"sandstone_slab\", \"quantity\": 30, \"index\": 39}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 40}, {\"type\": \"mutton\", \"quantity\": 37, \"index\": 45}]"}, {"role": "assistant", "content": "thought: To craft stone, I need to smelt the cobblestone at slot 40 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 40 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: stone\ninventory=[{\"type\": \"golden_axe\", \"quantity\": 1, \"index\": 12}, {\"type\": \"red_stained_glass\", \"quantity\": 49, \"index\": 13}, {\"type\": \"detector_rail\", \"quantity\": 15, \"index\": 14}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 15}, {\"type\": \"black_concrete_powder\", \"quantity\": 48, \"index\": 16}, {\"type\": \"magma_cream\", \"quantity\": 11, \"index\": 18}, {\"type\": \"quartz\", \"quantity\": 18, \"index\": 21}, {\"type\": \"quartz_block\", \"quantity\": 3, \"index\": 22}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 14, \"index\": 23}, {\"type\": \"obsidian\", \"quantity\": 55, \"index\": 24}, {\"type\": \"prismarine_slab\", \"quantity\": 21, \"index\": 28}, {\"type\": \"black_carpet\", \"quantity\": 63, \"index\": 31}, {\"type\": \"gray_shulker_box\", \"quantity\": 1, \"index\": 34}, {\"type\": \"polished_blackstone_brick_slab\", \"quantity\": 41, \"index\": 35}, {\"type\": \"sandstone_slab\", \"quantity\": 30, \"index\": 39}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 40}, {\"type\": \"mutton\", \"quantity\": 37, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft stone, I need to smelt the cobblestone at slot 40 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 40 to slot 11 with quantity 1"
+  }
+]

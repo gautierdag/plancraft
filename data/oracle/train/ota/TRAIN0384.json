@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: cooked_chicken\ninventory=[{\"type\": \"firework_star\", \"quantity\": 9, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 63, \"index\": 26}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 38}, {\"type\": \"brown_mushroom_block\", \"quantity\": 51, \"index\": 39}, {\"type\": \"chicken\", \"quantity\": 1, \"index\": 42}]"}, {"role": "assistant", "content": "thought: To cook the chicken, I will need to smelt it in a furnace. The furnace is located at slot 12, so I will move the chicken from slot 42 to slot 12."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 42 to slot 12 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: cooked_chicken\ninventory=[{\"type\": \"firework_star\", \"quantity\": 9, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 63, \"index\": 26}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 38}, {\"type\": \"brown_mushroom_block\", \"quantity\": 51, \"index\": 39}, {\"type\": \"chicken\", \"quantity\": 1, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To cook the chicken, I will need to smelt it in a furnace. The furnace is located at slot 12, so I will move the chicken from slot 42 to slot 12."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 42 to slot 12 with quantity 1"
+  }
+]

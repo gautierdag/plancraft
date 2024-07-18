@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: redstone\ninventory=[{\"type\": \"horn_coral_block\", \"quantity\": 32, \"index\": 13}, {\"type\": \"stone_pickaxe\", \"quantity\": 1, \"index\": 14}, {\"type\": \"end_portal_frame\", \"quantity\": 25, \"index\": 16}, {\"type\": \"honeycomb\", \"quantity\": 40, \"index\": 17}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 2, \"index\": 20}, {\"type\": \"gravel\", \"quantity\": 11, \"index\": 22}, {\"type\": \"redstone_ore\", \"quantity\": 1, \"index\": 23}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 32}, {\"type\": \"acacia_sapling\", \"quantity\": 49, \"index\": 36}]"}, {"role": "assistant", "content": "thought: The only way to craft redstone is to smelt the redstone ore at slot 23 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 23 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: redstone\ninventory=[{\"type\": \"horn_coral_block\", \"quantity\": 32, \"index\": 13}, {\"type\": \"stone_pickaxe\", \"quantity\": 1, \"index\": 14}, {\"type\": \"end_portal_frame\", \"quantity\": 25, \"index\": 16}, {\"type\": \"honeycomb\", \"quantity\": 40, \"index\": 17}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 2, \"index\": 20}, {\"type\": \"gravel\", \"quantity\": 11, \"index\": 22}, {\"type\": \"redstone_ore\", \"quantity\": 1, \"index\": 23}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 32}, {\"type\": \"acacia_sapling\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: The only way to craft redstone is to smelt the redstone ore at slot 23 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 23 to slot 11 with quantity 1"
+  }
+]

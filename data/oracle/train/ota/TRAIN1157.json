@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: cooked_beef\ninventory=[{\"type\": \"birch_leaves\", \"quantity\": 29, \"index\": 10}, {\"type\": \"wolf_spawn_egg\", \"quantity\": 36, \"index\": 11}, {\"type\": \"tropical_fish\", \"quantity\": 49, \"index\": 13}, {\"type\": \"magenta_banner\", \"quantity\": 5, \"index\": 16}, {\"type\": \"red_concrete\", \"quantity\": 24, \"index\": 19}, {\"type\": \"stone_pressure_plate\", \"quantity\": 4, \"index\": 22}, {\"type\": \"crafting_table\", \"quantity\": 14, \"index\": 26}, {\"type\": \"polished_blackstone_button\", \"quantity\": 7, \"index\": 27}, {\"type\": \"beef\", \"quantity\": 1, \"index\": 29}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 31}, {\"type\": \"lime_carpet\", \"quantity\": 12, \"index\": 32}, {\"type\": \"comparator\", \"quantity\": 26, \"index\": 33}, {\"type\": \"stripped_acacia_log\", \"quantity\": 42, \"index\": 34}, {\"type\": \"chain_command_block\", \"quantity\": 26, \"index\": 37}, {\"type\": \"dandelion\", \"quantity\": 3, \"index\": 38}, {\"type\": \"music_disc_chirp\", \"quantity\": 1, \"index\": 39}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 61, \"index\": 45}]"}, {"role": "assistant", "content": "thought: I want to cook the beef in slot 29, so I will smelt it into slot 12."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 29 to slot 12 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: cooked_beef\ninventory=[{\"type\": \"birch_leaves\", \"quantity\": 29, \"index\": 10}, {\"type\": \"wolf_spawn_egg\", \"quantity\": 36, \"index\": 11}, {\"type\": \"tropical_fish\", \"quantity\": 49, \"index\": 13}, {\"type\": \"magenta_banner\", \"quantity\": 5, \"index\": 16}, {\"type\": \"red_concrete\", \"quantity\": 24, \"index\": 19}, {\"type\": \"stone_pressure_plate\", \"quantity\": 4, \"index\": 22}, {\"type\": \"crafting_table\", \"quantity\": 14, \"index\": 26}, {\"type\": \"polished_blackstone_button\", \"quantity\": 7, \"index\": 27}, {\"type\": \"beef\", \"quantity\": 1, \"index\": 29}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 31}, {\"type\": \"lime_carpet\", \"quantity\": 12, \"index\": 32}, {\"type\": \"comparator\", \"quantity\": 26, \"index\": 33}, {\"type\": \"stripped_acacia_log\", \"quantity\": 42, \"index\": 34}, {\"type\": \"chain_command_block\", \"quantity\": 26, \"index\": 37}, {\"type\": \"dandelion\", \"quantity\": 3, \"index\": 38}, {\"type\": \"music_disc_chirp\", \"quantity\": 1, \"index\": 39}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 61, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: I want to cook the beef in slot 29, so I will smelt it into slot 12."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 29 to slot 12 with quantity 1"
+  }
+]

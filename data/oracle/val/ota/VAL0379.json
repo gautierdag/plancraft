@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: lapis_lazuli\ninventory=[{\"type\": \"brain_coral\", \"quantity\": 8, \"index\": 14}, {\"type\": \"lapis_ore\", \"quantity\": 1, \"index\": 22}, {\"type\": \"chipped_anvil\", \"quantity\": 3, \"index\": 26}, {\"type\": \"painting\", \"quantity\": 8, \"index\": 36}, {\"type\": \"green_terracotta\", \"quantity\": 53, \"index\": 43}]"}, {"role": "assistant", "content": "thought: To craft lapis_lazuli, I need to smelt the lapis_ore at slot 22 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 22 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: lapis_lazuli\ninventory=[{\"type\": \"brain_coral\", \"quantity\": 8, \"index\": 14}, {\"type\": \"lapis_ore\", \"quantity\": 1, \"index\": 22}, {\"type\": \"chipped_anvil\", \"quantity\": 3, \"index\": 26}, {\"type\": \"painting\", \"quantity\": 8, \"index\": 36}, {\"type\": \"green_terracotta\", \"quantity\": 53, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft lapis_lazuli, I need to smelt the lapis_ore at slot 22 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 22 to slot 11 with quantity 1"
+  }
+]

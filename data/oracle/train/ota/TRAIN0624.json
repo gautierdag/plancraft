@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: charcoal\ninventory=[{\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 11}, {\"type\": \"gold_nugget\", \"quantity\": 11, \"index\": 16}, {\"type\": \"packed_ice\", \"quantity\": 16, \"index\": 21}, {\"type\": \"furnace\", \"quantity\": 48, \"index\": 29}, {\"type\": \"hay_block\", \"quantity\": 38, \"index\": 33}, {\"type\": \"stripped_oak_log\", \"quantity\": 1, \"index\": 34}, {\"type\": \"silverfish_spawn_egg\", \"quantity\": 1, \"index\": 35}, {\"type\": \"cyan_banner\", \"quantity\": 1, \"index\": 39}, {\"type\": \"emerald_block\", \"quantity\": 42, \"index\": 42}]"}, {"role": "assistant", "content": "thought: To craft charcoal, I need to smelt the stripped_oak_log at slot 34 into an empty slot (eg., 12)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 34 to slot 12 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: charcoal\ninventory=[{\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 11}, {\"type\": \"gold_nugget\", \"quantity\": 11, \"index\": 16}, {\"type\": \"packed_ice\", \"quantity\": 16, \"index\": 21}, {\"type\": \"furnace\", \"quantity\": 48, \"index\": 29}, {\"type\": \"hay_block\", \"quantity\": 38, \"index\": 33}, {\"type\": \"stripped_oak_log\", \"quantity\": 1, \"index\": 34}, {\"type\": \"silverfish_spawn_egg\", \"quantity\": 1, \"index\": 35}, {\"type\": \"cyan_banner\", \"quantity\": 1, \"index\": 39}, {\"type\": \"emerald_block\", \"quantity\": 42, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft charcoal, I need to smelt the stripped_oak_log at slot 34 into an empty slot (eg., 12)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 34 to slot 12 with quantity 1"
+  }
+]

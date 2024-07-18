@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: emerald\ninventory=[{\"type\": \"polished_blackstone_button\", \"quantity\": 47, \"index\": 20}, {\"type\": \"red_terracotta\", \"quantity\": 26, \"index\": 22}, {\"type\": \"diorite_wall\", \"quantity\": 27, \"index\": 27}, {\"type\": \"cut_sandstone\", \"quantity\": 23, \"index\": 28}, {\"type\": \"nether_brick\", \"quantity\": 38, \"index\": 29}, {\"type\": \"wheat\", \"quantity\": 14, \"index\": 36}, {\"type\": \"gray_concrete_powder\", \"quantity\": 26, \"index\": 38}, {\"type\": \"emerald_ore\", \"quantity\": 1, \"index\": 41}, {\"type\": \"oak_pressure_plate\", \"quantity\": 51, \"index\": 42}]"}, {"role": "assistant", "content": "thought: To craft an emerald, I need to smelt the emerald_ore at slot 41 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 41 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: emerald\ninventory=[{\"type\": \"polished_blackstone_button\", \"quantity\": 47, \"index\": 20}, {\"type\": \"red_terracotta\", \"quantity\": 26, \"index\": 22}, {\"type\": \"diorite_wall\", \"quantity\": 27, \"index\": 27}, {\"type\": \"cut_sandstone\", \"quantity\": 23, \"index\": 28}, {\"type\": \"nether_brick\", \"quantity\": 38, \"index\": 29}, {\"type\": \"wheat\", \"quantity\": 14, \"index\": 36}, {\"type\": \"gray_concrete_powder\", \"quantity\": 26, \"index\": 38}, {\"type\": \"emerald_ore\", \"quantity\": 1, \"index\": 41}, {\"type\": \"oak_pressure_plate\", \"quantity\": 51, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft an emerald, I need to smelt the emerald_ore at slot 41 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 41 to slot 11 with quantity 1"
+  }
+]

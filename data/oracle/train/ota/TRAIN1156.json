@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: cooked_beef\ninventory=[{\"type\": \"painting\", \"quantity\": 34, \"index\": 10}, {\"type\": \"skeleton_horse_spawn_egg\", \"quantity\": 2, \"index\": 11}, {\"type\": \"clay_ball\", \"quantity\": 32, \"index\": 14}, {\"type\": \"lead\", \"quantity\": 54, \"index\": 16}, {\"type\": \"diamond_horse_armor\", \"quantity\": 1, \"index\": 17}, {\"type\": \"dead_tube_coral\", \"quantity\": 33, \"index\": 19}, {\"type\": \"potato\", \"quantity\": 52, \"index\": 21}, {\"type\": \"infested_stone\", \"quantity\": 60, \"index\": 23}, {\"type\": \"netherite_hoe\", \"quantity\": 1, \"index\": 24}, {\"type\": \"white_banner\", \"quantity\": 15, \"index\": 26}, {\"type\": \"golden_chestplate\", \"quantity\": 1, \"index\": 31}, {\"type\": \"light_blue_wool\", \"quantity\": 26, \"index\": 32}, {\"type\": \"golden_carrot\", \"quantity\": 47, \"index\": 36}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 36, \"index\": 37}, {\"type\": \"beef\", \"quantity\": 1, \"index\": 42}, {\"type\": \"suspicious_stew\", \"quantity\": 1, \"index\": 44}, {\"type\": \"gray_glazed_terracotta\", \"quantity\": 14, \"index\": 45}]"}, {"role": "assistant", "content": "thought: To cook the beef, I need to smelt it in an empty slot (eg., 12)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 42 to slot 12 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: cooked_beef\ninventory=[{\"type\": \"painting\", \"quantity\": 34, \"index\": 10}, {\"type\": \"skeleton_horse_spawn_egg\", \"quantity\": 2, \"index\": 11}, {\"type\": \"clay_ball\", \"quantity\": 32, \"index\": 14}, {\"type\": \"lead\", \"quantity\": 54, \"index\": 16}, {\"type\": \"diamond_horse_armor\", \"quantity\": 1, \"index\": 17}, {\"type\": \"dead_tube_coral\", \"quantity\": 33, \"index\": 19}, {\"type\": \"potato\", \"quantity\": 52, \"index\": 21}, {\"type\": \"infested_stone\", \"quantity\": 60, \"index\": 23}, {\"type\": \"netherite_hoe\", \"quantity\": 1, \"index\": 24}, {\"type\": \"white_banner\", \"quantity\": 15, \"index\": 26}, {\"type\": \"golden_chestplate\", \"quantity\": 1, \"index\": 31}, {\"type\": \"light_blue_wool\", \"quantity\": 26, \"index\": 32}, {\"type\": \"golden_carrot\", \"quantity\": 47, \"index\": 36}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 36, \"index\": 37}, {\"type\": \"beef\", \"quantity\": 1, \"index\": 42}, {\"type\": \"suspicious_stew\", \"quantity\": 1, \"index\": 44}, {\"type\": \"gray_glazed_terracotta\", \"quantity\": 14, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To cook the beef, I need to smelt it in an empty slot (eg., 12)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 42 to slot 12 with quantity 1"
+  }
+]

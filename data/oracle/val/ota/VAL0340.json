@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: blue_glazed_terracotta\ninventory=[{\"type\": \"scaffolding\", \"quantity\": 10, \"index\": 13}, {\"type\": \"horn_coral_fan\", \"quantity\": 54, \"index\": 21}, {\"type\": \"light_blue_banner\", \"quantity\": 4, \"index\": 24}, {\"type\": \"sticky_piston\", \"quantity\": 40, \"index\": 25}, {\"type\": \"red_shulker_box\", \"quantity\": 1, \"index\": 32}, {\"type\": \"blue_terracotta\", \"quantity\": 1, \"index\": 33}, {\"type\": \"vine\", \"quantity\": 36, \"index\": 40}, {\"type\": \"wooden_shovel\", \"quantity\": 1, \"index\": 41}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 22, \"index\": 45}]"}, {"role": "assistant", "content": "thought: To craft a blue glazed terracotta, I need to smelt the blue terracotta at slot 33 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 33 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: blue_glazed_terracotta\ninventory=[{\"type\": \"scaffolding\", \"quantity\": 10, \"index\": 13}, {\"type\": \"horn_coral_fan\", \"quantity\": 54, \"index\": 21}, {\"type\": \"light_blue_banner\", \"quantity\": 4, \"index\": 24}, {\"type\": \"sticky_piston\", \"quantity\": 40, \"index\": 25}, {\"type\": \"red_shulker_box\", \"quantity\": 1, \"index\": 32}, {\"type\": \"blue_terracotta\", \"quantity\": 1, \"index\": 33}, {\"type\": \"vine\", \"quantity\": 36, \"index\": 40}, {\"type\": \"wooden_shovel\", \"quantity\": 1, \"index\": 41}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 22, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft a blue glazed terracotta, I need to smelt the blue terracotta at slot 33 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 33 to slot 11 with quantity 1"
+  }
+]

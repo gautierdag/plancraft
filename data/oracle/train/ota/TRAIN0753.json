@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: diamond\ninventory=[{\"type\": \"light_blue_dye\", \"quantity\": 51, \"index\": 16}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 22}, {\"type\": \"diamond_boots\", \"quantity\": 1, \"index\": 23}, {\"type\": \"brown_carpet\", \"quantity\": 50, \"index\": 26}, {\"type\": \"diamond_ore\", \"quantity\": 1, \"index\": 38}]"}, {"role": "assistant", "content": "thought: To craft a diamond, I need to smelt the diamond_ore at slot 38 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 38 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: diamond\ninventory=[{\"type\": \"light_blue_dye\", \"quantity\": 51, \"index\": 16}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 22}, {\"type\": \"diamond_boots\", \"quantity\": 1, \"index\": 23}, {\"type\": \"brown_carpet\", \"quantity\": 50, \"index\": 26}, {\"type\": \"diamond_ore\", \"quantity\": 1, \"index\": 38}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft a diamond, I need to smelt the diamond_ore at slot 38 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 38 to slot 11 with quantity 1"
+  }
+]

@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: sponge\ninventory=[{\"type\": \"wet_sponge\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 37, \"index\": 14}, {\"type\": \"creeper_spawn_egg\", \"quantity\": 44, \"index\": 16}, {\"type\": \"porkchop\", \"quantity\": 40, \"index\": 30}, {\"type\": \"painting\", \"quantity\": 64, \"index\": 31}]"}, {"role": "assistant", "content": "thought: To craft a sponge, I need to dry a wet sponge, which can be done by smelting. Therefore I will smelt the wet sponge at slot 12 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 12 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: sponge\ninventory=[{\"type\": \"wet_sponge\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 37, \"index\": 14}, {\"type\": \"creeper_spawn_egg\", \"quantity\": 44, \"index\": 16}, {\"type\": \"porkchop\", \"quantity\": 40, \"index\": 30}, {\"type\": \"painting\", \"quantity\": 64, \"index\": 31}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft a sponge, I need to dry a wet sponge, which can be done by smelting. Therefore I will smelt the wet sponge at slot 12 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 12 to slot 11 with quantity 1"
+  }
+]

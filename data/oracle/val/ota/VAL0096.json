@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: black_glazed_terracotta\ninventory=[{\"type\": \"brown_stained_glass\", \"quantity\": 5, \"index\": 10}, {\"type\": \"cookie\", \"quantity\": 16, \"index\": 11}, {\"type\": \"dragon_head\", \"quantity\": 42, \"index\": 12}, {\"type\": \"purple_wool\", \"quantity\": 9, \"index\": 14}, {\"type\": \"purple_concrete_powder\", \"quantity\": 31, \"index\": 17}, {\"type\": \"crimson_sign\", \"quantity\": 7, \"index\": 20}, {\"type\": \"birch_leaves\", \"quantity\": 6, \"index\": 21}, {\"type\": \"leather_chestplate\", \"quantity\": 1, \"index\": 27}, {\"type\": \"black_terracotta\", \"quantity\": 1, \"index\": 28}, {\"type\": \"scute\", \"quantity\": 39, \"index\": 29}, {\"type\": \"tipped_arrow\", \"quantity\": 51, \"index\": 31}, {\"type\": \"blue_dye\", \"quantity\": 45, \"index\": 33}, {\"type\": \"wheat\", \"quantity\": 37, \"index\": 35}, {\"type\": \"armor_stand\", \"quantity\": 9, \"index\": 37}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 51, \"index\": 38}, {\"type\": \"flint\", \"quantity\": 9, \"index\": 42}, {\"type\": \"dead_horn_coral\", \"quantity\": 48, \"index\": 44}]"}, {"role": "assistant", "content": "thought: To craft an item of type 'black_glazed_terracotta', I need to smelt the item of type 'black_terracotta' at slot 28 into an empty slot (eg., 13)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 28 to slot 13 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: black_glazed_terracotta\ninventory=[{\"type\": \"brown_stained_glass\", \"quantity\": 5, \"index\": 10}, {\"type\": \"cookie\", \"quantity\": 16, \"index\": 11}, {\"type\": \"dragon_head\", \"quantity\": 42, \"index\": 12}, {\"type\": \"purple_wool\", \"quantity\": 9, \"index\": 14}, {\"type\": \"purple_concrete_powder\", \"quantity\": 31, \"index\": 17}, {\"type\": \"crimson_sign\", \"quantity\": 7, \"index\": 20}, {\"type\": \"birch_leaves\", \"quantity\": 6, \"index\": 21}, {\"type\": \"leather_chestplate\", \"quantity\": 1, \"index\": 27}, {\"type\": \"black_terracotta\", \"quantity\": 1, \"index\": 28}, {\"type\": \"scute\", \"quantity\": 39, \"index\": 29}, {\"type\": \"tipped_arrow\", \"quantity\": 51, \"index\": 31}, {\"type\": \"blue_dye\", \"quantity\": 45, \"index\": 33}, {\"type\": \"wheat\", \"quantity\": 37, \"index\": 35}, {\"type\": \"armor_stand\", \"quantity\": 9, \"index\": 37}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 51, \"index\": 38}, {\"type\": \"flint\", \"quantity\": 9, \"index\": 42}, {\"type\": \"dead_horn_coral\", \"quantity\": 48, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft an item of type 'black_glazed_terracotta', I need to smelt the item of type 'black_terracotta' at slot 28 into an empty slot (eg., 13)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 28 to slot 13 with quantity 1"
+  }
+]

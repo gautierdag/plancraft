@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: iron_ingot\ninventory=[{\"type\": \"soul_sand\", \"quantity\": 49, \"index\": 13}, {\"type\": \"pink_tulip\", \"quantity\": 20, \"index\": 15}, {\"type\": \"damaged_anvil\", \"quantity\": 49, \"index\": 20}, {\"type\": \"chipped_anvil\", \"quantity\": 18, \"index\": 21}, {\"type\": \"oak_fence_gate\", \"quantity\": 47, \"index\": 23}, {\"type\": \"cooked_rabbit\", \"quantity\": 61, \"index\": 28}, {\"type\": \"glass\", \"quantity\": 20, \"index\": 30}, {\"type\": \"iron_ore\", \"quantity\": 1, \"index\": 40}, {\"type\": \"brown_mushroom_block\", \"quantity\": 49, \"index\": 42}]"}, {"role": "assistant", "content": "thought: I have an iron ore at slot 40. To craft an iron ingot, I need to smelt the iron ore at slot 40 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 40 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"soul_sand\", \"quantity\": 49, \"index\": 13}, {\"type\": \"pink_tulip\", \"quantity\": 20, \"index\": 15}, {\"type\": \"damaged_anvil\", \"quantity\": 49, \"index\": 20}, {\"type\": \"chipped_anvil\", \"quantity\": 18, \"index\": 21}, {\"type\": \"oak_fence_gate\", \"quantity\": 47, \"index\": 23}, {\"type\": \"cooked_rabbit\", \"quantity\": 61, \"index\": 28}, {\"type\": \"glass\", \"quantity\": 20, \"index\": 30}, {\"type\": \"iron_ore\", \"quantity\": 1, \"index\": 40}, {\"type\": \"brown_mushroom_block\", \"quantity\": 49, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: I have an iron ore at slot 40. To craft an iron ingot, I need to smelt the iron ore at slot 40 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 40 to slot 11 with quantity 1"
+  }
+]

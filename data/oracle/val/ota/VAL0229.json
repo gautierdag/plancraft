@@ -1,1 +1,18 @@
-[{"role": "user", "content": "TASK: Craft an item of type: cooked_salmon\ninventory=[{\"type\": \"birch_trapdoor\", \"quantity\": 53, \"index\": 29}, {\"type\": \"salmon\", \"quantity\": 1, \"index\": 30}, {\"type\": \"iron_helmet\", \"quantity\": 1, \"index\": 31}, {\"type\": \"polished_diorite\", \"quantity\": 39, \"index\": 34}, {\"type\": \"gold_ore\", \"quantity\": 49, \"index\": 40}]"}, {"role": "assistant", "content": "thought: To craft cooked salmon, I need to smelt the raw salmon at slot 30 into an empty slot (eg., 11)."}, {"role": "user", "content": "Ok"}, {"role": "assistant", "content": "act: smelt from slot 30 to slot 11 with quantity 1"}]
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: cooked_salmon\ninventory=[{\"type\": \"birch_trapdoor\", \"quantity\": 53, \"index\": 29}, {\"type\": \"salmon\", \"quantity\": 1, \"index\": 30}, {\"type\": \"iron_helmet\", \"quantity\": 1, \"index\": 31}, {\"type\": \"polished_diorite\", \"quantity\": 39, \"index\": 34}, {\"type\": \"gold_ore\", \"quantity\": 49, \"index\": 40}]"
+  },
+  {
+    "role": "assistant",
+    "content": "thought: To craft cooked salmon, I need to smelt the raw salmon at slot 30 into an empty slot (eg., 11)."
+  },
+  {
+    "role": "user",
+    "content": "Ok"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 30 to slot 11 with quantity 1"
+  }
+]
