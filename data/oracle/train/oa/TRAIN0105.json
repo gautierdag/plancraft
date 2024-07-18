@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: birch_button\ninventory=[{\"type\": \"andesite_wall\", \"quantity\": 26, \"index\": 11}, {\"type\": \"redstone\", \"quantity\": 51, \"index\": 29}, {\"type\": \"emerald_block\", \"quantity\": 36, \"index\": 34}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 42}, {\"type\": \"brain_coral_block\", \"quantity\": 45, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 42 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: birch_button\ninventory=[{\"type\": \"birch_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"andesite_wall\", \"quantity\": 26, \"index\": 11}, {\"type\": \"redstone\", \"quantity\": 51, \"index\": 29}, {\"type\": \"emerald_block\", \"quantity\": 36, \"index\": 34}, {\"type\": \"brain_coral_block\", \"quantity\": 45, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 1"
+  }
+]

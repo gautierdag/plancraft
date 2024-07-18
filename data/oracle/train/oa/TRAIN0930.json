@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: yellow_dye\ninventory=[{\"type\": \"diamond_boots\", \"quantity\": 1, \"index\": 25}, {\"type\": \"sunflower\", \"quantity\": 1, \"index\": 28}, {\"type\": \"black_wool\", \"quantity\": 3, \"index\": 31}, {\"type\": \"light_gray_terracotta\", \"quantity\": 21, \"index\": 38}, {\"type\": \"sandstone_wall\", \"quantity\": 12, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 28 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: yellow_dye\ninventory=[{\"type\": \"yellow_dye\", \"quantity\": 2, \"index\": 0}, {\"type\": \"sunflower\", \"quantity\": 1, \"index\": 1}, {\"type\": \"diamond_boots\", \"quantity\": 1, \"index\": 25}, {\"type\": \"black_wool\", \"quantity\": 3, \"index\": 31}, {\"type\": \"light_gray_terracotta\", \"quantity\": 21, \"index\": 38}, {\"type\": \"sandstone_wall\", \"quantity\": 12, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 2"
+  }
+]

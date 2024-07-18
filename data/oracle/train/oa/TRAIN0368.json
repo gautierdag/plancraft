@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: smooth_stone\ninventory=[{\"type\": \"warped_stairs\", \"quantity\": 9, \"index\": 21}, {\"type\": \"redstone_lamp\", \"quantity\": 46, \"index\": 27}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 30}, {\"type\": \"birch_slab\", \"quantity\": 57, \"index\": 32}, {\"type\": \"music_disc_mall\", \"quantity\": 1, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 30 to slot 11 with quantity 1"
+  }
+]

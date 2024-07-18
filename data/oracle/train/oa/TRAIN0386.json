@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: cooked_chicken\ninventory=[{\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 10}, {\"type\": \"panda_spawn_egg\", \"quantity\": 17, \"index\": 13}, {\"type\": \"chain\", \"quantity\": 57, \"index\": 14}, {\"type\": \"crimson_sign\", \"quantity\": 2, \"index\": 23}, {\"type\": \"chicken\", \"quantity\": 1, \"index\": 27}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 28}, {\"type\": \"cobblestone_slab\", \"quantity\": 22, \"index\": 35}, {\"type\": \"prismarine_shard\", \"quantity\": 17, \"index\": 39}, {\"type\": \"magenta_concrete\", \"quantity\": 41, \"index\": 40}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 27 to slot 11 with quantity 1"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: blaze_powder\ninventory=[{\"type\": \"bee_spawn_egg\", \"quantity\": 25, \"index\": 10}, {\"type\": \"firework_star\", \"quantity\": 54, \"index\": 11}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 13}, {\"type\": \"dried_kelp_block\", \"quantity\": 43, \"index\": 14}, {\"type\": \"lime_wool\", \"quantity\": 56, \"index\": 15}, {\"type\": \"dried_kelp\", \"quantity\": 33, \"index\": 16}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 11, \"index\": 18}, {\"type\": \"netherite_shovel\", \"quantity\": 1, \"index\": 19}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 23}, {\"type\": \"end_stone\", \"quantity\": 39, \"index\": 27}, {\"type\": \"gray_shulker_box\", \"quantity\": 1, \"index\": 28}, {\"type\": \"spruce_sapling\", \"quantity\": 62, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 60, \"index\": 30}, {\"type\": \"wither_rose\", \"quantity\": 40, \"index\": 31}, {\"type\": \"chain_command_block\", \"quantity\": 23, \"index\": 32}, {\"type\": \"sandstone_wall\", \"quantity\": 29, \"index\": 42}, {\"type\": \"diorite_stairs\", \"quantity\": 34, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 13 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: blaze_powder\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 0}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 1}, {\"type\": \"bee_spawn_egg\", \"quantity\": 25, \"index\": 10}, {\"type\": \"firework_star\", \"quantity\": 54, \"index\": 11}, {\"type\": \"dried_kelp_block\", \"quantity\": 43, \"index\": 14}, {\"type\": \"lime_wool\", \"quantity\": 56, \"index\": 15}, {\"type\": \"dried_kelp\", \"quantity\": 33, \"index\": 16}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 11, \"index\": 18}, {\"type\": \"netherite_shovel\", \"quantity\": 1, \"index\": 19}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 23}, {\"type\": \"end_stone\", \"quantity\": 39, \"index\": 27}, {\"type\": \"gray_shulker_box\", \"quantity\": 1, \"index\": 28}, {\"type\": \"spruce_sapling\", \"quantity\": 62, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 60, \"index\": 30}, {\"type\": \"wither_rose\", \"quantity\": 40, \"index\": 31}, {\"type\": \"chain_command_block\", \"quantity\": 23, \"index\": 32}, {\"type\": \"sandstone_wall\", \"quantity\": 29, \"index\": 42}, {\"type\": \"diorite_stairs\", \"quantity\": 34, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 2"
+  }
+]

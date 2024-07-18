@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: red_dye\ninventory=[{\"type\": \"gray_terracotta\", \"quantity\": 16, \"index\": 11}, {\"type\": \"beetroot\", \"quantity\": 1, \"index\": 12}, {\"type\": \"birch_slab\", \"quantity\": 47, \"index\": 24}, {\"type\": \"cooked_salmon\", \"quantity\": 31, \"index\": 32}, {\"type\": \"tube_coral_block\", \"quantity\": 13, \"index\": 37}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 12 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: red_dye\ninventory=[{\"type\": \"red_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"beetroot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"gray_terracotta\", \"quantity\": 16, \"index\": 11}, {\"type\": \"birch_slab\", \"quantity\": 47, \"index\": 24}, {\"type\": \"cooked_salmon\", \"quantity\": 31, \"index\": 32}, {\"type\": \"tube_coral_block\", \"quantity\": 13, \"index\": 37}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 1"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: coal\ninventory=[{\"type\": \"repeater\", \"quantity\": 3, \"index\": 23}, {\"type\": \"target\", \"quantity\": 15, \"index\": 30}, {\"type\": \"white_wool\", \"quantity\": 38, \"index\": 32}, {\"type\": \"coal_block\", \"quantity\": 1, \"index\": 35}, {\"type\": \"stone_brick_slab\", \"quantity\": 63, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 35 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: coal\ninventory=[{\"type\": \"coal\", \"quantity\": 9, \"index\": 0}, {\"type\": \"coal_block\", \"quantity\": 1, \"index\": 1}, {\"type\": \"repeater\", \"quantity\": 3, \"index\": 23}, {\"type\": \"target\", \"quantity\": 15, \"index\": 30}, {\"type\": \"white_wool\", \"quantity\": 38, \"index\": 32}, {\"type\": \"stone_brick_slab\", \"quantity\": 63, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 9"
+  }
+]

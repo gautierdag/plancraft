@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: smooth_sandstone\ninventory=[{\"type\": \"blue_stained_glass_pane\", \"quantity\": 30, \"index\": 22}, {\"type\": \"rabbit_stew\", \"quantity\": 1, \"index\": 27}, {\"type\": \"acacia_sapling\", \"quantity\": 5, \"index\": 30}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 46, \"index\": 32}, {\"type\": \"sandstone\", \"quantity\": 1, \"index\": 38}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 38 to slot 11 with quantity 1"
+  }
+]

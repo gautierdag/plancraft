@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: crafting_table\ninventory=[{\"type\": \"warped_planks\", \"quantity\": 1, \"index\": 15}, {\"type\": \"sea_lantern\", \"quantity\": 39, \"index\": 23}, {\"type\": \"golden_apple\", \"quantity\": 52, \"index\": 25}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 11, \"index\": 29}, {\"type\": \"bat_spawn_egg\", \"quantity\": 31, \"index\": 36}, {\"type\": \"oak_planks\", \"quantity\": 3, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 42 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: crafting_table\ninventory=[{\"type\": \"oak_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"warped_planks\", \"quantity\": 1, \"index\": 15}, {\"type\": \"sea_lantern\", \"quantity\": 39, \"index\": 23}, {\"type\": \"golden_apple\", \"quantity\": 52, \"index\": 25}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 11, \"index\": 29}, {\"type\": \"bat_spawn_egg\", \"quantity\": 31, \"index\": 36}, {\"type\": \"oak_planks\", \"quantity\": 2, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 42 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: crafting_table\ninventory=[{\"type\": \"oak_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"warped_planks\", \"quantity\": 1, \"index\": 15}, {\"type\": \"sea_lantern\", \"quantity\": 39, \"index\": 23}, {\"type\": \"golden_apple\", \"quantity\": 52, \"index\": 25}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 11, \"index\": 29}, {\"type\": \"bat_spawn_egg\", \"quantity\": 31, \"index\": 36}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 42 to slot 4 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: crafting_table\ninventory=[{\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"warped_planks\", \"quantity\": 1, \"index\": 15}, {\"type\": \"sea_lantern\", \"quantity\": 39, \"index\": 23}, {\"type\": \"golden_apple\", \"quantity\": 52, \"index\": 25}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 11, \"index\": 29}, {\"type\": \"bat_spawn_egg\", \"quantity\": 31, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 15 to slot 5 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: crafting_table\ninventory=[{\"type\": \"crafting_table\", \"quantity\": 1, \"index\": 0}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"oak_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"warped_planks\", \"quantity\": 1, \"index\": 5}, {\"type\": \"sea_lantern\", \"quantity\": 39, \"index\": 23}, {\"type\": \"golden_apple\", \"quantity\": 52, \"index\": 25}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 11, \"index\": 29}, {\"type\": \"bat_spawn_egg\", \"quantity\": 31, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 1"
+  }
+]

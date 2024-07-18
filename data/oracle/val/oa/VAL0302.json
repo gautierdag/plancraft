@@ -1,0 +1,74 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"cobblestone\", \"quantity\": 4, \"index\": 10}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"blackstone\", \"quantity\": 4, \"index\": 27}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 10 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cobblestone\", \"quantity\": 3, \"index\": 10}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"blackstone\", \"quantity\": 4, \"index\": 27}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 10 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cobblestone\", \"quantity\": 2, \"index\": 10}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"blackstone\", \"quantity\": 4, \"index\": 27}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 10 to slot 3 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"cobblestone_slab\", \"quantity\": 6, \"index\": 0}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 10}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"blackstone\", \"quantity\": 4, \"index\": 27}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 10 to slot 4 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"blackstone\", \"quantity\": 4, \"index\": 27}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 27 to slot 6 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 6}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"blackstone\", \"quantity\": 3, \"index\": 27}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 27 to slot 7 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 6}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 7}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"blackstone\", \"quantity\": 2, \"index\": 27}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 27 to slot 8 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 6}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 7}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 8}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 27 to slot 9 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: furnace\ninventory=[{\"type\": \"furnace\", \"quantity\": 1, \"index\": 0}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 6}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 7}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 8}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 9}, {\"type\": \"blaze_rod\", \"quantity\": 8, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 23}, {\"type\": \"green_shulker_box\", \"quantity\": 1, \"index\": 25}, {\"type\": \"brewing_stand\", \"quantity\": 49, \"index\": 36}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 1"
+  }
+]

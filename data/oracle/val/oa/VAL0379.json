@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: lapis_lazuli\ninventory=[{\"type\": \"brain_coral\", \"quantity\": 8, \"index\": 14}, {\"type\": \"lapis_ore\", \"quantity\": 1, \"index\": 22}, {\"type\": \"chipped_anvil\", \"quantity\": 3, \"index\": 26}, {\"type\": \"painting\", \"quantity\": 8, \"index\": 36}, {\"type\": \"green_terracotta\", \"quantity\": 53, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 22 to slot 11 with quantity 1"
+  }
+]

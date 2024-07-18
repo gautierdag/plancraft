@@ -1,0 +1,58 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"ice\", \"quantity\": 64, \"index\": 13}, {\"type\": \"cactus\", \"quantity\": 1, \"index\": 17}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 19}, {\"type\": \"red_stained_glass_pane\", \"quantity\": 32, \"index\": 22}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 34}, {\"type\": \"glowstone_dust\", \"quantity\": 18, \"index\": 44}, {\"type\": \"light_gray_concrete_powder\", \"quantity\": 6, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 17 to slot 11 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"green_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"ice\", \"quantity\": 64, \"index\": 13}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 19}, {\"type\": \"red_stained_glass_pane\", \"quantity\": 32, \"index\": 22}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 34}, {\"type\": \"glowstone_dust\", \"quantity\": 18, \"index\": 44}, {\"type\": \"light_gray_concrete_powder\", \"quantity\": 6, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"green_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"ice\", \"quantity\": 64, \"index\": 13}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 19}, {\"type\": \"red_stained_glass_pane\", \"quantity\": 32, \"index\": 22}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 34}, {\"type\": \"glowstone_dust\", \"quantity\": 18, \"index\": 44}, {\"type\": \"light_gray_concrete_powder\", \"quantity\": 6, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 34 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"lime_dye\", \"quantity\": 2, \"index\": 0}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 2}, {\"type\": \"ice\", \"quantity\": 64, \"index\": 13}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 19}, {\"type\": \"red_stained_glass_pane\", \"quantity\": 32, \"index\": 22}, {\"type\": \"glowstone_dust\", \"quantity\": 18, \"index\": 44}, {\"type\": \"light_gray_concrete_powder\", \"quantity\": 6, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 2"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"lime_dye\", \"quantity\": 2, \"index\": 11}, {\"type\": \"ice\", \"quantity\": 64, \"index\": 13}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 19}, {\"type\": \"red_stained_glass_pane\", \"quantity\": 32, \"index\": 22}, {\"type\": \"glowstone_dust\", \"quantity\": 18, \"index\": 44}, {\"type\": \"light_gray_concrete_powder\", \"quantity\": 6, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"lime_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"lime_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"ice\", \"quantity\": 64, \"index\": 13}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 19}, {\"type\": \"red_stained_glass_pane\", \"quantity\": 32, \"index\": 22}, {\"type\": \"glowstone_dust\", \"quantity\": 18, \"index\": 44}, {\"type\": \"light_gray_concrete_powder\", \"quantity\": 6, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 19 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"lime_wool\", \"quantity\": 1, \"index\": 0}, {\"type\": \"lime_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"lime_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"ice\", \"quantity\": 64, \"index\": 13}, {\"type\": \"red_stained_glass_pane\", \"quantity\": 32, \"index\": 22}, {\"type\": \"glowstone_dust\", \"quantity\": 18, \"index\": 44}, {\"type\": \"light_gray_concrete_powder\", \"quantity\": 6, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 1"
+  }
+]

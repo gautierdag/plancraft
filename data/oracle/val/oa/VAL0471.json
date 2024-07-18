@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: baked_potato\ninventory=[{\"type\": \"potato\", \"quantity\": 1, \"index\": 19}, {\"type\": \"mule_spawn_egg\", \"quantity\": 19, \"index\": 23}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 40}, {\"type\": \"yellow_stained_glass\", \"quantity\": 59, \"index\": 41}, {\"type\": \"zoglin_spawn_egg\", \"quantity\": 63, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 19 to slot 11 with quantity 1"
+  }
+]

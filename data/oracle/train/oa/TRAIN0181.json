@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: brick\ninventory=[{\"type\": \"scute\", \"quantity\": 60, \"index\": 13}, {\"type\": \"string\", \"quantity\": 22, \"index\": 16}, {\"type\": \"sandstone_stairs\", \"quantity\": 31, \"index\": 30}, {\"type\": \"black_shulker_box\", \"quantity\": 1, \"index\": 42}, {\"type\": \"clay_ball\", \"quantity\": 1, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 43 to slot 11 with quantity 1"
+  }
+]

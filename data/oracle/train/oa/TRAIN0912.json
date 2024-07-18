@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: crimson_pressure_plate\ninventory=[{\"type\": \"beehive\", \"quantity\": 30, \"index\": 15}, {\"type\": \"large_fern\", \"quantity\": 22, \"index\": 19}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 1, \"index\": 33}, {\"type\": \"crimson_door\", \"quantity\": 50, \"index\": 37}, {\"type\": \"sunflower\", \"quantity\": 40, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 33 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: crimson_pressure_plate\ninventory=[{\"type\": \"crimson_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 1, \"index\": 1}, {\"type\": \"beehive\", \"quantity\": 30, \"index\": 15}, {\"type\": \"large_fern\", \"quantity\": 22, \"index\": 19}, {\"type\": \"crimson_door\", \"quantity\": 50, \"index\": 37}, {\"type\": \"sunflower\", \"quantity\": 40, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 4"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: crimson_pressure_plate\ninventory=[{\"type\": \"crimson_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"beehive\", \"quantity\": 30, \"index\": 15}, {\"type\": \"large_fern\", \"quantity\": 22, \"index\": 19}, {\"type\": \"crimson_door\", \"quantity\": 50, \"index\": 37}, {\"type\": \"sunflower\", \"quantity\": 40, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: crimson_pressure_plate\ninventory=[{\"type\": \"crimson_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"beehive\", \"quantity\": 30, \"index\": 15}, {\"type\": \"large_fern\", \"quantity\": 22, \"index\": 19}, {\"type\": \"crimson_door\", \"quantity\": 50, \"index\": 37}, {\"type\": \"sunflower\", \"quantity\": 40, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: crimson_pressure_plate\ninventory=[{\"type\": \"crimson_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"crimson_planks\", \"quantity\": 2, \"index\": 11}, {\"type\": \"beehive\", \"quantity\": 30, \"index\": 15}, {\"type\": \"large_fern\", \"quantity\": 22, \"index\": 19}, {\"type\": \"crimson_door\", \"quantity\": 50, \"index\": 37}, {\"type\": \"sunflower\", \"quantity\": 40, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 1"
+  }
+]

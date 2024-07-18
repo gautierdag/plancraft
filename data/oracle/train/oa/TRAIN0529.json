@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: gold_nugget\ninventory=[{\"type\": \"silverfish_spawn_egg\", \"quantity\": 11, \"index\": 10}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 14}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 15}, {\"type\": \"stone_brick_wall\", \"quantity\": 17, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 31, \"index\": 20}, {\"type\": \"red_carpet\", \"quantity\": 2, \"index\": 27}, {\"type\": \"string\", \"quantity\": 14, \"index\": 30}, {\"type\": \"light_blue_terracotta\", \"quantity\": 17, \"index\": 37}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 41 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: gold_nugget\ninventory=[{\"type\": \"gold_nugget\", \"quantity\": 9, \"index\": 0}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"silverfish_spawn_egg\", \"quantity\": 11, \"index\": 10}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 14}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 15}, {\"type\": \"stone_brick_wall\", \"quantity\": 17, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 31, \"index\": 20}, {\"type\": \"red_carpet\", \"quantity\": 2, \"index\": 27}, {\"type\": \"string\", \"quantity\": 14, \"index\": 30}, {\"type\": \"light_blue_terracotta\", \"quantity\": 17, \"index\": 37}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 9"
+  }
+]

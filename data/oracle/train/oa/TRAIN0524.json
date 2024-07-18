@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: iron_nugget\ninventory=[{\"type\": \"green_banner\", \"quantity\": 14, \"index\": 11}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 13}, {\"type\": \"oak_boat\", \"quantity\": 1, \"index\": 15}, {\"type\": \"birch_pressure_plate\", \"quantity\": 32, \"index\": 18}, {\"type\": \"golden_shovel\", \"quantity\": 1, \"index\": 33}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 13 to slot 12 with quantity 1"
+  }
+]

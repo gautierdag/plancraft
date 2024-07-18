@@ -1,0 +1,26 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: heavy_weighted_pressure_plate\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 39, \"index\": 15}, {\"type\": \"acacia_boat\", \"quantity\": 1, \"index\": 19}, {\"type\": \"stone_bricks\", \"quantity\": 19, \"index\": 20}, {\"type\": \"iron_ingot\", \"quantity\": 2, \"index\": 26}, {\"type\": \"magma_cream\", \"quantity\": 59, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 26 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: heavy_weighted_pressure_plate\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 9, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jungle_planks\", \"quantity\": 39, \"index\": 15}, {\"type\": \"acacia_boat\", \"quantity\": 1, \"index\": 19}, {\"type\": \"stone_bricks\", \"quantity\": 19, \"index\": 20}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 26}, {\"type\": \"magma_cream\", \"quantity\": 59, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 26 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: heavy_weighted_pressure_plate\ninventory=[{\"type\": \"heavy_weighted_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"jungle_planks\", \"quantity\": 39, \"index\": 15}, {\"type\": \"acacia_boat\", \"quantity\": 1, \"index\": 19}, {\"type\": \"stone_bricks\", \"quantity\": 19, \"index\": 20}, {\"type\": \"magma_cream\", \"quantity\": 59, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 1"
+  }
+]

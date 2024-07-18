@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: sponge\ninventory=[{\"type\": \"crimson_fence\", \"quantity\": 35, \"index\": 11}, {\"type\": \"beef\", \"quantity\": 39, \"index\": 13}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 17}, {\"type\": \"glowstone_dust\", \"quantity\": 56, \"index\": 21}, {\"type\": \"bucket\", \"quantity\": 12, \"index\": 29}, {\"type\": \"wet_sponge\", \"quantity\": 1, \"index\": 36}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 4, \"index\": 39}, {\"type\": \"crimson_fence_gate\", \"quantity\": 43, \"index\": 43}, {\"type\": \"heavy_weighted_pressure_plate\", \"quantity\": 15, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 36 to slot 12 with quantity 1"
+  }
+]

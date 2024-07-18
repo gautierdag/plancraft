@@ -1,0 +1,50 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: jungle_slab\ninventory=[{\"type\": \"orange_carpet\", \"quantity\": 50, \"index\": 32}, {\"type\": \"melon_slice\", \"quantity\": 41, \"index\": 33}, {\"type\": \"stripped_jungle_log\", \"quantity\": 1, \"index\": 39}, {\"type\": \"orange_shulker_box\", \"quantity\": 1, \"index\": 43}, {\"type\": \"llama_spawn_egg\", \"quantity\": 32, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 39 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: jungle_slab\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"stripped_jungle_log\", \"quantity\": 1, \"index\": 1}, {\"type\": \"orange_carpet\", \"quantity\": 50, \"index\": 32}, {\"type\": \"melon_slice\", \"quantity\": 41, \"index\": 33}, {\"type\": \"orange_shulker_box\", \"quantity\": 1, \"index\": 43}, {\"type\": \"llama_spawn_egg\", \"quantity\": 32, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 4"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: jungle_slab\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"orange_carpet\", \"quantity\": 50, \"index\": 32}, {\"type\": \"melon_slice\", \"quantity\": 41, \"index\": 33}, {\"type\": \"orange_shulker_box\", \"quantity\": 1, \"index\": 43}, {\"type\": \"llama_spawn_egg\", \"quantity\": 32, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: jungle_slab\ninventory=[{\"type\": \"jungle_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jungle_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"orange_carpet\", \"quantity\": 50, \"index\": 32}, {\"type\": \"melon_slice\", \"quantity\": 41, \"index\": 33}, {\"type\": \"orange_shulker_box\", \"quantity\": 1, \"index\": 43}, {\"type\": \"llama_spawn_egg\", \"quantity\": 32, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: jungle_slab\ninventory=[{\"type\": \"jungle_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"jungle_planks\", \"quantity\": 2, \"index\": 11}, {\"type\": \"orange_carpet\", \"quantity\": 50, \"index\": 32}, {\"type\": \"melon_slice\", \"quantity\": 41, \"index\": 33}, {\"type\": \"orange_shulker_box\", \"quantity\": 1, \"index\": 43}, {\"type\": \"llama_spawn_egg\", \"quantity\": 32, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 3 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: jungle_slab\ninventory=[{\"type\": \"jungle_slab\", \"quantity\": 6, \"index\": 0}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 11}, {\"type\": \"orange_carpet\", \"quantity\": 50, \"index\": 32}, {\"type\": \"melon_slice\", \"quantity\": 41, \"index\": 33}, {\"type\": \"orange_shulker_box\", \"quantity\": 1, \"index\": 43}, {\"type\": \"llama_spawn_egg\", \"quantity\": 32, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 6"
+  }
+]

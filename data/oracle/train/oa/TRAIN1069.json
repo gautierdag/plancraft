@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: spruce_planks\ninventory=[{\"type\": \"gray_dye\", \"quantity\": 63, \"index\": 10}, {\"type\": \"warped_fungus\", \"quantity\": 25, \"index\": 14}, {\"type\": \"dandelion\", \"quantity\": 11, \"index\": 23}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 25}, {\"type\": \"stripped_spruce_wood\", \"quantity\": 1, \"index\": 32}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 40, \"index\": 36}, {\"type\": \"red_mushroom\", \"quantity\": 38, \"index\": 41}, {\"type\": \"andesite_stairs\", \"quantity\": 27, \"index\": 42}, {\"type\": \"infested_stone\", \"quantity\": 44, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 32 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: spruce_planks\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"stripped_spruce_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"gray_dye\", \"quantity\": 63, \"index\": 10}, {\"type\": \"warped_fungus\", \"quantity\": 25, \"index\": 14}, {\"type\": \"dandelion\", \"quantity\": 11, \"index\": 23}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 25}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 40, \"index\": 36}, {\"type\": \"red_mushroom\", \"quantity\": 38, \"index\": 41}, {\"type\": \"andesite_stairs\", \"quantity\": 27, \"index\": 42}, {\"type\": \"infested_stone\", \"quantity\": 44, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 4"
+  }
+]

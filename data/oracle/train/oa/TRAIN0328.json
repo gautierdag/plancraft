@@ -1,0 +1,74 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"blackstone\", \"quantity\": 4, \"index\": 28}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 28 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"blackstone\", \"quantity\": 3, \"index\": 28}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 28 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"blackstone\", \"quantity\": 2, \"index\": 28}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 28 to slot 4 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 28}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 28 to slot 5 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"polished_blackstone\", \"quantity\": 4, \"index\": 0}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"blackstone\", \"quantity\": 1, \"index\": 5}, {\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 4"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"polished_blackstone\", \"quantity\": 4, \"index\": 11}, {\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"polished_blackstone_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 3, \"index\": 11}, {\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"polished_blackstone_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"polished_blackstone\", \"quantity\": 2, \"index\": 11}, {\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 3 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: polished_blackstone_slab\ninventory=[{\"type\": \"polished_blackstone_slab\", \"quantity\": 6, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 11}, {\"type\": \"horse_spawn_egg\", \"quantity\": 19, \"index\": 14}, {\"type\": \"brown_concrete\", \"quantity\": 41, \"index\": 24}, {\"type\": \"dark_oak_planks\", \"quantity\": 23, \"index\": 33}, {\"type\": \"cyan_carpet\", \"quantity\": 22, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 6"
+  }
+]

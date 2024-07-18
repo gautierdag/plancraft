@@ -1,0 +1,34 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: white_dye\ninventory=[{\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 25, \"index\": 10}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 14, \"index\": 13}, {\"type\": \"cyan_terracotta\", \"quantity\": 34, \"index\": 15}, {\"type\": \"coal_ore\", \"quantity\": 59, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 38, \"index\": 27}, {\"type\": \"bone\", \"quantity\": 1, \"index\": 29}, {\"type\": \"lime_bed\", \"quantity\": 1, \"index\": 31}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 2, \"index\": 35}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 39}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 29 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: white_dye\ninventory=[{\"type\": \"bone_meal\", \"quantity\": 3, \"index\": 0}, {\"type\": \"bone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 25, \"index\": 10}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 14, \"index\": 13}, {\"type\": \"cyan_terracotta\", \"quantity\": 34, \"index\": 15}, {\"type\": \"coal_ore\", \"quantity\": 59, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 38, \"index\": 27}, {\"type\": \"lime_bed\", \"quantity\": 1, \"index\": 31}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 2, \"index\": 35}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 39}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 3"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: white_dye\ninventory=[{\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 25, \"index\": 10}, {\"type\": \"bone_meal\", \"quantity\": 3, \"index\": 11}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 14, \"index\": 13}, {\"type\": \"cyan_terracotta\", \"quantity\": 34, \"index\": 15}, {\"type\": \"coal_ore\", \"quantity\": 59, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 38, \"index\": 27}, {\"type\": \"lime_bed\", \"quantity\": 1, \"index\": 31}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 2, \"index\": 35}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 39}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: white_dye\ninventory=[{\"type\": \"white_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"bone_meal\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 25, \"index\": 10}, {\"type\": \"bone_meal\", \"quantity\": 2, \"index\": 11}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 14, \"index\": 13}, {\"type\": \"cyan_terracotta\", \"quantity\": 34, \"index\": 15}, {\"type\": \"coal_ore\", \"quantity\": 59, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 38, \"index\": 27}, {\"type\": \"lime_bed\", \"quantity\": 1, \"index\": 31}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 2, \"index\": 35}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 39}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 1"
+  }
+]

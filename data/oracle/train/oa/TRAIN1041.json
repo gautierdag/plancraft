@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: stone_bricks\ninventory=[{\"type\": \"brown_concrete_powder\", \"quantity\": 44, \"index\": 12}, {\"type\": \"stone\", \"quantity\": 4, \"index\": 22}, {\"type\": \"jukebox\", \"quantity\": 59, \"index\": 27}, {\"type\": \"brick_stairs\", \"quantity\": 62, \"index\": 38}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 37, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: stone_bricks\ninventory=[{\"type\": \"stone_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"brown_concrete_powder\", \"quantity\": 44, \"index\": 12}, {\"type\": \"stone\", \"quantity\": 3, \"index\": 22}, {\"type\": \"jukebox\", \"quantity\": 59, \"index\": 27}, {\"type\": \"brick_stairs\", \"quantity\": 62, \"index\": 38}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 37, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: stone_bricks\ninventory=[{\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"brown_concrete_powder\", \"quantity\": 44, \"index\": 12}, {\"type\": \"stone\", \"quantity\": 2, \"index\": 22}, {\"type\": \"jukebox\", \"quantity\": 59, \"index\": 27}, {\"type\": \"brick_stairs\", \"quantity\": 62, \"index\": 38}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 37, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 4 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: stone_bricks\ninventory=[{\"type\": \"stone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"brown_concrete_powder\", \"quantity\": 44, \"index\": 12}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 22}, {\"type\": \"jukebox\", \"quantity\": 59, \"index\": 27}, {\"type\": \"brick_stairs\", \"quantity\": 62, \"index\": 38}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 37, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 5 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: stone_bricks\ninventory=[{\"type\": \"stone_bricks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 5}, {\"type\": \"brown_concrete_powder\", \"quantity\": 44, \"index\": 12}, {\"type\": \"jukebox\", \"quantity\": 59, \"index\": 27}, {\"type\": \"brick_stairs\", \"quantity\": 62, \"index\": 38}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 37, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 4"
+  }
+]

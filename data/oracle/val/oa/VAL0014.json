@@ -1,0 +1,34 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: end_rod\ninventory=[{\"type\": \"light_blue_banner\", \"quantity\": 12, \"index\": 12}, {\"type\": \"salmon_bucket\", \"quantity\": 1, \"index\": 17}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 19}, {\"type\": \"horn_coral_fan\", \"quantity\": 6, \"index\": 21}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 22}, {\"type\": \"netherite_hoe\", \"quantity\": 1, \"index\": 23}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 29}, {\"type\": \"blackstone_slab\", \"quantity\": 55, \"index\": 40}, {\"type\": \"cyan_concrete\", \"quantity\": 32, \"index\": 41}, {\"type\": \"chorus_fruit\", \"quantity\": 1, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 45 to slot 11 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: end_rod\ninventory=[{\"type\": \"popped_chorus_fruit\", \"quantity\": 1, \"index\": 11}, {\"type\": \"light_blue_banner\", \"quantity\": 12, \"index\": 12}, {\"type\": \"salmon_bucket\", \"quantity\": 1, \"index\": 17}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 19}, {\"type\": \"horn_coral_fan\", \"quantity\": 6, \"index\": 21}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 22}, {\"type\": \"netherite_hoe\", \"quantity\": 1, \"index\": 23}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 29}, {\"type\": \"blackstone_slab\", \"quantity\": 55, \"index\": 40}, {\"type\": \"cyan_concrete\", \"quantity\": 32, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: end_rod\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 0}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 1}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 1, \"index\": 11}, {\"type\": \"light_blue_banner\", \"quantity\": 12, \"index\": 12}, {\"type\": \"salmon_bucket\", \"quantity\": 1, \"index\": 17}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 19}, {\"type\": \"horn_coral_fan\", \"quantity\": 6, \"index\": 21}, {\"type\": \"netherite_hoe\", \"quantity\": 1, \"index\": 23}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 29}, {\"type\": \"blackstone_slab\", \"quantity\": 55, \"index\": 40}, {\"type\": \"cyan_concrete\", \"quantity\": 32, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 4 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: end_rod\ninventory=[{\"type\": \"end_rod\", \"quantity\": 4, \"index\": 0}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 1}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 1, \"index\": 4}, {\"type\": \"light_blue_banner\", \"quantity\": 12, \"index\": 12}, {\"type\": \"salmon_bucket\", \"quantity\": 1, \"index\": 17}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 19}, {\"type\": \"horn_coral_fan\", \"quantity\": 6, \"index\": 21}, {\"type\": \"netherite_hoe\", \"quantity\": 1, \"index\": 23}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 29}, {\"type\": \"blackstone_slab\", \"quantity\": 55, \"index\": 40}, {\"type\": \"cyan_concrete\", \"quantity\": 32, \"index\": 41}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 4"
+  }
+]

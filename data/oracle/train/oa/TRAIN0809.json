@@ -1,0 +1,50 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: acacia_slab\ninventory=[{\"type\": \"jigsaw\", \"quantity\": 17, \"index\": 10}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 40, \"index\": 21}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 32}, {\"type\": \"nautilus_shell\", \"quantity\": 21, \"index\": 43}, {\"type\": \"jungle_leaves\", \"quantity\": 4, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 32 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: acacia_slab\ninventory=[{\"type\": \"acacia_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"acacia_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jigsaw\", \"quantity\": 17, \"index\": 10}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 40, \"index\": 21}, {\"type\": \"nautilus_shell\", \"quantity\": 21, \"index\": 43}, {\"type\": \"jungle_leaves\", \"quantity\": 4, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 4"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: acacia_slab\ninventory=[{\"type\": \"jigsaw\", \"quantity\": 17, \"index\": 10}, {\"type\": \"acacia_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 40, \"index\": 21}, {\"type\": \"nautilus_shell\", \"quantity\": 21, \"index\": 43}, {\"type\": \"jungle_leaves\", \"quantity\": 4, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: acacia_slab\ninventory=[{\"type\": \"acacia_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jigsaw\", \"quantity\": 17, \"index\": 10}, {\"type\": \"acacia_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 40, \"index\": 21}, {\"type\": \"nautilus_shell\", \"quantity\": 21, \"index\": 43}, {\"type\": \"jungle_leaves\", \"quantity\": 4, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: acacia_slab\ninventory=[{\"type\": \"acacia_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"jigsaw\", \"quantity\": 17, \"index\": 10}, {\"type\": \"acacia_planks\", \"quantity\": 2, \"index\": 11}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 40, \"index\": 21}, {\"type\": \"nautilus_shell\", \"quantity\": 21, \"index\": 43}, {\"type\": \"jungle_leaves\", \"quantity\": 4, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 3 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: acacia_slab\ninventory=[{\"type\": \"acacia_slab\", \"quantity\": 6, \"index\": 0}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"jigsaw\", \"quantity\": 17, \"index\": 10}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 11}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 40, \"index\": 21}, {\"type\": \"nautilus_shell\", \"quantity\": 21, \"index\": 43}, {\"type\": \"jungle_leaves\", \"quantity\": 4, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 6"
+  }
+]

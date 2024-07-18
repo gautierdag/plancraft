@@ -1,0 +1,42 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: light_blue_bed\ninventory=[{\"type\": \"quartz_slab\", \"quantity\": 33, \"index\": 10}, {\"type\": \"stone_brick_wall\", \"quantity\": 56, \"index\": 15}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 17}, {\"type\": \"blue_orchid\", \"quantity\": 1, \"index\": 28}, {\"type\": \"chain_command_block\", \"quantity\": 57, \"index\": 40}, {\"type\": \"ladder\", \"quantity\": 14, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 28 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: light_blue_bed\ninventory=[{\"type\": \"light_blue_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"blue_orchid\", \"quantity\": 1, \"index\": 1}, {\"type\": \"quartz_slab\", \"quantity\": 33, \"index\": 10}, {\"type\": \"stone_brick_wall\", \"quantity\": 56, \"index\": 15}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 17}, {\"type\": \"chain_command_block\", \"quantity\": 57, \"index\": 40}, {\"type\": \"ladder\", \"quantity\": 14, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: light_blue_bed\ninventory=[{\"type\": \"quartz_slab\", \"quantity\": 33, \"index\": 10}, {\"type\": \"light_blue_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stone_brick_wall\", \"quantity\": 56, \"index\": 15}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 17}, {\"type\": \"chain_command_block\", \"quantity\": 57, \"index\": 40}, {\"type\": \"ladder\", \"quantity\": 14, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: light_blue_bed\ninventory=[{\"type\": \"light_blue_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"quartz_slab\", \"quantity\": 33, \"index\": 10}, {\"type\": \"stone_brick_wall\", \"quantity\": 56, \"index\": 15}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 17}, {\"type\": \"chain_command_block\", \"quantity\": 57, \"index\": 40}, {\"type\": \"ladder\", \"quantity\": 14, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 17 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: light_blue_bed\ninventory=[{\"type\": \"light_blue_bed\", \"quantity\": 1, \"index\": 0}, {\"type\": \"light_blue_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 2}, {\"type\": \"quartz_slab\", \"quantity\": 33, \"index\": 10}, {\"type\": \"stone_brick_wall\", \"quantity\": 56, \"index\": 15}, {\"type\": \"chain_command_block\", \"quantity\": 57, \"index\": 40}, {\"type\": \"ladder\", \"quantity\": 14, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 1"
+  }
+]

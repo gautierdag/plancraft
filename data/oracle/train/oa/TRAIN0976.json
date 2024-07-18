@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: cooked_cod\ninventory=[{\"type\": \"cod\", \"quantity\": 1, \"index\": 12}, {\"type\": \"guardian_spawn_egg\", \"quantity\": 45, \"index\": 18}, {\"type\": \"salmon\", \"quantity\": 17, \"index\": 31}, {\"type\": \"bone_block\", \"quantity\": 17, \"index\": 32}, {\"type\": \"dead_brain_coral\", \"quantity\": 7, \"index\": 38}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 12 to slot 11 with quantity 1"
+  }
+]

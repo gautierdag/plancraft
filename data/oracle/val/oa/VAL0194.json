@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: cooked_chicken\ninventory=[{\"type\": \"chicken\", \"quantity\": 1, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 38, \"index\": 13}, {\"type\": \"potion\", \"quantity\": 1, \"index\": 16}, {\"type\": \"grass_block\", \"quantity\": 45, \"index\": 30}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 23, \"index\": 38}, {\"type\": \"mossy_cobblestone_wall\", \"quantity\": 37, \"index\": 39}, {\"type\": \"infested_mossy_stone_bricks\", \"quantity\": 50, \"index\": 40}, {\"type\": \"red_stained_glass_pane\", \"quantity\": 7, \"index\": 41}, {\"type\": \"magma_block\", \"quantity\": 19, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 12 to slot 11 with quantity 1"
+  }
+]

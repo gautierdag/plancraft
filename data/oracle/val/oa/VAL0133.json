@@ -1,0 +1,26 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: purple_carpet\ninventory=[{\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 24}, {\"type\": \"blackstone_stairs\", \"quantity\": 60, \"index\": 27}, {\"type\": \"cartography_table\", \"quantity\": 63, \"index\": 28}, {\"type\": \"beehive\", \"quantity\": 43, \"index\": 29}, {\"type\": \"dark_prismarine_stairs\", \"quantity\": 63, \"index\": 34}, {\"type\": \"purple_wool\", \"quantity\": 2, \"index\": 35}, {\"type\": \"nether_brick_stairs\", \"quantity\": 41, \"index\": 41}, {\"type\": \"crimson_pressure_plate\", \"quantity\": 15, \"index\": 42}, {\"type\": \"blue_glazed_terracotta\", \"quantity\": 15, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 35 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: purple_carpet\ninventory=[{\"type\": \"purple_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 24}, {\"type\": \"blackstone_stairs\", \"quantity\": 60, \"index\": 27}, {\"type\": \"cartography_table\", \"quantity\": 63, \"index\": 28}, {\"type\": \"beehive\", \"quantity\": 43, \"index\": 29}, {\"type\": \"dark_prismarine_stairs\", \"quantity\": 63, \"index\": 34}, {\"type\": \"purple_wool\", \"quantity\": 1, \"index\": 35}, {\"type\": \"nether_brick_stairs\", \"quantity\": 41, \"index\": 41}, {\"type\": \"crimson_pressure_plate\", \"quantity\": 15, \"index\": 42}, {\"type\": \"blue_glazed_terracotta\", \"quantity\": 15, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 35 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: purple_carpet\ninventory=[{\"type\": \"purple_carpet\", \"quantity\": 3, \"index\": 0}, {\"type\": \"purple_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"purple_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 24}, {\"type\": \"blackstone_stairs\", \"quantity\": 60, \"index\": 27}, {\"type\": \"cartography_table\", \"quantity\": 63, \"index\": 28}, {\"type\": \"beehive\", \"quantity\": 43, \"index\": 29}, {\"type\": \"dark_prismarine_stairs\", \"quantity\": 63, \"index\": 34}, {\"type\": \"nether_brick_stairs\", \"quantity\": 41, \"index\": 41}, {\"type\": \"crimson_pressure_plate\", \"quantity\": 15, \"index\": 42}, {\"type\": \"blue_glazed_terracotta\", \"quantity\": 15, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 3"
+  }
+]

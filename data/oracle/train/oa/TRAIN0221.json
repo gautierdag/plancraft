@@ -1,0 +1,26 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: magenta_dye\ninventory=[{\"type\": \"pink_dye\", \"quantity\": 1, \"index\": 13}, {\"type\": \"respawn_anchor\", \"quantity\": 36, \"index\": 14}, {\"type\": \"cut_red_sandstone\", \"quantity\": 31, \"index\": 21}, {\"type\": \"purple_dye\", \"quantity\": 1, \"index\": 28}, {\"type\": \"lodestone\", \"quantity\": 50, \"index\": 31}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 5, \"index\": 33}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 13 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: magenta_dye\ninventory=[{\"type\": \"pink_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"respawn_anchor\", \"quantity\": 36, \"index\": 14}, {\"type\": \"cut_red_sandstone\", \"quantity\": 31, \"index\": 21}, {\"type\": \"purple_dye\", \"quantity\": 1, \"index\": 28}, {\"type\": \"lodestone\", \"quantity\": 50, \"index\": 31}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 5, \"index\": 33}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 28 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: magenta_dye\ninventory=[{\"type\": \"magenta_dye\", \"quantity\": 2, \"index\": 0}, {\"type\": \"pink_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"purple_dye\", \"quantity\": 1, \"index\": 2}, {\"type\": \"respawn_anchor\", \"quantity\": 36, \"index\": 14}, {\"type\": \"cut_red_sandstone\", \"quantity\": 31, \"index\": 21}, {\"type\": \"lodestone\", \"quantity\": 50, \"index\": 31}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 5, \"index\": 33}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 2"
+  }
+]

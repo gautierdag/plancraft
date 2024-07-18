@@ -1,0 +1,50 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"white_wool\", \"quantity\": 1, \"index\": 13}, {\"type\": \"cave_spider_spawn_egg\", \"quantity\": 5, \"index\": 16}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 57, \"index\": 25}, {\"type\": \"smithing_table\", \"quantity\": 63, \"index\": 29}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 32}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 34}, {\"type\": \"soul_soil\", \"quantity\": 36, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 32 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"green_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 13}, {\"type\": \"cave_spider_spawn_egg\", \"quantity\": 5, \"index\": 16}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 57, \"index\": 25}, {\"type\": \"smithing_table\", \"quantity\": 63, \"index\": 29}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 34}, {\"type\": \"soul_soil\", \"quantity\": 36, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 34 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"lime_dye\", \"quantity\": 2, \"index\": 0}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 2}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 13}, {\"type\": \"cave_spider_spawn_egg\", \"quantity\": 5, \"index\": 16}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 57, \"index\": 25}, {\"type\": \"smithing_table\", \"quantity\": 63, \"index\": 29}, {\"type\": \"soul_soil\", \"quantity\": 36, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 2"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"lime_dye\", \"quantity\": 2, \"index\": 11}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 13}, {\"type\": \"cave_spider_spawn_egg\", \"quantity\": 5, \"index\": 16}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 57, \"index\": 25}, {\"type\": \"smithing_table\", \"quantity\": 63, \"index\": 29}, {\"type\": \"soul_soil\", \"quantity\": 36, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"lime_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"lime_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 13}, {\"type\": \"cave_spider_spawn_egg\", \"quantity\": 5, \"index\": 16}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 57, \"index\": 25}, {\"type\": \"smithing_table\", \"quantity\": 63, \"index\": 29}, {\"type\": \"soul_soil\", \"quantity\": 36, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 13 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: lime_wool\ninventory=[{\"type\": \"lime_wool\", \"quantity\": 1, \"index\": 0}, {\"type\": \"lime_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"lime_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"cave_spider_spawn_egg\", \"quantity\": 5, \"index\": 16}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 57, \"index\": 25}, {\"type\": \"smithing_table\", \"quantity\": 63, \"index\": 29}, {\"type\": \"soul_soil\", \"quantity\": 36, \"index\": 44}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 1"
+  }
+]

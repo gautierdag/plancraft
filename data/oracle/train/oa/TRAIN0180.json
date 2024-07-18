@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: stone\ninventory=[{\"type\": \"emerald\", \"quantity\": 14, \"index\": 10}, {\"type\": \"purple_terracotta\", \"quantity\": 51, \"index\": 13}, {\"type\": \"salmon_bucket\", \"quantity\": 1, \"index\": 16}, {\"type\": \"sea_pickle\", \"quantity\": 15, \"index\": 23}, {\"type\": \"purple_dye\", \"quantity\": 55, \"index\": 26}, {\"type\": \"guardian_spawn_egg\", \"quantity\": 49, \"index\": 30}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 31}, {\"type\": \"cobweb\", \"quantity\": 27, \"index\": 44}, {\"type\": \"lilac\", \"quantity\": 24, \"index\": 45}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 31 to slot 11 with quantity 1"
+  }
+]

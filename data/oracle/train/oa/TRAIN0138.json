@@ -1,0 +1,50 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: turtle_helmet\ninventory=[{\"type\": \"crimson_roots\", \"quantity\": 33, \"index\": 19}, {\"type\": \"yellow_terracotta\", \"quantity\": 49, \"index\": 34}, {\"type\": \"orange_terracotta\", \"quantity\": 22, \"index\": 38}, {\"type\": \"oak_door\", \"quantity\": 10, \"index\": 42}, {\"type\": \"scute\", \"quantity\": 5, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 43 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: turtle_helmet\ninventory=[{\"type\": \"scute\", \"quantity\": 1, \"index\": 1}, {\"type\": \"crimson_roots\", \"quantity\": 33, \"index\": 19}, {\"type\": \"yellow_terracotta\", \"quantity\": 49, \"index\": 34}, {\"type\": \"orange_terracotta\", \"quantity\": 22, \"index\": 38}, {\"type\": \"oak_door\", \"quantity\": 10, \"index\": 42}, {\"type\": \"scute\", \"quantity\": 4, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 43 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: turtle_helmet\ninventory=[{\"type\": \"scute\", \"quantity\": 1, \"index\": 1}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 2}, {\"type\": \"crimson_roots\", \"quantity\": 33, \"index\": 19}, {\"type\": \"yellow_terracotta\", \"quantity\": 49, \"index\": 34}, {\"type\": \"orange_terracotta\", \"quantity\": 22, \"index\": 38}, {\"type\": \"oak_door\", \"quantity\": 10, \"index\": 42}, {\"type\": \"scute\", \"quantity\": 3, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 43 to slot 3 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: turtle_helmet\ninventory=[{\"type\": \"scute\", \"quantity\": 1, \"index\": 1}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 2}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 3}, {\"type\": \"crimson_roots\", \"quantity\": 33, \"index\": 19}, {\"type\": \"yellow_terracotta\", \"quantity\": 49, \"index\": 34}, {\"type\": \"orange_terracotta\", \"quantity\": 22, \"index\": 38}, {\"type\": \"oak_door\", \"quantity\": 10, \"index\": 42}, {\"type\": \"scute\", \"quantity\": 2, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 43 to slot 4 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: turtle_helmet\ninventory=[{\"type\": \"scute\", \"quantity\": 1, \"index\": 1}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 2}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 3}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 4}, {\"type\": \"crimson_roots\", \"quantity\": 33, \"index\": 19}, {\"type\": \"yellow_terracotta\", \"quantity\": 49, \"index\": 34}, {\"type\": \"orange_terracotta\", \"quantity\": 22, \"index\": 38}, {\"type\": \"oak_door\", \"quantity\": 10, \"index\": 42}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 43}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 43 to slot 6 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: turtle_helmet\ninventory=[{\"type\": \"turtle_helmet\", \"quantity\": 1, \"index\": 0}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 1}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 2}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 3}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 4}, {\"type\": \"scute\", \"quantity\": 1, \"index\": 6}, {\"type\": \"crimson_roots\", \"quantity\": 33, \"index\": 19}, {\"type\": \"yellow_terracotta\", \"quantity\": 49, \"index\": 34}, {\"type\": \"orange_terracotta\", \"quantity\": 22, \"index\": 38}, {\"type\": \"oak_door\", \"quantity\": 10, \"index\": 42}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 1"
+  }
+]

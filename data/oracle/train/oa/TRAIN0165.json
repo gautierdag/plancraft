@@ -1,0 +1,50 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: smooth_red_sandstone\ninventory=[{\"type\": \"bookshelf\", \"quantity\": 64, \"index\": 21}, {\"type\": \"red_sand\", \"quantity\": 4, \"index\": 22}, {\"type\": \"stone_pickaxe\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 29}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 13, \"index\": 35}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: smooth_red_sandstone\ninventory=[{\"type\": \"red_sand\", \"quantity\": 1, \"index\": 1}, {\"type\": \"bookshelf\", \"quantity\": 64, \"index\": 21}, {\"type\": \"red_sand\", \"quantity\": 3, \"index\": 22}, {\"type\": \"stone_pickaxe\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 29}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 13, \"index\": 35}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 2 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: smooth_red_sandstone\ninventory=[{\"type\": \"red_sand\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_sand\", \"quantity\": 1, \"index\": 2}, {\"type\": \"bookshelf\", \"quantity\": 64, \"index\": 21}, {\"type\": \"red_sand\", \"quantity\": 2, \"index\": 22}, {\"type\": \"stone_pickaxe\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 29}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 13, \"index\": 35}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 4 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: smooth_red_sandstone\ninventory=[{\"type\": \"red_sand\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_sand\", \"quantity\": 1, \"index\": 2}, {\"type\": \"red_sand\", \"quantity\": 1, \"index\": 4}, {\"type\": \"bookshelf\", \"quantity\": 64, \"index\": 21}, {\"type\": \"red_sand\", \"quantity\": 1, \"index\": 22}, {\"type\": \"stone_pickaxe\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 29}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 13, \"index\": 35}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 22 to slot 5 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: smooth_red_sandstone\ninventory=[{\"type\": \"red_sandstone\", \"quantity\": 1, \"index\": 0}, {\"type\": \"red_sand\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_sand\", \"quantity\": 1, \"index\": 2}, {\"type\": \"red_sand\", \"quantity\": 1, \"index\": 4}, {\"type\": \"red_sand\", \"quantity\": 1, \"index\": 5}, {\"type\": \"bookshelf\", \"quantity\": 64, \"index\": 21}, {\"type\": \"stone_pickaxe\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 29}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 13, \"index\": 35}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: smooth_red_sandstone\ninventory=[{\"type\": \"red_sandstone\", \"quantity\": 1, \"index\": 11}, {\"type\": \"bookshelf\", \"quantity\": 64, \"index\": 21}, {\"type\": \"stone_pickaxe\", \"quantity\": 1, \"index\": 27}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 29}, {\"type\": \"end_stone_brick_stairs\", \"quantity\": 13, \"index\": 35}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 11 to slot 12 with quantity 1"
+  }
+]

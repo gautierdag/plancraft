@@ -1,0 +1,10 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: charcoal\ninventory=[{\"type\": \"potion\", \"quantity\": 1, \"index\": 13}, {\"type\": \"baked_potato\", \"quantity\": 4, \"index\": 14}, {\"type\": \"tube_coral_fan\", \"quantity\": 47, \"index\": 15}, {\"type\": \"stripped_jungle_wood\", \"quantity\": 1, \"index\": 20}, {\"type\": \"melon_seeds\", \"quantity\": 26, \"index\": 26}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: smelt from slot 20 to slot 11 with quantity 1"
+  }
+]

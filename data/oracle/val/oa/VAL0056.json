@@ -1,0 +1,34 @@
+[
+  {
+    "role": "user",
+    "content": "Craft an item of type: birch_button\ninventory=[{\"type\": \"brown_mushroom_block\", \"quantity\": 49, \"index\": 21}, {\"type\": \"white_glazed_terracotta\", \"quantity\": 53, \"index\": 23}, {\"type\": \"nether_brick_slab\", \"quantity\": 5, \"index\": 24}, {\"type\": \"crimson_pressure_plate\", \"quantity\": 9, \"index\": 25}, {\"type\": \"stripped_birch_log\", \"quantity\": 1, \"index\": 29}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 29 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: birch_button\ninventory=[{\"type\": \"birch_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"stripped_birch_log\", \"quantity\": 1, \"index\": 1}, {\"type\": \"brown_mushroom_block\", \"quantity\": 49, \"index\": 21}, {\"type\": \"white_glazed_terracotta\", \"quantity\": 53, \"index\": 23}, {\"type\": \"nether_brick_slab\", \"quantity\": 5, \"index\": 24}, {\"type\": \"crimson_pressure_plate\", \"quantity\": 9, \"index\": 25}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 11 with quantity 4"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: birch_button\ninventory=[{\"type\": \"birch_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"brown_mushroom_block\", \"quantity\": 49, \"index\": 21}, {\"type\": \"white_glazed_terracotta\", \"quantity\": 53, \"index\": 23}, {\"type\": \"nether_brick_slab\", \"quantity\": 5, \"index\": 24}, {\"type\": \"crimson_pressure_plate\", \"quantity\": 9, \"index\": 25}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 11 to slot 1 with quantity 1"
+  },
+  {
+    "role": "user",
+    "content": "Craft an item of type: birch_button\ninventory=[{\"type\": \"birch_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"birch_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"brown_mushroom_block\", \"quantity\": 49, \"index\": 21}, {\"type\": \"white_glazed_terracotta\", \"quantity\": 53, \"index\": 23}, {\"type\": \"nether_brick_slab\", \"quantity\": 5, \"index\": 24}, {\"type\": \"crimson_pressure_plate\", \"quantity\": 9, \"index\": 25}]"
+  },
+  {
+    "role": "assistant",
+    "content": "act: move from slot 0 to slot 12 with quantity 1"
+  }
+]
