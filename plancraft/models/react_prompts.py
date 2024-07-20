@@ -9,7 +9,7 @@ There are two types of actions
 - smelt
 
 To assist with planning, you first generate some thoughts before answering. For example:
-think: To craft an acacia_fence, I first need to craft acacia_planks so I need to move the log from ...
+thought: To craft an acacia_fence, I first need to craft acacia_planks so I need to move the log from ...
 
 The first 10 slots in the inventory are reserved for crafting and correspond to the minecraft crafting table. 
 
@@ -29,7 +29,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
+        "content": """thought: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -42,7 +42,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
+        "content": """thought: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -55,7 +55,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
+        "content": """thought: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -68,7 +68,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+        "content": """thought: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
     },
     {"role": "user", "content": "OK"},
     {
@@ -90,7 +90,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
+                "text": """thought: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
             }
         ],
     },
@@ -116,7 +116,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """think: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
+                "text": """thought: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
             }
         ],
     },
@@ -142,7 +142,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """think: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
+                "text": """thought: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
             }
         ],
     },
@@ -168,7 +168,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+                "text": """thought: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
             }
         ],
     },

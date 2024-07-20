@@ -94,6 +94,7 @@ def main(cfg):
         lr_scheduler_type="cosine",
         warmup_ratio=cfg.training.warmup_ratio,
         dataloader_num_workers=cfg.training.num_workers,
+        dataloader_pin_memory=True,
         logging_dir=f"outputs/logs/{name}",
         logging_steps=1,
         save_total_limit=1,
@@ -119,6 +120,9 @@ def main(cfg):
     # save model
     merged_model = model.merge_and_unload()
     merged_model.save_pretrained(f"outputs/{name}/{name}")
+
+    if cfg.training.push_to_hub:
+        merged_model.push_to_hub(name)
 
 
 if __name__ == "__main__":

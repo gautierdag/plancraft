@@ -10,6 +10,8 @@ from transformers import (
     AutoTokenizer,
 )
 
+from plancraft.models.react_prompts import REACT_SYSTEM_PROMPT, ACT_SYSTEM_PROMPT
+
 TEMPLATES = {
     "idefics2": {
         "assistant": "\nAssistant:",
@@ -30,13 +32,23 @@ class PlancraftDialogueDataset(Dataset):
         trace_mode="oa",
         split="train",
         max_message_window=30,
+        add_system_message=True,
     ):
         super().__init__()
         self.split = split
         self.use_images = use_images
         self.trace_mode = trace_mode
+        self.add_system_message = add_system_message
 
         assert trace_mode in ["oa", "ota"], f"Invalid trace mode {trace_mode}"
+
+        system_message = ""
+        if self.trace_mode == "oa":
+            system_message = ACT_SYSTEM_PROMPT
+        elif self.trace_mode == "ota":
+            system_message = REACT_SYSTEM_PROMPT
+        else:
+            raise ValueError(f"Invalid trace mode {trace_mode}")
 
         print("Loading dialogue dataset")
         data = []
@@ -44,13 +56,26 @@ class PlancraftDialogueDataset(Dataset):
             with open(example_path) as f:
                 messages = json.load(f)
 
+                if add_system_message:
+                    messages = [
+                        {"role": "system", "content": system_message}
+                    ] + messages
+
                 # convert to use list of content items instead of a single string
                 if use_images:
                     content_messages = []
                     for message in messages:
+                        # NOTE: remove the text inventory description
                         new_message = {
                             "role": message["role"],
-                            "content": [{"text": message["content"], "type": "text"}],
+                            "content": [
+                                {
+                                    "text": message["content"].split("\ninventory=[{")[
+                                        0
+                                    ],
+                                    "type": "text",
+                                }
+                            ],
                         }
                         if message["role"] == "user" and message["content"] != "Ok":
                             new_message["content"] = [{"type": "image"}] + new_message[
@@ -84,15 +109,19 @@ class PlancraftDialogueDataset(Dataset):
         self.max_message_window = max_message_window
 
     def __len__(self) -> int:
-        if self.split == "val":
-            return int(len(self.dataset) * 0.05)
+        # if self.split == "val":
+        # return int(len(self.dataset) * 0.5)
         return len(self.dataset)
 
     def __getitem__(self, idx: int) -> tuple[dict, list]:
         example = self.dataset[idx]
         if len(example["messages"]) > self.max_message_window:
             # add system message
-            messages = [example["messages"][0]]
+            if self.add_system_message:
+                messages = [example["messages"][0]]
+            else:
+                messages = []
+
             # sample window
             user_messages_idxs = list(
                 range(self.max_message_window, len(example["messages"]), 2)
