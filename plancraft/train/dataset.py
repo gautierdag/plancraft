@@ -19,6 +19,10 @@ TEMPLATES = {
         "assistant": "<|start_header_id|>assistant<|end_header_id|>\n\n",
         "user": "<|start_header_id|>user<|end_header_id|>\n\n",
     },
+    "llama3.1": {
+        "assistant": "<|start_header_id|>assistant<|end_header_id|>\n\n",
+        "user": "<|start_header_id|>user<|end_header_id|>\n\n",
+    },
 }
 
 
@@ -232,8 +236,11 @@ def get_collate_fn(
 def get_dataset_and_collate(
     template_name: str, max_length: int, max_message_window: int, trace_mode="oa"
 ):
-    if template_name == "llama3":
-        model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
+    if "llama3" in template_name:
+        if "3.1" in template_name:
+            model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+        else:
+            model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         train_dataset = PlancraftDialogueDataset(
             use_images=False,

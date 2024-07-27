@@ -29,9 +29,9 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
+        "content": """thought: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
     },
-    {"role": "user", "content": "OK"},
+    {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
         "content": """act: move from slot 27 to slot 4 with quantity 1""",
@@ -42,9 +42,9 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
+        "content": """thought: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
     },
-    {"role": "user", "content": "OK"},
+    {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
         "content": """act: move from slot 39 to slot 5 with quantity 1""",
@@ -55,9 +55,9 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
+        "content": """thought: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
     },
-    {"role": "user", "content": "OK"},
+    {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
         "content": """act: move from slot 0 to slot 15 with quantity 1""",
@@ -68,9 +68,9 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+        "content": """thought: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
     },
-    {"role": "user", "content": "OK"},
+    {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
         "content": """act: smelt from slot 45 to slot 44 with quantity 1""",
@@ -90,11 +90,11 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
+                "text": """thought: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
             }
         ],
     },
-    {"role": "user", "content": [{"type": "text", "text": "OK"}]},
+    {"role": "user", "content": [{"type": "text", "text": "Ok"}]},
     {
         "role": "assistant",
         "content": [
@@ -116,11 +116,11 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """think: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
+                "text": """thought: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
             }
         ],
     },
-    {"role": "user", "content": [{"type": "text", "text": "OK"}]},
+    {"role": "user", "content": [{"type": "text", "text": "Ok"}]},
     {
         "role": "assistant",
         "content": [
@@ -142,11 +142,11 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """think: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
+                "text": """thought: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
             }
         ],
     },
-    {"role": "user", "content": [{"type": "text", "text": "OK"}]},
+    {"role": "user", "content": [{"type": "text", "text": "Ok"}]},
     {
         "role": "assistant",
         "content": [
@@ -168,11 +168,11 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+                "text": """thought: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
             }
         ],
     },
-    {"role": "user", "content": [{"type": "text", "text": "OK"}]},
+    {"role": "user", "content": [{"type": "text", "text": "Ok"}]},
     {
         "role": "assistant",
         "content": [

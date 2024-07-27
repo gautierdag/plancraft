@@ -31,6 +31,8 @@ class ActModel(ABCModel):
         ), "Real action space unsupported"
 
         self.is_multimodal = not cfg.plancraft.environment.symbolic
+        self.few_shot = cfg.plancraft.few_shot
+        self.system_prompt = cfg.plancraft.system_prompt
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
@@ -61,6 +63,8 @@ class ActModel(ABCModel):
                 "role": "system",
                 "content": [{"text": copy.deepcopy(ACT_SYSTEM_PROMPT), "type": "text"}],
             }
+        if not self.few_shot:
+            examples = []
 
         self.histories = [
             History(
@@ -78,9 +82,12 @@ class ActModel(ABCModel):
         history_idx: int,
         objective: str,
     ):
-        examples = copy.deepcopy(ACT_EXAMPLE)
-        if self.is_multimodal:
-            examples = copy.deepcopy(ACT_EXAMPLE_IMGS)
+        examples = []
+        if self.few_shot:
+            if self.is_multimodal:
+                examples = copy.deepcopy(ACT_EXAMPLE_IMGS)
+            else:
+                examples = copy.deepcopy(ACT_EXAMPLE)
 
         self.histories[history_idx].reset(
             objective=objective, initial_dialogue=examples

@@ -690,6 +690,8 @@ class ReactModel(ABCModel):
         ), "Real action space unsupported"
 
         self.is_multimodal = not cfg.plancraft.environment.symbolic
+        self.few_shot = cfg.plancraft.few_shot
+        self.system_prompt = cfg.plancraft.system_prompt
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
@@ -723,6 +725,9 @@ class ReactModel(ABCModel):
                     {"text": copy.deepcopy(REACT_SYSTEM_PROMPT), "type": "text"}
                 ],
             }
+        
+        if not self.few_shot:
+            examples = []
 
         self.histories = [
             History(
@@ -740,10 +745,12 @@ class ReactModel(ABCModel):
         history_idx: int,
         objective: str,
     ):
-        examples = copy.deepcopy(REACT_EXAMPLE)
-        if self.is_multimodal:
-            examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
-
+        examples = []
+        if self.few_shot:
+            if self.is_multimodal:
+                examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
+            else:
+                examples = copy.deepcopy(REACT_EXAMPLE)
         self.histories[history_idx].reset(
             objective=objective, initial_dialogue=examples
         )
@@ -828,7 +835,7 @@ class ReactModel(ABCModel):
                 content=thought_message, role="assistant"
             )
             self.histories[history_idx].add_message_to_history(
-                content="OK", role="user"
+                content="Ok", role="user"
             )
             # add token used to history
             self.histories[history_idx].tokens_used += thinking_token_used

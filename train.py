@@ -16,6 +16,8 @@ import wandb
 from plancraft.config import TrainConfig
 from plancraft.train.dataset import get_dataset_and_collate
 
+wandb.require("core")
+
 warnings.filterwarnings("ignore")
 logger = logging.getLogger(__name__)
 
@@ -28,6 +30,19 @@ def main(cfg):
 
     if cfg.training.base_model == "llama3":
         model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
+        model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            device_map="auto",
+            torch_dtype=torch.bfloat16,
+            attn_implementation="flash_attention_2",
+        )
+        target_modules = [
+            "q_proj",
+            "v_proj",
+            "k_proj",
+        ]
+    elif cfg.training.base_model == "llama3.1":
+        model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="auto",
@@ -120,6 +135,8 @@ def main(cfg):
     merged_model = model.merge_and_unload()
     merged_model.save_pretrained(f"outputs/{name}/{name}")
 
+    # push to hub
+    merged_model.push_to_hub(f"gautierdag/{name}")
 
 if __name__ == "__main__":
     main()

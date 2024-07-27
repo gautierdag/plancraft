@@ -17,6 +17,8 @@ from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.env_symbolic import SymbolicPlancraft
 from plancraft.models import get_model
 
+wandb.require("core")
+
 logger = logging.getLogger(__name__)
 
 
@@ -177,6 +179,8 @@ class Evaluator:
             total=len(self.examples) * self.cfg.plancraft.max_steps,
             disable=not progress_bar,
         )
+        correct = 0
+        count = 0
 
         while len(examples_queue) > 0:
             # assign example to environment if not already assigned
@@ -219,6 +223,12 @@ class Evaluator:
                     self.save_images(example, self.model.histories[env_idx].images)
                     assigned_examples[env_idx] = None
                     done[env_idx] = False
+                    
+                    correct += int(done[env_idx])
+                    count += 1
+
+                    acc = correct / count
+                    pbar.set_postfix(acc=acc)
                     pbar.update((self.cfg.plancraft.max_steps - num_steps) + 1)
 
             # step actions
@@ -239,10 +249,10 @@ class Evaluator:
 
             # get actions from model (batched)
             actions = self.model.step(observations)
-            if any(actions):
-                logger.info(
-                    f"predicted {len(actions)} actions in {time.time()-time_now:.2f}s"
-                )
+            # if any(actions):
+            #     logger.info(
+            #         f"predicted {len(actions)} actions in {time.time()-time_now:.2f}s"
+            #     )
             pbar.update(len(observations))
 
         return results
