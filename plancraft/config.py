@@ -60,6 +60,7 @@ class EvalConfig(BaseModel):
 class TrainingArgs(BaseModel):
     base_model: str = "llama3"
     trace_mode: str = "oa"
+    push_to_hub: bool = False
 
     # uses less space but not working with multi-gpu training..
     qlora: bool = False

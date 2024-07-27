@@ -9,7 +9,7 @@ There are two types of actions
 - smelt
 
 To assist with planning, you first generate some thoughts before answering. For example:
-think: To craft an acacia_fence, I first need to craft acacia_planks so I need to move the log from ...
+thought: To craft an acacia_fence, I first need to craft acacia_planks so I need to move the log from ...
 
 The first 10 slots in the inventory are reserved for crafting and correspond to the minecraft crafting table. 
 

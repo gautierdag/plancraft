@@ -324,7 +324,7 @@ class TransformersGenerator:
             self.model,
             self.tokenizer,
             batch_messages,
-            start_messages_generation=["think:"] * len(batch_messages),
+            start_messages_generation=["thought:"] * len(batch_messages),
             max_tokens=max_tokens,
             images=kwargs.get("images") if self.is_multimodal else None,
         )
@@ -372,7 +372,9 @@ class TransformersGenerator:
             generated_sequences.sequences[:, prompt_tokens:],
             skip_special_tokens=True,
         )
-        text_responses = [f"think:{text_response}" for text_response in text_responses]
+        text_responses = [
+            f"thought:{text_response}" for text_response in text_responses
+        ]
         _, total_tokens_used = generated_sequences.sequences.shape
         return text_responses, total_tokens_used
 
