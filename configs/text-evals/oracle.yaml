@@ -1,0 +1,19 @@
+plancraft:
+  model: oracle
+  tokenizer: oracle
+  num_generations: 1
+  mode: "oracle"
+  hot_cache: True
+  max_steps: 80
+  quantize: False
+  environment:
+    symbolic: True
+    symbolic_observation_space: True
+    symbolic_action_space: True
+  split: val
+  batch_size: 1
+  max_message_window: 100
+  resume: False
+  output_dir: "outputs"
+  few_shot: False
+  system_prompt: False

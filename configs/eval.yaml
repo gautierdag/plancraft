@@ -1,17 +1,8 @@
 plancraft:
-  # model: /plancraft/outputs/oa-idefics2-r64-a32/oa-idefics2-r64-a32
-  # tokenizer: /nfs/public/hf/models/HuggingFaceM4/idefics2-8b-chatty
-  # tokenizer: meta-llama/Meta-Llama-3.1-8B-Instruct
-  # tokenizer: "gpt-4o-mini"
-  # model: oracle
-  # model: /plancraft/outputs/llama3-r64-a32/final
-  # model: /plancraft/outputs/ota-llama3.1-r16-a32/ota-llama3.1-r16-a32
-  model: /plancraft/outputs/ota-llama3-r64-a32-all/checkpoint-997/plancraft
+  model: /plancraft/outputs/oa-llama3-r64-a32-all/checkpoint-997/plancraft
   tokenizer: meta-llama/Meta-Llama-3.1-8B-Instruct
   num_generations: 1
-  mode: "react"
-  # mode: "oracle"
-  # mode: "dummy"
+  mode: "act"
   hot_cache: True
   max_steps: 80
   quantize: False
@@ -21,7 +12,7 @@ plancraft:
     symbolic_action_space: True
   split: val.small.easy
   batch_size: 1
-  max_message_window: 80
+  max_message_window: 100
   resume: False
   output_dir: "outputs"
   few_shot: False

@@ -145,6 +145,96 @@ class PlancraftDialogueDataset(Dataset):
         return messages, images
 
 
+class PlancraftEnvironmentDataset(Dataset):
+    def __init__(
+        self,
+        dataset_dir: str = "data/oracle",
+        split="train",
+        add_system_message=True,
+    ):
+        super().__init__()
+        self.split = split
+        print("Loading dialogues")
+        data = []
+        for example_path in sorted(glob.glob(f"{dataset_dir}/{split}/oa/*.json")):
+            with open(example_path) as f:
+                messages = json.load(f)
+                # convert to use list of content items instead of a single string
+                environments = []
+                for message in messages:
+                    # NOTE: remove the text inventory description
+                    if "inventory" in message["content"] and message["role"] == "user":
+                        environments.append(
+                    
+                        "content": [
+                            {
+                                "text": message["content"].split("\ninventory=")[0],
+                                "type": "text",
+                            }
+                        ],
+                    }
+                    if message["role"] == "user" and message["content"] != "Ok":
+                    content_messages.append(new_message)
+                messages = content_messages
+
+                example = {
+                    "environments": messages,
+                    "example_id": example_path.split("/")[-1].split(".json")[0],
+                }
+                data.append(example)
+
+            print("Loading images")
+            # load images
+            for example in data:
+                example["images"] = []
+                example["message_idx_to_image_idx"] = {}
+                i = 0
+                for message_idx, message in enumerate(example["messages"]):
+                    for content in message["content"]:
+                        if content["type"] == "image":
+                            img_path = f"{dataset_dir}/{split}/imgs/{example['example_id']}_{i}.png"
+                            img = Image.open(img_path).convert("RGB")
+                            example["images"].append(img)
+                            example["message_idx_to_image_idx"][message_idx] = i
+                            i += 1
+        self.dataset = data
+        self.max_message_window = max_message_window
+
+    def __len__(self) -> int:
+        # if self.split == "val":
+        # return int(len(self.dataset) * 0.5)
+        return len(self.dataset)
+
+    def __getitem__(self, idx: int) -> tuple[dict, list]:
+        example = self.dataset[idx]
+        if len(example["messages"]) > self.max_message_window:
+            # add system message
+            if self.add_system_message:
+                messages = [example["messages"][0]]
+            else:
+                messages = []
+
+            # sample window
+            user_messages_idxs = list(
+                range(self.max_message_window, len(example["messages"]), 2)
+            )
+            end = random.choice(user_messages_idxs)
+            start = end - self.max_message_window + 1
+            assert start != 0
+            # add window
+            messages = messages + example["messages"][start : end + 1]
+            images = []
+            if "images" in example:
+                for message_idx in range(start, end):
+                    if message_idx in example["message_idx_to_image_idx"]:
+                        image_idx = example["message_idx_to_image_idx"][message_idx]
+                        images.append(example["images"][image_idx])
+        else:
+            messages = example["messages"]
+            images = example.get("images", [])
+        return messages, images
+
+
 def track_assistant_response(
     batch,
     tokenizer,

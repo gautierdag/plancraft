@@ -1,0 +1,19 @@
+plancraft:
+  model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  tokenizer: meta-llama/Meta-Llama-3.1-8B-Instruct
+  num_generations: 5
+  mode: "act"
+  hot_cache: False
+  max_steps: 80
+  quantize: False
+  environment:
+    symbolic: True
+    symbolic_observation_space: True
+    symbolic_action_space: True
+  split: val
+  batch_size: 1
+  max_message_window: 100
+  resume: False
+  output_dir: "outputs"
+  few_shot: True
+  system_prompt: True
