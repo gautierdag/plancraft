@@ -280,7 +280,7 @@ class TransformersGenerator:
         self,
         history: History,
         max_messages_window: int,
-        system_prompt: dict,
+        system_prompt: dict = None,
         prompt_images: list = [],
     ) -> tuple[list[dict], list]:
         """
@@ -291,7 +291,7 @@ class TransformersGenerator:
         if len(message_window) > 0 and message_window[0]["role"] == "assistant":
             message_window = message_window[1:]
         # add the system prompt if the first message is not a system message
-        if message_window[0]["role"] != "system":
+        if message_window[0]["role"] != "system" and system_prompt is not None:
             message_window = [system_prompt] + message_window
 
         image_window = []
@@ -535,9 +535,10 @@ class TransformersGenerator:
 
 
 class OpenAIGenerator:
-    def __init__(self, is_multimodal=False):
+    def __init__(self, is_multimodal=False, model_name="gpt-4o-mini"):
         self.client = OpenAI()
         self.is_multimodal = is_multimodal
+        self.model_name = model_name
 
     def reset(self):
         pass
@@ -546,7 +547,7 @@ class OpenAIGenerator:
         self,
         history: History,
         max_messages_window: int,
-        system_prompt: dict,
+        system_prompt: dict = None,
         prompt_images: list = [],
     ) -> tuple[list[dict], list]:
         """
@@ -557,7 +558,7 @@ class OpenAIGenerator:
         if len(message_window) > 0 and message_window[0]["role"] == "assistant":
             message_window = message_window[1:]
         # add the system prompt if the first message is not a system message
-        if message_window[0]["role"] != "system":
+        if message_window[0]["role"] != "system" and system_prompt is not None:
             message_window = [system_prompt] + message_window
 
         if self.is_multimodal:
@@ -598,7 +599,7 @@ class OpenAIGenerator:
         tokens_used = 0
         for messages in batch_messages:
             response = self.client.chat.completions.create(
-                model="gpt-4o",
+                model=self.model_name,
                 messages=messages,
                 temperature=temperature,
                 max_tokens=max_tokens,
@@ -629,7 +630,7 @@ class OpenAIGenerator:
         tokens_used = 0
         for messages in batch_messages:
             response = self.client.chat.completions.create(
-                model="gpt-4o",
+                model=self.model_name,
                 messages=messages,
                 temperature=temperature,
                 max_tokens=32,
@@ -693,14 +694,13 @@ class ReactModel(ABCModel):
 
         self.is_multimodal = not cfg.plancraft.environment.symbolic
         self.few_shot = cfg.plancraft.few_shot
-        self.system_prompt = cfg.plancraft.system_prompt
+        self.use_system_prompt = cfg.plancraft.system_prompt
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
-            self.llm = OpenAIGenerator(is_multimodal=self.is_multimodal)
+            self.llm = OpenAIGenerator(is_multimodal=self.is_multimodal, model_name=cfg.plancraft.model)
         # model is transformers based
         else:
-            print(cfg.plancraft.hot_cache)
             self.llm = TransformersGenerator(
                 model_name=cfg.plancraft.model,
                 tokenizer_name=cfg.plancraft.tokenizer,
@@ -712,12 +712,6 @@ class ReactModel(ABCModel):
         self.batch_size = cfg.plancraft.batch_size
         self.prompt_images = []
 
-        examples = copy.deepcopy(REACT_EXAMPLE)
-        self.system_prompt = {
-            "role": "system",
-            "content": copy.deepcopy(REACT_SYSTEM_PROMPT),
-        }
-
         if self.is_multimodal:
             examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
             self.prompt_images = load_prompt_images()
@@ -727,9 +721,17 @@ class ReactModel(ABCModel):
                     {"text": copy.deepcopy(REACT_SYSTEM_PROMPT), "type": "text"}
                 ],
             }
+        else:
+            examples = copy.deepcopy(REACT_EXAMPLE)
+            self.system_prompt = {
+                "role": "system",
+                "content": copy.deepcopy(REACT_SYSTEM_PROMPT),
+            }
         
         if not self.few_shot:
             examples = []
+        if not self.use_system_prompt:
+            self.system_prompt = None
 
         self.histories = [
             History(

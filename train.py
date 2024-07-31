@@ -29,20 +29,7 @@ def main(cfg):
     torch.set_float32_matmul_precision("medium")
 
     if cfg.training.base_model == "llama3":
-        model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
-        model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            device_map="auto",
-            torch_dtype=torch.bfloat16,
-            attn_implementation="flash_attention_2",
-        )
-        target_modules = [
-            "q_proj",
-            "v_proj",
-            "k_proj",
-        ]
-    elif cfg.training.base_model == "llama3.1":
-        model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
+        model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3.1-8B-Instruct"
         model = AutoModelForCausalLM.from_pretrained(
             model_name,
             device_map="auto",
@@ -77,15 +64,14 @@ def main(cfg):
         lora_alpha=cfg.training.lora_alpha,
         lora_dropout=cfg.training.lora_dropout,
         target_modules=target_modules,
-        use_dora=True,
         init_lora_weights="gaussian",
         bias="none",
         task_type="CAUSAL_LM",
     )
-    model = get_peft_model(model, lora_config, adapter_name="default")
+    model = get_peft_model(model, lora_config, adapter_name="plancraft")
     model.print_trainable_parameters()
 
-    name = f"{cfg.training.trace_mode}-{cfg.training.base_model}-r{cfg.training.lora_r}-a{cfg.training.lora_alpha}"
+    name = f"{cfg.training.trace_mode}-{cfg.training.base_model}-r{cfg.training.lora_r}-a{cfg.training.lora_alpha}-all"
 
     wandb.init(
         project=cfg.wandb.project,
@@ -129,15 +115,10 @@ def main(cfg):
         data_collator=collate_fn,
         callbacks=[EarlyStoppingCallback(early_stopping_patience=1)],
     )
-
     trainer.train()
 
-    # save model
-    merged_model = model.merge_and_unload()
-    merged_model.save_pretrained(f"outputs/{name}/{name}")
-
     if cfg.training.push_to_hub:
-        merged_model.push_to_hub(name)
+        model.push_to_hub(name)
 
 
 if __name__ == "__main__":

@@ -1,19 +1,19 @@
 training: 
-  base_model: "idefics2"
+  base_model: "llama3"
   trace_mode: "oa"
   push_to_hub: True
-  lora_r: 16
+  lora_r: 64
   lora_alpha: 32
   lora_dropout: 0.1
   seed: 42
   batch_size: 1
-  max_seq_length: 8142
+  max_seq_length: 32000
   gradient_accumulation_steps: 4
-  max_window_length: 40
+  max_window_length: 100
   learning_rate: 2e-4
   max_grad_norm: 0.3
   warmup_ratio: 0.05
-  num_train_epochs: 3
+  num_train_epochs: 5
   num_workers: 16
 wandb:
   project: "plancraft-train"

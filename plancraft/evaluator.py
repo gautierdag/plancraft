@@ -224,11 +224,11 @@ class Evaluator:
                     assigned_examples[env_idx] = None
                     done[env_idx] = False
                     
-                    correct += int(done[env_idx])
+                    correct += int(result["success"])
                     count += 1
 
-                    acc = correct / count
-                    pbar.set_postfix(acc=acc)
+                    acc = (correct / count)
+                    pbar.set_postfix(correct=correct, count=count, acc=acc)
                     pbar.update((self.cfg.plancraft.max_steps - num_steps) + 1)
 
             # step actions

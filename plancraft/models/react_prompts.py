@@ -1,5 +1,4 @@
-REACT_SYSTEM_PROMPT = """You are crafting in Minecraft.
-You need to decide on the next action.
+REACT_SYSTEM_PROMPT = """You are crafting in Minecraft. You need to decide on the next action.
 
 You must output an action like the following:
 act: move from slot X to slot Y with quantity Z
@@ -8,8 +7,7 @@ There are two types of actions
 - move
 - smelt
 
-To assist with planning, you first generate some thoughts before answering. For example:
-thought: To craft an acacia_fence, I first need to craft acacia_planks so I need to move the log from ...
+To assist with planning, you first generate some thoughts before answering. 
 
 The first 10 slots in the inventory are reserved for crafting and correspond to the minecraft crafting table. 
 
@@ -185,8 +183,7 @@ REACT_EXAMPLE_IMGS = [
 ]
 
 
-ACT_SYSTEM_PROMPT = """You are crafting in Minecraft.
-You need to decide on the next action.
+ACT_SYSTEM_PROMPT = """You are crafting in Minecraft. You need to decide on the next action.
 
 You must output an action like the following:
 act: move from slot X to slot Y with quantity Z

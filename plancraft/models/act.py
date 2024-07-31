@@ -32,11 +32,11 @@ class ActModel(ABCModel):
 
         self.is_multimodal = not cfg.plancraft.environment.symbolic
         self.few_shot = cfg.plancraft.few_shot
-        self.system_prompt = cfg.plancraft.system_prompt
+        self.use_system_prompt = cfg.plancraft.system_prompt
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
-            self.llm = OpenAIGenerator(is_multimodal=self.is_multimodal)
+            self.llm = OpenAIGenerator(is_multimodal=self.is_multimodal, model_name=cfg.plancraft.model)
         # model is transformers based
         else:
             self.llm = TransformersGenerator(
@@ -49,13 +49,7 @@ class ActModel(ABCModel):
 
         self.batch_size = cfg.plancraft.batch_size
         self.prompt_images = []
-
-        examples = copy.deepcopy(ACT_EXAMPLE)
-        self.system_prompt = {
-            "role": "system",
-            "content": copy.deepcopy(ACT_SYSTEM_PROMPT),
-        }
-
+ 
         if self.is_multimodal:
             examples = copy.deepcopy(ACT_EXAMPLE_IMGS)
             self.prompt_images = load_prompt_images()
@@ -63,8 +57,17 @@ class ActModel(ABCModel):
                 "role": "system",
                 "content": [{"text": copy.deepcopy(ACT_SYSTEM_PROMPT), "type": "text"}],
             }
+        else:
+            examples = copy.deepcopy(ACT_EXAMPLE)
+            self.system_prompt = {
+                "role": "system",
+                "content": copy.deepcopy(ACT_SYSTEM_PROMPT),
+            }
+
         if not self.few_shot:
             examples = []
+        if not self.use_system_prompt:
+            self.system_prompt = None
 
         self.histories = [
             History(

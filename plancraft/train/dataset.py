@@ -21,10 +21,6 @@ TEMPLATES = {
         "assistant": "<|start_header_id|>assistant<|end_header_id|>\n\n",
         "user": "<|start_header_id|>user<|end_header_id|>\n\n",
     },
-    "llama3.1": {
-        "assistant": "<|start_header_id|>assistant<|end_header_id|>\n\n",
-        "user": "<|start_header_id|>user<|end_header_id|>\n\n",
-    },
 }
 
 
@@ -56,7 +52,9 @@ class PlancraftDialogueDataset(Dataset):
 
         print("Loading dialogue dataset")
         data = []
-        for example_path in glob.glob(f"{dataset_dir}/{split}/{trace_mode}/*.json"):
+        for example_path in sorted(
+            glob.glob(f"{dataset_dir}/{split}/{trace_mode}/*.json")
+        ):
             with open(example_path) as f:
                 messages = json.load(f)
 
@@ -221,6 +219,8 @@ def get_collate_fn(
                 text = tokenizer.apply_chat_template(
                     messages, add_generation_prompt=False, tokenize=False
                 )
+                # remove BOS token since it will later be added again by the tokenizer
+                text = text.replace("<|begin_of_text|>", "")
             messages_batch.append(text)
         if processor:
             batch = processor(
@@ -242,7 +242,6 @@ def get_collate_fn(
                 return_tensors="pt",
             )
             labels = batch["input_ids"].clone()
-            # NOTE: off by one error?
             batch["labels"] = labels
 
         # add mask for assistant response
@@ -265,11 +264,8 @@ def get_collate_fn(
 def get_dataset_and_collate(
     template_name: str, max_length: int, max_message_window: int, trace_mode="oa"
 ):
-    if "llama3" in template_name:
-        if "3.1" in template_name:
-            model_name = "meta-llama/Meta-Llama-3.1-8B-Instruct"
-        else:
-            model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-8B-Instruct"
+    if template_name == "llama3":
+        model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3.1-8B-Instruct"
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         train_dataset = PlancraftDialogueDataset(
             use_images=False,
@@ -285,7 +281,7 @@ def get_dataset_and_collate(
         )
         collate_fn = get_collate_fn(
             tokenizer=tokenizer,
-            only_assistant=True,
+            only_assistant=False,
             template_name=template_name,
             max_length=max_length,
         )

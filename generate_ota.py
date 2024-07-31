@@ -1,5 +1,6 @@
 import os
 import json
+import glob
 
 import pandas as pd
 import torch
@@ -35,11 +36,11 @@ Relevant recipes:
 
 1. inventory='[{"type": "diorite", "slot": 27, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]'
 action: move from slot 27 to slot 4 with quantity 1
-thought: To solve this task I need to craft andesite. Andesite requires placing 1 diorite and 1 cobblestone side by side in the crafting table, therefore I will first need to move the diorite from slot 27 into the crafting grid. 
+thought: To solve this task I need to craft andesite. Andesite requires placing 1 diorite and 1 cobblestone side by side in the crafting table. The crafting table is currently empty, therefore I will first move diorite from slot 27 into the crafting grid.
 
 2. inventory=[{"type": "diorite", "slot": 4, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]
 action: move from slot 39 to slot 5 with quantity 1
-thought: Since the diorite has been moved into the crafting grid, I now need to move the cobblestone to the right of it. Slot 5 is to the right of slot 4, and therefore I will move the cobblestone to slot 5.
+thought: Since the diorite has been moved into the crafting grid into slot 4, I now need to move the cobblestone to the right of it. Slot 5 is to the right of slot 4, and therefore I will move the cobblestone to slot 5.
 
 3. inventory=[{"type": "andesite", "slot": 0, "quantity": 1},{"type": "diorite", "slot": 4, "quantity": 1},{"type": "cobblestone", "slot": 5, "quantity": 1}]
 action: move from slot 0 to slot 15 with quantity 1
@@ -56,9 +57,10 @@ iron_nugget	iron_nugget	iron_nugget
 
 1. inventory='[{"type": "iron_ore", "slot": 45, "quantity": 1},{"type": "cobblestone", "slot": 39, "quantity": 1}]
 action: smelt from slot 45 to slot 44 with quantity 1
-thought: To craft an iron_ingot, I need to smelt the iron_ore at slot 45 into an empty slot (eg., 44).
+thought: Given my inventory, to craft an iron_ingot I need to smelt the iron_ore at slot 45 into an empty slot (eg., 44).
 
 """
+
 
 def generate_task_message(example_text, optimal_path: list[str]):
     task_message = BASE_PROMPT + example_text
@@ -70,17 +72,20 @@ def generate_task_message(example_text, optimal_path: list[str]):
     task_message += "\n".join(recipe_message)
     return task_message
 
+
+@torch.no_grad()
 def generate_thoughts(
     row, model, tokenizer, max_window_size=30
 ) -> list[dict[str, str]]:
     step = 1
     task_message = BASE_PROMPT
     optimal_path = row.optimal_path
-    initial_text = row.messages[1]["content"].split("\n")[0]
+    initial_text = row.messages[0]["content"].split("\n")[0]
     task_message = generate_task_message(initial_text, optimal_path)
+
     OTA_texts = []
     OTA_messages = []
-    for i in range(1, len(row.messages), 2):
+    for i in range(0, len(row.messages), 2):
         user_entry = row.messages[i]
         assert user_entry["role"] == "user"
         assistant_entry = row.messages[i + 1]
@@ -89,10 +94,19 @@ def generate_thoughts(
         action = assistant_entry["content"]
 
         # step without thought
-        current_step_text = f"inventory={inventory}\n{action.replace('act:', 'action:')}\nthought:"
+        current_step_text = (
+            f"inventory={inventory}\n{action.replace('act:', 'action:')}\nthought:"
+        )
 
         # history of the last max_window_size steps
-        current_step_text_all = "".join([f"\n\n{s+1}. {t}" for s, t in enumerate(OTA_texts[-(max_window_size+1):] + [current_step_text])])
+        current_step_text_all = "".join(
+            [
+                f"\n\n{s+1}. {t}"
+                for s, t in enumerate(
+                    OTA_texts[-(max_window_size + 1) :] + [current_step_text]
+                )
+            ]
+        )
 
         # regenerate task message based on path left
         task_message = generate_task_message(initial_text, optimal_path)
@@ -105,7 +119,7 @@ def generate_thoughts(
         tokenized_prompt = {k: v.to("cuda") for k, v in tokenized_prompt.items()}
         outputs = model.generate(
             **tokenized_prompt,
-            max_new_tokens=128,
+            max_new_tokens=256,
             do_sample=True,
             temperature=0.6,
             top_p=0.9,
@@ -118,6 +132,7 @@ def generate_thoughts(
             "\n"
         )
         thought = generated_text.split("thought:")[-1].strip().split("\n")[0]
+        print(f"Step {step}: {thought}")
         OTA_texts.append(f"{current_step_text} {thought}")
 
         # if crafting of recipe is done -> reset the current trace and pop the recipe
@@ -141,7 +156,7 @@ def generate_thoughts(
 
 if __name__ == "__main__":
     print("Loading model")
-    model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3-70B"
+    model_name = "/nfs/public/hf/models/meta-llama/Meta-Llama-3.1-70B"
     tokenizer = AutoTokenizer.from_pretrained(model_name, local_files_only=True)
     model = AutoModelForCausalLM.from_pretrained(
         model_name,
@@ -150,6 +165,10 @@ if __name__ == "__main__":
         torch_dtype=torch.bfloat16,
     )
     model.generation_config.pad_token_id = tokenizer.pad_token_id
+
+    model.eval()
+    model = torch.compile(model)
+
     print("Model loaded")
     stopping_criteria = StoppingCriteriaList(
         [
@@ -163,19 +182,24 @@ if __name__ == "__main__":
         with open(f"data/{split}.json", "r") as f:
             examples = json.load(f)
         df = pd.DataFrame(examples)
+        dialogues_paths = sorted(glob.glob(f"data/oracle/{split}/oa/*.json"))
         dialogues = []
-        with open(f"data/oracle/{split}.jsonl", "r") as f:
-            for line in f:
-                dialogues.append(json.loads(line))
+        for path in dialogues_paths:
+            with open(path, "r") as f:
+                tmp = {
+                    "messages": json.load(f),
+                    "example_id": path.split("/")[-1].split(".json")[0],
+                }
+                dialogues.append(tmp)
         dialogue_df = pd.DataFrame(dialogues)
         df = pd.merge(df, dialogue_df, left_on="id", right_on="example_id", how="inner")
-        os.makedirs(f"data/oracle/ota-v2/{split}", exist_ok=True)
+        os.makedirs(f"data/oracle/{split}/ota-v2", exist_ok=True)
         for i, row in df.iterrows():
             print(f"Processing {split}: {i}/{len(df)}")
             example_id = row["id"]
-            path = f"data/oracle/ota-v2/{split}/{example_id}.json"
+            path = f"data/oracle/{split}/ota-v2/{example_id}.json"
             if os.path.exists(path):
                 continue
             output_messages = generate_thoughts(row, model, tokenizer)
             with open(path, "w") as f:
-                json.dump(output_messages, f)
+                json.dump(output_messages, f, indent=2)

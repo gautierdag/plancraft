@@ -26,56 +26,6 @@ kubectl create secret generic regcred-XXX --from-file=config.json=config.json --
 
 Replace `XXX` with your username and `your-namespace` with your namespace.
 
-### Build Image on Kube
-
-Create a file `kaniko.yaml` with the following:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: kaniko
-  labels:
-    eidf/user: "s2234411" # Replace this with your EIDF username
-spec:
-  containers:
-  - name: kaniko
-    resources:
-      requests:
-        cpu: "500m"  # Requests 0.5 CPU cores
-        memory: "1Gi"  # Requests 1 GiB of memory
-      limits:
-        cpu: "1"  # Limits to 1 CPU core
-        memory: "2Gi"  # Limits to 2 GiB of memory
-    image: gcr.io/kaniko-project/executor:latest
-    args: ["--dockerfile=Dockerfile",
-           "--context=git://github.com/gautierdag/plancraft.git#main", # Replace with your git repo - must be public
-           "--destination=docker.io/gautierdag/plancraft:latest", # Replace with your docker hub image
-           "--cache=true"]
-    volumeMounts:
-      - name: docker-config
-        mountPath: /kaniko/.docker
-  volumes:
-    - name: docker-config
-      secret:
-        secretName: regcred-XXX
-  restartPolicy: Never
-```
-
-Replace `s2234411` with your EIDF username, `gautierdag/plancraft` with your docker hub image and `XXX` with your username.
-
-Then run the following command:
-
-```bash
-kubectl delete pod kaniko && kubectl apply -f build/kaniko-pod.yaml
-```
-
-This will create a pod that will build your image and push it to docker hub.
-
-## Using the image
-
-Once the image is built and pushed to the hub, you can use it in your kubernetes cluster.
-
 ### Adding local environment variables
 
 Create unique secret with environment variables:
