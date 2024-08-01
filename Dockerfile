@@ -30,7 +30,7 @@ ENV VGL_ISACTIVE 1
 ENV VGL_DISPLAY egl
 ENV VGL_WM 1
 
-COPY requirements.docker.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
 # CLONE MINERL
