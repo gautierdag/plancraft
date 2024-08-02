@@ -126,6 +126,16 @@ class SymbolicSmeltAction(BaseModel):
         }
 
 
+# class SearchAction(BaseModel):
+#     action_type: str = "search"
+#     search_string: str = ""
+
+#     def to_action_dict(self) -> dict:
+#         return {
+#             "search": self.search_string,
+#         }
+
+
 class RealActionInteraction(BaseModel):
     mouse_direction_x: float = 0
     mouse_direction_y: float = 0

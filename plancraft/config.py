@@ -73,7 +73,9 @@ class TrainingArgs(BaseModel):
     # model args
     batch_size: int = 1
     max_seq_length: int = 8142
-    max_message_window: int = 30
+    max_message_window: int = 100
+    only_assistant: bool = True
+
     # training args
     gradient_accumulation_steps: int = 4
     learning_rate: float = 2e-4

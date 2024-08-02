@@ -12,7 +12,7 @@ plancraft:
     symbolic_action_space: True
   split: val.small.easy
   batch_size: 1
-  max_message_window: 100
+  max_message_window: 30
   resume: False
   output_dir: "outputs"
   few_shot: False

@@ -223,11 +223,11 @@ class Evaluator:
                     self.save_images(example, self.model.histories[env_idx].images)
                     assigned_examples[env_idx] = None
                     done[env_idx] = False
-                    
+
                     correct += int(result["success"])
                     count += 1
 
-                    acc = (correct / count)
+                    acc = correct / count
                     pbar.set_postfix(correct=correct, count=count, acc=acc)
                     pbar.update((self.cfg.plancraft.max_steps - num_steps) + 1)
 
@@ -245,7 +245,7 @@ class Evaluator:
                     # add final observation to history
                     observations[env_idx] = None
 
-            time_now = time.time()
+            # time_now = time.time()
 
             # get actions from model (batched)
             actions = self.model.step(observations)

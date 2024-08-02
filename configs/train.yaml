@@ -7,14 +7,15 @@ training:
   lora_dropout: 0.1
   seed: 42
   batch_size: 1
-  max_seq_length: 32000
+  max_seq_length: 16000
   gradient_accumulation_steps: 4
-  max_window_length: 100
+  max_window_length: 40
   learning_rate: 2e-4
   max_grad_norm: 0.3
   warmup_ratio: 0.05
   num_train_epochs: 5
   num_workers: 16
+  only_assistant: True
 wandb:
   project: "plancraft-train"
   entity: "itl"
