@@ -1,5 +1,5 @@
-python main.py --config-name text-train/act_train_llama_8b_lora.yaml
-python main.py --config-name text-train/react_train_llama_8b_lora.yaml
+python train.py --config-name text-train/act_train_llama_8b_lora.yaml
+python train.py --config-name text-train/react_train_llama_8b_lora.yaml
 
 python main.py --config-name text-evals/act_eval_llama8b_zero_shot.yaml
 python main.py --config-name text-evals/act_eval_llama8b_lora.yaml
