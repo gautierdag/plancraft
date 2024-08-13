@@ -1,24 +1,23 @@
-plancraft:
-  model: meta-llama/Meta-Llama-3.1-8B-Instruct
-  tokenizer: meta-llama/Meta-Llama-3.1-8B-Instruct
-  num_generations: 5
-  mode: "act"
-  hot_cache: False
-  max_steps: 80
-  quantize: False
-  environment:
-    symbolic: True
-    symbolic_observation_space: True
-    symbolic_action_space: True
-  split: val
+training: 
+  base_model: "llama3"
+  trace_mode: "oa"
+  push_to_hub: True
+  lora_r: 64
+  lora_alpha: 32
+  lora_dropout: 0.1
+  seed: 42
   batch_size: 1
-  max_message_window: 40
-  resume: False
-  output_dir: "outputs"
-  few_shot: True
-  system_prompt: True
+  max_seq_length: 8000
+  gradient_accumulation_steps: 4
+  max_window_length: 40
+  learning_rate: 2e-4
+  max_grad_norm: 0.3
+  warmup_ratio: 0.05
+  num_train_epochs: 5
+  num_workers: 16
+  only_assistant: True
 wandb:
-  project: "plancraft"
+  project: "plancraft-train"
   entity: "itl"
   mode: "online"
 launch:

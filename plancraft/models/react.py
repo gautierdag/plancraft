@@ -83,6 +83,7 @@ class TransformersGenerator:
         quantize=False,
         is_multimodal=False,
         use_hot_cache=True,
+        adapter_name="",
         **kwargs,
     ):
         self.model_name = model_name
@@ -130,6 +131,11 @@ class TransformersGenerator:
                 **model_kwargs,
             )
             logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+
+            if adapter_name != "":
+                logger.info(f"Loading adapter {adapter_name}")
+                self.model.load_adapter(adapter_name)
+
             # set pad_token_id
             if self.tokenizer.pad_token_id:
                 self.pad_token_id = self.tokenizer.pad_token_id
@@ -698,7 +704,9 @@ class ReactModel(ABCModel):
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
-            self.llm = OpenAIGenerator(is_multimodal=self.is_multimodal, model_name=cfg.plancraft.model)
+            self.llm = OpenAIGenerator(
+                is_multimodal=self.is_multimodal, model_name=cfg.plancraft.model
+            )
         # model is transformers based
         else:
             self.llm = TransformersGenerator(
@@ -707,6 +715,7 @@ class ReactModel(ABCModel):
                 quantize=cfg.plancraft.quantize,
                 is_multimodal=self.is_multimodal,
                 use_hot_cache=cfg.plancraft.hot_cache,
+                adapter_name=cfg.plancraft.adapter,
             )
 
         self.batch_size = cfg.plancraft.batch_size
@@ -727,7 +736,7 @@ class ReactModel(ABCModel):
                 "role": "system",
                 "content": copy.deepcopy(REACT_SYSTEM_PROMPT),
             }
-        
+
         if not self.few_shot:
             examples = []
         if not self.use_system_prompt:

@@ -95,10 +95,14 @@ class InventoryResetAction(Action):
 
 
 class SymbolicMoveAction(BaseModel):
-    action_type: str = "move"
-    slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
+    """ "Moves an item from one slot to another"""
+
+    # slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
+    # slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
+    # quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
+    slot_from: int
+    slot_to: int
+    quantity: int
 
     @field_validator("slot_from", "slot_to", "quantity", mode="before")
     def transform_str_to_int(cls, value) -> int:
@@ -111,10 +115,14 @@ class SymbolicMoveAction(BaseModel):
 
 
 class SymbolicSmeltAction(BaseModel):
-    action_type: str = "smelt"
-    slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
+    """Smelts an item and moves the result into a new slot"""
+
+    # slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
+    # slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
+    # quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
+    slot_from: int
+    slot_to: int
+    quantity: int
 
     @field_validator("slot_from", "slot_to", "quantity", mode="before")
     def transform_str_to_int(cls, value) -> int:
@@ -126,14 +134,24 @@ class SymbolicSmeltAction(BaseModel):
         }
 
 
-# class SearchAction(BaseModel):
-#     action_type: str = "search"
-#     search_string: str = ""
+class ThinkAction(BaseModel):
+    """Think about the answer before answering"""
 
-#     def to_action_dict(self) -> dict:
-#         return {
-#             "search": self.search_string,
-#         }
+    thought: str
+
+    def to_action_dict(self) -> dict:
+        return {}
+
+
+class SearchAction(BaseModel):
+    """Searches for a relevant document in the wiki"""
+
+    search_string: str
+
+    def to_action_dict(self) -> dict:
+        return {
+            "search": self.search_string,
+        }
 
 
 class RealActionInteraction(BaseModel):

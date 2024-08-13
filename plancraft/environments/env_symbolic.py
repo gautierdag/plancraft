@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 
 from gym import Env
 from minerl.herobraine.hero import spaces
@@ -64,7 +65,14 @@ class SymbolicPlancraft(Env):
                 "quantity": item["quantity"],
             }
 
-    def step(self, action: SymbolicAction | dict):
+    def step(self, action: Optional[SymbolicAction | dict]):
+        if action is None:
+            state_list = [
+                {"type": item["type"], "quantity": item["quantity"], "index": idx}
+                for idx, item in self.state.items()
+            ]
+            return {"inventory": state_list}, 0, False, {}
+
         # action_dict = action.to_action_dict()
         if not isinstance(action, dict):
             action = action.to_action_dict()

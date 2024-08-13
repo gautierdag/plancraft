@@ -17,3 +17,29 @@ plancraft:
   output_dir: "outputs"
   few_shot: False
   system_prompt: False
+wandb:
+  project: "plancraft"
+  entity: "itl"
+  mode: "online"
+launch:
+  command: "python main.py"
+  job_name: "plancraft-s2234411"
+  gpu_limit: 1
+  gpu_product: NVIDIA-A100-SXM4-80GB
+  cpu_request: 12
+  ram_request: 80Gi
+  interactive: False
+  namespace: informatics
+  env_vars:
+    HF_TOKEN:
+      secret_name: s2234411-hf
+      key: HF_TOKEN
+    OPENAI_API_KEY:
+      secret_name: s2234411-openai
+      key: OPENAI_API_KEY
+    WANDB_API_KEY:
+      secret_name: s2234411-wandb
+      key: WANDB_API_KEY
+    SLACK_WEBHOOK:
+      secret_name: s2234411-slack-webhook
+      key: SLACK_WEBHOOK

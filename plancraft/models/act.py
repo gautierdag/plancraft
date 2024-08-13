@@ -36,7 +36,9 @@ class ActModel(ABCModel):
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
-            self.llm = OpenAIGenerator(is_multimodal=self.is_multimodal, model_name=cfg.plancraft.model)
+            self.llm = OpenAIGenerator(
+                is_multimodal=self.is_multimodal, model_name=cfg.plancraft.model
+            )
         # model is transformers based
         else:
             self.llm = TransformersGenerator(
@@ -45,11 +47,12 @@ class ActModel(ABCModel):
                 quantize=cfg.plancraft.quantize,
                 is_multimodal=self.is_multimodal,
                 use_hot_cache=cfg.plancraft.hot_cache,
+                adapter_name=cfg.plancraft.adapter,
             )
 
         self.batch_size = cfg.plancraft.batch_size
         self.prompt_images = []
- 
+
         if self.is_multimodal:
             examples = copy.deepcopy(ACT_EXAMPLE_IMGS)
             self.prompt_images = load_prompt_images()
