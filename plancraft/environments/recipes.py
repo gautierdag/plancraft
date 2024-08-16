@@ -227,13 +227,35 @@ class ShapelessRecipe(BaseRecipe):
     def __repr__(self):
         return f"ShapelessRecipe({self.ingredients}, {self.result})"
 
-    def __prompt_repr__(self)->str:
+    def __prompt_repr__(self) -> str:
         # use to get a simple representation of the recipe for prompting
         out = []
         for ingredients in self.ingredients:
-            ingredients_string = ", ".join([f"{count} {i}" for i, count in ingredients.items()])
-            out.append(f"{ingredients_string} -> {self.result.count} {self.result.item}")
+            ingredients_string = ", ".join(
+                [f"{count} {i}" for i, count in ingredients.items()]
+            )
+            out.append(
+                f"{ingredients_string} -> {self.result.count} {self.result.item}"
+            )
         return "\n".join(out)
+
+    def sample_input_crafting_grid(self) -> list[dict[str, int]]:
+        # sample a random ingredient crafting arrangement to craft item
+        ingredients = deepcopy(random.choice(self.ingredients))
+
+        num_inputs = sum(ingredients.values())
+        crafting_table_slots = random.sample(range(1, 10), num_inputs)
+
+        ingredients_list = []
+        for i, count in ingredients.items():
+            ingredients_list += [i] * count
+
+        crafting_table = []
+        for ingredient, slot in zip(ingredients_list, crafting_table_slots):
+            if ingredient is not None:
+                crafting_table.append({"type": ingredient, "slot": slot, "quantity": 1})
+
+        return crafting_table
 
 
 class ShapedRecipe(BaseRecipe):
@@ -390,7 +412,7 @@ class ShapedRecipe(BaseRecipe):
     def __repr__(self) -> str:
         return f"ShapedRecipe({self.kernel}, {self.result})"
 
-    def __prompt_repr__(self)->str:
+    def __prompt_repr__(self) -> str:
         string_kernel = []
         for row in self.kernel:
             row_col = []
@@ -400,9 +422,33 @@ class ShapedRecipe(BaseRecipe):
                     valid_items[0] = "empty"
                 row_col.append("|".join(valid_items))
             string_kernel.append("\t".join(row_col))
-        result_row = (len(self.kernel) // 2)
-        string_kernel[result_row] = string_kernel[result_row] + f" -> {self.result.count} {self.result.item}"
+        result_row = len(self.kernel) // 2
+        string_kernel[result_row] = (
+            string_kernel[result_row] + f" -> {self.result.count} {self.result.item}"
+        )
         return "\n".join(string_kernel)
+
+    def sample_input_crafting_grid(self) -> list[dict[str, int]]:
+        # sample a random ingredient crafting arrangement to craft item
+        crafting_table = []
+
+        start_row, start_col = random.choice(self.possible_kernel_positions())
+        for x in range(0, len(self.kernel)):
+            for y in range(0, len(self.kernel[0])):
+                i = random.choice(list(self.kernel[x][y]))
+                object_type = id_to_item(i)
+                if object_type is None:
+                    continue
+                location_x = start_row + x
+                location_y = start_col + y
+                crafting_table += [
+                    {
+                        "type": object_type,
+                        "slot": location_x * 3 + location_y + 1,
+                        "quantity": 1,
+                    }
+                ]
+        return crafting_table
 
 
 class SmeltingRecipe(BaseRecipe):
@@ -449,8 +495,8 @@ class SmeltingRecipe(BaseRecipe):
 
     def __repr__(self) -> str:
         return f"SmeltingRecipe({self.ingredient}, {self.result})"
-    
-    def __prompt_repr__(self)->str:
+
+    def __prompt_repr__(self) -> str:
         # use to get a simple representation of the recipe for prompting
         out = []
         for i in self.ingredient:
