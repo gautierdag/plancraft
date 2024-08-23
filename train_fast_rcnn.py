@@ -479,11 +479,12 @@ class IntegratedBoundingBoxModel(nn.Module):
             min_size=64,
             max_size=64,
             num_classes=len(ALL_ITEMS),
+            box_score_thresh=0.001,
         )
-        self.model.roi_heads.quantity_prediction = nn.Linear(1024, 65)
-        self.model.roi_heads.forward = forward_custom.__get__(
-            self.model.roi_heads, type(self.model.roi_heads)
-        )
+        # self.model.roi_heads.quantity_prediction = nn.Linear(1024, 65)
+        # self.model.roi_heads.forward = forward_custom.__get__(
+        #     self.model.roi_heads, type(self.model.roi_heads)
+        # )
 
     def forward(self, x, targets=None):
         if self.training:
@@ -558,7 +559,7 @@ if __name__ == "__main__":
                     box = predictions[img_idx]["boxes"][box_idx]
                     score = predictions[img_idx]["scores"][box_idx]
                     label = predictions[img_idx]["labels"][box_idx]
-                    quantity = predictions[img_idx]["quantities"][box_idx]
+                    # quantity = predictions[img_idx]["quantities"][box_idx]
 
                     # if score > 0:
                     draw = ImageDraw.Draw(img)
@@ -568,11 +569,11 @@ if __name__ == "__main__":
                         f"{label.item()}",
                         fill="green",
                     )
-                    draw.text(
-                        (box[0], box[1] + 10),
-                        f"{quantity.item()}",
-                        fill="blue",
-                    )
+                    # draw.text(
+                    #     (box[0], box[1] + 10),
+                    #     f"{quantity.item()}",
+                    #     fill="blue",
+                    # )
 
                 # log image
                 wandb.log({f"image_{img_idx}": wandb.Image(img)})

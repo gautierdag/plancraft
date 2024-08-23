@@ -10,7 +10,7 @@ from transformers import (
     AutoTokenizer,
 )
 
-from plancraft.models.react_prompts import REACT_SYSTEM_PROMPT, ACT_SYSTEM_PROMPT
+from plancraft.models.prompts import REACT_SYSTEM_PROMPT, ACT_SYSTEM_PROMPT
 
 TEMPLATES = {
     "idefics2": {

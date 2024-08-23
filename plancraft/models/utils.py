@@ -140,3 +140,79 @@ def tokenize(
             padding=True,
         )
     return tokenized_messages
+
+
+def convert_to_slot_index(slot: str) -> int:
+    slot = slot.strip()
+    grid_map = {
+        "[0]": 0,
+        "[A1]": 1,
+        "[A2]": 2,
+        "[A3]": 3,
+        "[B1]": 4,
+        "[B2]": 5,
+        "[B3]": 6,
+        "[C1]": 7,
+        "[C2]": 8,
+        "[C3]": 9,
+    }
+    if slot in grid_map:
+        return grid_map[slot]
+    else:
+        return int(slot[2:-1]) + 9
+
+
+def convert_from_slot_index(slot_index: int) -> str:
+    grid_map = {
+        0: "[0]",
+        1: "[A1]",
+        2: "[A2",
+        3: "[A3]",
+        4: "[B1]",
+        5: "[B2]",
+        6: "[B3]",
+        7: "[C1]",
+        8: "[C2]",
+        9: "[C3]",
+    }
+    if slot_index < 10:
+        return grid_map[slot_index]
+    else:
+        return f"[I{slot_index-9}]"
+
+
+def convert_observation_to_message(
+    observation: dict, objective: str, is_multimodal=False
+) -> str | dict:
+    """
+    Convert an observation to a message format
+    NOTE: this needs to align with template in few-shot
+    """
+    if is_multimodal:
+        content_message = {
+            "content": [
+                {"type": "text", "text": f"{objective}"},
+                {"type": "image"},
+            ]
+        }
+        return content_message
+    else:
+        # if not multimodal, we only have text - we just dump a JSON of the inventory
+        inventory = []
+        for o in observation["inventory"]:
+            if o["quantity"] > 0:
+                inventory.append(
+                    {
+                        "type": o["type"],
+                        "slot": convert_from_slot_index(o["index"]),
+                        "quantity": o["quantity"],
+                    }
+                )
+
+        inventory_str = ""
+        for item in inventory:
+            inventory_str += (
+                f"\n - {item['type']} {item['slot']} quantity {item['quantity']}"
+            )
+
+        return f"{objective}\ninventory={inventory_str}"

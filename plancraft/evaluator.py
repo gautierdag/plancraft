@@ -176,7 +176,7 @@ class Evaluator:
         observations = [None for _ in range(self.batch_size)]
         done = [False for _ in range(self.batch_size)]
         pbar = tqdm(
-            total=len(self.examples) * self.cfg.plancraft.max_steps,
+            total=(len(self.examples) + 1) * self.cfg.plancraft.max_steps,
             disable=not progress_bar,
         )
         correct = 0

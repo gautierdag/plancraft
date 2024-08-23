@@ -1,5 +1,4 @@
 import copy
-import json
 import logging
 
 from dotenv import load_dotenv
@@ -7,13 +6,17 @@ from dotenv import load_dotenv
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import SymbolicAction
 from plancraft.models.base import ABCModel, History
-from plancraft.models.react import OpenAIGenerator, TransformersGenerator
 from plancraft.models.few_shot_images import load_prompt_images
-from plancraft.models.react_prompts import (
+from plancraft.models.generators import (
+    OpenAIGenerator,
+    TransformersGenerator,
+)
+from plancraft.models.prompts import (
     ACT_EXAMPLE,
     ACT_EXAMPLE_IMGS,
-    ACT_SYSTEM_PROMPT,
+    SYSTEM_PROMPT,
 )
+from plancraft.models.utils import convert_observation_to_message
 
 logger = logging.getLogger(__name__)
 
@@ -58,13 +61,13 @@ class ActModel(ABCModel):
             self.prompt_images = load_prompt_images()
             self.system_prompt = {
                 "role": "system",
-                "content": [{"text": copy.deepcopy(ACT_SYSTEM_PROMPT), "type": "text"}],
+                "content": [{"text": copy.deepcopy(SYSTEM_PROMPT), "type": "text"}],
             }
         else:
             examples = copy.deepcopy(ACT_EXAMPLE)
             self.system_prompt = {
                 "role": "system",
-                "content": copy.deepcopy(ACT_SYSTEM_PROMPT),
+                "content": copy.deepcopy(SYSTEM_PROMPT),
             }
 
         if not self.few_shot:
@@ -100,31 +103,6 @@ class ActModel(ABCModel):
         )
         self.llm.reset()
 
-    def convert_observation_to_message(
-        self, observation: dict, objective: str
-    ) -> str | dict:
-        if self.is_multimodal:
-            content_message = {
-                "content": [
-                    {"type": "text", "text": f"{objective}"},
-                    {"type": "image"},
-                ]
-            }
-            return content_message
-        else:
-            # if not multimodal, we only have text - we just dump a JSON of the inventory
-            inventory = []
-            for o in observation["inventory"]:
-                if o["quantity"] > 0:
-                    inventory.append(
-                        {
-                            "type": o["type"],
-                            "slot": o["index"],
-                            "quantity": o["quantity"],
-                        }
-                    )
-            return f"{objective}\ninventory={json.dumps(inventory)}"
-
     def step(self, observations: list[dict]) -> list[SymbolicAction]:
         assert len(observations) == self.batch_size == len(self.histories)
 
@@ -148,8 +126,10 @@ class ActModel(ABCModel):
         # collect dialogue histories
         for observation, history_idx in zip(real_obs, real_obs_idx):
             # add observation to history
-            observation_message = self.convert_observation_to_message(
-                observation, objective=self.histories[history_idx].objective
+            observation_message = convert_observation_to_message(
+                observation,
+                objective=self.histories[history_idx].objective,
+                is_multimodal=self.is_multimodal,
             )
             self.histories[history_idx].add_message_to_history(
                 content=observation_message, role="user"
@@ -168,6 +148,7 @@ class ActModel(ABCModel):
         )
 
         for action_message, history_idx in zip(action_messages, real_obs_idx):
+            print(action_message)
             self.histories[history_idx].add_message_to_history(
                 content=action_message, role="assistant"
             )
