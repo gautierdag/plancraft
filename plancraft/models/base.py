@@ -17,6 +17,7 @@ class History:
         is_multimodal=False,
     ):
         self.dialogue_history = initial_dialogue
+        self.initial_dialogue_length = len(initial_dialogue)
         self.action_history = []
         self.inventory_history = []
         self.images = []
@@ -84,7 +85,9 @@ class History:
 
     def trace(self):
         return {
-            "dialogue_history": copy(self.dialogue_history),
+            "dialogue_history": copy(
+                self.dialogue_history[self.initial_dialogue_length :]
+            ),
             "action_history": copy(self.action_history),
             "inventory_history": copy(self.inventory_history),
             "objective": copy(self.objective),

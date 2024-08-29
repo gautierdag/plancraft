@@ -371,6 +371,8 @@ class TransformersGenerator:
             use_cache=True,
             past_key_values=past_key_values,
             return_legacy_cache=True,
+            stop_strings=["act:"],
+            tokenizer=self.tokenizer,
         )
         # cache the past key values
         if self.use_hot_cache:
@@ -433,8 +435,8 @@ class TransformersGenerator:
         # Generate the initial action constrained to valid action tokens
         generated_sequences = self.model.generate(
             **tokenized_messages,
-            do_sample=True,
-            temperature=temperature,
+            do_sample=False,
+            # temperature=temperature,
             max_new_tokens=logits_processor.tree.longest_sequence_length,
             pad_token_id=self.pad_token_id,
             return_dict_in_generate=True,
@@ -620,7 +622,7 @@ class OpenAIGenerator:
                 top_p=1,
                 frequency_penalty=0,
                 presence_penalty=0,
-                stop=["\n", "act:"],
+                stop=["\n", "\n\n", "act:"],
             )
             content = response.choices[0].message.content
             tokens_used += response.usage.total_tokens
