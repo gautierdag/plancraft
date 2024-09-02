@@ -176,7 +176,7 @@ class Evaluator:
         observations = [None for _ in range(self.batch_size)]
         done = [False for _ in range(self.batch_size)]
         pbar = tqdm(
-            total=(len(self.examples) + 1) * self.cfg.plancraft.max_steps,
+            total=len(self.examples) * self.cfg.plancraft.max_steps,
             disable=not progress_bar,
         )
         correct = 0
@@ -214,6 +214,7 @@ class Evaluator:
                     # save results and reset
                     result = {
                         "success": done[env_idx],
+                        "recipe_type": example.recipe_type,
                         "number_of_steps": num_steps,
                         "model_trace": self.model.histories[env_idx].trace(),
                         "example_id": example.id,
@@ -286,18 +287,24 @@ class Evaluator:
             results_list = self.eval_all_examples(progress_bar=True)
 
             results_df = pd.DataFrame(results_list)
-            results_df["model_name"] = self.cfg.plancraft.model
-            results_df["mode"] = self.cfg.plancraft.mode
+
+            output = {
+                "avg_success_rate": results_df["success"].mean(),
+                "avg_number_of_steps": results_df["number_of_steps"].mean(),
+            }
+
+            # calculate success rate for each recipe type
+            recipe_types = results_df["recipe_type"].unique()
+            for recipe_type in recipe_types:
+                mask = results_df["recipe_type"] == recipe_type
+                success_rate = results_df[mask]["success"].mean()
+                output[f"{recipe_type}_success_rate"] = success_rate
 
             time_elapsed = time.time() - time_now
             logger.info(f"Time elapsed: {time_elapsed:.2f}s")
 
-            wandb.log(
-                {
-                    "avg_success_rate": results_df["success"].mean(),
-                    "avg_number_of_steps": results_df["number_of_steps"].mean(),
-                }
-            )
+            logger.info(output)
+            wandb.log(output)
             table = wandb.Table(
                 dataframe=results_df[["success", "number_of_steps", "example_id"]]
             )

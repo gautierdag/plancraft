@@ -99,6 +99,10 @@ class BaseRecipe:
         raise NotImplementedError()
 
     @property
+    def recipe_type(self) -> str:
+        raise NotImplementedError()
+
+    @property
     def num_slots(self) -> int:
         return NotImplementedError()
 
@@ -190,6 +194,10 @@ class ShapelessRecipe(BaseRecipe):
                 if ingredient is not None:
                     all_inputs.add(ingredient)
         return all_inputs
+
+    @property
+    def recipe_type(self) -> str:
+        return "shapeless"
 
     def can_craft_from_inventory(self, inventory: dict[str, int]) -> bool:
         for ingredient_counter in self.ingredients:
@@ -372,6 +380,10 @@ class ShapedRecipe(BaseRecipe):
         }
         return all_inputs
 
+    @property
+    def recipe_type(self) -> str:
+        return "shaped"
+
     def can_craft_from_inventory(self, inventory: dict[str, int]) -> bool:
         temp_inventory = deepcopy(inventory)
         for row in self.kernel:
@@ -492,6 +504,10 @@ class SmeltingRecipe(BaseRecipe):
     @property
     def inputs(self) -> set:
         return deepcopy(self.ingredient)
+
+    @property
+    def recipe_type(self) -> str:
+        return "smelting"
 
     def __repr__(self) -> str:
         return f"SmeltingRecipe({self.ingredient}, {self.result})"

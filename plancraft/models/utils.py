@@ -166,7 +166,7 @@ def convert_from_slot_index(slot_index: int) -> str:
     grid_map = {
         0: "[0]",
         1: "[A1]",
-        2: "[A2",
+        2: "[A2]",
         3: "[A3]",
         4: "[B1]",
         5: "[B2]",
@@ -208,11 +208,21 @@ def convert_observation_to_message(
                         "quantity": o["quantity"],
                     }
                 )
+        return objective_and_inventory_to_str(objective, inventory)
 
-        inventory_str = ""
-        for item in inventory:
-            inventory_str += (
-                f"\n - {item['type']} {item['slot']} quantity {item['quantity']}"
-            )
 
-        return f"{objective}\ninventory={inventory_str}"
+def objective_and_inventory_to_str(objective: str, inventory: list[dict]) -> str:
+    inventory_str = ""
+    for item in inventory:
+        if item["quantity"] > 0:
+            if "index" in item:
+                slot = item["index"]
+            else:
+                slot = item["slot"]
+
+            if isinstance(slot, int):
+                slot = convert_from_slot_index(slot)
+
+        inventory_str += f"\n - {item['type']} {slot} quantity {item['quantity']}"
+
+    return f"{objective}\ninventory:{inventory_str}"

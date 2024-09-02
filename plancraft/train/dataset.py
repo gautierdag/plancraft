@@ -10,7 +10,7 @@ from transformers import (
     AutoTokenizer,
 )
 
-from plancraft.models.prompts import REACT_SYSTEM_PROMPT, ACT_SYSTEM_PROMPT
+from plancraft.models.prompts import SYSTEM_PROMPT
 
 TEMPLATES = {
     "idefics2": {
@@ -42,18 +42,12 @@ class PlancraftDialogueDataset(Dataset):
 
         assert trace_mode in ["oa", "ota"], f"Invalid trace mode {trace_mode}"
 
-        system_message = ""
-        if self.trace_mode == "oa":
-            system_message = ACT_SYSTEM_PROMPT
-        elif self.trace_mode == "ota":
-            system_message = REACT_SYSTEM_PROMPT
-        else:
-            raise ValueError(f"Invalid trace mode {trace_mode}")
+        system_message = SYSTEM_PROMPT
 
         print("Loading dialogue dataset")
         data = []
         for example_path in sorted(
-            glob.glob(f"{dataset_dir}/{split}/{trace_mode}/*.json")
+            glob.glob(f"{dataset_dir}/{split}/{trace_mode}-v2/*.json")
         ):
             with open(example_path) as f:
                 messages = json.load(f)

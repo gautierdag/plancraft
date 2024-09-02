@@ -1,6 +1,8 @@
-from typing import Literal, Union, Optional
+from typing import Literal, Optional, Union
 
 from pydantic import BaseModel
+
+from plancraft.environments.recipes import RECIPES
 
 DatasetSplit = Literal[
     "train", "val", "val.small", "val.small.easy", "test", "test.small"
@@ -111,3 +113,16 @@ class PlancraftExample(BaseModel):
     unseen_in_val: bool
     split: DatasetSplit
     id: str
+
+    recipe_type: Optional[str] = ""
+
+    # post processing set recipe type
+    def model_post_init(self, __context):
+        recipe_types = set()
+        for step in self.optimal_path:
+            for r in RECIPES[step]:
+                recipe_types.add(r.recipe_type)
+        if len(recipe_types) == 1:
+            self.recipe_type = recipe_types.pop()
+        else:
+            self.recipe_type = "mixed"
