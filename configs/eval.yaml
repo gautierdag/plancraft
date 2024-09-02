@@ -27,11 +27,11 @@ wandb:
 launch:
   command: "python main.py"
   job_name: "plancraft-s2234411"
-  gpu_limit: 1
+  gpu_limit: 2
   gpu_product: NVIDIA-A100-SXM4-80GB
-  cpu_request: 12
-  ram_request: 80Gi
-  interactive: False
+  cpu_request: 24
+  ram_request: 160Gi
+  interactive: True
   namespace: informatics
   env_vars:
     HF_TOKEN:
