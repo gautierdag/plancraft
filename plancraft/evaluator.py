@@ -196,10 +196,6 @@ class Evaluator:
                         results.append(resume_result)
                         continue
 
-                    # print("Assigning examples to environments...")
-                    # print(f"env_idx: {env_idx}")
-                    # print(f"example: {new_example}")
-
                     assigned_examples[env_idx] = new_example
                     self.reset(new_example, env_idx)
                     actions[env_idx] = self.no_op.copy()
@@ -246,14 +242,8 @@ class Evaluator:
                     # add final observation to history
                     observations[env_idx] = None
 
-            # time_now = time.time()
-
             # get actions from model (batched)
             actions = self.model.step(observations)
-            # if any(actions):
-            #     logger.info(
-            #         f"predicted {len(actions)} actions in {time.time()-time_now:.2f}s"
-            #     )
             pbar.update(len(observations))
 
         return results
@@ -291,6 +281,9 @@ class Evaluator:
             output = {
                 "avg_success_rate": results_df["success"].mean(),
                 "avg_number_of_steps": results_df["number_of_steps"].mean(),
+                "avg_num_tokens_used": results_df["model_trace"]
+                .apply(pd.Series)["tokens_used"]
+                .mean(),
             }
 
             # calculate success rate for each recipe type

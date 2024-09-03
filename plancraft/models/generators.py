@@ -397,7 +397,6 @@ class TransformersGenerator:
         logits_processor: ValidActionsLogitsProcessor,
         start_messages_generation: list[str],
         batch_messages: list[list[dict]],
-        temperature=1.0,
         **kwargs,
     ) -> tuple[list[str], int]:
         if self.is_multimodal:
@@ -548,6 +547,73 @@ class TransformersGenerator:
                 )
             actions.append(act)
         return actions, overall_messages, num_tokens
+
+    @torch.inference_mode()
+    def generate_unconstrained(
+        self,
+        batch_messages: list[list[dict]],
+        max_tokens=256,
+        **kwargs,
+    ) -> tuple[list[str], int]:
+        """
+        Generate unconstrained text based on the batch of messages.
+        """
+        if self.is_multimodal:
+            assert "images" in kwargs, "Images required for multimodal model"
+
+        tokenized_messages = tokenize(
+            self.model,
+            self.tokenizer,
+            batch_messages,
+            start_messages_generation=[""] * len(batch_messages),
+            max_tokens=max_tokens,
+            images=kwargs.get("images") if self.is_multimodal else None,
+        )
+        prompt_tokens = tokenized_messages["input_ids"].shape[-1]
+
+        # Sent to the same device as model
+        tokenized_messages = {
+            k: v.to(self.model.device) for k, v in tokenized_messages.items()
+        }
+
+        # Truncate the key-value cache
+        self.truncate_kv_cache(tokenized_messages["input_ids"])
+
+        if (
+            "past_key_values" in self.past_key_values_kwargs
+            and self.past_key_values_kwargs["past_key_values"][0][0].shape[-2]
+            > tokenized_messages["input_ids"].shape[-1]
+        ):
+            raise ValueError("Past key values are larger than the input_ids")
+
+        past_key_values = self.past_key_values_kwargs.get("past_key_values", None)
+        if past_key_values is not None:
+            past_key_values = DynamicCache.from_legacy_cache(past_key_values)
+
+        generated_sequences = self.model.generate(
+            **tokenized_messages,
+            do_sample=False,
+            max_new_tokens=max_tokens,
+            pad_token_id=self.pad_token_id,
+            return_dict_in_generate=True,
+            use_cache=True,
+            past_key_values=past_key_values,
+            return_legacy_cache=True,
+        )
+        # Cache the past key values
+        if self.use_hot_cache:
+            self.past_key_values_kwargs["past_key_values"] = (
+                generated_sequences.past_key_values
+            )
+        self.past_token_ids = generated_sequences.sequences
+
+        # Decode the output
+        text_responses = self.tokenizer.batch_decode(
+            generated_sequences.sequences[:, prompt_tokens:],
+            skip_special_tokens=True,
+        )
+        _, total_tokens_used = generated_sequences.sequences.shape
+        return text_responses, total_tokens_used
 
 
 class OpenAIGenerator:
@@ -704,3 +770,27 @@ class OpenAIGenerator:
             action_messages.append(content)
 
         return actions, action_messages, tokens_used
+
+    def generate_unconstrained(
+        self,
+        batch_messages: list[list[dict]],
+        max_tokens=256,
+        **kwargs,
+    ) -> tuple[list[str], int]:
+        contents = []
+        tokens_used = 0
+        for messages in batch_messages:
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=messages,
+                temperature=0.0,
+                max_tokens=max_tokens,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0,
+                stop=["\n", "\n\n"],
+            )
+            content = response.choices[0].message.content
+            tokens_used += response.usage.total_tokens
+            contents.append(content)
+        return contents, tokens_used

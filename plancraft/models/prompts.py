@@ -1,29 +1,29 @@
 SYSTEM_PROMPT = """You are crafting in Minecraft. You need to decide on the next action.
 
 Crafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:
-   - Top row: [A1] [A2] [A3]
-   - Middle row: [B1] [B2] [B3]
-   - Bottom row: [C1] [C2] [C3]
+    - Top row: [A1] [A2] [A3]
+    - Middle row: [B1] [B2] [B3]
+    - Bottom row: [C1] [C2] [C3]
 
 The output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]
 
 Inventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]
 
 Actions: You can perform the following actions:
-   - move: Transfer a specific quantity of an item from one slot to another
-   - smelt: Smelt an item in a furnace and moves the output to a specific slot
+    - move: Transfer a specific quantity of an item from one slot to another
+    - smelt: Smelt an item in a furnace and moves the output to a specific slot
 
 Output Format: Each action should be output in the following format:
-   - `act: move from [Source] to [Target] with quantity N`
-   - `act: smelt from [Source] to [Target] with quantity N`
+    - `act: move from [Source] to [Target] with quantity N`
+    - `act: smelt from [Source] to [Target] with quantity N`
 
    Example:
-   - `act: move from [I2] to [A1] with quantity 3`
+    - `act: move from [I2] to [A1] with quantity 3`
 
 Constraints:
-   - The output slot [0] is reserved for completed items. You cannot move or smelt items into [0]
-   - If an item is not in slot [0] then the recipe is incorrect
-   - Ensure items are placed correctly according to crafting recipes
+    - The output slot [0] is reserved for completed items. You cannot move or smelt items into [0]
+    - If an item is not in slot [0] then the recipe is incorrect
+    - Ensure items are placed correctly according to crafting recipes
 
 Remember to always follow the grid layout and refer to slots using exact labels
 """
@@ -85,7 +85,7 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """thought: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
+        "content": """thought: Now I need to move the cobblestone into position [B2] to be right of the diorite.""",
     },
     {"role": "user", "content": "Ok"},
     {
@@ -228,7 +228,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """thought: Now I need to move the cobblestone into position 5 to be right of the diorite.""",
+                "text": """thought: Now I need to move the cobblestone into position [B2] to be right of the diorite.""",
             }
         ],
     },
@@ -293,5 +293,106 @@ REACT_EXAMPLE_IMGS = [
                 "text": """act: smelt from [I36] to [I35] with quantity 1""",
             }
         ],
+    },
+]
+
+
+TOOLS_SYSTEM_PROMPT = """You are crafting in Minecraft. You need to decide on the next action.
+
+Crafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:
+    - Top row: [A1] [A2] [A3]
+    - Middle row: [B1] [B2] [B3]
+    - Bottom row: [C1] [C2] [C3]
+
+The output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]
+
+Inventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]
+
+Actions: You can perform the following actions:
+    - move: Transfer a specific quantity of an item from one slot to another
+    - smelt: Smelt an item in a furnace and moves the output to a specific slot
+    - think: Generate thoughts to help you decide on the next action
+    - search: Search for a recipe to craft a specific item
+    - stop: Stop the crafting process, if the task is impossible
+
+Output Format: Each action should be output in the following format:
+    - `move: from [Source] to [Target] with quantity N`
+    - `smelt: from [Source] to [Target] with quantity N`
+    - `think: <thought message>`
+    - `search: <recipe name>`
+    - `stop: <reason>`
+
+Example:
+    - `act: move from [I2] to [A1] with quantity 3`
+
+Constraints:
+   - The output slot [0] is reserved for completed items. You cannot move or smelt items into [0]
+   - If an item is not in slot [0] then the recipe is incorrect
+   - Ensure items are placed correctly according to crafting recipes
+
+Remember to always follow the grid layout and refer to slots using exact labels
+"""
+
+
+TOOLS_EXAMPLE = [
+    {
+        "role": "user",
+        "content": """Craft an item of type: andesite\ninventory:\n - diorite [I18] quantity 1\n - cobblestone [I30] quantity 1""",
+    },
+    {
+        "role": "assistant",
+        "content": """think: I need to craft andesite, but I'm not sure how to. I should start by searching for the recipe.""",
+    },
+    {"role": "user", "content": "Ok"},
+    {
+        "role": "assistant",
+        "content": """search: andesite""",
+    },
+    {
+        "role": "user",
+        "content": """Recipes to craft andesite:\nrecipe 1:\ndiorite at [B1]\ncobblestone at [B2]""",
+    },
+    {
+        "role": "assistant",
+        "content": """move: from [I18] to [B1] with quantity 1""",
+    },
+    {
+        "role": "user",
+        "content": """Craft an item of type: andesite\ninventory:\n - diorite [B1] quantity 1\n - cobblestone [I30] quantity 1""",
+    },
+    {
+        "role": "assistant",
+        "content": """think: Since I've moved the diorite to [B1], I now need to move the cobblestone into [B2] to complete the recipe.""",
+    },
+    {"role": "user", "content": "Ok"},
+    {
+        "role": "assistant",
+        "content": """move: from [I30] to [B2] with quantity 1""",
+    },
+    {
+        "role": "user",
+        "content": """Craft an item of type: andesite\ninventory:\nandesite [0] quantity 1\n - diorite [B1] quantity 1\n - cobblestone [B2] quantity 1""",
+    },
+    {
+        "role": "assistant",
+        "content": """think: I can craft the andesite by moving it from the craft slot [0] to a free inventory slot.""",
+    },
+    {"role": "user", "content": "Ok"},
+    {
+        "role": "assistant",
+        "content": """move: from [0] to [I6] with quantity 1""",
+    },
+    {
+        "role": "user",
+        "content": """Craft an item of type: iron_ingot\ninventory:\n - iron_ore [I36] quantity 1\n - cobblestone [I30] quantity 1""",
+    },
+    {
+        "role": "assistant",
+        "content": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+    },
+    {"role": "user", "content": "Ok"},
+    {
+        "role": "assistant",
+        "content": """smelt: from [I36] to [I35] with quantity 1""",
     },
 ]

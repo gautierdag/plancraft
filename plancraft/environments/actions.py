@@ -108,6 +108,24 @@ class SymbolicMoveAction(BaseModel):
     def transform_str_to_int(cls, value) -> int:
         return int(value)
 
+    @field_validator("slot_from", mode="after")
+    def validate_slot_from(cls, value) -> str:
+        if value < 0 or value > 45:
+            raise AttributeError("slot_from must be between 0 and 45")
+        return value
+
+    @field_validator("slot_to", mode="after")
+    def validate_slot_to(cls, value) -> str:
+        if value < 1 or value > 45:
+            raise AttributeError("slot_to must be between 1 and 45")
+        return value
+
+    @field_validator("quantity", mode="after")
+    def validate_quantity(cls, value) -> str:
+        if value < 1 or value > 64:
+            raise AttributeError("quantity must be between 1 and 64")
+        return value
+
     def to_action_dict(self) -> dict:
         return {
             "inventory_command": [self.slot_from, self.slot_to, self.quantity],
@@ -127,6 +145,24 @@ class SymbolicSmeltAction(BaseModel):
     @field_validator("slot_from", "slot_to", "quantity", mode="before")
     def transform_str_to_int(cls, value) -> int:
         return int(value)
+
+    @field_validator("slot_from", mode="after")
+    def validate_slot_from(cls, value) -> str:
+        if value < 0 or value > 45:
+            raise AttributeError("slot_from must be between 0 and 45")
+        return value
+
+    @field_validator("slot_to", mode="after")
+    def validate_slot_to(cls, value) -> str:
+        if value < 1 or value > 45:
+            raise AttributeError("slot_to must be between 1 and 45")
+        return value
+
+    @field_validator("quantity", mode="after")
+    def validate_quantity(cls, value) -> str:
+        if value < 1 or value > 64:
+            raise AttributeError("quantity must be between 1 and 64")
+        return value
 
     def to_action_dict(self) -> dict:
         return {

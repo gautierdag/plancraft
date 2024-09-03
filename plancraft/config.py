@@ -22,9 +22,7 @@ class PlancraftConfig(BaseModel):
     adapter: str = ""
     tokenizer: str
     num_generations: int
-    mode: Literal["react", "act", "oracle", "dummy", "act-tools", "react-tools"] = (
-        "react"
-    )
+    mode: Literal["react", "act", "oracle", "dummy", "tools"] = "react"
     output_dir: str
     max_steps: int
     quantize: Literal[False, "int4", "int8"]
