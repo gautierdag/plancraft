@@ -100,8 +100,6 @@ class TransformersGenerator:
         self.model = torch.compile(self.model)
         logger.info(f"Model compiled in {time.time() - time_now:.2f} seconds")
 
-        self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
-
         self.model.eval()
         if self.pad_token_id is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token

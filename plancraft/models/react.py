@@ -125,7 +125,6 @@ class ReactModel(ABCModel):
                 system_prompt=self.system_prompt,
                 prompt_images=self.prompt_images,
             )
-
             think_messages, think_token_used = self.llm.generate_unconstrained(
                 batch_messages=[message_window],
                 images=[image_window],
@@ -163,6 +162,7 @@ class ReactModel(ABCModel):
                 self.history.add_action_to_history(response)
                 return response
 
+            print("error:", response)
             self.history.add_message_to_history(
                 content=response,
             )

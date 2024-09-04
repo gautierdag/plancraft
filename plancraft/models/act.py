@@ -134,8 +134,6 @@ class ActModel(ABCModel):
             self.history.add_message_to_history(
                 content=action_message, role="assistant"
             )
-            print(action_message)
-
             response = parse_content_response(
                 action_message, valid_actions=self.valid_actions
             )

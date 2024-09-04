@@ -38,9 +38,10 @@ class PlancraftConfig(BaseModel):
     @model_validator(mode="after")
     def validate(self):
         if self.mode == "react":
-            self.actions = ["move", "smelt", "think"]
+            self.valid_actions = ["move", "smelt", "think"]
         if self.mode == "act":
-            self.actions = ["move", "smelt"]
+            self.valid_actions = ["move", "smelt"]
+        return self
 
 
 class WandbConfig(BaseModel):
