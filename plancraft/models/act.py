@@ -148,7 +148,6 @@ class ActModel(ABCModel):
         )
 
         for action_message, history_idx in zip(action_messages, real_obs_idx):
-            print(action_message)
             self.histories[history_idx].add_message_to_history(
                 content=action_message, role="assistant"
             )

@@ -15,6 +15,7 @@ import wandb
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.env_symbolic import SymbolicPlancraft
+from plancraft.environments.actions import StopAction
 from plancraft.models import get_model
 
 wandb.require("core")
@@ -187,10 +188,7 @@ class Evaluator:
             for env_idx, example in assigned_examples.items():
                 if example is None and len(examples_queue) > 0:
                     new_example = examples_queue.pop()
-                    # TODO: implement flow for impossible examples
-                    if new_example.impossible:
-                        pbar.update(self.cfg.plancraft.max_steps)
-                        continue
+
                     if resume_result := self.load_results_dict(new_example):
                         pbar.update(self.cfg.plancraft.max_steps)
                         results.append(resume_result)
@@ -214,6 +212,7 @@ class Evaluator:
                         "number_of_steps": num_steps,
                         "model_trace": self.model.histories[env_idx].trace(),
                         "example_id": example.id,
+                        "impossible": example.impossible,
                     }
                     results.append(result)
                     self.save_results_dict(example, result)
@@ -234,13 +233,20 @@ class Evaluator:
                     observations[env_idx] = None
                     continue
 
-                obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
-                observations[env_idx] = obs
-                done[env_idx] = self.check_done(obs["inventory"], example.target)
-                # # don't predict actions if observation is None
-                if done[env_idx]:
-                    # add final observation to history
+                # if the action is stop then we end the episode
+                if isinstance(actions[env_idx], StopAction):
+                    # if the action is stop and task is impossible then success
+                    # otherwise we should not have stopped
+                    done[env_idx] = example.impossible
                     observations[env_idx] = None
+                    continue
+                else:
+                    obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
+                    observations[env_idx] = obs
+                    done[env_idx] = self.check_done(obs["inventory"], example.target)
+                    # # don't predict actions if observation is None
+                    if done[env_idx]:
+                        observations[env_idx] = None
 
             # get actions from model (batched)
             actions = self.model.step(observations)

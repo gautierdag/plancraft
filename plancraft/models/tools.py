@@ -9,6 +9,7 @@ from plancraft.environments.actions import (
     SymbolicAction,
     SymbolicMoveAction,
     SymbolicSmeltAction,
+    StopAction,
 )
 from plancraft.models.base import ABCModel, History
 
@@ -178,9 +179,8 @@ class ToolsModel(ABCModel):
                             content="Ok", role="user"
                         )
                     elif tool == "stop":
-                        self.histories[history_idx].add_message_to_history(
-                            content="Ok", role="user"
-                        )
+                        reason = re.search(r"stop: (.*)", content).group(1)
+                        actions.append(StopAction(reason=reason))
                         done = True
                     elif tool == "search":
                         search_target = re.search(r"search: (\w+)", content).group(1)

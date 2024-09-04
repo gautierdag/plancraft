@@ -1,7 +1,6 @@
 import json
-from typing_extensions import Annotated
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, model_validator, field_validator
 
 import numpy as np
 from minerl.herobraine.hero import spaces
@@ -97,9 +96,6 @@ class InventoryResetAction(Action):
 class SymbolicMoveAction(BaseModel):
     """ "Moves an item from one slot to another"""
 
-    # slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    # slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    # quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
     slot_from: int
     slot_to: int
     quantity: int
@@ -108,23 +104,16 @@ class SymbolicMoveAction(BaseModel):
     def transform_str_to_int(cls, value) -> int:
         return int(value)
 
-    @field_validator("slot_from", mode="after")
-    def validate_slot_from(cls, value) -> str:
-        if value < 0 or value > 45:
+    @model_validator(mode="after")
+    def validate(self):
+        if self.slot_from == self.slot_to:
+            raise AttributeError("slot_from and slot_to must be different")
+        if self.slot_from < 0 or self.slot_from > 45:
             raise AttributeError("slot_from must be between 0 and 45")
-        return value
-
-    @field_validator("slot_to", mode="after")
-    def validate_slot_to(cls, value) -> str:
-        if value < 1 or value > 45:
+        if self.slot_to < 1 or self.slot_to > 45:
             raise AttributeError("slot_to must be between 1 and 45")
-        return value
-
-    @field_validator("quantity", mode="after")
-    def validate_quantity(cls, value) -> str:
-        if value < 1 or value > 64:
+        if self.quantity < 1 or self.quantity > 64:
             raise AttributeError("quantity must be between 1 and 64")
-        return value
 
     def to_action_dict(self) -> dict:
         return {
@@ -135,9 +124,6 @@ class SymbolicMoveAction(BaseModel):
 class SymbolicSmeltAction(BaseModel):
     """Smelts an item and moves the result into a new slot"""
 
-    # slot_from: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    # slot_to: Annotated[int, Field(strict=True, ge=0, lt=46)]
-    # quantity: Annotated[int, Field(strict=True, gt=0, le=64)] = 1
     slot_from: int
     slot_to: int
     quantity: int
@@ -146,23 +132,16 @@ class SymbolicSmeltAction(BaseModel):
     def transform_str_to_int(cls, value) -> int:
         return int(value)
 
-    @field_validator("slot_from", mode="after")
-    def validate_slot_from(cls, value) -> str:
-        if value < 0 or value > 45:
+    @model_validator(mode="after")
+    def validate(self):
+        if self.slot_from == self.slot_to:
+            raise AttributeError("slot_from and slot_to must be different")
+        if self.slot_from < 0 or self.slot_from > 45:
             raise AttributeError("slot_from must be between 0 and 45")
-        return value
-
-    @field_validator("slot_to", mode="after")
-    def validate_slot_to(cls, value) -> str:
-        if value < 1 or value > 45:
+        if self.slot_to < 1 or self.slot_to > 45:
             raise AttributeError("slot_to must be between 1 and 45")
-        return value
-
-    @field_validator("quantity", mode="after")
-    def validate_quantity(cls, value) -> str:
-        if value < 1 or value > 64:
+        if self.quantity < 1 or self.quantity > 64:
             raise AttributeError("quantity must be between 1 and 64")
-        return value
 
     def to_action_dict(self) -> dict:
         return {
@@ -210,6 +189,14 @@ class RealActionInteraction(BaseModel):
             "use": int(self.right_click),
             "attack": int(self.left_click),
         }
+
+
+class StopAction(BaseModel):
+    """
+    Acction that model can take to stop planning - decide impossible to continue
+    """
+
+    reason: str = ""
 
 
 # when symbolic action is true, can either move objects around or smelt

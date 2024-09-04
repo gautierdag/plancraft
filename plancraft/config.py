@@ -117,6 +117,9 @@ class PlancraftExample(BaseModel):
     # post processing set recipe type
     def model_post_init(self, __context):
         recipe_types = set()
+        if self.optimal_path is None:
+            self.recipe_type = "impossible"
+            return
         for step in self.optimal_path:
             for r in RECIPES[step]:
                 recipe_types.add(r.recipe_type)
