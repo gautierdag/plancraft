@@ -7,7 +7,6 @@ from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     SymbolicAction,
     SymbolicMoveAction,
-    SymbolicSmeltAction,
 )
 from plancraft.models.base import ABCModel, History
 from plancraft.models.few_shot_images import load_prompt_images
@@ -16,8 +15,7 @@ from plancraft.models.generators import (
     TransformersGenerator,
 )
 from plancraft.models.prompts import (
-    REACT_EXAMPLE,
-    REACT_EXAMPLE_IMGS,
+    get_prompt_example,
     get_system_prompt,
 )
 from plancraft.models.utils import (
@@ -62,10 +60,11 @@ class ReactModel(ABCModel):
             )
 
         self.prompt_images = []
-        self.valid_actions = ["move", "smelt", "think"]
+        self.valid_actions = cfg.plancraft.valid_actions
         self.system_prompt_text = get_system_prompt(self.valid_actions)
+
+        examples = get_prompt_example(self.valid_actions, self.is_multimodal)
         if self.is_multimodal:
-            examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
             self.prompt_images = load_prompt_images()
             self.system_prompt = {
                 "role": "system",
@@ -74,7 +73,6 @@ class ReactModel(ABCModel):
                 ],
             }
         else:
-            examples = copy.deepcopy(REACT_EXAMPLE)
             self.system_prompt = {
                 "role": "system",
                 "content": copy.deepcopy(self.system_prompt_text),
@@ -99,10 +97,7 @@ class ReactModel(ABCModel):
     ):
         examples = []
         if self.few_shot:
-            if self.is_multimodal:
-                examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
-            else:
-                examples = copy.deepcopy(REACT_EXAMPLE)
+            examples = get_prompt_example(self.valid_actions, self.is_multimodal)
 
         self.history.reset(objective=objective, initial_dialogue=examples)
         self.llm.reset()
@@ -162,7 +157,6 @@ class ReactModel(ABCModel):
                 self.history.add_action_to_history(response)
                 return response
 
-            print("error:", response)
             self.history.add_message_to_history(
                 content=response,
             )

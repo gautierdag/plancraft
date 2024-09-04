@@ -14,7 +14,7 @@ from plancraft.models.generators import (
     OpenAIGenerator,
     TransformersGenerator,
 )
-from plancraft.models.prompts import ACT_EXAMPLE, ACT_EXAMPLE_IMGS, get_system_prompt
+from plancraft.models.prompts import get_prompt_example, get_system_prompt
 from plancraft.models.utils import (
     convert_observation_to_message,
     parse_content_response,
@@ -58,11 +58,11 @@ class ActModel(ABCModel):
 
         self.prompt_images = []
 
-        self.valid_actions = ["move", "smelt"]
+        self.valid_actions = cfg.plancraft.valid_actions
         self.system_prompt_text = get_system_prompt(self.valid_actions)
 
+        examples = get_prompt_example(self.valid_actions, self.is_multimodal)
         if self.is_multimodal:
-            examples = copy.deepcopy(ACT_EXAMPLE_IMGS)
             self.prompt_images = load_prompt_images()
             self.system_prompt = {
                 "role": "system",
@@ -71,7 +71,6 @@ class ActModel(ABCModel):
                 ],
             }
         else:
-            examples = copy.deepcopy(ACT_EXAMPLE)
             self.system_prompt = {
                 "role": "system",
                 "content": copy.deepcopy(self.system_prompt_text),
@@ -96,10 +95,7 @@ class ActModel(ABCModel):
     ):
         examples = []
         if self.few_shot:
-            if self.is_multimodal:
-                examples = copy.deepcopy(ACT_EXAMPLE_IMGS)
-            else:
-                examples = copy.deepcopy(ACT_EXAMPLE)
+            examples = get_prompt_example(self.valid_actions, self.is_multimodal)
 
         self.history.reset(objective=objective, initial_dialogue=examples)
         self.llm.reset()

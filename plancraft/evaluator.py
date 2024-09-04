@@ -62,7 +62,9 @@ class Evaluator:
         mode = self.cfg.plancraft.mode
         if mode in ["dummy", "oracle"]:
             return f"{mode}_{symb_str}"
-        return f"{self.cfg.plancraft.mode}_{symb_str}_{model_name}_stp{self.cfg.plancraft.max_steps}"
+
+        actions = "|".join(self.cfg.plancraft.valid_actions)
+        return f"{self.cfg.plancraft.mode}_{symb_str}_{model_name}_{actions}"
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"

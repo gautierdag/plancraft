@@ -233,6 +233,7 @@ class TransformersGenerator:
         batch_messages: list[list[dict]],
         start_messages_generation: str = "",
         max_tokens: int = 256,
+        temperature=0.6,
         **kwargs,
     ) -> tuple[list[str], int]:
         """
@@ -272,7 +273,8 @@ class TransformersGenerator:
 
         generated_sequences = self.model.generate(
             **tokenized_messages,
-            do_sample=False,
+            do_sample=True,
+            temperature=temperature,
             max_new_tokens=max_tokens,
             pad_token_id=self.pad_token_id,
             return_dict_in_generate=True,

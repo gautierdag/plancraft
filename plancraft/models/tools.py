@@ -17,8 +17,7 @@ from plancraft.models.generators import (
     TransformersGenerator,
 )
 from plancraft.models.prompts import (
-    TOOLS_EXAMPLE,
-    # TOOLS_EXAMPLE_IMGS,
+    get_prompt_example,
     get_system_prompt,
 )
 from plancraft.models.utils import (
@@ -59,8 +58,9 @@ class ToolsModel(ABCModel):
             )
         self.prompt_images = []
 
-        self.valid_actions = ["move", "smelt", "think", "search", "impossible"]
+        self.valid_actions = cfg.plancraft.valid_actions
         self.system_prompt_text = get_system_prompt(self.valid_actions)
+        examples = get_prompt_example(self.valid_actions, self.is_multimodal)
         if self.is_multimodal:
             assert False, "Multimodal tools not supported"
             # examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
@@ -72,7 +72,6 @@ class ToolsModel(ABCModel):
             #     ],
             # }
         else:
-            examples = copy.deepcopy(TOOLS_EXAMPLE)
             self.system_prompt = {
                 "role": "system",
                 "content": copy.deepcopy(self.system_prompt_text),
@@ -97,10 +96,7 @@ class ToolsModel(ABCModel):
     ):
         examples = []
         if self.few_shot:
-            # if self.is_multimodal:
-            # examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
-            # else:
-            examples = copy.deepcopy(TOOLS_EXAMPLE)
+            examples = get_prompt_example(self.valid_actions, self.is_multimodal)
         self.history.reset(objective=objective, initial_dialogue=examples)
         self.llm.reset()
 

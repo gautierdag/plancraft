@@ -1,3 +1,5 @@
+from plancraft.models.utils import gold_search_recipe
+
 VALID_ACTIONS = ["move", "smelt", "think", "search", "impossible"]
 
 ACTIONS_DESCRIPTIONS = {
@@ -32,18 +34,16 @@ Crafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the
 
 The output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]
 
-Inventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]
-
-"""
+Inventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]"""
 
 BASE_SYSTEM_PROMPT_EXAMPLE = """Example:
     - `move: from [I2] to [A1] with quantity 3`
+    - `smelt: from [I5] to [I6] with quantity 1`
 
 Constraints:
    - You cannot move or smelt items into [0]
    - If an item is not in slot [0] then the recipe is incorrect
-   - You need to move items from [0] to a free inventory slot to complete the crafting process
-"""
+   - You need to move items from [0] to a free inventory slot to complete the crafting process"""
 
 
 def get_system_prompt(actions: list[str]):
@@ -62,337 +62,79 @@ def get_system_prompt(actions: list[str]):
     return f"{BASE_SYSTEM_PROMPT}\n\nActions:{descriptions}\n\nFormat{output_format}\n\n{BASE_SYSTEM_PROMPT_EXAMPLE}"
 
 
-ACT_EXAMPLE = [
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\n - diorite [I18] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """move: from [I18] to [B1] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\n - diorite [B1] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """move: from [I30] to [B2] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\nandesite [0] quantity 1\n - diorite [B1] quantity 1\n - cobblestone [B2] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """move: from [0] to [I6] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: iron_ingot\ninventory:\n - iron_ore [I36] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """smelt: from [I36] to [I35] with quantity 1""",
-    },
+CRAFTING_STEPS = [
+    "Craft an item of type: andesite\ninventory:\n - diorite [I18] quantity 1\n - cobblestone [I30] quantity 1",
+    "Craft an item of type: andesite\ninventory:\n - diorite [B1] quantity 1\n - cobblestone [I30] quantity 1",
+    "Craft an item of type: andesite\ninventory:\nandesite [0] quantity 1\n - diorite [B1] quantity 1\n - cobblestone [B2] quantity 1",
+    "Craft an item of type: iron_ingot\ninventory:\n - iron_ore [I36] quantity 1\n - cobblestone [I30] quantity 1",
+]
+
+BASE_ACTION_STEPS = [
+    "move: from [I18] to [B1] with quantity 1",
+    "move: from [I30] to [B2] with quantity 1",
+    "move: from [0] to [I6] with quantity 1",
+    "smelt: from [I36] to [I35] with quantity 1",
+]
+
+THINK_STEPS = [
+    "think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.",
+    "think: Now I need to move the cobblestone into position [B2] to be right of the diorite.",
+    "think: Now I can craft the andesite by moving it from the craft slot [0] to a free inventory slot.",
+    "think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.",
+]
+
+SEARCH_STEPS = [
+    "search: andesite",
+    None,
+    None,
+    "search: iron_ingot",
 ]
 
 
-REACT_EXAMPLE = [
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\n - diorite [I18] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
-    },
-    {"role": "user", "content": "Ok"},
-    {
-        "role": "assistant",
-        "content": """move: from [I18] to [B1] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\n - diorite [B1] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: Now I need to move the cobblestone into position [B2] to be right of the diorite.""",
-    },
-    {"role": "user", "content": "Ok"},
-    {
-        "role": "assistant",
-        "content": """move: from [I30] to [B2] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\nandesite [0] quantity 1\n - diorite [B1] quantity 1\n - cobblestone [B2] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: Now I can craft the andesite by moving it from the craft slot [0] to a free inventory slot.""",
-    },
-    {"role": "user", "content": "Ok"},
-    {
-        "role": "assistant",
-        "content": """move: from [0] to [I6] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: iron_ingot\ninventory:\n - iron_ore [I36] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
-    },
-    {"role": "user", "content": "Ok"},
-    {
-        "role": "assistant",
-        "content": """smelt: from [I36] to [I35] with quantity 1""",
-    },
-]
+def get_prompt_example(actions: list[str], is_multimodal=False) -> list[dict]:
+    assert set(actions).issubset(VALID_ACTIONS), f"Invalid actions: {actions}"
+    assert "move" in actions, "move should be one of the actions"
+    assert "smelt" in actions, "smelt should be one of the actions"
 
+    example_dialogue = []
+    for i, step in enumerate(CRAFTING_STEPS):
+        example_dialogue.append({"role": "user", "content": step})
+        if "search" in actions and SEARCH_STEPS[i]:
+            example_dialogue.append({"role": "assistant", "content": SEARCH_STEPS[i]})
+            search_target = step.split("seach: ")[-1].strip()
+            search_response = gold_search_recipe(search_target)
+            example_dialogue.append({"role": "user", "content": search_response})
+        if "think" in actions:
+            example_dialogue.append({"role": "assistant", "content": THINK_STEPS[i]})
+            example_dialogue.append({"role": "user", "content": "Ok"})
+        example_dialogue.append({"role": "assistant", "content": BASE_ACTION_STEPS[i]})
 
-ACT_EXAMPLE_IMGS = [
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": """Craft an item of type: andesite"""},
-            {"type": "image"},
-        ],
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """move: from [I18] to [B1] with quantity 1""",
-            }
-        ],
-    },
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": """Craft an item of type: andesite"""},
-            {"type": "image"},
-        ],
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """move: from [I30] to [B2] with quantity 1""",
-            }
-        ],
-    },
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": """Craft an item of type: andesite"""},
-            {"type": "image"},
-        ],
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """move: from [0] to [I6] with quantity 1""",
-            }
-        ],
-    },
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": """Craft an item of type: iron_ingot"""},
-            {"type": "image"},
-        ],
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """smelt: from [I36] to [I35] with quantity 1""",
-            }
-        ],
-    },
-]
+    if not is_multimodal:
+        return example_dialogue
 
-
-REACT_EXAMPLE_IMGS = [
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": """Craft an item of type: andesite"""},
-            {"type": "image"},
-        ],
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
-            }
-        ],
-    },
-    {"role": "user", "content": [{"type": "text", "text": "Ok"}]},
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """move: from [I18] to [B1] with quantity 1""",
-            }
-        ],
-    },
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": """Craft an item of type: andesite"""},
-            {"type": "image"},
-        ],
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """think: Now I need to move the cobblestone into position [B2] to be right of the diorite.""",
-            }
-        ],
-    },
-    {"role": "user", "content": [{"type": "text", "text": "Ok"}]},
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """move: from [I30] to [B2] with quantity 1""",
-            }
-        ],
-    },
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": """Craft an item of type: andesite"""},
-            {"type": "image"},
-        ],
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """think: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
-            }
-        ],
-    },
-    {"role": "user", "content": [{"type": "text", "text": "Ok"}]},
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """move: from [0] to [I6] with quantity 1""",
-            }
-        ],
-    },
-    {
-        "role": "user",
-        "content": [
-            {"type": "text", "text": """Craft an item of type: iron_ingot"""},
-            {"type": "image"},
-        ],
-    },
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
-            }
-        ],
-    },
-    {"role": "user", "content": [{"type": "text", "text": "Ok"}]},
-    {
-        "role": "assistant",
-        "content": [
-            {
-                "type": "text",
-                "text": """smelt: from [I36] to [I35] with quantity 1""",
-            }
-        ],
-    },
-]
-
-
-TOOLS_EXAMPLE = [
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\n - diorite [I18] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: I need to craft andesite, but I'm not sure how to. I should start by searching for the recipe.""",
-    },
-    {"role": "user", "content": "Ok"},
-    {
-        "role": "assistant",
-        "content": """search: andesite""",
-    },
-    {
-        "role": "user",
-        "content": """Recipes to craft andesite:\nrecipe 1:\ndiorite at [B1]\ncobblestone at [B2]""",
-    },
-    {
-        "role": "assistant",
-        "content": """move:: from [I18] to [B1] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\n - diorite [B1] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: Since I've moved the diorite to [B1], I now need to move the cobblestone into [B2] to complete the recipe.""",
-    },
-    {"role": "user", "content": "Ok"},
-    {
-        "role": "assistant",
-        "content": """move:: from [I30] to [B2] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: andesite\ninventory:\nandesite [0] quantity 1\n - diorite [B1] quantity 1\n - cobblestone [B2] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: I can craft the andesite by moving it from the craft slot [0] to a free inventory slot.""",
-    },
-    {"role": "user", "content": "Ok"},
-    {
-        "role": "assistant",
-        "content": """move:: from [0] to [I6] with quantity 1""",
-    },
-    {
-        "role": "user",
-        "content": """Craft an item of type: iron_ingot\ninventory:\n - iron_ore [I36] quantity 1\n - cobblestone [I30] quantity 1""",
-    },
-    {
-        "role": "assistant",
-        "content": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
-    },
-    {"role": "user", "content": "Ok"},
-    {
-        "role": "assistant",
-        "content": """smelt:: from [I36] to [I35] with quantity 1""",
-    },
-]
-
-
-# [2024-09-04 12:16:16,259][plancraft.evaluator][INFO] - {'avg_success_rate': 0.226890756302521, 'avg_number_of_steps': 0.0, 'avg_num_tokens_used': 412118.487394958, 'impossible_success_rate': 0.95, 'shaped_success_rate': 0.15217391304347827, 'mixed_success_rate': 0.0, 'shapeless_success_rate': 0.058823529411764705, 'smelting_success_rate': 0.0}
-# [2024-09-04 13:11:31,201][plancraft.evaluator][INFO] - {'avg_success_rate': 0.2773109243697479, 'avg_number_of_steps': 0.0, 'avg_num_tokens_used': 506813.9411764706, 'impossible_success_rate': 0.95, 'shaped_success_rate': 0.21739130434782608, 'mixed_success_rate': 0.03125, 'shapeless_success_rate': 0.17647058823529413, 'smelting_success_rate': 0.0}
+    # convert to multimodal dialogue
+    multimodal_dialogue = []
+    for message in example_dialogue:
+        if "\ninventory:\n" in message["content"]:
+            multimodal_dialogue.append(
+                {
+                    "role": message["role"],
+                    "content": [
+                        {
+                            "type": "text",
+                            "text": message["content"].split("\ninventory:\n")[0],
+                        },
+                        {"type": "image"},
+                    ],
+                }
+            )
+        else:
+            multimodal_dialogue.append(
+                {
+                    "role": message["role"],
+                    "content": [
+                        {"type": "text", "text": message["content"]},
+                    ],
+                }
+            )
+    return multimodal_dialogue
