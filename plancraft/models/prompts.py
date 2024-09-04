@@ -1,4 +1,29 @@
-SYSTEM_PROMPT = """You are crafting in Minecraft. You need to decide on the next action.
+VALID_ACTIONS = ["move", "smelt", "think", "search", "impossible"]
+
+ACTIONS_DESCRIPTIONS = {
+    "move": {
+        "description": "Transfer a specific quantity of an item from one slot to another",
+        "format": "`move: from [Source] to [Target] with quantity N`",
+    },
+    "smelt": {
+        "description": "Smelt an item in a furnace and moves the output to a specific slot",
+        "format": "`smelt: from [Source] to [Target] with quantity N`",
+    },
+    "think": {
+        "description": "Generate thoughts to help you decide on the next action",
+        "format": "`think: <thought message>`",
+    },
+    "search": {
+        "description": "Search for a recipe to craft a specific item",
+        "format": "`search: <recipe name>`",
+    },
+    "impossible": {
+        "description": "Stop task if it is certain that it is impossible with given inventory",
+        "format": "`impossible: <reason>`",
+    },
+}
+
+BASE_SYSTEM_PROMPT = """You are crafting in Minecraft. You need to decide on the next action.
 
 Crafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:
     - Top row: [A1] [A2] [A3]
@@ -9,24 +34,32 @@ The output of the crafting process is placed in a designated output slot labeled
 
 Inventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]
 
-Actions: You can perform the following actions:
-    - move: Transfer a specific quantity of an item from one slot to another
-    - smelt: Smelt an item in a furnace and moves the output to a specific slot
+"""
 
-Output Format: Each action should be output in the following format:
-    - `act: move from [Source] to [Target] with quantity N`
-    - `act: smelt from [Source] to [Target] with quantity N`
-
-   Example:
-    - `act: move from [I2] to [A1] with quantity 3`
+BASE_SYSTEM_PROMPT_EXAMPLE = """Example:
+    - `move: from [I2] to [A1] with quantity 3`
 
 Constraints:
-    - The output slot [0] is reserved for completed items. You cannot move or smelt items into [0]
-    - If an item is not in slot [0] then the recipe is incorrect
-    - Ensure items are placed correctly according to crafting recipes
-
-Remember to always follow the grid layout and refer to slots using exact labels
+   - You cannot move or smelt items into [0]
+   - If an item is not in slot [0] then the recipe is incorrect
+   - You need to move items from [0] to a free inventory slot to complete the crafting process
 """
+
+
+def get_system_prompt(actions: list[str]):
+    assert set(actions).issubset(VALID_ACTIONS), f"Invalid actions: {actions}"
+    assert "move" in actions, "move should be one of the actions"
+    assert "smelt" in actions, "smelt should be one of the actions"
+
+    descriptions = ""
+    for action in actions:
+        descriptions += f"\n\t- {action}: {ACTIONS_DESCRIPTIONS[action]['description']}"
+
+    output_format = ""
+    for action in actions:
+        output_format += f"\n\t- {ACTIONS_DESCRIPTIONS[action]['format']}"
+
+    return f"{BASE_SYSTEM_PROMPT}\n\nActions:{descriptions}\n\nFormat{output_format}\n\n{BASE_SYSTEM_PROMPT_EXAMPLE}"
 
 
 ACT_EXAMPLE = [
@@ -36,7 +69,7 @@ ACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """act: move from [I18] to [B1] with quantity 1""",
+        "content": """move: from [I18] to [B1] with quantity 1""",
     },
     {
         "role": "user",
@@ -44,7 +77,7 @@ ACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """act: move from [I30] to [B2] with quantity 1""",
+        "content": """move: from [I30] to [B2] with quantity 1""",
     },
     {
         "role": "user",
@@ -52,7 +85,7 @@ ACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """act: move from [0] to [I6] with quantity 1""",
+        "content": """move: from [0] to [I6] with quantity 1""",
     },
     {
         "role": "user",
@@ -60,7 +93,7 @@ ACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """act: smelt from [I36] to [I35] with quantity 1""",
+        "content": """smelt: from [I36] to [I35] with quantity 1""",
     },
 ]
 
@@ -72,12 +105,12 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """thought: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
+        "content": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
     },
     {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
-        "content": """act: move from [I18] to [B1] with quantity 1""",
+        "content": """move: from [I18] to [B1] with quantity 1""",
     },
     {
         "role": "user",
@@ -85,12 +118,12 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """thought: Now I need to move the cobblestone into position [B2] to be right of the diorite.""",
+        "content": """think: Now I need to move the cobblestone into position [B2] to be right of the diorite.""",
     },
     {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
-        "content": """act: move from [I30] to [B2] with quantity 1""",
+        "content": """move: from [I30] to [B2] with quantity 1""",
     },
     {
         "role": "user",
@@ -98,12 +131,12 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """thought: Now I can craft the andesite by moving it from the craft slot [0] to a free inventory slot.""",
+        "content": """think: Now I can craft the andesite by moving it from the craft slot [0] to a free inventory slot.""",
     },
     {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
-        "content": """act: move from [0] to [I6] with quantity 1""",
+        "content": """move: from [0] to [I6] with quantity 1""",
     },
     {
         "role": "user",
@@ -111,12 +144,12 @@ REACT_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """thought: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+        "content": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
     },
     {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
-        "content": """act: smelt from [I36] to [I35] with quantity 1""",
+        "content": """smelt: from [I36] to [I35] with quantity 1""",
     },
 ]
 
@@ -134,7 +167,7 @@ ACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """act: move from [I18] to [B1] with quantity 1""",
+                "text": """move: from [I18] to [B1] with quantity 1""",
             }
         ],
     },
@@ -150,7 +183,7 @@ ACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """act: move from [I30] to [B2] with quantity 1""",
+                "text": """move: from [I30] to [B2] with quantity 1""",
             }
         ],
     },
@@ -166,7 +199,7 @@ ACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """act: move from [0] to [I6] with quantity 1""",
+                "text": """move: from [0] to [I6] with quantity 1""",
             }
         ],
     },
@@ -182,7 +215,7 @@ ACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """act: smelt from [I36] to [I35] with quantity 1""",
+                "text": """smelt: from [I36] to [I35] with quantity 1""",
             }
         ],
     },
@@ -202,7 +235,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """thought: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
+                "text": """think: To solve this task I need to craft andesite using 1 diorite and 1 cobblestone side by side.""",
             }
         ],
     },
@@ -212,7 +245,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """act: move from [I18] to [B1] with quantity 1""",
+                "text": """move: from [I18] to [B1] with quantity 1""",
             }
         ],
     },
@@ -228,7 +261,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """thought: Now I need to move the cobblestone into position [B2] to be right of the diorite.""",
+                "text": """think: Now I need to move the cobblestone into position [B2] to be right of the diorite.""",
             }
         ],
     },
@@ -238,7 +271,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """act: move from [I30] to [B2] with quantity 1""",
+                "text": """move: from [I30] to [B2] with quantity 1""",
             }
         ],
     },
@@ -254,7 +287,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """thought: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
+                "text": """think: Now I can craft the andesite by moving it from craft slot to a free inventory slot.""",
             }
         ],
     },
@@ -264,7 +297,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """act: move from [0] to [I6] with quantity 1""",
+                "text": """move: from [0] to [I6] with quantity 1""",
             }
         ],
     },
@@ -280,7 +313,7 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """thought: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
+                "text": """think: To craft an iron_ingot, I need to smelt iron_ore into an empty slot.""",
             }
         ],
     },
@@ -290,46 +323,12 @@ REACT_EXAMPLE_IMGS = [
         "content": [
             {
                 "type": "text",
-                "text": """act: smelt from [I36] to [I35] with quantity 1""",
+                "text": """smelt: from [I36] to [I35] with quantity 1""",
             }
         ],
     },
 ]
 
-
-TOOLS_SYSTEM_PROMPT = """You are crafting in Minecraft. You need to decide on the next action.
-
-Crafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:
-    - Top row: [A1] [A2] [A3]
-    - Middle row: [B1] [B2] [B3]
-    - Bottom row: [C1] [C2] [C3]
-
-The output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]
-
-Inventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]
-
-Actions: You can perform the following actions:
-    - move: Transfer a specific quantity of an item from one slot to another
-    - smelt: Smelt an item in a furnace and moves the output to a specific slot
-    - think: Generate thoughts to help you decide on the next action
-    - search: Search for a recipe to craft a specific item
-    - impossible: Stop task if it is certain that it is impossible with given inventory
-
-Output Format: Each action should be output in the following format:
-    - `move: from [Source] to [Target] with quantity N`
-    - `smelt: from [Source] to [Target] with quantity N`
-    - `think: <thought message>`
-    - `search: <recipe name>`
-    - `impossible: <reason>`
-
-Example:
-    - `move: from [I2] to [A1] with quantity 3`
-
-Constraints:
-   - You cannot move or smelt items into [0]
-   - If an item is not in slot [0] then the recipe is incorrect
-   - You need to move items from [0] to a free inventory slot to complete the crafting process
-"""
 
 TOOLS_EXAMPLE = [
     {
@@ -351,7 +350,7 @@ TOOLS_EXAMPLE = [
     },
     {
         "role": "assistant",
-        "content": """move: from [I18] to [B1] with quantity 1""",
+        "content": """move:: from [I18] to [B1] with quantity 1""",
     },
     {
         "role": "user",
@@ -364,7 +363,7 @@ TOOLS_EXAMPLE = [
     {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
-        "content": """move: from [I30] to [B2] with quantity 1""",
+        "content": """move:: from [I30] to [B2] with quantity 1""",
     },
     {
         "role": "user",
@@ -377,7 +376,7 @@ TOOLS_EXAMPLE = [
     {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
-        "content": """move: from [0] to [I6] with quantity 1""",
+        "content": """move:: from [0] to [I6] with quantity 1""",
     },
     {
         "role": "user",
@@ -390,7 +389,7 @@ TOOLS_EXAMPLE = [
     {"role": "user", "content": "Ok"},
     {
         "role": "assistant",
-        "content": """smelt: from [I36] to [I35] with quantity 1""",
+        "content": """smelt:: from [I36] to [I35] with quantity 1""",
     },
 ]
 

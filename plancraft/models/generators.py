@@ -552,7 +552,8 @@ class TransformersGenerator:
     def generate_unconstrained(
         self,
         batch_messages: list[list[dict]],
-        max_tokens=256,
+        start_messages_generation: str = "",
+        max_tokens: int = 256,
         **kwargs,
     ) -> tuple[list[str], int]:
         """
@@ -565,7 +566,7 @@ class TransformersGenerator:
             self.model,
             self.tokenizer,
             batch_messages,
-            start_messages_generation=[""] * len(batch_messages),
+            start_messages_generation=[start_messages_generation] * len(batch_messages),
             max_tokens=max_tokens,
             images=kwargs.get("images") if self.is_multimodal else None,
         )

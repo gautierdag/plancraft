@@ -2,11 +2,20 @@ import base64
 import glob
 import io
 import pathlib
+import re
 
 import numpy as np
 import torch
 from PIL import Image
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+from plancraft.environments.actions import (
+    StopAction,
+    SymbolicAction,
+    SymbolicMoveAction,
+    SymbolicSmeltAction,
+)
+from plancraft.environments.recipes import RECIPES
 
 
 def numpy_to_base64(img_array: np.ndarray, image_format: str = "PNG") -> str:
@@ -226,3 +235,71 @@ def objective_and_inventory_to_str(objective: str, inventory: list[dict]) -> str
         inventory_str += f"\n - {item['type']} {slot} quantity {item['quantity']}"
 
     return f"{objective}\ninventory:{inventory_str}"
+
+
+def gold_search_recipe(recipe_name: str) -> str:
+    """
+    Gold search recipe for the given observation and action
+    """
+    if recipe_name not in RECIPES:
+        return "Could not find a recipe by that name."
+
+    out_string = f"Recipes to craft {recipe_name}:\n"
+    for i, r in enumerate(RECIPES[recipe_name]):
+        if r.recipe_type != "smelting":
+            # sample a valid input grid (note that this is not guaranteed to be the only valid grid)
+            input_crafting_grid = r.sample_input_crafting_grid()
+            recipe_instructions = ""
+            for item in input_crafting_grid:
+                recipe_instructions += (
+                    f"{item['type']} at {convert_from_slot_index(item['slot'])}\n"
+                )
+        else:
+            # smelting recipe
+            recipe_instructions = f"smelt {r.ingredient}\n"
+        out_string += f"recipe {i+1}:\n{recipe_instructions}"
+    return out_string
+
+
+def parse_content_response(
+    content: str, valid_actions: list[str] = ["smelt", "move"]
+) -> str | SymbolicAction | StopAction:
+    """
+    Given a message and set of valid actions, parse the content to return the action
+    or a message if the action is not valid/requires message response
+    """
+
+    tool_match = re.search(f"({'|'.join(valid_actions)}):", content)
+    if tool_match:
+        tool = tool_match.group(1)
+        if tool == "think":
+            return "Ok"
+        elif tool == "impossible":
+            reason = re.search(r"impossible: (.*)", content).group(1)
+            return StopAction(reason=reason)
+        elif tool == "search":
+            search_target = re.search(r"search: (\w+)", content).group(1)
+            return gold_search_recipe(search_target)
+        else:
+            try:
+                slot_from = re.search(r" from (\[[ABCI]?\d+\])", content).group(1)
+                slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(1)
+                slot_from = convert_to_slot_index(slot_from)
+                slot_to = convert_to_slot_index(slot_to)
+                quantity = re.search(r"with quantity (\d+)", content).group(1)
+                if tool == "move":
+                    action = SymbolicMoveAction(
+                        slot_from=slot_from,
+                        slot_to=slot_to,
+                        quantity=quantity,
+                    )
+                else:
+                    action = SymbolicSmeltAction(
+                        slot_from=slot_from,
+                        slot_to=slot_to,
+                        quantity=quantity,
+                    )
+                return action
+            except AttributeError as e:
+                return f"Error with action format: {e}"
+    return f"Only select actions from the following: {', '.join(valid_actions)}"

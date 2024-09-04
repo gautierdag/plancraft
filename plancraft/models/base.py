@@ -136,5 +136,5 @@ class ABCModel(abc.ABC):
         """
         raise NotImplementedError()
 
-    def reset_history(self, history_idx: int, objective: str = ""):
-        self.histories[history_idx].reset(objective=objective)
+    def reset_history(self, objective: str = ""):
+        self.history.reset(objective=objective)

@@ -16,9 +16,7 @@ class DummyModel(ABCModel):
 
     def __init__(self, cfg: EvalConfig):
         self.symbolic_move_action = cfg.plancraft.environment.symbolic_action_space
-        self.histories = [
-            History(objective="") for _ in range(cfg.plancraft.batch_size)
-        ]
+        self.history = History(objective="")
 
     def random_select(self, observation):
         if observation is None or "inventory" not in observation:
@@ -39,25 +37,18 @@ class DummyModel(ABCModel):
         )
 
     def step(
-        self, batch_observations: list[dict]
+        self, observation: dict
     ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
-        out_actions = []
-        for observation, history in zip(batch_observations, self.histories):
-            if observation is None:
-                out_actions.append(None)
-                continue
+        # add observation to history
+        self.history.add_observation_to_history(observation)
 
-            # add observation to history
-            history.add_observation_to_history(observation)
+        # get action
+        if self.symbolic_move_action:
+            action = self.random_select(observation)
+        else:
+            action = RealActionInteraction()
 
-            # get action
-            if self.symbolic_move_action:
-                action = self.random_select(observation)
-            else:
-                action = RealActionInteraction()
-            out_actions.append(action)
+        # add action to history
+        self.history.add_action_to_history(action)
 
-            # add action to history
-            history.add_action_to_history(action)
-
-        return out_actions
+        return action

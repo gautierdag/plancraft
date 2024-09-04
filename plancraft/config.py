@@ -1,6 +1,6 @@
 from typing import Literal, Optional, Union
 
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 
 from plancraft.environments.recipes import RECIPES
 
@@ -28,12 +28,19 @@ class PlancraftConfig(BaseModel):
     quantize: Literal[False, "int4", "int8"]
     environment: EnvironmentConfig
     split: DatasetSplit = "val.small"
-    batch_size: int = 1
     max_message_window: int = 30  # max number of messages to keep in dialogue history (30 is around 8k llama3 tokens)
     hot_cache: bool = True  # whether to cache the dialogue history between steps
     resume: bool = True  # resume inference
     few_shot: bool = True  # whether to use few-shot prompt
     system_prompt: bool = True  # whether to use system prompt
+    valid_actions: list[str] = ["move", "smelt", "think", "search", "impossible"]
+
+    @model_validator(mode="after")
+    def validate(self):
+        if self.mode == "react":
+            self.actions = ["move", "smelt", "think"]
+        if self.mode == "act":
+            self.actions = ["move", "smelt"]
 
 
 class WandbConfig(BaseModel):

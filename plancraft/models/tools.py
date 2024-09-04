@@ -1,15 +1,13 @@
 import copy
 import logging
-import re
 
 from dotenv import load_dotenv
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
+    StopAction,
     SymbolicAction,
     SymbolicMoveAction,
-    SymbolicSmeltAction,
-    StopAction,
 )
 from plancraft.models.base import ABCModel, History
 
@@ -20,11 +18,13 @@ from plancraft.models.generators import (
 )
 from plancraft.models.prompts import (
     TOOLS_EXAMPLE,
-    # REACT_EXAMPLE_IMGS,
-    TOOLS_SYSTEM_PROMPT,
+    # TOOLS_EXAMPLE_IMGS,
+    get_system_prompt,
 )
-from plancraft.models.search import gold_search_recipe
-from plancraft.models.utils import convert_observation_to_message, convert_to_slot_index
+from plancraft.models.utils import (
+    convert_observation_to_message,
+    parse_content_response,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -57,10 +57,10 @@ class ToolsModel(ABCModel):
                 use_hot_cache=cfg.plancraft.hot_cache,
                 adapter_name=cfg.plancraft.adapter,
             )
-
-        self.batch_size = cfg.plancraft.batch_size
         self.prompt_images = []
 
+        self.valid_actions = ["move", "smelt", "think", "search", "impossible"]
+        self.system_prompt_text = get_system_prompt(self.valid_actions)
         if self.is_multimodal:
             assert False, "Multimodal tools not supported"
             # examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
@@ -68,14 +68,14 @@ class ToolsModel(ABCModel):
             # self.system_prompt = {
             #     "role": "system",
             #     "content": [
-            #         {"text": copy.deepcopy(TOOLS_SYSTEM_PROMPT), "type": "text"}
+            #         {"text": copy.deepcopy(self.system_prompt_text), "type": "text"}
             #     ],
             # }
         else:
             examples = copy.deepcopy(TOOLS_EXAMPLE)
             self.system_prompt = {
                 "role": "system",
-                "content": copy.deepcopy(TOOLS_SYSTEM_PROMPT),
+                "content": copy.deepcopy(self.system_prompt_text),
             }
 
         if not self.few_shot:
@@ -83,20 +83,16 @@ class ToolsModel(ABCModel):
         if not self.use_system_prompt:
             self.system_prompt = None
 
-        self.histories = [
-            History(
-                initial_dialogue=examples,
-                is_multimodal=self.is_multimodal,
-            )
-            for _ in range(self.batch_size)
-        ]
+        self.history = History(
+            initial_dialogue=examples,
+            is_multimodal=self.is_multimodal,
+        )
 
         self.max_messages_window = cfg.plancraft.max_message_window
         self.kv_cache = None
 
     def reset_history(
         self,
-        history_idx: int,
         objective: str,
     ):
         examples = []
@@ -105,133 +101,58 @@ class ToolsModel(ABCModel):
             # examples = copy.deepcopy(REACT_EXAMPLE_IMGS)
             # else:
             examples = copy.deepcopy(TOOLS_EXAMPLE)
-        self.histories[history_idx].reset(
-            objective=objective, initial_dialogue=examples
-        )
+        self.history.reset(objective=objective, initial_dialogue=examples)
         self.llm.reset()
 
-    def step(self, observations: list[dict]) -> list[SymbolicAction]:
-        assert len(observations) == self.batch_size == len(self.histories)
+    def step(self, observation: dict) -> SymbolicAction | StopAction:
+        self.history.add_observation_to_history(observation)
 
-        # filter out None observations
-        real_obs = []
-        real_obs_idx = []
+        # add observation to history
+        observation_message = convert_observation_to_message(
+            observation,
+            objective=self.history.objective,
+            is_multimodal=self.is_multimodal,
+        )
+        self.history.add_message_to_history(content=observation_message, role="user")
 
-        for idx, (observation, history) in enumerate(zip(observations, self.histories)):
-            # add observation to history
-            if observation is not None:
-                # note if image is present this adds the image to the history
-                history.add_observation_to_history(observation)
-                real_obs.append(observation)
-                real_obs_idx.append(idx)
-
-        actions = [None] * len(observations)
-        # if no observations in batch, return empty actions
-        if len(real_obs) == 0:
-            return actions
-
-        # collect dialogue histories
-        for observation, history_idx in zip(real_obs, real_obs_idx):
-            # add observation to history
-            observation_message = convert_observation_to_message(
-                observation,
-                objective=self.histories[history_idx].objective,
-                is_multimodal=self.is_multimodal,
+        # Iterate until action is either smelt or move
+        i = 0
+        while i < self.max_non_action_tools:
+            message_window, image_window = self.llm.prepare_messages(
+                history=self.history,
+                max_messages_window=self.max_messages_window,
+                system_prompt=self.system_prompt,
+                prompt_images=self.prompt_images,
             )
-            self.histories[history_idx].add_message_to_history(
-                content=observation_message, role="user"
+            text_response, tokens_used = self.llm.generate_unconstrained(
+                batch_messages=[message_window],
+                max_tokens=256,
+                images=[image_window],
             )
+            content = text_response[0].split("\n")[0].strip()
 
-            # Iterate until action is either smelt or move
-            i = 0
-            done = False
-            while not done:
-                message_window, image_window = self.llm.prepare_messages(
-                    history=self.histories[history_idx],
-                    max_messages_window=self.max_messages_window,
-                    system_prompt=self.system_prompt,
-                    prompt_images=self.prompt_images,
-                )
-                text_response, tokens_used = self.llm.generate_unconstrained(
-                    batch_messages=[message_window],
-                    max_tokens=256,
-                    images=[image_window],
-                )
-                content = text_response[0].split("\n")[0].strip()
+            print(content)
 
-                print(content)
+            # increment token used
+            self.history.tokens_used += tokens_used
 
-                # increment token used
-                self.histories[history_idx].tokens_used += tokens_used
+            # add message to history
+            self.history.add_message_to_history(content=content, role="assistant")
 
-                # add message to history
-                self.histories[history_idx].add_message_to_history(
-                    content=content, role="assistant"
-                )
+            response = parse_content_response(content, valid_actions=self.valid_actions)
+            if not isinstance(response, str):
+                # valid action
+                self.history.add_action_to_history(response)
+                return response
 
-                tool_match = re.search(
-                    r"^(smelt|move|search|think|impossible):", content.strip()
-                )
-                if tool_match:
-                    tool = tool_match.group(1)
-                    if tool == "think":
-                        self.histories[history_idx].add_message_to_history(
-                            content="Ok", role="user"
-                        )
-                    elif tool == "impossible":
-                        reason = re.search(r"impossible: (.*)", content).group(1)
-                        actions[history_idx] = StopAction(reason=reason)
-                        done = True
-                    elif tool == "search":
-                        search_target = re.search(r"search: (\w+)", content).group(1)
-                        search_response = gold_search_recipe(search_target)
-                        self.histories[history_idx].add_message_to_history(
-                            content=search_response, role="user"
-                        )
-                    else:
-                        try:
-                            slot_from = re.search(
-                                r" from (\[[ABCI]?\d+\])", content
-                            ).group(1)
-                            slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(
-                                1
-                            )
-                            slot_from = convert_to_slot_index(slot_from)
-                            slot_to = convert_to_slot_index(slot_to)
+            self.history.add_message_to_history(
+                content=response,
+            )
+            i += 1
 
-                            quantity = re.search(r"with quantity (\d+)", content).group(
-                                1
-                            )
-                            if tool == "move":
-                                action = SymbolicMoveAction(
-                                    slot_from=slot_from,
-                                    slot_to=slot_to,
-                                    quantity=quantity,
-                                )
-                            else:
-                                action = SymbolicSmeltAction(
-                                    slot_from=slot_from,
-                                    slot_to=slot_to,
-                                    quantity=quantity,
-                                )
-                            actions[history_idx] = action
-                            done = True
-                        except AttributeError as e:
-                            error_message = f"Error with action format: {e}"
-                            self.histories[history_idx].add_message_to_history(
-                                content=error_message, role="user"
-                            )
-                else:
-                    self.histories[history_idx].add_message_to_history(
-                        content="Only select actions from the following: smelt, move, search, think, impossible",
-                    )
-                i += 1
-                # if no action is found after max_non_action_tools, default to (mostly) useless move
-                if i >= self.max_non_action_tools:
-                    actions[history_idx] = SymbolicMoveAction(
-                        slot_from=0,
-                        slot_to=1,
-                        quantity=1,
-                    )
-                    break
-        return actions
+        # if no action is found after max_non_action_tools, default to (mostly) useless move action
+        return SymbolicMoveAction(
+            slot_from=0,
+            slot_to=1,
+            quantity=1,
+        )
