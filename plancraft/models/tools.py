@@ -125,10 +125,11 @@ class ToolsModel(ABCModel):
                 real_obs.append(observation)
                 real_obs_idx.append(idx)
 
+        actions = [None] * len(observations)
+        # if no observations in batch, return empty actions
         if len(real_obs) == 0:
-            return [None] * len(observations)
+            return actions
 
-        actions = []
         # collect dialogue histories
         for observation, history_idx in zip(real_obs, real_obs_idx):
             # add observation to history
@@ -144,7 +145,7 @@ class ToolsModel(ABCModel):
             # Iterate until action is either smelt or move
             i = 0
             done = False
-            while i < self.max_non_action_tools and not done:
+            while not done:
                 message_window, image_window = self.llm.prepare_messages(
                     history=self.histories[history_idx],
                     max_messages_window=self.max_messages_window,
@@ -168,9 +169,8 @@ class ToolsModel(ABCModel):
                     content=content, role="assistant"
                 )
 
-                # for tool in self.tools:
                 tool_match = re.search(
-                    r"^(smelt|move|search|think|stop):", content.strip()
+                    r"^(smelt|move|search|think|impossible):", content.strip()
                 )
                 if tool_match:
                     tool = tool_match.group(1)
@@ -178,9 +178,9 @@ class ToolsModel(ABCModel):
                         self.histories[history_idx].add_message_to_history(
                             content="Ok", role="user"
                         )
-                    elif tool == "stop":
-                        reason = re.search(r"stop: (.*)", content).group(1)
-                        actions.append(StopAction(reason=reason))
+                    elif tool == "impossible":
+                        reason = re.search(r"impossible: (.*)", content).group(1)
+                        actions[history_idx] = StopAction(reason=reason)
                         done = True
                     elif tool == "search":
                         search_target = re.search(r"search: (\w+)", content).group(1)
@@ -214,36 +214,24 @@ class ToolsModel(ABCModel):
                                     slot_to=slot_to,
                                     quantity=quantity,
                                 )
-                            actions.append(action)
+                            actions[history_idx] = action
                             done = True
                         except AttributeError as e:
-                            error_message = f"Could not parse action: {e}"
+                            error_message = f"Error with action format: {e}"
                             self.histories[history_idx].add_message_to_history(
                                 content=error_message, role="user"
                             )
                 else:
                     self.histories[history_idx].add_message_to_history(
-                        content="Please start your message with a valid action from the following: smelt, move, search, think",
+                        content="Only select actions from the following: smelt, move, search, think, impossible",
                     )
                 i += 1
-                if not done and i >= self.max_non_action_tools:
-                    actions.append(
-                        SymbolicMoveAction(
-                            slot_from=0,
-                            slot_to=1,
-                            quantity=1,
-                        )
+                # if no action is found after max_non_action_tools, default to (mostly) useless move
+                if i >= self.max_non_action_tools:
+                    actions[history_idx] = SymbolicMoveAction(
+                        slot_from=0,
+                        slot_to=1,
+                        quantity=1,
                     )
-
-            assert len(actions) == len(
-                real_obs_idx
-            ), "Mismatch in number of actions and observations"
-
-            # re-map actions to the correct index in the batch
-            out_actions = [None] * len(observations)
-            for idx, history_idx in enumerate(real_obs_idx):
-                out_actions[history_idx] = actions[idx]
-                # add to action history
-                self.histories[history_idx].add_action_to_history(actions[idx])
-
-        return out_actions
+                    break
+        return actions

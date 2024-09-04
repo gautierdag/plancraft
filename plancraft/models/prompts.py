@@ -313,26 +313,23 @@ Actions: You can perform the following actions:
     - smelt: Smelt an item in a furnace and moves the output to a specific slot
     - think: Generate thoughts to help you decide on the next action
     - search: Search for a recipe to craft a specific item
-    - stop: Stop the crafting process, if the task is impossible
+    - impossible: Stop task if it is certain that it is impossible with given inventory
 
 Output Format: Each action should be output in the following format:
     - `move: from [Source] to [Target] with quantity N`
     - `smelt: from [Source] to [Target] with quantity N`
     - `think: <thought message>`
     - `search: <recipe name>`
-    - `stop: <reason>`
+    - `impossible: <reason>`
 
 Example:
-    - `act: move from [I2] to [A1] with quantity 3`
+    - `move: from [I2] to [A1] with quantity 3`
 
 Constraints:
-   - The output slot [0] is reserved for completed items. You cannot move or smelt items into [0]
+   - You cannot move or smelt items into [0]
    - If an item is not in slot [0] then the recipe is incorrect
-   - Ensure items are placed correctly according to crafting recipes
-
-Remember to always follow the grid layout and refer to slots using exact labels
+   - You need to move items from [0] to a free inventory slot to complete the crafting process
 """
-
 
 TOOLS_EXAMPLE = [
     {
@@ -396,3 +393,7 @@ TOOLS_EXAMPLE = [
         "content": """smelt: from [I36] to [I35] with quantity 1""",
     },
 ]
+
+
+# [2024-09-04 12:16:16,259][plancraft.evaluator][INFO] - {'avg_success_rate': 0.226890756302521, 'avg_number_of_steps': 0.0, 'avg_num_tokens_used': 412118.487394958, 'impossible_success_rate': 0.95, 'shaped_success_rate': 0.15217391304347827, 'mixed_success_rate': 0.0, 'shapeless_success_rate': 0.058823529411764705, 'smelting_success_rate': 0.0}
+# [2024-09-04 13:11:31,201][plancraft.evaluator][INFO] - {'avg_success_rate': 0.2773109243697479, 'avg_number_of_steps': 0.0, 'avg_num_tokens_used': 506813.9411764706, 'impossible_success_rate': 0.95, 'shaped_success_rate': 0.21739130434782608, 'mixed_success_rate': 0.03125, 'shapeless_success_rate': 0.17647058823529413, 'smelting_success_rate': 0.0}

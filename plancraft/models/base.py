@@ -1,6 +1,7 @@
 import abc
 
 from copy import copy
+from collections import Counter
 
 from plancraft.environments.actions import (
     SymbolicMoveAction,
@@ -97,6 +98,25 @@ class History:
     @property
     def num_steps(self):
         return len(self.action_history)
+
+    def check_stuck(self, max_steps_no_change: int = 10) -> bool:
+        """
+        If inventory content does not change for max_steps_no_change steps
+        the agent is considered stuck.
+
+        With N=10, the oracle solver can still solve 100% of the examples
+        """
+        if len(self.inventory_history) < max_steps_no_change:
+            return False
+
+        inventory_history = self.inventory_history[-max_steps_no_change:]
+        counters = []
+        for inventory in inventory_history:
+            counter = Counter()
+            for item in inventory:
+                counter[item["type"]] += item["quantity"]
+            counters.append(counter)
+        return all(c == counters[0] for c in counters)
 
 
 class ABCModel(abc.ABC):

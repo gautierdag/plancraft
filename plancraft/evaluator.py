@@ -5,6 +5,7 @@ import random
 import string
 import time
 from collections import Counter
+from typing import Optional
 
 import pandas as pd
 import imageio
@@ -147,35 +148,23 @@ class Evaluator:
                     return True
         return False
 
-    def check_stuck(self, env_idx: int, max_steps_no_change: int = 10) -> bool:
-        """
-        If inventory content does not change for max_steps_no_change steps
-        the agent is considered stuck.
-
-        With N=10, the oracle solver can still solve 100% of the examples
-        """
-        inventory_history = self.model.histories[env_idx].inventory_history
-        if len(inventory_history) < max_steps_no_change:
-            return False
-        inventory_history = inventory_history[-max_steps_no_change:]
-        counters = []
-        for inventory in inventory_history:
-            counter = Counter()
-            for item in inventory:
-                counter[item["type"]] += item["quantity"]
-            counters.append(counter)
-        return all(c == counters[0] for c in counters)
-
     @torch.no_grad()
     def eval_all_examples(self, progress_bar=False) -> list:
         examples_queue = self.examples.copy()
-        assigned_examples = {env_idx: None for env_idx in range(self.batch_size)}
+        assigned_examples: dict[int, Optional[PlancraftExample]] = {
+            env_idx: None for env_idx in range(self.batch_size)
+        }
 
         results = []
 
         actions = [self.no_op.copy() for _ in range(self.batch_size)]
         observations = [None for _ in range(self.batch_size)]
+
+        # track if the episode is done
         done = [False for _ in range(self.batch_size)]
+        # track if the episode is a success
+        success = [False for _ in range(self.batch_size)]
+
         pbar = tqdm(
             total=len(self.examples) * self.cfg.plancraft.max_steps,
             disable=not progress_bar,
@@ -203,11 +192,11 @@ class Evaluator:
                 if (
                     done[env_idx]
                     or num_steps >= self.cfg.plancraft.max_steps
-                    or self.check_stuck(env_idx)
+                    or self.model.histories[env_idx].check_stuck()
                 ):
                     # save results and reset
                     result = {
-                        "success": done[env_idx],
+                        "success": success[env_idx],
                         "recipe_type": example.recipe_type,
                         "number_of_steps": num_steps,
                         "model_trace": self.model.histories[env_idx].trace(),
@@ -219,6 +208,7 @@ class Evaluator:
                     self.save_images(example, self.model.histories[env_idx].images)
                     assigned_examples[env_idx] = None
                     done[env_idx] = False
+                    success[env_idx] = False
 
                     correct += int(result["success"])
                     count += 1
@@ -237,20 +227,24 @@ class Evaluator:
                 if isinstance(actions[env_idx], StopAction):
                     # if the action is stop and task is impossible then success
                     # otherwise we should not have stopped
-                    done[env_idx] = example.impossible
+                    success[env_idx] = example.impossible
+                    done[env_idx] = True
                     observations[env_idx] = None
                     continue
-                else:
-                    obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
-                    observations[env_idx] = obs
-                    done[env_idx] = self.check_done(obs["inventory"], example.target)
-                    # # don't predict actions if observation is None
-                    if done[env_idx]:
-                        observations[env_idx] = None
+
+                obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
+                observations[env_idx] = obs
+                done[env_idx] = self.check_done(obs["inventory"], example.target)
+                # don't predict actions if observation is None
+                if done[env_idx]:
+                    # NOTE: self.check_done also checks for success
+                    success[env_idx] = True
+                    observations[env_idx] = None
 
             # get actions from model (batched)
             actions = self.model.step(observations)
-            pbar.update(len(observations))
+
+            # pbar.update(len(observations))
 
         return results
 
