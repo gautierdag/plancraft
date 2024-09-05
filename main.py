@@ -28,7 +28,7 @@ def main(cfg):
         ["move", "smelt", "think", "search", "impossible"],
     ]:
         cfg.plancraft.valid_actions = valid_actions
-        for mode in ["act", "react", "tools"]:
+        for mode in ["act", "react"]:
             cfg.plancraft.mode = mode
             evaluator = Evaluator(cfg)
             evaluator.eval_all()

@@ -4,8 +4,8 @@ plancraft:
   # adapter: gautierdag/oa-llama3-r64-a32
   # model: gpt-4o-mini
   # tokenizer: gpt-4o-mini"
-  num_generations: 1
-  mode: "react"
+  num_generations: 3
+  mode: "act"
   hot_cache: True
   max_steps: 80
   quantize: False
@@ -13,10 +13,9 @@ plancraft:
     symbolic: True
     symbolic_observation_space: True
     symbolic_action_space: True
-  split: val.small.easy
-  batch_size: 1
+  split: val.small
   max_message_window: 30
-  resume: False
+  resume: True
   output_dir: "outputs"
   few_shot: True
   system_prompt: True

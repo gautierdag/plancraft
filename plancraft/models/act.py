@@ -7,6 +7,7 @@ from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     SymbolicAction,
     SymbolicMoveAction,
+    StopAction,
 )
 from plancraft.models.base import ABCModel, History
 from plancraft.models.few_shot_images import load_prompt_images
@@ -100,8 +101,10 @@ class ActModel(ABCModel):
         self.history.reset(objective=objective, initial_dialogue=examples)
         self.llm.reset()
 
-    def step(self, observation: dict) -> SymbolicAction:
+    def step(self, observation: dict) -> SymbolicAction | StopAction:
         self.history.add_observation_to_history(observation)
+
+        # add observation to history
         observation_message = convert_observation_to_message(
             observation,
             objective=self.history.objective,
@@ -109,6 +112,7 @@ class ActModel(ABCModel):
         )
         self.history.add_message_to_history(content=observation_message, role="user")
 
+        # Iterate until valid action
         i = 0
         while i < self.max_invalid_actions:
             # add observation to history
@@ -121,7 +125,6 @@ class ActModel(ABCModel):
             action_messages, action_token_used = self.llm.generate_unconstrained(
                 batch_messages=[message_window],
                 images=[image_window],
-                start_messages_generation="",
             )
             self.history.tokens_used += action_token_used
 
@@ -143,7 +146,7 @@ class ActModel(ABCModel):
             )
             i += 1
 
-        # default move action
+        # if no action is found after max_invalid_actions, default to (mostly) useless move action
         return SymbolicMoveAction(
             slot_from=0,
             slot_to=1,

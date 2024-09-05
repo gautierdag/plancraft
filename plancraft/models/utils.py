@@ -14,6 +14,8 @@ from plancraft.environments.actions import (
     SymbolicAction,
     SymbolicMoveAction,
     SymbolicSmeltAction,
+    convert_from_slot_index,
+    convert_to_slot_index,
 )
 from plancraft.environments.recipes import RECIPES
 
@@ -151,45 +153,6 @@ def tokenize(
     return tokenized_messages
 
 
-def convert_to_slot_index(slot: str) -> int:
-    slot = slot.strip()
-    grid_map = {
-        "[0]": 0,
-        "[A1]": 1,
-        "[A2]": 2,
-        "[A3]": 3,
-        "[B1]": 4,
-        "[B2]": 5,
-        "[B3]": 6,
-        "[C1]": 7,
-        "[C2]": 8,
-        "[C3]": 9,
-    }
-    if slot in grid_map:
-        return grid_map[slot]
-    else:
-        return int(slot[2:-1]) + 9
-
-
-def convert_from_slot_index(slot_index: int) -> str:
-    grid_map = {
-        0: "[0]",
-        1: "[A1]",
-        2: "[A2]",
-        3: "[A3]",
-        4: "[B1]",
-        5: "[B2]",
-        6: "[B3]",
-        7: "[C1]",
-        8: "[C2]",
-        9: "[C3]",
-    }
-    if slot_index < 10:
-        return grid_map[slot_index]
-    else:
-        return f"[I{slot_index-9}]"
-
-
 def convert_observation_to_message(
     observation: dict, objective: str, is_multimodal=False
 ) -> str | dict:
@@ -269,25 +232,23 @@ def parse_content_response(
     or a message if the action is not valid/requires message response
     """
 
-    tool_match = re.search(f"({'|'.join(valid_actions)}):", content)
-    if tool_match:
-        tool = tool_match.group(1)
-        if tool == "think":
+    action_match = re.search(f"({'|'.join(valid_actions)}):", content)
+    if action_match:
+        action = action_match.group(1)
+        if action == "think":
             return "Ok"
-        elif tool == "impossible":
+        elif action == "impossible":
             reason = re.search(r"impossible: (.*)", content).group(1)
             return StopAction(reason=reason)
-        elif tool == "search":
+        elif action == "search":
             search_target = re.search(r"search: (\w+)", content).group(1)
             return gold_search_recipe(search_target)
         else:
             try:
                 slot_from = re.search(r" from (\[[ABCI]?\d+\])", content).group(1)
                 slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(1)
-                slot_from = convert_to_slot_index(slot_from)
-                slot_to = convert_to_slot_index(slot_to)
                 quantity = re.search(r"with quantity (\d+)", content).group(1)
-                if tool == "move":
+                if action == "move":
                     action = SymbolicMoveAction(
                         slot_from=slot_from,
                         slot_to=slot_to,
@@ -301,5 +262,5 @@ def parse_content_response(
                     )
                 return action
             except AttributeError as e:
-                return f"Error with action format: {e}"
+                return f"Format Error: {e}"
     return f"Only select actions from the following: {', '.join(valid_actions)}"

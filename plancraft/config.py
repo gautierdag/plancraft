@@ -22,7 +22,7 @@ class PlancraftConfig(BaseModel):
     adapter: str = ""
     tokenizer: str
     num_generations: int
-    mode: Literal["react", "act", "oracle", "dummy", "tools"] = "react"
+    mode: Literal["react", "act", "oracle", "dummy"] = "react"
     output_dir: str
     max_steps: int
     quantize: Literal[False, "int4", "int8"]
@@ -37,10 +37,11 @@ class PlancraftConfig(BaseModel):
 
     @model_validator(mode="after")
     def validate(self):
-        if self.mode == "react":
-            self.valid_actions = ["move", "smelt", "think"]
-        if self.mode == "act":
-            self.valid_actions = ["move", "smelt"]
+        assert set(
+            self.valid_actions
+        ).issubset(
+            {"move", "smelt", "think", "search", "impossible"}
+        ), "valid_actions should be subset of {'move', 'smelt', 'think', 'search', 'impossible'}"
         return self
 
 
