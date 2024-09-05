@@ -92,32 +92,28 @@ class OracleModel(ABCModel):
         assert (
             cfg.plancraft.environment.symbolic_action_space
         ), "Only symbolic actions are supported for oracle"
-        self.histories = [
-            History(objective="") for _ in range(cfg.plancraft.batch_size)
-        ]
-        self.plans = [[] for _ in range(cfg.plancraft.batch_size)]
-        self.subplans = [[] for _ in range(cfg.plancraft.batch_size)]
+        self.history = History(objective="")
+        self.plans = []
+        self.subplans = []
 
-    def reset_history(self, history_idx: int, objective: str = ""):
-        self.histories[history_idx].reset(objective=objective)
-        self.plans[history_idx] = []
-        self.subplans[history_idx] = []
+    def reset_history(self, objective: str = ""):
+        self.history.reset(objective=objective)
+        self.plans = []
+        self.subplans = []
 
-    def get_plan(self, plan_idx: int, observation: dict):
+    def get_plan(self, observation: dict):
         # objective="Craft an item of type: ...."
         # this simply recovering the target item to craft
-        target = self.histories[plan_idx].objective.split(": ")[-1]
+        target = self.history.objective.split(": ")[-1]
         inventory_counter = get_inventory_counter(observation["inventory"])
-        self.plans[plan_idx] = optimal_planner(
-            target=target, inventory=inventory_counter
-        )
+        self.plans = optimal_planner(target=target, inventory=inventory_counter)
 
     def get_next_action(
-        self, plan_idx: int, observation: dict
+        self, observation: dict
     ) -> SymbolicMoveAction | SymbolicSmeltAction:
-        if len(self.subplans[plan_idx]) > 0:
-            return self.subplans[plan_idx].pop(0)
-        if len(self.plans[plan_idx]) == 0:
+        if len(self.subplans) > 0:
+            return self.subplans.pop(0)
+        if len(self.plans) == 0:
             raise ValueError("No more steps in plan")
 
         observed_inventory = copy.deepcopy(observation["inventory"])
@@ -130,8 +126,8 @@ class OracleModel(ABCModel):
                 slot_from=0, slot_to=free_slot, quantity=slot_item["quantity"]
             )
 
-        plan_recipe, new_inventory = self.plans[plan_idx].pop(0)
-        self.subplans[plan_idx] = []
+        plan_recipe, new_inventory = self.plans.pop(0)
+        self.subplans = []
         new_inventory_counter = Counter(new_inventory)
         current_inventory = observed_inventory
         current_inventory_counter = get_inventory_counter(current_inventory)
@@ -155,7 +151,7 @@ class OracleModel(ABCModel):
                     current_inventory = update_inventory(
                         current_inventory, from_slot, crafting_slot, 1
                     )
-                    self.subplans[plan_idx].append(action)
+                    self.subplans.append(action)
                     crafting_slot += 1
                     n += 1
 
@@ -168,7 +164,7 @@ class OracleModel(ABCModel):
                 action = SymbolicSmeltAction(
                     slot_from=from_slot, slot_to=free_slot, quantity=quantity
                 )
-                self.subplans[plan_idx].append(action)
+                self.subplans.append(action)
 
         # if plan_recipe is a shaped recipe
         elif isinstance(plan_recipe, ShapedRecipe):
@@ -189,33 +185,25 @@ class OracleModel(ABCModel):
                             current_inventory = update_inventory(
                                 current_inventory, from_slot, inventory_position, 1
                             )
-                            self.subplans[plan_idx].append(action)
+                            self.subplans.append(action)
                             break
         else:
             raise NotImplementedError(f"Recipe type {type(plan_recipe)} not supported")
 
-        return self.subplans[plan_idx].pop(0)
+        return self.subplans.pop(0)
 
     def step(
-        self, batch_observations: list[dict]
+        self, observation: dict
     ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
-        out_actions = []
-        assert len(batch_observations) == len(self.histories)
-        for plan_idx, observation in enumerate(batch_observations):
-            if observation is None:
-                out_actions.append(None)
-                continue
+        # add observation to history
+        self.history.add_observation_to_history(observation)
 
-            # add observation to history
-            self.histories[plan_idx].add_observation_to_history(observation)
+        # get action
+        if len(self.plans) == 0:
+            self.get_plan(observation)
 
-            # get action
-            if len(self.plans[plan_idx]) == 0:
-                self.get_plan(plan_idx, observation)
+        action = self.get_next_action(observation)
 
-            action = self.get_next_action(plan_idx, observation)
-            out_actions.append(action)
-
-            # add action to history
-            self.histories[plan_idx].add_action_to_history(action)
-        return out_actions
+        # add action to history
+        self.history.add_action_to_history(action)
+        return action

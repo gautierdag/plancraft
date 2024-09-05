@@ -1,6 +1,5 @@
 import logging
 import os
-import re
 import time
 
 import torch
@@ -16,15 +15,8 @@ from transformers import (
 )
 from transformers.cache_utils import DynamicCache
 
-from plancraft.environments.actions import (
-    SymbolicAction,
-    SymbolicMoveAction,
-    SymbolicSmeltAction,
-)
 from plancraft.models.base import History
 from plancraft.models.utils import (
-    Trie,
-    convert_to_slot_index,
     get_downloaded_models,
     numpy_to_base64,
     tokenize,
@@ -33,37 +25,6 @@ from plancraft.models.utils import (
 logger = logging.getLogger(__name__)
 
 load_dotenv()
-
-
-class ValidActionsLogitsProcessor(torch.nn.Module):
-    def __init__(self, choices: list[str], tokenizer: AutoTokenizer):
-        super().__init__()
-        self.choices = choices
-        self.tree = Trie()
-        self.start_idx = None
-        self.eos = tokenizer.eos_token_id
-        encoded_choices = tokenizer(choices, add_special_tokens=False)["input_ids"]
-        for choice in encoded_choices:
-            self.tree.insert(choice + [self.eos])
-
-    def forward(self, input_ids, scores):
-        if self.start_idx is None:
-            # Calculate start_idx during the first forward pass
-            self.start_idx = input_ids.shape[-1]
-
-        decoded_so_far = input_ids[:, self.start_idx :]
-        mask = torch.full_like(scores, float("-inf"))
-        for batch_idx in range(input_ids.shape[0]):
-            valid_next_tokens = self.tree.get_next(decoded_so_far[batch_idx].tolist())
-            # if no choice then we allow the model to generate eos
-            if len(valid_next_tokens) == 0:
-                valid_next_tokens = [self.eos]
-
-            mask[batch_idx, valid_next_tokens] = 0
-        return scores + mask
-
-    def reset(self):
-        self.start_idx = None
 
 
 class TransformersGenerator:
@@ -139,41 +100,11 @@ class TransformersGenerator:
         self.model = torch.compile(self.model)
         logger.info(f"Model compiled in {time.time() - time_now:.2f} seconds")
 
-        self.fix_tokenizer_system_prompt(model_name, self.tokenizer)
-
         self.model.eval()
         if self.pad_token_id is None:
             self.tokenizer.pad_token = self.tokenizer.eos_token
             self.model.config.pad_token_id = self.model.config.eos_token_id
         self.tokenizer.truncation_side = "left"
-
-        valid_slots = [
-            " [A1]",
-            " [A2]",
-            " [A3]",
-            " [B1]",
-            " [B2]",
-            " [B3]",
-            " [C1]",
-            " [C2]",
-            " [C3]",
-        ]
-        valid_slots += [f" [I{i}]" for i in range(1, 36)]
-
-        self.action_logit_processor = ValidActionsLogitsProcessor(
-            [" move", " smelt"], self.tokenizer
-        )
-        self.slot_from_processor = ValidActionsLogitsProcessor(
-            valid_slots + [" [0]"],
-            self.tokenizer,
-        )
-        self.slot_to_processor = ValidActionsLogitsProcessor(
-            valid_slots, self.tokenizer
-        )
-
-        self.quantity_processor = ValidActionsLogitsProcessor(
-            [str(i) for i in range(1, 65)], self.tokenizer
-        )
 
         self.past_key_values_kwargs = {}
         self.past_token_ids = None
@@ -225,31 +156,6 @@ class TransformersGenerator:
             [kv[:, :, :seq_min, :] for kv in kvs]
             for kvs in self.past_key_values_kwargs["past_key_values"]
         ]
-
-    @staticmethod
-    def fix_tokenizer_system_prompt(model_name: str, tokenizer):
-        """
-        Returns True if the model supports a system role
-        """
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        if "mistral" in model_name.lower():
-            # get directory of current file
-            chat_template = open(
-                current_dir + "/templates/mistral-instruct.jinja"
-            ).read()
-            chat_template = chat_template.replace("    ", "").replace("\n", "")
-            # set the chat template
-            tokenizer.chat_template = chat_template
-        elif "gemma" in model_name.lower():
-            # get directory of current file
-            chat_template = open(current_dir + "/templates/gemma-instruct.jinja").read()
-            chat_template = chat_template.replace("    ", "").replace("\n", "")
-            # set the chat template
-            tokenizer.chat_template = chat_template
-        elif "phi" in model_name.lower():
-            chat_template = open(current_dir + "/templates/phi-instruct.jinja").read()
-            chat_template = chat_template.replace("    ", "").replace("\n", "")
-            tokenizer.chat_template = chat_template
 
     @staticmethod
     def build_model_kwargs(model_name: str, **kwargs) -> tuple[str, dict]:
@@ -322,237 +228,12 @@ class TransformersGenerator:
         return message_window, image_window
 
     @torch.inference_mode()
-    def generate_thoughts(
-        self,
-        batch_messages: list[list[dict]],
-        temperature=1.0,
-        max_tokens=256,
-        **kwargs,
-    ) -> tuple[list[str], int]:
-        if self.is_multimodal:
-            assert "images" in kwargs, "Images required for multimodal model"
-
-        tokenized_messages = tokenize(
-            self.model,
-            self.tokenizer,
-            batch_messages,
-            start_messages_generation=["thought:"] * len(batch_messages),
-            max_tokens=max_tokens,
-            images=kwargs.get("images") if self.is_multimodal else None,
-        )
-        prompt_tokens = tokenized_messages["input_ids"].shape[-1]
-
-        # sent to same device as model
-        tokenized_messages = {
-            k: v.to(self.model.device) for k, v in tokenized_messages.items()
-        }
-
-        # truncate the key-value cache
-        self.truncate_kv_cache(tokenized_messages["input_ids"])
-
-        if (
-            "past_key_values" in self.past_key_values_kwargs
-            and self.past_key_values_kwargs["past_key_values"][0][0].shape[-2]
-            > tokenized_messages["input_ids"].shape[-1]
-        ):
-            raise ValueError("Past key values are larger than the input_ids")
-
-        past_key_values = self.past_key_values_kwargs.get("past_key_values", None)
-        if past_key_values is not None:
-            past_key_values = DynamicCache.from_legacy_cache(past_key_values)
-
-        generated_sequences = self.model.generate(
-            **tokenized_messages,
-            do_sample=True,
-            temperature=temperature,
-            max_new_tokens=max_tokens,
-            pad_token_id=self.tokenizer.pad_token_id,
-            return_dict_in_generate=True,
-            use_cache=True,
-            past_key_values=past_key_values,
-            return_legacy_cache=True,
-            stop_strings=["act:"],
-            tokenizer=self.tokenizer,
-        )
-        # cache the past key values
-        if self.use_hot_cache:
-            self.past_key_values_kwargs["past_key_values"] = (
-                generated_sequences.past_key_values
-            )
-        self.past_token_ids = generated_sequences.sequences
-
-        # decode the output
-        text_responses = self.tokenizer.batch_decode(
-            generated_sequences.sequences[:, prompt_tokens:],
-            skip_special_tokens=True,
-        )
-        text_responses = [
-            f"thought:{text_response}" for text_response in text_responses
-        ]
-        _, total_tokens_used = generated_sequences.sequences.shape
-        return text_responses, total_tokens_used
-
-    def generate_with_processor(
-        self,
-        logits_processor: ValidActionsLogitsProcessor,
-        start_messages_generation: list[str],
-        batch_messages: list[list[dict]],
-        **kwargs,
-    ) -> tuple[list[str], int]:
-        if self.is_multimodal:
-            assert "images" in kwargs, "Images required for multimodal model"
-
-        tokenized_messages = tokenize(
-            self.model,
-            self.tokenizer,
-            batch_messages,
-            start_messages_generation=start_messages_generation,
-            images=kwargs.get("images") if self.is_multimodal else None,
-        )
-        # sent to same device as model
-        tokenized_messages = {
-            k: v.to(self.model.device) for k, v in tokenized_messages.items()
-        }
-
-        # truncate the key-value cache
-        self.truncate_kv_cache(tokenized_messages["input_ids"])
-
-        # number of tokens in the prompt
-        prompt_tokens = tokenized_messages["input_ids"].shape[-1]
-
-        if (
-            "past_key_values" in self.past_key_values_kwargs
-            and self.past_key_values_kwargs["past_key_values"][0][0].shape[-2]
-            > tokenized_messages["input_ids"].shape[-1]
-        ):
-            raise ValueError("Past key values are larger than the input_ids")
-
-        past_key_values = self.past_key_values_kwargs.get("past_key_values", None)
-        if past_key_values is not None:
-            past_key_values = DynamicCache.from_legacy_cache(past_key_values)
-
-        # Generate the initial action constrained to valid action tokens
-        generated_sequences = self.model.generate(
-            **tokenized_messages,
-            do_sample=False,
-            # temperature=temperature,
-            max_new_tokens=logits_processor.tree.longest_sequence_length,
-            pad_token_id=self.pad_token_id,
-            return_dict_in_generate=True,
-            use_cache=True,
-            logits_processor=[logits_processor],
-            past_key_values=past_key_values,
-            return_legacy_cache=True,
-        )
-        # cache the past key values
-        if self.use_hot_cache:
-            self.past_key_values_kwargs["past_key_values"] = (
-                generated_sequences.past_key_values
-            )
-        self.past_token_ids = generated_sequences.sequences
-
-        # reset the start index
-        logits_processor.reset()
-
-        # select only new tokens and decode the generated choices
-        generated_choices = self.tokenizer.batch_decode(
-            generated_sequences["sequences"][:, prompt_tokens:],
-            skip_special_tokens=True,
-        )
-        return generated_choices, generated_sequences["sequences"].shape[-1]
-
-    @torch.inference_mode()
-    def generate_actions(
-        self,
-        batch_messages: list[list[dict]],
-        temperature=1.0,
-        **kwargs,
-    ) -> tuple[list[SymbolicAction], list[str], int]:
-        """
-        Select whether to smelt or move
-        Then select the slots and quantity
-        output should be constrained to something like:
-            `act: move from [I30] to [B2] with quantity 1`
-        """
-        overall_messages = ["act:"] * len(batch_messages)
-        actions_selected, _ = self.generate_with_processor(
-            self.action_logit_processor,
-            batch_messages=batch_messages,
-            start_messages_generation=overall_messages,
-            temperature=temperature,
-            **kwargs,
-        )
-        overall_messages = [
-            f"{overall}{action} from"
-            for (overall, action) in zip(overall_messages, actions_selected)
-        ]
-        # select the slot from
-        slots_from_selected, _ = self.generate_with_processor(
-            self.slot_from_processor,
-            batch_messages=batch_messages,
-            start_messages_generation=overall_messages,
-            temperature=temperature,
-            **kwargs,
-        )
-        overall_messages = [
-            f"{overall}{slot_from} to"
-            for (overall, slot_from) in zip(overall_messages, slots_from_selected)
-        ]
-        # select the slot to
-        slots_to_selected, _ = self.generate_with_processor(
-            self.slot_to_processor,
-            batch_messages=batch_messages,
-            start_messages_generation=overall_messages,
-            temperature=temperature,
-            **kwargs,
-        )
-        overall_messages = [
-            f"{overall}{slot_to} with quantity "
-            for (overall, slot_to) in zip(overall_messages, slots_to_selected)
-        ]
-        # select the quantity
-        quantities_selected, num_tokens = self.generate_with_processor(
-            self.quantity_processor,
-            batch_messages=batch_messages,
-            start_messages_generation=overall_messages,
-            temperature=temperature,
-            **kwargs,
-        )
-        overall_messages = [
-            f"{overall}{quantity}"
-            for (overall, quantity) in zip(overall_messages, quantities_selected)
-        ]
-
-        # parse the actions
-        actions = []
-        for action, slot_from, slot_to, quantity in zip(
-            actions_selected,
-            slots_from_selected,
-            slots_to_selected,
-            quantities_selected,
-        ):
-            slot_from_int = convert_to_slot_index(slot_from)
-            slot_to_int = convert_to_slot_index(slot_to)
-            if action == "smelt":
-                act = SymbolicSmeltAction(
-                    slot_from=slot_from_int,
-                    slot_to=slot_to_int,
-                    quantity=int(quantity),
-                )
-            else:
-                act = SymbolicMoveAction(
-                    slot_from=slot_from_int,
-                    slot_to=slot_to_int,
-                    quantity=int(quantity),
-                )
-            actions.append(act)
-        return actions, overall_messages, num_tokens
-
-    @torch.inference_mode()
     def generate_unconstrained(
         self,
         batch_messages: list[list[dict]],
-        max_tokens=256,
+        start_messages_generation: str = "",
+        max_tokens: int = 256,
+        temperature=0.6,
         **kwargs,
     ) -> tuple[list[str], int]:
         """
@@ -565,7 +246,7 @@ class TransformersGenerator:
             self.model,
             self.tokenizer,
             batch_messages,
-            start_messages_generation=[""] * len(batch_messages),
+            start_messages_generation=[start_messages_generation] * len(batch_messages),
             max_tokens=max_tokens,
             images=kwargs.get("images") if self.is_multimodal else None,
         )
@@ -592,7 +273,8 @@ class TransformersGenerator:
 
         generated_sequences = self.model.generate(
             **tokenized_messages,
-            do_sample=False,
+            do_sample=True,
+            temperature=temperature,
             max_new_tokens=max_tokens,
             pad_token_id=self.pad_token_id,
             return_dict_in_generate=True,
@@ -669,107 +351,6 @@ class OpenAIGenerator:
             assert seen_images <= len(image_list), "Too many images"
 
         return message_window, []
-
-    def generate_thoughts(
-        self,
-        batch_messages: list[list[dict]],
-        max_tokens=256,
-        temperature=1.0,
-        **kwargs,
-    ) -> tuple[list[str], int]:
-        thoughts = []
-        tokens_used = 0
-        for messages in batch_messages:
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0,
-                stop=["\n", "\n\n", "act:"],
-            )
-            content = response.choices[0].message.content
-            tokens_used += response.usage.total_tokens
-            thoughts.append(content)
-        return thoughts, tokens_used
-
-    def generate_actions(
-        self,
-        batch_messages: list[list[dict]],
-        temperature=1.0,
-        **kwargs,
-    ) -> tuple[list[SymbolicAction], list[str], int]:
-        """
-        Select whether to smelt or move
-        Then select the slots and quantity
-        output should be constrained to something like:
-            `act: move from slot 39 to slot 5 with quantity 1`
-        """
-        actions = []
-        action_messages = []
-        tokens_used = 0
-        for messages in batch_messages:
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=messages,
-                temperature=temperature,
-                max_tokens=32,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0,
-                stop=["\n", "TASK:", "."],
-            )
-            content = response.choices[0].message.content
-            tokens_used += response.usage.total_tokens
-
-            # try to parse the actions using regex
-            action = None
-            slot_to = None
-            slot_from = None
-            quantity = None
-            try:
-                action = re.search(r"act: (move|smelt)", content).group(1)
-
-                slot_from = re.search(r" from (\[[ABCI]?\d+\])", content).group(1)
-                slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(1)
-                slot_from = convert_to_slot_index(slot_from)
-                slot_to = convert_to_slot_index(slot_to)
-
-                quantity = re.search(r"with quantity (\d+)", content).group(1)
-            except AttributeError:
-                logger.warning(f"Failed to parse action: {content}")
-                action = "move"
-                slot_from = 0
-                slot_to = 0
-                quantity = 1
-
-            try:
-                if action == "smelt":
-                    act = SymbolicSmeltAction(
-                        slot_from=int(slot_from),
-                        slot_to=int(slot_to),
-                        quantity=int(quantity),
-                    )
-                else:
-                    act = SymbolicMoveAction(
-                        slot_from=int(slot_from),
-                        slot_to=int(slot_to),
-                        quantity=int(quantity),
-                    )
-            except Exception:
-                logger.warning(f"Failed to validate action: {content}")
-                act = SymbolicMoveAction(
-                    slot_from=0,
-                    slot_to=0,
-                    quantity=1,
-                )
-
-            actions.append(act)
-            action_messages.append(content)
-
-        return actions, action_messages, tokens_used
 
     def generate_unconstrained(
         self,

@@ -2,11 +2,22 @@ import base64
 import glob
 import io
 import pathlib
+import re
 
 import numpy as np
 import torch
 from PIL import Image
 from transformers import AutoModelForCausalLM, AutoTokenizer
+
+from plancraft.environments.actions import (
+    StopAction,
+    SymbolicAction,
+    SymbolicMoveAction,
+    SymbolicSmeltAction,
+    convert_from_slot_index,
+    convert_to_slot_index,
+)
+from plancraft.environments.recipes import RECIPES
 
 
 def numpy_to_base64(img_array: np.ndarray, image_format: str = "PNG") -> str:
@@ -142,45 +153,6 @@ def tokenize(
     return tokenized_messages
 
 
-def convert_to_slot_index(slot: str) -> int:
-    slot = slot.strip()
-    grid_map = {
-        "[0]": 0,
-        "[A1]": 1,
-        "[A2]": 2,
-        "[A3]": 3,
-        "[B1]": 4,
-        "[B2]": 5,
-        "[B3]": 6,
-        "[C1]": 7,
-        "[C2]": 8,
-        "[C3]": 9,
-    }
-    if slot in grid_map:
-        return grid_map[slot]
-    else:
-        return int(slot[2:-1]) + 9
-
-
-def convert_from_slot_index(slot_index: int) -> str:
-    grid_map = {
-        0: "[0]",
-        1: "[A1]",
-        2: "[A2]",
-        3: "[A3]",
-        4: "[B1]",
-        5: "[B2]",
-        6: "[B3]",
-        7: "[C1]",
-        8: "[C2]",
-        9: "[C3]",
-    }
-    if slot_index < 10:
-        return grid_map[slot_index]
-    else:
-        return f"[I{slot_index-9}]"
-
-
 def convert_observation_to_message(
     observation: dict, objective: str, is_multimodal=False
 ) -> str | dict:
@@ -226,3 +198,69 @@ def objective_and_inventory_to_str(objective: str, inventory: list[dict]) -> str
         inventory_str += f"\n - {item['type']} {slot} quantity {item['quantity']}"
 
     return f"{objective}\ninventory:{inventory_str}"
+
+
+def gold_search_recipe(recipe_name: str) -> str:
+    """
+    Gold search recipe for the given observation and action
+    """
+    if recipe_name not in RECIPES:
+        return "Could not find a recipe by that name."
+
+    out_string = f"Recipes to craft {recipe_name}:\n"
+    for i, r in enumerate(RECIPES[recipe_name]):
+        if r.recipe_type != "smelting":
+            # sample a valid input grid (note that this is not guaranteed to be the only valid grid)
+            input_crafting_grid = r.sample_input_crafting_grid()
+            recipe_instructions = ""
+            for item in input_crafting_grid:
+                recipe_instructions += (
+                    f"{item['type']} at {convert_from_slot_index(item['slot'])}\n"
+                )
+        else:
+            # smelting recipe
+            recipe_instructions = f"smelt {r.ingredient}\n"
+        out_string += f"recipe {i+1}:\n{recipe_instructions}"
+    return out_string
+
+
+def parse_content_response(
+    content: str, valid_actions: list[str] = ["smelt", "move"]
+) -> str | SymbolicAction | StopAction:
+    """
+    Given a message and set of valid actions, parse the content to return the action
+    or a message if the action is not valid/requires message response
+    """
+
+    action_match = re.search(f"({'|'.join(valid_actions)}):", content)
+    if action_match:
+        action = action_match.group(1)
+        if action == "think":
+            return "Ok"
+        elif action == "impossible":
+            reason = re.search(r"impossible: (.*)", content).group(1)
+            return StopAction(reason=reason)
+        elif action == "search":
+            search_target = re.search(r"search: (\w+)", content).group(1)
+            return gold_search_recipe(search_target)
+        else:
+            try:
+                slot_from = re.search(r" from (\[[ABCI]?\d+\])", content).group(1)
+                slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(1)
+                quantity = re.search(r"with quantity (\d+)", content).group(1)
+                if action == "move":
+                    action = SymbolicMoveAction(
+                        slot_from=slot_from,
+                        slot_to=slot_to,
+                        quantity=quantity,
+                    )
+                else:
+                    action = SymbolicSmeltAction(
+                        slot_from=slot_from,
+                        slot_to=slot_to,
+                        quantity=quantity,
+                    )
+                return action
+            except AttributeError as e:
+                return f"Format Error: {e}"
+    return f"Only select actions from the following: {', '.join(valid_actions)}"

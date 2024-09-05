@@ -38,10 +38,9 @@ class Evaluator:
         )
         self.generation_number = 0
 
-        self.examples = self.load_dataset(cfg.plancraft.split)
+        self.examples: list[PlancraftExample] = self.load_dataset(cfg.plancraft.split)
 
-        self.batch_size = cfg.plancraft.batch_size
-        self.envs = [self.create_env(cfg) for _ in range(self.batch_size)]
+        self.environment = self.create_env(cfg)
         self.model = get_model(cfg)
 
         self.record_frames = not (cfg.plancraft.environment.symbolic)
@@ -52,7 +51,7 @@ class Evaluator:
                 "inventory_command": (0, 0, 0),
             }
         else:
-            self.no_op = self.envs[0].action_space.no_op()
+            self.no_op = self.environment.action_space.no_op()
 
     def evaluator_name(self) -> str:
         symb_str = "real"
@@ -63,7 +62,9 @@ class Evaluator:
         mode = self.cfg.plancraft.mode
         if mode in ["dummy", "oracle"]:
             return f"{mode}_{symb_str}"
-        return f"{self.cfg.plancraft.mode}_{symb_str}_{model_name}_stp{self.cfg.plancraft.max_steps}"
+
+        actions = "|".join(self.cfg.plancraft.valid_actions)
+        return f"{self.cfg.plancraft.mode}_{symb_str}_{model_name}_{actions}"
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"
@@ -100,9 +101,8 @@ class Evaluator:
             resolution=cfg.plancraft.environment.resolution,
         )
 
-    def close_envs(self):
-        for env in self.envs:
-            env.close()
+    def close(self):
+        self.environment.close()
 
     def load_dataset(self, dataset_split: str) -> list[PlancraftExample]:
         with open(f"data/{dataset_split}.json", "r") as f:
@@ -112,12 +112,11 @@ class Evaluator:
     def reset(
         self,
         example: PlancraftExample,
-        env_idx: int = 0,
     ):
         current_inventory = example.slotted_inventory
-        self.envs[env_idx].fast_reset(new_inventory=current_inventory)
+        self.environment.fast_reset(new_inventory=current_inventory)
         # do a no op to an initial observation
-        obs, _, _, _ = self.envs[env_idx].step(self.no_op)
+        obs, _, _, _ = self.environment.step(self.no_op)
         # assert that the inventory is correct
         if "inventory" in obs:
             for item in current_inventory:
@@ -130,10 +129,10 @@ class Evaluator:
                     logger.warn(f"Expected {item}")
                     logger.warn(f"Got {obs['inventory'][slot]}")
                     # try again
-                    self.reset(example, env_idx)
+                    self.reset(example)
 
         objective = f"Craft an item of type: {example.target}"
-        self.model.reset_history(history_idx=env_idx, objective=objective)
+        self.model.reset_history(objective=objective)
 
     def check_done(self, inventory: list[dict[str, int]], target: str):
         """
@@ -150,101 +149,69 @@ class Evaluator:
 
     @torch.no_grad()
     def eval_all_examples(self, progress_bar=False) -> list:
-        examples_queue = self.examples.copy()
-        assigned_examples: dict[int, Optional[PlancraftExample]] = {
-            env_idx: None for env_idx in range(self.batch_size)
-        }
-
         results = []
-
-        actions = [self.no_op.copy() for _ in range(self.batch_size)]
-        observations = [None for _ in range(self.batch_size)]
-
-        # track if the episode is done
-        done = [False for _ in range(self.batch_size)]
-        # track if the episode is a success
-        success = [False for _ in range(self.batch_size)]
+        action = self.no_op.copy()
 
         pbar = tqdm(
-            total=len(self.examples) * self.cfg.plancraft.max_steps,
+            total=len(self.examples),
             disable=not progress_bar,
         )
         correct = 0
         count = 0
 
-        while len(examples_queue) > 0:
-            # assign example to environment if not already assigned
-            for env_idx, example in assigned_examples.items():
-                if example is None and len(examples_queue) > 0:
-                    new_example = examples_queue.pop()
+        for example in self.examples:
+            if resume_result := self.load_results_dict(example):
+                pbar.update(self.cfg.plancraft.max_steps)
+                results.append(resume_result)
+                continue
 
-                    if resume_result := self.load_results_dict(new_example):
-                        pbar.update(self.cfg.plancraft.max_steps)
-                        results.append(resume_result)
-                        continue
+            success = False
 
-                    assigned_examples[env_idx] = new_example
-                    self.reset(new_example, env_idx)
-                    actions[env_idx] = self.no_op.copy()
-                    continue
+            self.reset(example)
+            action = self.no_op.copy()
 
-                num_steps = self.model.histories[env_idx].num_steps
-                if (
-                    done[env_idx]
-                    or num_steps >= self.cfg.plancraft.max_steps
-                    or self.model.histories[env_idx].check_stuck()
-                ):
-                    # save results and reset
-                    result = {
-                        "success": success[env_idx],
-                        "recipe_type": example.recipe_type,
-                        "number_of_steps": num_steps,
-                        "model_trace": self.model.histories[env_idx].trace(),
-                        "example_id": example.id,
-                        "impossible": example.impossible,
-                    }
-                    results.append(result)
-                    self.save_results_dict(example, result)
-                    self.save_images(example, self.model.histories[env_idx].images)
-                    assigned_examples[env_idx] = None
-                    done[env_idx] = False
-                    success[env_idx] = False
-
-                    correct += int(result["success"])
-                    count += 1
-
-                    acc = correct / count
-                    pbar.set_postfix(correct=correct, count=count, acc=acc)
-                    pbar.update((self.cfg.plancraft.max_steps - num_steps) + 1)
-
-            # step actions
-            for env_idx, example in assigned_examples.items():
-                if example is None:
-                    observations[env_idx] = None
-                    continue
-
+            while (
+                not self.model.history.check_stuck()
+                and self.model.history.num_steps < self.cfg.plancraft.max_steps
+            ):
                 # if the action is stop then we end the episode
-                if isinstance(actions[env_idx], StopAction):
+                if isinstance(action, StopAction):
                     # if the action is stop and task is impossible then success
                     # otherwise we should not have stopped
-                    success[env_idx] = example.impossible
-                    done[env_idx] = True
-                    observations[env_idx] = None
-                    continue
+                    success = example.impossible
+                    break
 
-                obs, _, _, _ = self.envs[env_idx].step(actions[env_idx])
-                observations[env_idx] = obs
-                done[env_idx] = self.check_done(obs["inventory"], example.target)
-                # don't predict actions if observation is None
-                if done[env_idx]:
-                    # NOTE: self.check_done also checks for success
-                    success[env_idx] = True
-                    observations[env_idx] = None
+                # step action
+                observation, _, _, _ = self.environment.step(action)
 
-            # get actions from model (batched)
-            actions = self.model.step(observations)
+                # check if the episode is done
+                success = self.check_done(observation["inventory"], example.target)
+                # exit if success
+                if success:
+                    break
 
-            # pbar.update(len(observations))
+                # predict next action
+                action = self.model.step(observation)
+
+            # save results and reset
+            result = {
+                "success": success,
+                "recipe_type": example.recipe_type,
+                "number_of_steps": self.model.history.num_steps,
+                "model_trace": self.model.history.trace(),
+                "example_id": example.id,
+                "impossible": example.impossible,
+            }
+            results.append(result)
+            self.save_results_dict(example, result)
+            self.save_images(example, self.model.history.images)
+
+            correct += int(result["success"])
+            count += 1
+
+            acc = correct / count
+            pbar.set_postfix(correct=correct, count=count, acc=acc)
+            pbar.update(1)
 
         return results
 

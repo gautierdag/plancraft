@@ -5,7 +5,6 @@ from plancraft.models.dummy import DummyModel
 from plancraft.models.react import ReactModel
 from plancraft.models.oracle import OracleModel
 from plancraft.models.act import ActModel
-from plancraft.models.tools import ToolsModel
 
 
 def get_model(cfg: EvalConfig) -> ABCModel:
@@ -18,7 +17,5 @@ def get_model(cfg: EvalConfig) -> ABCModel:
         return OracleModel(cfg)
     elif cfg.plancraft.mode == "act":
         return ActModel(cfg)
-    elif cfg.plancraft.mode == "tools":
-        return ToolsModel(cfg)
     else:
         return ReactModel(cfg)

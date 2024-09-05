@@ -21,12 +21,16 @@ class History:
         self.initial_dialogue_length = len(initial_dialogue)
         self.action_history = []
         self.inventory_history = []
+        self.inventory_counters = []
         self.images = []
         self.objective = objective
         self.tokens_used = 0
         self.is_multimodal = is_multimodal
 
     def add_message_to_history(self, content: str | dict, role="user"):
+        if role == "assistant":
+            print(content)
+
         if isinstance(content, dict):
             assert "content" in content, "content key not found in message"
             content["role"] = role
@@ -54,6 +58,18 @@ class History:
     def add_inventory_to_history(self, inventory: list[dict[str, int]]):
         self.inventory_history.append(inventory)
 
+        # count inventory
+        counter = Counter()
+        for item in inventory:
+            # ignore slot 0
+            if "slot" in item and item["slot"] == 0:
+                continue
+            if "index" in item and item["index"] == 0:
+                continue
+            counter[item["type"]] += item["quantity"]
+
+        self.inventory_counters.append(counter)
+
     def add_image_to_history(self, image):
         self.images.append(image)
 
@@ -66,7 +82,6 @@ class History:
             for item in observation["inventory"]:
                 if item["quantity"] > 0:
                     clean_inv.append(item)
-
             self.add_inventory_to_history(clean_inv)
         if "pov" in observation:
             self.add_image_to_history(observation["pov"])
@@ -78,6 +93,7 @@ class History:
         self.dialogue_history = initial_dialogue
         self.action_history = []
         self.inventory_history = []
+        self.inventory_counters = []
         self.images = []
         self.objective = objective
 
@@ -106,17 +122,13 @@ class History:
 
         With N=10, the oracle solver can still solve 100% of the examples
         """
-        if len(self.inventory_history) < max_steps_no_change:
+        if len(self.inventory_counters) < max_steps_no_change:
             return False
 
-        inventory_history = self.inventory_history[-max_steps_no_change:]
-        counters = []
-        for inventory in inventory_history:
-            counter = Counter()
-            for item in inventory:
-                counter[item["type"]] += item["quantity"]
-            counters.append(counter)
-        return all(c == counters[0] for c in counters)
+        return all(
+            c == self.inventory_counters[-max_steps_no_change]
+            for c in self.inventory_counters[-max_steps_no_change + 1 :]
+        )
 
 
 class ABCModel(abc.ABC):
@@ -136,5 +148,5 @@ class ABCModel(abc.ABC):
         """
         raise NotImplementedError()
 
-    def reset_history(self, history_idx: int, objective: str = ""):
-        self.histories[history_idx].reset(objective=objective)
+    def reset_history(self, objective: str = ""):
+        self.history.reset(objective=objective)
