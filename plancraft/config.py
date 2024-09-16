@@ -2,7 +2,10 @@ from typing import Literal, Optional, Union
 
 from pydantic import BaseModel, model_validator
 
-from plancraft.environments.recipes import RECIPES
+try:
+    from plancraft.environments.recipes import RECIPES
+except ImportError:
+    RECIPES = {}
 
 DatasetSplit = Literal[
     "train", "val", "val.small", "val.small.easy", "test", "test.small"
