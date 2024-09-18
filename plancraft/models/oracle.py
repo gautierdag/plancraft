@@ -7,6 +7,7 @@ from plancraft.environments.actions import (
     RealActionInteraction,
     SymbolicMoveAction,
     SymbolicSmeltAction,
+    StopAction,
 )
 from plancraft.environments.planner import optimal_planner
 from plancraft.environments.recipes import (
@@ -201,6 +202,9 @@ class OracleModel(ABCModel):
         # get action
         if len(self.plans) == 0:
             self.get_plan(observation)
+            if self.plans is None:
+                self.plans = []
+                return StopAction()
 
         action = self.get_next_action(observation)
 

@@ -15,7 +15,6 @@ from plancraft.environments.actions import (
     SymbolicMoveAction,
     SymbolicSmeltAction,
     convert_from_slot_index,
-    convert_to_slot_index,
 )
 from plancraft.environments.recipes import RECIPES
 

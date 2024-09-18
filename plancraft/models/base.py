@@ -122,12 +122,12 @@ class History:
 
         With N=10, the oracle solver can still solve 100% of the examples
         """
-        if len(self.inventory_counters) < max_steps_no_change:
+        if len(self.inventory_counters) <= max_steps_no_change:
             return False
 
         return all(
-            c == self.inventory_counters[-max_steps_no_change]
-            for c in self.inventory_counters[-max_steps_no_change + 1 :]
+            c == self.inventory_counters[-max_steps_no_change - 1]
+            for c in self.inventory_counters[-max_steps_no_change - 1 :]
         )
 
 

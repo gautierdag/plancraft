@@ -4,19 +4,17 @@ import os
 import random
 import string
 import time
-from collections import Counter
-from typing import Optional
 
-import pandas as pd
 import imageio
+import pandas as pd
 import torch
 from tqdm import tqdm
 
 import wandb
 from plancraft.config import EvalConfig, PlancraftExample
+from plancraft.environments.actions import StopAction
 from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.env_symbolic import SymbolicPlancraft
-from plancraft.environments.actions import StopAction
 from plancraft.models import get_model
 
 wandb.require("core")
@@ -125,9 +123,9 @@ class Evaluator:
                     obs["inventory"][slot]["type"] != item["type"]
                     or obs["inventory"][slot]["quantity"] != item["quantity"]
                 ) and item["type"] != "air":
-                    logger.warn(f"Inventory does not match expected for slot {slot}")
-                    logger.warn(f"Expected {item}")
-                    logger.warn(f"Got {obs['inventory'][slot]}")
+                    logger.warning(f"Inventory does not match expected for slot {slot}")
+                    logger.warning(f"Expected {item}")
+                    logger.warning(f"Got {obs['inventory'][slot]}")
                     # try again
                     self.reset(example)
 
