@@ -85,4 +85,7 @@ def optimal_planner(
         memo[memo_key] = best_steps
         return best_steps
 
-    return dfs(inventory, steps, best_steps)
+    try:
+        return dfs(inventory, steps, best_steps)
+    except TimeoutError:
+        return None

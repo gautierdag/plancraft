@@ -2,6 +2,7 @@ import os
 import random
 import time
 
+from tqdm import tqdm
 import einops
 import torch
 import torch.nn as nn
@@ -12,6 +13,7 @@ from PIL import Image, ImageDraw
 from torchvision.models.detection.faster_rcnn import (
     fasterrcnn_resnet50_fpn_v2,
 )
+from torchvision.models.resnet import ResNet50_Weights
 from torchvision.models.detection.roi_heads import (
     fastrcnn_loss,
     keypointrcnn_inference,
@@ -473,18 +475,22 @@ class IntegratedBoundingBoxModel(nn.Module):
     def __init__(self):
         super(IntegratedBoundingBoxModel, self).__init__()
         self.model = fasterrcnn_resnet50_fpn_v2(
-            weights=None,
+            weights_backbone=ResNet50_Weights.DEFAULT,
             image_mean=[0.63, 0.63, 0.63],
             image_std=[0.21, 0.21, 0.21],
-            min_size=64,
-            max_size=64,
+            min_size=128,
+            max_size=256,
             num_classes=len(ALL_ITEMS),
-            box_score_thresh=0.001,
+            box_score_thresh=0.05,
+            rpn_batch_size_per_image=64,
+            box_detections_per_img=64,
+            box_batch_size_per_image=128,
         )
-        # self.model.roi_heads.quantity_prediction = nn.Linear(1024, 65)
-        # self.model.roi_heads.forward = forward_custom.__get__(
-        #     self.model.roi_heads, type(self.model.roi_heads)
-        # )
+
+        self.model.roi_heads.quantity_prediction = nn.Linear(1024, 65)
+        self.model.roi_heads.forward = forward_custom.__get__(
+            self.model.roi_heads, type(self.model.roi_heads)
+        )
 
     def forward(self, x, targets=None):
         if self.training:
@@ -511,12 +517,15 @@ if __name__ == "__main__":
 
     N = 10000
     m1_lr = 0.001
-    batch_size = 4
-    save_every = 100
+    batch_size = 16
+    save_every = 500
     count = 0
     m1_optimizer = torch.optim.AdamW(M1_model.parameters(), lr=m1_lr)
 
     wandb.init(project="plancraft-img-encoder", entity="itl")  # , mode="disabled")
+
+    pbar = tqdm(total=N)
+
     for images, targets, raw_images, inv in sample_environment(
         N=N, batch_size=batch_size
     ):
@@ -528,26 +537,23 @@ if __name__ == "__main__":
             targets[i]["quantity_labels"] = targets[i]["quantity_labels"].cuda()
 
         m1_loss_dict = M1_model(images, targets)
-
-        # artificially decrease the classifier loss
-        # m1_loss_dict["loss_classifier"] = m1_loss_dict["loss_classifier"] * 0.5
-        # m1_loss_dict["loss_classifier_quantity"] = (
-        #     m1_loss_dict["loss_classifier_quantity"] * 0.5
-        # )
-
         m1_losses = sum(loss for loss in m1_loss_dict.values())
         wandb.log(m1_loss_dict)
         wandb.log({"m1_train_loss": m1_losses})
-        print(m1_loss_dict)
+        pbar.update(1)
+        pbar.set_description(f"Loss: {m1_losses.item()}")
 
         m1_optimizer.zero_grad()
         m1_losses.backward()
         m1_optimizer.step()
 
         if count % save_every == 0:
+            # save model
             M1_model.eval()
+            M1_model.save(m1_path)
             with torch.no_grad():
                 predictions = M1_model(images)
+
             for img_idx in range(len(images)):
                 # generate image and target for validation
                 img = Image.fromarray(raw_images[img_idx].copy())
@@ -559,27 +565,30 @@ if __name__ == "__main__":
                     box = predictions[img_idx]["boxes"][box_idx]
                     score = predictions[img_idx]["scores"][box_idx]
                     label = predictions[img_idx]["labels"][box_idx]
-                    # quantity = predictions[img_idx]["quantities"][box_idx]
+                    quantity = predictions[img_idx]["quantities"][box_idx]
 
-                    # if score > 0:
-                    draw = ImageDraw.Draw(img)
-                    draw.rectangle(box.cpu().tolist(), outline="green")
-                    draw.text(
-                        (box[0], box[1]),
-                        f"{label.item()}",
-                        fill="green",
-                    )
-                    # draw.text(
-                    #     (box[0], box[1] + 10),
-                    #     f"{quantity.item()}",
-                    #     fill="blue",
-                    # )
-
+                    if score > 0:
+                        draw = ImageDraw.Draw(img)
+                        draw.rectangle(box.cpu().tolist(), outline="green")
+                        # draw.text(
+                        #     (box[0], box[1]),
+                        #     f"{label.item()}",
+                        #     fill="green",
+                        # )
+                        draw.text(
+                            (box[0], box[1] + 10),
+                            f"{quantity.item()}",
+                            fill="blue",
+                        )
                 # log image
                 wandb.log({f"image_{img_idx}": wandb.Image(img)})
+                break
 
         count += 1
+        if count >= N:
+            break
 
+    pbar.close()
     wandb.finish()
 
     # save model

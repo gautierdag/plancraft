@@ -138,6 +138,11 @@ class SymbolicMoveAction(BaseModel):
     slot_from: int
     slot_to: int
     quantity: int
+    action_type: str = "move"
+
+    @field_validator("action_type", mode="before")
+    def fix_action_type(cls, value) -> str:
+        return "move"
 
     @field_validator("slot_from", "slot_to", mode="before")
     def transform_str_to_int(cls, value) -> int:
@@ -183,6 +188,11 @@ class SymbolicSmeltAction(BaseModel):
     slot_from: int
     slot_to: int
     quantity: int
+    action_type: str = "smelt"
+
+    @field_validator("action_type", mode="before")
+    def fix_action_type(cls, value) -> str:
+        return "smelt"
 
     @field_validator("slot_from", "slot_to", mode="before")
     def transform_str_to_int(cls, value) -> int:
@@ -266,7 +276,8 @@ class RealActionInteraction(BaseModel):
 
 class StopAction(BaseModel):
     """
-    Acction that model can take to stop planning - decide impossible to continue
+    Action that model can take to stop planning - decide impossible to continue
+    Note: also known as the "impossible" action
     """
 
     reason: str = ""

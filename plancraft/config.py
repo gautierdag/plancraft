@@ -27,7 +27,9 @@ class PlancraftConfig(BaseModel):
     num_generations: int
     mode: Literal["react", "act", "oracle", "dummy"] = "react"
     output_dir: str
-    max_steps: int
+    max_steps: int = (
+        30  # max number of steps (smelt/move) to take in the environment before stopping
+    )
     quantize: Literal[False, "int4", "int8"]
     environment: EnvironmentConfig
     split: DatasetSplit = "val.small"
