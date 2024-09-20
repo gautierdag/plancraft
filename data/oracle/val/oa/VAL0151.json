@@ -1,66 +1,73 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: wooden_axe\ninventory=[{\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 51, \"index\": 19}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 22}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 28}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 29}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 33}, {\"type\": \"red_carpet\", \"quantity\": 47, \"index\": 40}, {\"type\": \"dead_tube_coral\", \"quantity\": 41, \"index\": 41}, {\"type\": \"green_concrete\", \"quantity\": 13, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 22 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: wooden_axe\ninventory=[{\"type\": \"dark_oak_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"dark_oak_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 51, \"index\": 19}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 28}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 29}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 33}, {\"type\": \"red_carpet\", \"quantity\": 47, \"index\": 40}, {\"type\": \"dead_tube_coral\", \"quantity\": 41, \"index\": 41}, {\"type\": \"green_concrete\", \"quantity\": 13, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: wooden_axe\ninventory=[{\"type\": \"dark_oak_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 51, \"index\": 19}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 28}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 29}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 33}, {\"type\": \"red_carpet\", \"quantity\": 47, \"index\": 40}, {\"type\": \"dead_tube_coral\", \"quantity\": 41, \"index\": 41}, {\"type\": \"green_concrete\", \"quantity\": 13, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 28 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: wooden_axe\ninventory=[{\"type\": \"jungle_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 51, \"index\": 19}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 29}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 33}, {\"type\": \"red_carpet\", \"quantity\": 47, \"index\": 40}, {\"type\": \"dead_tube_coral\", \"quantity\": 41, \"index\": 41}, {\"type\": \"green_concrete\", \"quantity\": 13, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: wooden_axe\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"dark_oak_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 51, \"index\": 19}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 29}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 33}, {\"type\": \"red_carpet\", \"quantity\": 47, \"index\": 40}, {\"type\": \"dead_tube_coral\", \"quantity\": 41, \"index\": 41}, {\"type\": \"green_concrete\", \"quantity\": 13, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 29 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: wooden_axe\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dark_oak_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 51, \"index\": 19}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 33}, {\"type\": \"red_carpet\", \"quantity\": 47, \"index\": 40}, {\"type\": \"dead_tube_coral\", \"quantity\": 41, \"index\": 41}, {\"type\": \"green_concrete\", \"quantity\": 13, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 33 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: wooden_axe\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"dark_oak_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 51, \"index\": 19}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_carpet\", \"quantity\": 47, \"index\": 40}, {\"type\": \"dead_tube_coral\", \"quantity\": 41, \"index\": 41}, {\"type\": \"green_concrete\", \"quantity\": 13, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 33 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: wooden_axe\ninventory=[{\"type\": \"wooden_axe\", \"quantity\": 1, \"index\": 0}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"acacia_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 8}, {\"type\": \"dark_oak_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 51, \"index\": 19}, {\"type\": \"red_carpet\", \"quantity\": 47, \"index\": 40}, {\"type\": \"dead_tube_coral\", \"quantity\": 41, \"index\": 41}, {\"type\": \"green_concrete\", \"quantity\": 13, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: wooden_axe\ninventory:\n - infested_chiseled_stone_bricks [I10] quantity 51\n - dark_oak_wood [I13] quantity 1\n - jungle_planks [I19] quantity 1\n - acacia_planks [I20] quantity 1\n - stick [I24] quantity 2\n - red_carpet [I31] quantity 47\n - dead_tube_coral [I32] quantity 41\n - green_concrete [I33] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I13] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: wooden_axe\ninventory:\n - dark_oak_planks [0] quantity 4\n - dark_oak_wood [A1] quantity 1\n - infested_chiseled_stone_bricks [I10] quantity 51\n - jungle_planks [I19] quantity 1\n - acacia_planks [I20] quantity 1\n - stick [I24] quantity 2\n - red_carpet [I31] quantity 47\n - dead_tube_coral [I32] quantity 41\n - green_concrete [I33] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: wooden_axe\ninventory:\n - dark_oak_planks [I2] quantity 4\n - infested_chiseled_stone_bricks [I10] quantity 51\n - jungle_planks [I19] quantity 1\n - acacia_planks [I20] quantity 1\n - stick [I24] quantity 2\n - red_carpet [I31] quantity 47\n - dead_tube_coral [I32] quantity 41\n - green_concrete [I33] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: wooden_axe\ninventory:\n - dark_oak_button [0] quantity 1\n - dark_oak_planks [A1] quantity 1\n - dark_oak_planks [I2] quantity 3\n - infested_chiseled_stone_bricks [I10] quantity 51\n - jungle_planks [I19] quantity 1\n - acacia_planks [I20] quantity 1\n - stick [I24] quantity 2\n - red_carpet [I31] quantity 47\n - dead_tube_coral [I32] quantity 41\n - green_concrete [I33] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I19] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: wooden_axe\ninventory:\n - dark_oak_planks [A1] quantity 1\n - jungle_planks [A2] quantity 1\n - dark_oak_planks [I2] quantity 3\n - infested_chiseled_stone_bricks [I10] quantity 51\n - acacia_planks [I20] quantity 1\n - stick [I24] quantity 2\n - red_carpet [I31] quantity 47\n - dead_tube_coral [I32] quantity 41\n - green_concrete [I33] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I20] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: wooden_axe\ninventory:\n - dark_oak_planks [A1] quantity 1\n - jungle_planks [A2] quantity 1\n - acacia_planks [B1] quantity 1\n - dark_oak_planks [I2] quantity 3\n - infested_chiseled_stone_bricks [I10] quantity 51\n - stick [I24] quantity 2\n - red_carpet [I31] quantity 47\n - dead_tube_coral [I32] quantity 41\n - green_concrete [I33] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I24] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: wooden_axe\ninventory:\n - dark_oak_planks [A1] quantity 1\n - jungle_planks [A2] quantity 1\n - acacia_planks [B1] quantity 1\n - stick [B2] quantity 1\n - dark_oak_planks [I2] quantity 3\n - infested_chiseled_stone_bricks [I10] quantity 51\n - stick [I24] quantity 1\n - red_carpet [I31] quantity 47\n - dead_tube_coral [I32] quantity 41\n - green_concrete [I33] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I24] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: wooden_axe\ninventory:\n - wooden_axe [0] quantity 1\n - dark_oak_planks [A1] quantity 1\n - jungle_planks [A2] quantity 1\n - acacia_planks [B1] quantity 1\n - stick [B2] quantity 1\n - stick [C2] quantity 1\n - dark_oak_planks [I2] quantity 3\n - infested_chiseled_stone_bricks [I10] quantity 51\n - red_carpet [I31] quantity 47\n - dead_tube_coral [I32] quantity 41\n - green_concrete [I33] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0151"
+}

@@ -1,10 +1,17 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: lime_glazed_terracotta\ninventory=[{\"type\": \"music_disc_11\", \"quantity\": 1, \"index\": 12}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 13}, {\"type\": \"lime_terracotta\", \"quantity\": 1, \"index\": 15}, {\"type\": \"cyan_concrete\", \"quantity\": 19, \"index\": 16}, {\"type\": \"sunflower\", \"quantity\": 48, \"index\": 19}, {\"type\": \"snow_block\", \"quantity\": 45, \"index\": 20}, {\"type\": \"iron_shovel\", \"quantity\": 1, \"index\": 25}, {\"type\": \"white_glazed_terracotta\", \"quantity\": 43, \"index\": 26}, {\"type\": \"light_blue_carpet\", \"quantity\": 62, \"index\": 27}, {\"type\": \"crimson_trapdoor\", \"quantity\": 17, \"index\": 28}, {\"type\": \"yellow_stained_glass\", \"quantity\": 1, \"index\": 29}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 35}, {\"type\": \"cooked_salmon\", \"quantity\": 8, \"index\": 37}, {\"type\": \"firework_rocket\", \"quantity\": 25, \"index\": 39}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 20, \"index\": 41}, {\"type\": \"red_terracotta\", \"quantity\": 26, \"index\": 43}, {\"type\": \"purpur_slab\", \"quantity\": 26, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 15 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lime_glazed_terracotta\ninventory:\n - music_disc_11 [I3] quantity 1\n - mushroom_stew [I4] quantity 1\n - lime_terracotta [I6] quantity 1\n - cyan_concrete [I7] quantity 19\n - sunflower [I10] quantity 48\n - snow_block [I11] quantity 45\n - iron_shovel [I16] quantity 1\n - white_glazed_terracotta [I17] quantity 43\n - light_blue_carpet [I18] quantity 62\n - crimson_trapdoor [I19] quantity 17\n - yellow_stained_glass [I20] quantity 1\n - light_blue_dye [I26] quantity 60\n - cooked_salmon [I28] quantity 8\n - firework_rocket [I30] quantity 25\n - evoker_spawn_egg [I32] quantity 20\n - red_terracotta [I34] quantity 26\n - purpur_slab [I35] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I6] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0244"
+}

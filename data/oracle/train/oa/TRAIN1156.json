@@ -1,10 +1,17 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: cooked_beef\ninventory=[{\"type\": \"painting\", \"quantity\": 34, \"index\": 10}, {\"type\": \"skeleton_horse_spawn_egg\", \"quantity\": 2, \"index\": 11}, {\"type\": \"clay_ball\", \"quantity\": 32, \"index\": 14}, {\"type\": \"lead\", \"quantity\": 54, \"index\": 16}, {\"type\": \"diamond_horse_armor\", \"quantity\": 1, \"index\": 17}, {\"type\": \"dead_tube_coral\", \"quantity\": 33, \"index\": 19}, {\"type\": \"potato\", \"quantity\": 52, \"index\": 21}, {\"type\": \"infested_stone\", \"quantity\": 60, \"index\": 23}, {\"type\": \"netherite_hoe\", \"quantity\": 1, \"index\": 24}, {\"type\": \"white_banner\", \"quantity\": 15, \"index\": 26}, {\"type\": \"golden_chestplate\", \"quantity\": 1, \"index\": 31}, {\"type\": \"light_blue_wool\", \"quantity\": 26, \"index\": 32}, {\"type\": \"golden_carrot\", \"quantity\": 47, \"index\": 36}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 36, \"index\": 37}, {\"type\": \"beef\", \"quantity\": 1, \"index\": 42}, {\"type\": \"suspicious_stew\", \"quantity\": 1, \"index\": 44}, {\"type\": \"gray_glazed_terracotta\", \"quantity\": 14, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 42 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: cooked_beef\ninventory:\n - painting [I1] quantity 34\n - skeleton_horse_spawn_egg [I2] quantity 2\n - clay_ball [I5] quantity 32\n - lead [I7] quantity 54\n - diamond_horse_armor [I8] quantity 1\n - dead_tube_coral [I10] quantity 33\n - potato [I12] quantity 52\n - infested_stone [I14] quantity 60\n - netherite_hoe [I15] quantity 1\n - white_banner [I17] quantity 15\n - golden_chestplate [I22] quantity 1\n - light_blue_wool [I23] quantity 26\n - golden_carrot [I27] quantity 47\n - wandering_trader_spawn_egg [I28] quantity 36\n - beef [I33] quantity 1\n - suspicious_stew [I35] quantity 1\n - gray_glazed_terracotta [I36] quantity 14"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I33] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN1156"
+}

@@ -1,18 +1,25 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_dye\ninventory=[{\"type\": \"scaffolding\", \"quantity\": 1, \"index\": 11}, {\"type\": \"polished_blackstone_stairs\", \"quantity\": 18, \"index\": 14}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 15}, {\"type\": \"cobblestone_stairs\", \"quantity\": 52, \"index\": 17}, {\"type\": \"music_disc_wait\", \"quantity\": 1, \"index\": 18}, {\"type\": \"ravager_spawn_egg\", \"quantity\": 63, \"index\": 19}, {\"type\": \"soul_sand\", \"quantity\": 21, \"index\": 23}, {\"type\": \"chest\", \"quantity\": 26, \"index\": 25}, {\"type\": \"polished_blackstone_brick_wall\", \"quantity\": 29, \"index\": 26}, {\"type\": \"potion\", \"quantity\": 1, \"index\": 28}, {\"type\": \"black_stained_glass_pane\", \"quantity\": 4, \"index\": 29}, {\"type\": \"zombie_horse_spawn_egg\", \"quantity\": 62, \"index\": 32}, {\"type\": \"cyan_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 11, \"index\": 34}, {\"type\": \"red_tulip\", \"quantity\": 1, \"index\": 36}, {\"type\": \"quartz_slab\", \"quantity\": 17, \"index\": 38}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 8, \"index\": 39}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_dye\ninventory=[{\"type\": \"red_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"red_tulip\", \"quantity\": 1, \"index\": 1}, {\"type\": \"scaffolding\", \"quantity\": 1, \"index\": 11}, {\"type\": \"polished_blackstone_stairs\", \"quantity\": 18, \"index\": 14}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 15}, {\"type\": \"cobblestone_stairs\", \"quantity\": 52, \"index\": 17}, {\"type\": \"music_disc_wait\", \"quantity\": 1, \"index\": 18}, {\"type\": \"ravager_spawn_egg\", \"quantity\": 63, \"index\": 19}, {\"type\": \"soul_sand\", \"quantity\": 21, \"index\": 23}, {\"type\": \"chest\", \"quantity\": 26, \"index\": 25}, {\"type\": \"polished_blackstone_brick_wall\", \"quantity\": 29, \"index\": 26}, {\"type\": \"potion\", \"quantity\": 1, \"index\": 28}, {\"type\": \"black_stained_glass_pane\", \"quantity\": 4, \"index\": 29}, {\"type\": \"zombie_horse_spawn_egg\", \"quantity\": 62, \"index\": 32}, {\"type\": \"cyan_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 11, \"index\": 34}, {\"type\": \"quartz_slab\", \"quantity\": 17, \"index\": 38}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 8, \"index\": 39}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_dye\ninventory:\n - scaffolding [I2] quantity 1\n - polished_blackstone_stairs [I5] quantity 18\n - chest_minecart [I6] quantity 1\n - cobblestone_stairs [I8] quantity 52\n - music_disc_wait [I9] quantity 1\n - ravager_spawn_egg [I10] quantity 63\n - soul_sand [I14] quantity 21\n - chest [I16] quantity 26\n - polished_blackstone_brick_wall [I17] quantity 29\n - potion [I19] quantity 1\n - black_stained_glass_pane [I20] quantity 4\n - zombie_horse_spawn_egg [I23] quantity 62\n - cyan_shulker_box [I24] quantity 1\n - mossy_stone_bricks [I25] quantity 11\n - red_tulip [I27] quantity 1\n - quartz_slab [I29] quantity 17\n - cyan_glazed_terracotta [I30] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_dye\ninventory:\n - red_dye [0] quantity 1\n - red_tulip [A1] quantity 1\n - scaffolding [I2] quantity 1\n - polished_blackstone_stairs [I5] quantity 18\n - chest_minecart [I6] quantity 1\n - cobblestone_stairs [I8] quantity 52\n - music_disc_wait [I9] quantity 1\n - ravager_spawn_egg [I10] quantity 63\n - soul_sand [I14] quantity 21\n - chest [I16] quantity 26\n - polished_blackstone_brick_wall [I17] quantity 29\n - potion [I19] quantity 1\n - black_stained_glass_pane [I20] quantity 4\n - zombie_horse_spawn_egg [I23] quantity 62\n - cyan_shulker_box [I24] quantity 1\n - mossy_stone_bricks [I25] quantity 11\n - quartz_slab [I29] quantity 17\n - cyan_glazed_terracotta [I30] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0003"
+}

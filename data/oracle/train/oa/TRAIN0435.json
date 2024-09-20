@@ -1,74 +1,81 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 14}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"jungle_wood\", \"quantity\": 1, \"index\": 25}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}, {\"type\": \"white_wool\", \"quantity\": 3, \"index\": 36}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 25 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"jungle_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 14}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}, {\"type\": \"white_wool\", \"quantity\": 3, \"index\": 36}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 14}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}, {\"type\": \"white_wool\", \"quantity\": 3, \"index\": 36}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"white_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 14}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}, {\"type\": \"white_wool\", \"quantity\": 2, \"index\": 36}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"white_carpet\", \"quantity\": 3, \"index\": 0}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 14}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 36}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"white_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 14}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 14 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"white_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 11}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"white_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 5}, {\"type\": \"jungle_planks\", \"quantity\": 3, \"index\": 11}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: white_bed\ninventory=[{\"type\": \"white_bed\", \"quantity\": 1, \"index\": 0}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 5}, {\"type\": \"jungle_planks\", \"quantity\": 1, \"index\": 6}, {\"type\": \"jungle_planks\", \"quantity\": 2, \"index\": 11}, {\"type\": \"stripped_warped_stem\", \"quantity\": 49, \"index\": 18}, {\"type\": \"cooked_rabbit\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 3, \"index\": 28}, {\"type\": \"chorus_fruit\", \"quantity\": 46, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - birch_planks [I5] quantity 1\n - stripped_warped_stem [I9] quantity 49\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46\n - white_wool [I27] quantity 3"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I9] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - warped_planks [0] quantity 4\n - stripped_warped_stem [A1] quantity 1\n - birch_planks [I5] quantity 1\n - stripped_warped_stem [I9] quantity 48\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46\n - white_wool [I27] quantity 3"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - warped_planks [I2] quantity 4\n - birch_planks [I5] quantity 1\n - stripped_warped_stem [I9] quantity 48\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46\n - white_wool [I27] quantity 3"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - white_wool [A1] quantity 1\n - warped_planks [I2] quantity 4\n - birch_planks [I5] quantity 1\n - stripped_warped_stem [I9] quantity 48\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46\n - white_wool [I27] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - white_carpet [0] quantity 3\n - white_wool [A1] quantity 1\n - white_wool [A2] quantity 1\n - warped_planks [I2] quantity 4\n - birch_planks [I5] quantity 1\n - stripped_warped_stem [I9] quantity 48\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46\n - white_wool [I27] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - white_wool [A1] quantity 1\n - white_wool [A2] quantity 1\n - white_wool [A3] quantity 1\n - warped_planks [I2] quantity 4\n - birch_planks [I5] quantity 1\n - stripped_warped_stem [I9] quantity 48\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I5] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - white_wool [A1] quantity 1\n - white_wool [A2] quantity 1\n - white_wool [A3] quantity 1\n - birch_planks [B1] quantity 1\n - warped_planks [I2] quantity 4\n - stripped_warped_stem [I9] quantity 48\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - white_wool [A1] quantity 1\n - white_wool [A2] quantity 1\n - white_wool [A3] quantity 1\n - birch_planks [B1] quantity 1\n - warped_planks [B2] quantity 1\n - warped_planks [I2] quantity 3\n - stripped_warped_stem [I9] quantity 48\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: white_bed\ninventory:\n - white_bed [0] quantity 1\n - white_wool [A1] quantity 1\n - white_wool [A2] quantity 1\n - white_wool [A3] quantity 1\n - birch_planks [B1] quantity 1\n - warped_planks [B2] quantity 1\n - warped_planks [B3] quantity 1\n - warped_planks [I2] quantity 2\n - stripped_warped_stem [I9] quantity 48\n - cooked_rabbit [I14] quantity 1\n - jungle_wood [I16] quantity 1\n - birch_sign [I19] quantity 3\n - chorus_fruit [I26] quantity 46"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0435"
+}

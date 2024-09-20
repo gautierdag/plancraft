@@ -1,42 +1,49 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: golden_boots\ninventory=[{\"type\": \"crimson_nylium\", \"quantity\": 61, \"index\": 12}, {\"type\": \"blaze_rod\", \"quantity\": 27, \"index\": 22}, {\"type\": \"white_wool\", \"quantity\": 18, \"index\": 35}, {\"type\": \"gold_ingot\", \"quantity\": 4, \"index\": 36}, {\"type\": \"mossy_stone_brick_slab\", \"quantity\": 37, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: golden_boots\ninventory=[{\"type\": \"gold_nugget\", \"quantity\": 9, \"index\": 0}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"crimson_nylium\", \"quantity\": 61, \"index\": 12}, {\"type\": \"blaze_rod\", \"quantity\": 27, \"index\": 22}, {\"type\": \"white_wool\", \"quantity\": 18, \"index\": 35}, {\"type\": \"gold_ingot\", \"quantity\": 3, \"index\": 36}, {\"type\": \"mossy_stone_brick_slab\", \"quantity\": 37, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: golden_boots\ninventory=[{\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"crimson_nylium\", \"quantity\": 61, \"index\": 12}, {\"type\": \"blaze_rod\", \"quantity\": 27, \"index\": 22}, {\"type\": \"white_wool\", \"quantity\": 18, \"index\": 35}, {\"type\": \"gold_ingot\", \"quantity\": 2, \"index\": 36}, {\"type\": \"mossy_stone_brick_slab\", \"quantity\": 37, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: golden_boots\ninventory=[{\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"crimson_nylium\", \"quantity\": 61, \"index\": 12}, {\"type\": \"blaze_rod\", \"quantity\": 27, \"index\": 22}, {\"type\": \"white_wool\", \"quantity\": 18, \"index\": 35}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_brick_slab\", \"quantity\": 37, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: golden_boots\ninventory=[{\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 0}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"gold_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"crimson_nylium\", \"quantity\": 61, \"index\": 12}, {\"type\": \"blaze_rod\", \"quantity\": 27, \"index\": 22}, {\"type\": \"white_wool\", \"quantity\": 18, \"index\": 35}, {\"type\": \"mossy_stone_brick_slab\", \"quantity\": 37, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_boots\ninventory:\n - crimson_nylium [I3] quantity 61\n - blaze_rod [I13] quantity 27\n - white_wool [I26] quantity 18\n - gold_ingot [I27] quantity 4\n - mossy_stone_brick_slab [I31] quantity 37"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_boots\ninventory:\n - gold_nugget [0] quantity 9\n - gold_ingot [A1] quantity 1\n - crimson_nylium [I3] quantity 61\n - blaze_rod [I13] quantity 27\n - white_wool [I26] quantity 18\n - gold_ingot [I27] quantity 3\n - mossy_stone_brick_slab [I31] quantity 37"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_boots\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A3] quantity 1\n - crimson_nylium [I3] quantity 61\n - blaze_rod [I13] quantity 27\n - white_wool [I26] quantity 18\n - gold_ingot [I27] quantity 2\n - mossy_stone_brick_slab [I31] quantity 37"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_boots\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A3] quantity 1\n - gold_ingot [B1] quantity 1\n - crimson_nylium [I3] quantity 61\n - blaze_rod [I13] quantity 27\n - white_wool [I26] quantity 18\n - gold_ingot [I27] quantity 1\n - mossy_stone_brick_slab [I31] quantity 37"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_boots\ninventory:\n - golden_boots [0] quantity 1\n - gold_ingot [A1] quantity 1\n - gold_ingot [A3] quantity 1\n - gold_ingot [B1] quantity 1\n - gold_ingot [B3] quantity 1\n - crimson_nylium [I3] quantity 61\n - blaze_rod [I13] quantity 27\n - white_wool [I26] quantity 18\n - mossy_stone_brick_slab [I31] quantity 37"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0944"
+}

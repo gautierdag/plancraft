@@ -1,66 +1,73 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: leather_leggings\ninventory=[{\"type\": \"black_concrete\", \"quantity\": 58, \"index\": 13}, {\"type\": \"golden_apple\", \"quantity\": 21, \"index\": 15}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 22}, {\"type\": \"leather\", \"quantity\": 7, \"index\": 24}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 53, \"index\": 31}, {\"type\": \"pink_dye\", \"quantity\": 20, \"index\": 33}, {\"type\": \"birch_sapling\", \"quantity\": 42, \"index\": 36}, {\"type\": \"tube_coral_fan\", \"quantity\": 24, \"index\": 37}, {\"type\": \"golden_hoe\", \"quantity\": 1, \"index\": 38}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: leather_leggings\ninventory=[{\"type\": \"leather\", \"quantity\": 1, \"index\": 1}, {\"type\": \"black_concrete\", \"quantity\": 58, \"index\": 13}, {\"type\": \"golden_apple\", \"quantity\": 21, \"index\": 15}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 22}, {\"type\": \"leather\", \"quantity\": 6, \"index\": 24}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 53, \"index\": 31}, {\"type\": \"pink_dye\", \"quantity\": 20, \"index\": 33}, {\"type\": \"birch_sapling\", \"quantity\": 42, \"index\": 36}, {\"type\": \"tube_coral_fan\", \"quantity\": 24, \"index\": 37}, {\"type\": \"golden_hoe\", \"quantity\": 1, \"index\": 38}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: leather_leggings\ninventory=[{\"type\": \"leather\", \"quantity\": 1, \"index\": 1}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 2}, {\"type\": \"black_concrete\", \"quantity\": 58, \"index\": 13}, {\"type\": \"golden_apple\", \"quantity\": 21, \"index\": 15}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 22}, {\"type\": \"leather\", \"quantity\": 5, \"index\": 24}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 53, \"index\": 31}, {\"type\": \"pink_dye\", \"quantity\": 20, \"index\": 33}, {\"type\": \"birch_sapling\", \"quantity\": 42, \"index\": 36}, {\"type\": \"tube_coral_fan\", \"quantity\": 24, \"index\": 37}, {\"type\": \"golden_hoe\", \"quantity\": 1, \"index\": 38}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: leather_leggings\ninventory=[{\"type\": \"leather\", \"quantity\": 1, \"index\": 1}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 2}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 3}, {\"type\": \"black_concrete\", \"quantity\": 58, \"index\": 13}, {\"type\": \"golden_apple\", \"quantity\": 21, \"index\": 15}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 22}, {\"type\": \"leather\", \"quantity\": 4, \"index\": 24}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 53, \"index\": 31}, {\"type\": \"pink_dye\", \"quantity\": 20, \"index\": 33}, {\"type\": \"birch_sapling\", \"quantity\": 42, \"index\": 36}, {\"type\": \"tube_coral_fan\", \"quantity\": 24, \"index\": 37}, {\"type\": \"golden_hoe\", \"quantity\": 1, \"index\": 38}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: leather_leggings\ninventory=[{\"type\": \"leather\", \"quantity\": 1, \"index\": 1}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 2}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 3}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 4}, {\"type\": \"black_concrete\", \"quantity\": 58, \"index\": 13}, {\"type\": \"golden_apple\", \"quantity\": 21, \"index\": 15}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 22}, {\"type\": \"leather\", \"quantity\": 3, \"index\": 24}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 53, \"index\": 31}, {\"type\": \"pink_dye\", \"quantity\": 20, \"index\": 33}, {\"type\": \"birch_sapling\", \"quantity\": 42, \"index\": 36}, {\"type\": \"tube_coral_fan\", \"quantity\": 24, \"index\": 37}, {\"type\": \"golden_hoe\", \"quantity\": 1, \"index\": 38}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: leather_leggings\ninventory=[{\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 0}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 1}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 2}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 3}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 4}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 6}, {\"type\": \"black_concrete\", \"quantity\": 58, \"index\": 13}, {\"type\": \"golden_apple\", \"quantity\": 21, \"index\": 15}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 22}, {\"type\": \"leather\", \"quantity\": 2, \"index\": 24}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 53, \"index\": 31}, {\"type\": \"pink_dye\", \"quantity\": 20, \"index\": 33}, {\"type\": \"birch_sapling\", \"quantity\": 42, \"index\": 36}, {\"type\": \"tube_coral_fan\", \"quantity\": 24, \"index\": 37}, {\"type\": \"golden_hoe\", \"quantity\": 1, \"index\": 38}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: leather_leggings\ninventory=[{\"type\": \"leather\", \"quantity\": 1, \"index\": 1}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 2}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 3}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 4}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 6}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 7}, {\"type\": \"black_concrete\", \"quantity\": 58, \"index\": 13}, {\"type\": \"golden_apple\", \"quantity\": 21, \"index\": 15}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 22}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 24}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 53, \"index\": 31}, {\"type\": \"pink_dye\", \"quantity\": 20, \"index\": 33}, {\"type\": \"birch_sapling\", \"quantity\": 42, \"index\": 36}, {\"type\": \"tube_coral_fan\", \"quantity\": 24, \"index\": 37}, {\"type\": \"golden_hoe\", \"quantity\": 1, \"index\": 38}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: leather_leggings\ninventory=[{\"type\": \"leather_leggings\", \"quantity\": 1, \"index\": 0}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 1}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 2}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 3}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 4}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 6}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 7}, {\"type\": \"leather\", \"quantity\": 1, \"index\": 9}, {\"type\": \"black_concrete\", \"quantity\": 58, \"index\": 13}, {\"type\": \"golden_apple\", \"quantity\": 21, \"index\": 15}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 22}, {\"type\": \"smooth_red_sandstone\", \"quantity\": 53, \"index\": 31}, {\"type\": \"pink_dye\", \"quantity\": 20, \"index\": 33}, {\"type\": \"birch_sapling\", \"quantity\": 42, \"index\": 36}, {\"type\": \"tube_coral_fan\", \"quantity\": 24, \"index\": 37}, {\"type\": \"golden_hoe\", \"quantity\": 1, \"index\": 38}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: leather_leggings\ninventory:\n - black_concrete [I4] quantity 58\n - golden_apple [I6] quantity 21\n - crimson_button [I13] quantity 16\n - leather [I15] quantity 7\n - smooth_red_sandstone [I22] quantity 53\n - pink_dye [I24] quantity 20\n - birch_sapling [I27] quantity 42\n - tube_coral_fan [I28] quantity 24\n - golden_hoe [I29] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: leather_leggings\ninventory:\n - leather [A1] quantity 1\n - black_concrete [I4] quantity 58\n - golden_apple [I6] quantity 21\n - crimson_button [I13] quantity 16\n - leather [I15] quantity 6\n - smooth_red_sandstone [I22] quantity 53\n - pink_dye [I24] quantity 20\n - birch_sapling [I27] quantity 42\n - tube_coral_fan [I28] quantity 24\n - golden_hoe [I29] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: leather_leggings\ninventory:\n - leather [A1] quantity 1\n - leather [A2] quantity 1\n - black_concrete [I4] quantity 58\n - golden_apple [I6] quantity 21\n - crimson_button [I13] quantity 16\n - leather [I15] quantity 5\n - smooth_red_sandstone [I22] quantity 53\n - pink_dye [I24] quantity 20\n - birch_sapling [I27] quantity 42\n - tube_coral_fan [I28] quantity 24\n - golden_hoe [I29] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: leather_leggings\ninventory:\n - leather [A1] quantity 1\n - leather [A2] quantity 1\n - leather [A3] quantity 1\n - black_concrete [I4] quantity 58\n - golden_apple [I6] quantity 21\n - crimson_button [I13] quantity 16\n - leather [I15] quantity 4\n - smooth_red_sandstone [I22] quantity 53\n - pink_dye [I24] quantity 20\n - birch_sapling [I27] quantity 42\n - tube_coral_fan [I28] quantity 24\n - golden_hoe [I29] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: leather_leggings\ninventory:\n - leather [A1] quantity 1\n - leather [A2] quantity 1\n - leather [A3] quantity 1\n - leather [B1] quantity 1\n - black_concrete [I4] quantity 58\n - golden_apple [I6] quantity 21\n - crimson_button [I13] quantity 16\n - leather [I15] quantity 3\n - smooth_red_sandstone [I22] quantity 53\n - pink_dye [I24] quantity 20\n - birch_sapling [I27] quantity 42\n - tube_coral_fan [I28] quantity 24\n - golden_hoe [I29] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: leather_leggings\ninventory:\n - leather_helmet [0] quantity 1\n - leather [A1] quantity 1\n - leather [A2] quantity 1\n - leather [A3] quantity 1\n - leather [B1] quantity 1\n - leather [B3] quantity 1\n - black_concrete [I4] quantity 58\n - golden_apple [I6] quantity 21\n - crimson_button [I13] quantity 16\n - leather [I15] quantity 2\n - smooth_red_sandstone [I22] quantity 53\n - pink_dye [I24] quantity 20\n - birch_sapling [I27] quantity 42\n - tube_coral_fan [I28] quantity 24\n - golden_hoe [I29] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: leather_leggings\ninventory:\n - leather [A1] quantity 1\n - leather [A2] quantity 1\n - leather [A3] quantity 1\n - leather [B1] quantity 1\n - leather [B3] quantity 1\n - leather [C1] quantity 1\n - black_concrete [I4] quantity 58\n - golden_apple [I6] quantity 21\n - crimson_button [I13] quantity 16\n - leather [I15] quantity 1\n - smooth_red_sandstone [I22] quantity 53\n - pink_dye [I24] quantity 20\n - birch_sapling [I27] quantity 42\n - tube_coral_fan [I28] quantity 24\n - golden_hoe [I29] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: leather_leggings\ninventory:\n - leather_leggings [0] quantity 1\n - leather [A1] quantity 1\n - leather [A2] quantity 1\n - leather [A3] quantity 1\n - leather [B1] quantity 1\n - leather [B3] quantity 1\n - leather [C1] quantity 1\n - leather [C3] quantity 1\n - black_concrete [I4] quantity 58\n - golden_apple [I6] quantity 21\n - crimson_button [I13] quantity 16\n - smooth_red_sandstone [I22] quantity 53\n - pink_dye [I24] quantity 20\n - birch_sapling [I27] quantity 42\n - tube_coral_fan [I28] quantity 24\n - golden_hoe [I29] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0538"
+}

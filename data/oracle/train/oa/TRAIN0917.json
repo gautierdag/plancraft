@@ -1,26 +1,33 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: ender_eye\ninventory=[{\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 10}, {\"type\": \"polished_basalt\", \"quantity\": 15, \"index\": 12}, {\"type\": \"stone_button\", \"quantity\": 38, \"index\": 13}, {\"type\": \"orange_wool\", \"quantity\": 4, \"index\": 16}, {\"type\": \"prismarine_brick_stairs\", \"quantity\": 19, \"index\": 18}, {\"type\": \"smooth_quartz\", \"quantity\": 15, \"index\": 20}, {\"type\": \"ender_pearl\", \"quantity\": 1, \"index\": 22}, {\"type\": \"glass\", \"quantity\": 59, \"index\": 24}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 25}, {\"type\": \"spruce_fence_gate\", \"quantity\": 5, \"index\": 26}, {\"type\": \"splash_potion\", \"quantity\": 1, \"index\": 28}, {\"type\": \"crimson_stairs\", \"quantity\": 39, \"index\": 34}, {\"type\": \"poisonous_potato\", \"quantity\": 54, \"index\": 35}, {\"type\": \"glowstone_dust\", \"quantity\": 9, \"index\": 36}, {\"type\": \"gold_nugget\", \"quantity\": 49, \"index\": 39}, {\"type\": \"nether_brick_wall\", \"quantity\": 2, \"index\": 40}, {\"type\": \"blackstone\", \"quantity\": 41, \"index\": 41}, {\"type\": \"cocoa_beans\", \"quantity\": 38, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 22 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: ender_eye\ninventory=[{\"type\": \"ender_pearl\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 10}, {\"type\": \"polished_basalt\", \"quantity\": 15, \"index\": 12}, {\"type\": \"stone_button\", \"quantity\": 38, \"index\": 13}, {\"type\": \"orange_wool\", \"quantity\": 4, \"index\": 16}, {\"type\": \"prismarine_brick_stairs\", \"quantity\": 19, \"index\": 18}, {\"type\": \"smooth_quartz\", \"quantity\": 15, \"index\": 20}, {\"type\": \"glass\", \"quantity\": 59, \"index\": 24}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 25}, {\"type\": \"spruce_fence_gate\", \"quantity\": 5, \"index\": 26}, {\"type\": \"splash_potion\", \"quantity\": 1, \"index\": 28}, {\"type\": \"crimson_stairs\", \"quantity\": 39, \"index\": 34}, {\"type\": \"poisonous_potato\", \"quantity\": 54, \"index\": 35}, {\"type\": \"glowstone_dust\", \"quantity\": 9, \"index\": 36}, {\"type\": \"gold_nugget\", \"quantity\": 49, \"index\": 39}, {\"type\": \"nether_brick_wall\", \"quantity\": 2, \"index\": 40}, {\"type\": \"blackstone\", \"quantity\": 41, \"index\": 41}, {\"type\": \"cocoa_beans\", \"quantity\": 38, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 25 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: ender_eye\ninventory=[{\"type\": \"ender_eye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"ender_pearl\", \"quantity\": 1, \"index\": 1}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 10}, {\"type\": \"polished_basalt\", \"quantity\": 15, \"index\": 12}, {\"type\": \"stone_button\", \"quantity\": 38, \"index\": 13}, {\"type\": \"orange_wool\", \"quantity\": 4, \"index\": 16}, {\"type\": \"prismarine_brick_stairs\", \"quantity\": 19, \"index\": 18}, {\"type\": \"smooth_quartz\", \"quantity\": 15, \"index\": 20}, {\"type\": \"glass\", \"quantity\": 59, \"index\": 24}, {\"type\": \"spruce_fence_gate\", \"quantity\": 5, \"index\": 26}, {\"type\": \"splash_potion\", \"quantity\": 1, \"index\": 28}, {\"type\": \"crimson_stairs\", \"quantity\": 39, \"index\": 34}, {\"type\": \"poisonous_potato\", \"quantity\": 54, \"index\": 35}, {\"type\": \"glowstone_dust\", \"quantity\": 9, \"index\": 36}, {\"type\": \"gold_nugget\", \"quantity\": 49, \"index\": 39}, {\"type\": \"nether_brick_wall\", \"quantity\": 2, \"index\": 40}, {\"type\": \"blackstone\", \"quantity\": 41, \"index\": 41}, {\"type\": \"cocoa_beans\", \"quantity\": 38, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: ender_eye\ninventory:\n - iron_pickaxe [I1] quantity 1\n - polished_basalt [I3] quantity 15\n - stone_button [I4] quantity 38\n - orange_wool [I7] quantity 4\n - prismarine_brick_stairs [I9] quantity 19\n - smooth_quartz [I11] quantity 15\n - ender_pearl [I13] quantity 1\n - glass [I15] quantity 59\n - blaze_powder [I16] quantity 1\n - spruce_fence_gate [I17] quantity 5\n - splash_potion [I19] quantity 1\n - crimson_stairs [I25] quantity 39\n - poisonous_potato [I26] quantity 54\n - glowstone_dust [I27] quantity 9\n - gold_nugget [I30] quantity 49\n - nether_brick_wall [I31] quantity 2\n - blackstone [I32] quantity 41\n - cocoa_beans [I36] quantity 38"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I13] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: ender_eye\ninventory:\n - ender_pearl [A1] quantity 1\n - iron_pickaxe [I1] quantity 1\n - polished_basalt [I3] quantity 15\n - stone_button [I4] quantity 38\n - orange_wool [I7] quantity 4\n - prismarine_brick_stairs [I9] quantity 19\n - smooth_quartz [I11] quantity 15\n - glass [I15] quantity 59\n - blaze_powder [I16] quantity 1\n - spruce_fence_gate [I17] quantity 5\n - splash_potion [I19] quantity 1\n - crimson_stairs [I25] quantity 39\n - poisonous_potato [I26] quantity 54\n - glowstone_dust [I27] quantity 9\n - gold_nugget [I30] quantity 49\n - nether_brick_wall [I31] quantity 2\n - blackstone [I32] quantity 41\n - cocoa_beans [I36] quantity 38"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I16] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: ender_eye\ninventory:\n - ender_eye [0] quantity 1\n - ender_pearl [A1] quantity 1\n - blaze_powder [A2] quantity 1\n - iron_pickaxe [I1] quantity 1\n - polished_basalt [I3] quantity 15\n - stone_button [I4] quantity 38\n - orange_wool [I7] quantity 4\n - prismarine_brick_stairs [I9] quantity 19\n - smooth_quartz [I11] quantity 15\n - glass [I15] quantity 59\n - spruce_fence_gate [I17] quantity 5\n - splash_potion [I19] quantity 1\n - crimson_stairs [I25] quantity 39\n - poisonous_potato [I26] quantity 54\n - glowstone_dust [I27] quantity 9\n - gold_nugget [I30] quantity 49\n - nether_brick_wall [I31] quantity 2\n - blackstone [I32] quantity 41\n - cocoa_beans [I36] quantity 38"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0917"
+}

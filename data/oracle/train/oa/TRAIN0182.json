@@ -1,50 +1,57 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: spectral_arrow\ninventory=[{\"type\": \"glowstone_dust\", \"quantity\": 4, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 22}, {\"type\": \"jungle_stairs\", \"quantity\": 12, \"index\": 23}, {\"type\": \"arrow\", \"quantity\": 1, \"index\": 30}, {\"type\": \"written_book\", \"quantity\": 2, \"index\": 31}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 10, \"index\": 34}, {\"type\": \"lily_pad\", \"quantity\": 23, \"index\": 39}, {\"type\": \"smoker\", \"quantity\": 9, \"index\": 41}, {\"type\": \"tropical_fish_spawn_egg\", \"quantity\": 47, \"index\": 44}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spectral_arrow\ninventory=[{\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glowstone_dust\", \"quantity\": 3, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 22}, {\"type\": \"jungle_stairs\", \"quantity\": 12, \"index\": 23}, {\"type\": \"arrow\", \"quantity\": 1, \"index\": 30}, {\"type\": \"written_book\", \"quantity\": 2, \"index\": 31}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 10, \"index\": 34}, {\"type\": \"lily_pad\", \"quantity\": 23, \"index\": 39}, {\"type\": \"smoker\", \"quantity\": 9, \"index\": 41}, {\"type\": \"tropical_fish_spawn_egg\", \"quantity\": 47, \"index\": 44}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spectral_arrow\ninventory=[{\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 4}, {\"type\": \"glowstone_dust\", \"quantity\": 2, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 22}, {\"type\": \"jungle_stairs\", \"quantity\": 12, \"index\": 23}, {\"type\": \"arrow\", \"quantity\": 1, \"index\": 30}, {\"type\": \"written_book\", \"quantity\": 2, \"index\": 31}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 10, \"index\": 34}, {\"type\": \"lily_pad\", \"quantity\": 23, \"index\": 39}, {\"type\": \"smoker\", \"quantity\": 9, \"index\": 41}, {\"type\": \"tropical_fish_spawn_egg\", \"quantity\": 47, \"index\": 44}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 30 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spectral_arrow\ninventory=[{\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 4}, {\"type\": \"arrow\", \"quantity\": 1, \"index\": 5}, {\"type\": \"glowstone_dust\", \"quantity\": 2, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 22}, {\"type\": \"jungle_stairs\", \"quantity\": 12, \"index\": 23}, {\"type\": \"written_book\", \"quantity\": 2, \"index\": 31}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 10, \"index\": 34}, {\"type\": \"lily_pad\", \"quantity\": 23, \"index\": 39}, {\"type\": \"smoker\", \"quantity\": 9, \"index\": 41}, {\"type\": \"tropical_fish_spawn_egg\", \"quantity\": 47, \"index\": 44}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spectral_arrow\ninventory=[{\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 4}, {\"type\": \"arrow\", \"quantity\": 1, \"index\": 5}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 6}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 22}, {\"type\": \"jungle_stairs\", \"quantity\": 12, \"index\": 23}, {\"type\": \"written_book\", \"quantity\": 2, \"index\": 31}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 10, \"index\": 34}, {\"type\": \"lily_pad\", \"quantity\": 23, \"index\": 39}, {\"type\": \"smoker\", \"quantity\": 9, \"index\": 41}, {\"type\": \"tropical_fish_spawn_egg\", \"quantity\": 47, \"index\": 44}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spectral_arrow\ninventory=[{\"type\": \"spectral_arrow\", \"quantity\": 2, \"index\": 0}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 4}, {\"type\": \"arrow\", \"quantity\": 1, \"index\": 5}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 6}, {\"type\": \"glowstone_dust\", \"quantity\": 1, \"index\": 8}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 22}, {\"type\": \"jungle_stairs\", \"quantity\": 12, \"index\": 23}, {\"type\": \"written_book\", \"quantity\": 2, \"index\": 31}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 10, \"index\": 34}, {\"type\": \"lily_pad\", \"quantity\": 23, \"index\": 39}, {\"type\": \"smoker\", \"quantity\": 9, \"index\": 41}, {\"type\": \"tropical_fish_spawn_egg\", \"quantity\": 47, \"index\": 44}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 2"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spectral_arrow\ninventory:\n - glowstone_dust [I3] quantity 4\n - tnt_minecart [I13] quantity 1\n - jungle_stairs [I14] quantity 12\n - arrow [I21] quantity 1\n - written_book [I22] quantity 2\n - sheep_spawn_egg [I25] quantity 10\n - lily_pad [I30] quantity 23\n - smoker [I32] quantity 9\n - tropical_fish_spawn_egg [I35] quantity 47\n - acacia_pressure_plate [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spectral_arrow\ninventory:\n - glowstone_dust [A2] quantity 1\n - glowstone_dust [I3] quantity 3\n - tnt_minecart [I13] quantity 1\n - jungle_stairs [I14] quantity 12\n - arrow [I21] quantity 1\n - written_book [I22] quantity 2\n - sheep_spawn_egg [I25] quantity 10\n - lily_pad [I30] quantity 23\n - smoker [I32] quantity 9\n - tropical_fish_spawn_egg [I35] quantity 47\n - acacia_pressure_plate [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spectral_arrow\ninventory:\n - glowstone_dust [A2] quantity 1\n - glowstone_dust [B1] quantity 1\n - glowstone_dust [I3] quantity 2\n - tnt_minecart [I13] quantity 1\n - jungle_stairs [I14] quantity 12\n - arrow [I21] quantity 1\n - written_book [I22] quantity 2\n - sheep_spawn_egg [I25] quantity 10\n - lily_pad [I30] quantity 23\n - smoker [I32] quantity 9\n - tropical_fish_spawn_egg [I35] quantity 47\n - acacia_pressure_plate [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I21] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spectral_arrow\ninventory:\n - glowstone_dust [A2] quantity 1\n - glowstone_dust [B1] quantity 1\n - arrow [B2] quantity 1\n - glowstone_dust [I3] quantity 2\n - tnt_minecart [I13] quantity 1\n - jungle_stairs [I14] quantity 12\n - written_book [I22] quantity 2\n - sheep_spawn_egg [I25] quantity 10\n - lily_pad [I30] quantity 23\n - smoker [I32] quantity 9\n - tropical_fish_spawn_egg [I35] quantity 47\n - acacia_pressure_plate [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spectral_arrow\ninventory:\n - glowstone_dust [A2] quantity 1\n - glowstone_dust [B1] quantity 1\n - arrow [B2] quantity 1\n - glowstone_dust [B3] quantity 1\n - glowstone_dust [I3] quantity 1\n - tnt_minecart [I13] quantity 1\n - jungle_stairs [I14] quantity 12\n - written_book [I22] quantity 2\n - sheep_spawn_egg [I25] quantity 10\n - lily_pad [I30] quantity 23\n - smoker [I32] quantity 9\n - tropical_fish_spawn_egg [I35] quantity 47\n - acacia_pressure_plate [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spectral_arrow\ninventory:\n - spectral_arrow [0] quantity 2\n - glowstone_dust [A2] quantity 1\n - glowstone_dust [B1] quantity 1\n - arrow [B2] quantity 1\n - glowstone_dust [B3] quantity 1\n - glowstone_dust [C2] quantity 1\n - tnt_minecart [I13] quantity 1\n - jungle_stairs [I14] quantity 12\n - written_book [I22] quantity 2\n - sheep_spawn_egg [I25] quantity 10\n - lily_pad [I30] quantity 23\n - smoker [I32] quantity 9\n - tropical_fish_spawn_egg [I35] quantity 47\n - acacia_pressure_plate [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 2"
+    }
+  ],
+  "example_id": "TRAIN0182"
+}

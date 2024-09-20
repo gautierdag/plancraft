@@ -1,74 +1,81 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 15}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 16}, {\"type\": \"iron_block\", \"quantity\": 1, \"index\": 25}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 25 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 9, \"index\": 0}, {\"type\": \"iron_block\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 15}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 16}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 9"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 9, \"index\": 11}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 15}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 16}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 15 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"dark_oak_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 9, \"index\": 11}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 16}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 16 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"stick\", \"quantity\": 4, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"birch_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_ingot\", \"quantity\": 9, \"index\": 11}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 9, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 4, \"index\": 12}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 9, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 8, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 4, \"index\": 12}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_ingot\", \"quantity\": 8, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 3, \"index\": 12}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_shovel\ninventory=[{\"type\": \"iron_shovel\", \"quantity\": 1, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 7}, {\"type\": \"iron_ingot\", \"quantity\": 8, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 12}, {\"type\": \"dragon_breath\", \"quantity\": 24, \"index\": 26}, {\"type\": \"light_blue_terracotta\", \"quantity\": 38, \"index\": 30}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 31}, {\"type\": \"golden_pickaxe\", \"quantity\": 1, \"index\": 35}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - dark_oak_planks [I6] quantity 1\n - birch_planks [I7] quantity 1\n - iron_block [I16] quantity 1\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I6] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - dark_oak_button [0] quantity 1\n - dark_oak_planks [A1] quantity 1\n - birch_planks [I7] quantity 1\n - iron_block [I16] quantity 1\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - stick [0] quantity 4\n - dark_oak_planks [A1] quantity 1\n - birch_planks [B1] quantity 1\n - iron_block [I16] quantity 1\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - stick [I2] quantity 4\n - iron_block [I16] quantity 1\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I16] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - iron_ingot [0] quantity 9\n - iron_block [A1] quantity 1\n - stick [I2] quantity 4\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 9"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - stick [I2] quantity 4\n - iron_ingot [I3] quantity 9\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - iron_nugget [0] quantity 9\n - iron_ingot [A1] quantity 1\n - stick [I2] quantity 4\n - iron_ingot [I3] quantity 8\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - iron_ingot [A1] quantity 1\n - stick [B1] quantity 1\n - stick [I2] quantity 3\n - iron_ingot [I3] quantity 8\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_shovel\ninventory:\n - iron_shovel [0] quantity 1\n - iron_ingot [A1] quantity 1\n - stick [B1] quantity 1\n - stick [C1] quantity 1\n - stick [I2] quantity 2\n - iron_ingot [I3] quantity 8\n - dragon_breath [I17] quantity 24\n - light_blue_terracotta [I21] quantity 38\n - cake [I22] quantity 1\n - golden_pickaxe [I26] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0564"
+}

@@ -1,98 +1,105 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"cocoa_beans\", \"quantity\": 1, \"index\": 10}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 8, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 10 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"cocoa_beans\", \"quantity\": 1, \"index\": 1}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 8, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 8, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 7, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 2}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 6, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 3}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 5, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 3}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 4}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 4, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 3}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 4}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 4, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 3}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 4}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 6}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 3, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 3}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 4}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 6}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 7}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 2, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 3}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 4}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 6}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 7}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 8}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: brown_stained_glass\ninventory=[{\"type\": \"brown_stained_glass\", \"quantity\": 8, \"index\": 0}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 1}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 2}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 3}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 4}, {\"type\": \"brown_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 6}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 7}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 8}, {\"type\": \"glass\", \"quantity\": 1, \"index\": 9}, {\"type\": \"brick_stairs\", \"quantity\": 60, \"index\": 13}, {\"type\": \"snow_block\", \"quantity\": 5, \"index\": 21}, {\"type\": \"red_sandstone\", \"quantity\": 13, \"index\": 22}, {\"type\": \"blue_concrete\", \"quantity\": 18, \"index\": 23}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 26}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 45, \"index\": 30}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 36}, {\"type\": \"birch_slab\", \"quantity\": 38, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 8"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - cocoa_beans [I1] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I1] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - brown_dye [0] quantity 1\n - cocoa_beans [A1] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - brown_dye [I2] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - glass [A1] quantity 1\n - brown_dye [I2] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - brown_dye [I2] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - brown_dye [I2] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - brown_dye [I2] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 4"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - brown_dye [B2] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 4"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - brown_dye [B2] quantity 1\n - glass [B3] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 3"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - brown_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [C1] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - brown_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [C1] quantity 1\n - glass [C2] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38\n - glass [I34] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: brown_stained_glass\ninventory:\n - brown_stained_glass [0] quantity 8\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - brown_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [C1] quantity 1\n - glass [C2] quantity 1\n - glass [C3] quantity 1\n - brick_stairs [I4] quantity 60\n - snow_block [I12] quantity 5\n - red_sandstone [I13] quantity 13\n - blue_concrete [I14] quantity 18\n - hopper_minecart [I17] quantity 1\n - wandering_trader_spawn_egg [I21] quantity 45\n - black_bed [I27] quantity 1\n - birch_slab [I33] quantity 38"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 8"
+    }
+  ],
+  "example_id": "VAL0023"
+}

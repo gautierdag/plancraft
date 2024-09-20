@@ -1,98 +1,105 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"bamboo\", \"quantity\": 4, \"index\": 11}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 3, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"bamboo\", \"quantity\": 3, \"index\": 11}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 3, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 0}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 4}, {\"type\": \"bamboo\", \"quantity\": 2, \"index\": 11}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 3, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"bamboo\", \"quantity\": 2, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 3, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 3, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 0}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 3, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 3, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 38 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"diamond\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 2, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 38 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"diamond\", \"quantity\": 1, \"index\": 1}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 38}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 38 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"diamond\", \"quantity\": 1, \"index\": 1}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 2}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"diamond\", \"quantity\": 1, \"index\": 1}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 2}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: diamond_axe\ninventory=[{\"type\": \"diamond_axe\", \"quantity\": 1, \"index\": 0}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 1}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 2}, {\"type\": \"diamond\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 8}, {\"type\": \"bow\", \"quantity\": 1, \"index\": 15}, {\"type\": \"chiseled_sandstone\", \"quantity\": 5, \"index\": 16}, {\"type\": \"gunpowder\", \"quantity\": 61, \"index\": 17}, {\"type\": \"blast_furnace\", \"quantity\": 7, \"index\": 18}, {\"type\": \"green_wool\", \"quantity\": 14, \"index\": 20}, {\"type\": \"cat_spawn_egg\", \"quantity\": 6, \"index\": 21}, {\"type\": \"fox_spawn_egg\", \"quantity\": 63, \"index\": 22}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 25}, {\"type\": \"white_stained_glass_pane\", \"quantity\": 26, \"index\": 26}, {\"type\": \"music_disc_blocks\", \"quantity\": 1, \"index\": 30}, {\"type\": \"nether_gold_ore\", \"quantity\": 24, \"index\": 31}, {\"type\": \"orange_concrete_powder\", \"quantity\": 3, \"index\": 35}, {\"type\": \"tall_grass\", \"quantity\": 27, \"index\": 37}, {\"type\": \"nether_wart_block\", \"quantity\": 11, \"index\": 39}, {\"type\": \"diorite_wall\", \"quantity\": 7, \"index\": 40}, {\"type\": \"stripped_jungle_log\", \"quantity\": 60, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - bamboo [I2] quantity 4\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 3\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - bamboo [A1] quantity 1\n - bamboo [I2] quantity 3\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 3\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - stick [0] quantity 1\n - bamboo [A1] quantity 1\n - bamboo [B1] quantity 1\n - bamboo [I2] quantity 2\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 3\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - bamboo [I2] quantity 2\n - stick [I3] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 3\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - bamboo [A1] quantity 1\n - bamboo [I2] quantity 1\n - stick [I3] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 3\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - stick [0] quantity 1\n - bamboo [A1] quantity 1\n - bamboo [B1] quantity 1\n - stick [I3] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 3\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 3\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I29] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - diamond [A1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 2\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I29] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - diamond [A1] quantity 1\n - diamond [A2] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - diamond [I29] quantity 1\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I29] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - diamond [A1] quantity 1\n - diamond [A2] quantity 1\n - diamond [B1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - diamond [A1] quantity 1\n - diamond [A2] quantity 1\n - diamond [B1] quantity 1\n - stick [B2] quantity 1\n - stick [I3] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: diamond_axe\ninventory:\n - diamond_axe [0] quantity 1\n - diamond [A1] quantity 1\n - diamond [A2] quantity 1\n - diamond [B1] quantity 1\n - stick [B2] quantity 1\n - stick [C2] quantity 1\n - bow [I6] quantity 1\n - chiseled_sandstone [I7] quantity 5\n - gunpowder [I8] quantity 61\n - blast_furnace [I9] quantity 7\n - green_wool [I11] quantity 14\n - cat_spawn_egg [I12] quantity 6\n - fox_spawn_egg [I13] quantity 63\n - quartz_slab [I16] quantity 2\n - white_stained_glass_pane [I17] quantity 26\n - music_disc_blocks [I21] quantity 1\n - nether_gold_ore [I22] quantity 24\n - orange_concrete_powder [I26] quantity 3\n - tall_grass [I28] quantity 27\n - nether_wart_block [I30] quantity 11\n - diorite_wall [I31] quantity 7\n - stripped_jungle_log [I35] quantity 60"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0524"
+}

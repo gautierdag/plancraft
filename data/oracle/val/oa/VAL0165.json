@@ -1,34 +1,41 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: dark_prismarine_slab\ninventory=[{\"type\": \"dark_prismarine\", \"quantity\": 3, \"index\": 11}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 42, \"index\": 18}, {\"type\": \"stone_pressure_plate\", \"quantity\": 33, \"index\": 24}, {\"type\": \"panda_spawn_egg\", \"quantity\": 59, \"index\": 29}, {\"type\": \"emerald_ore\", \"quantity\": 32, \"index\": 33}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 26, \"index\": 35}, {\"type\": \"phantom_membrane\", \"quantity\": 63, \"index\": 39}, {\"type\": \"ghast_tear\", \"quantity\": 20, \"index\": 42}, {\"type\": \"magenta_concrete_powder\", \"quantity\": 2, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: dark_prismarine_slab\ninventory=[{\"type\": \"dark_prismarine\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_prismarine\", \"quantity\": 2, \"index\": 11}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 42, \"index\": 18}, {\"type\": \"stone_pressure_plate\", \"quantity\": 33, \"index\": 24}, {\"type\": \"panda_spawn_egg\", \"quantity\": 59, \"index\": 29}, {\"type\": \"emerald_ore\", \"quantity\": 32, \"index\": 33}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 26, \"index\": 35}, {\"type\": \"phantom_membrane\", \"quantity\": 63, \"index\": 39}, {\"type\": \"ghast_tear\", \"quantity\": 20, \"index\": 42}, {\"type\": \"magenta_concrete_powder\", \"quantity\": 2, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: dark_prismarine_slab\ninventory=[{\"type\": \"dark_prismarine\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_prismarine\", \"quantity\": 1, \"index\": 2}, {\"type\": \"dark_prismarine\", \"quantity\": 1, \"index\": 11}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 42, \"index\": 18}, {\"type\": \"stone_pressure_plate\", \"quantity\": 33, \"index\": 24}, {\"type\": \"panda_spawn_egg\", \"quantity\": 59, \"index\": 29}, {\"type\": \"emerald_ore\", \"quantity\": 32, \"index\": 33}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 26, \"index\": 35}, {\"type\": \"phantom_membrane\", \"quantity\": 63, \"index\": 39}, {\"type\": \"ghast_tear\", \"quantity\": 20, \"index\": 42}, {\"type\": \"magenta_concrete_powder\", \"quantity\": 2, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: dark_prismarine_slab\ninventory=[{\"type\": \"dark_prismarine_slab\", \"quantity\": 6, \"index\": 0}, {\"type\": \"dark_prismarine\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_prismarine\", \"quantity\": 1, \"index\": 2}, {\"type\": \"dark_prismarine\", \"quantity\": 1, \"index\": 3}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 42, \"index\": 18}, {\"type\": \"stone_pressure_plate\", \"quantity\": 33, \"index\": 24}, {\"type\": \"panda_spawn_egg\", \"quantity\": 59, \"index\": 29}, {\"type\": \"emerald_ore\", \"quantity\": 32, \"index\": 33}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 26, \"index\": 35}, {\"type\": \"phantom_membrane\", \"quantity\": 63, \"index\": 39}, {\"type\": \"ghast_tear\", \"quantity\": 20, \"index\": 42}, {\"type\": \"magenta_concrete_powder\", \"quantity\": 2, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 6"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: dark_prismarine_slab\ninventory:\n - dark_prismarine [I2] quantity 3\n - purple_glazed_terracotta [I9] quantity 42\n - stone_pressure_plate [I15] quantity 33\n - panda_spawn_egg [I20] quantity 59\n - emerald_ore [I24] quantity 32\n - stripped_warped_hyphae [I26] quantity 26\n - phantom_membrane [I30] quantity 63\n - ghast_tear [I33] quantity 20\n - magenta_concrete_powder [I35] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: dark_prismarine_slab\ninventory:\n - dark_prismarine [A1] quantity 1\n - dark_prismarine [I2] quantity 2\n - purple_glazed_terracotta [I9] quantity 42\n - stone_pressure_plate [I15] quantity 33\n - panda_spawn_egg [I20] quantity 59\n - emerald_ore [I24] quantity 32\n - stripped_warped_hyphae [I26] quantity 26\n - phantom_membrane [I30] quantity 63\n - ghast_tear [I33] quantity 20\n - magenta_concrete_powder [I35] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: dark_prismarine_slab\ninventory:\n - dark_prismarine [A1] quantity 1\n - dark_prismarine [A2] quantity 1\n - dark_prismarine [I2] quantity 1\n - purple_glazed_terracotta [I9] quantity 42\n - stone_pressure_plate [I15] quantity 33\n - panda_spawn_egg [I20] quantity 59\n - emerald_ore [I24] quantity 32\n - stripped_warped_hyphae [I26] quantity 26\n - phantom_membrane [I30] quantity 63\n - ghast_tear [I33] quantity 20\n - magenta_concrete_powder [I35] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: dark_prismarine_slab\ninventory:\n - dark_prismarine_slab [0] quantity 6\n - dark_prismarine [A1] quantity 1\n - dark_prismarine [A2] quantity 1\n - dark_prismarine [A3] quantity 1\n - purple_glazed_terracotta [I9] quantity 42\n - stone_pressure_plate [I15] quantity 33\n - panda_spawn_egg [I20] quantity 59\n - emerald_ore [I24] quantity 32\n - stripped_warped_hyphae [I26] quantity 26\n - phantom_membrane [I30] quantity 63\n - ghast_tear [I33] quantity 20\n - magenta_concrete_powder [I35] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 6"
+    }
+  ],
+  "example_id": "VAL0165"
+}

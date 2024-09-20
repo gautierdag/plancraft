@@ -1,66 +1,73 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: pink_bed\ninventory=[{\"type\": \"white_dye\", \"quantity\": 1, \"index\": 10}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 58, \"index\": 13}, {\"type\": \"oak_wood\", \"quantity\": 45, \"index\": 16}, {\"type\": \"horse_spawn_egg\", \"quantity\": 23, \"index\": 17}, {\"type\": \"beetroot\", \"quantity\": 1, \"index\": 18}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 19}, {\"type\": \"green_stained_glass_pane\", \"quantity\": 58, \"index\": 21}, {\"type\": \"prismarine\", \"quantity\": 61, \"index\": 22}, {\"type\": \"mule_spawn_egg\", \"quantity\": 46, \"index\": 23}, {\"type\": \"gold_ingot\", \"quantity\": 22, \"index\": 24}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 33, \"index\": 26}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brown_mushroom_block\", \"quantity\": 55, \"index\": 32}, {\"type\": \"cod\", \"quantity\": 56, \"index\": 33}, {\"type\": \"lime_wool\", \"quantity\": 19, \"index\": 36}, {\"type\": \"light_weighted_pressure_plate\", \"quantity\": 40, \"index\": 37}, {\"type\": \"lime_stained_glass\", \"quantity\": 43, \"index\": 39}, {\"type\": \"diorite_slab\", \"quantity\": 53, \"index\": 40}, {\"type\": \"acacia_trapdoor\", \"quantity\": 64, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 18 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: pink_bed\ninventory=[{\"type\": \"red_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"beetroot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 10}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 58, \"index\": 13}, {\"type\": \"oak_wood\", \"quantity\": 45, \"index\": 16}, {\"type\": \"horse_spawn_egg\", \"quantity\": 23, \"index\": 17}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 19}, {\"type\": \"green_stained_glass_pane\", \"quantity\": 58, \"index\": 21}, {\"type\": \"prismarine\", \"quantity\": 61, \"index\": 22}, {\"type\": \"mule_spawn_egg\", \"quantity\": 46, \"index\": 23}, {\"type\": \"gold_ingot\", \"quantity\": 22, \"index\": 24}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 33, \"index\": 26}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brown_mushroom_block\", \"quantity\": 55, \"index\": 32}, {\"type\": \"cod\", \"quantity\": 56, \"index\": 33}, {\"type\": \"lime_wool\", \"quantity\": 19, \"index\": 36}, {\"type\": \"light_weighted_pressure_plate\", \"quantity\": 40, \"index\": 37}, {\"type\": \"lime_stained_glass\", \"quantity\": 43, \"index\": 39}, {\"type\": \"diorite_slab\", \"quantity\": 53, \"index\": 40}, {\"type\": \"acacia_trapdoor\", \"quantity\": 64, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: pink_bed\ninventory=[{\"type\": \"white_dye\", \"quantity\": 1, \"index\": 10}, {\"type\": \"red_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 58, \"index\": 13}, {\"type\": \"oak_wood\", \"quantity\": 45, \"index\": 16}, {\"type\": \"horse_spawn_egg\", \"quantity\": 23, \"index\": 17}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 19}, {\"type\": \"green_stained_glass_pane\", \"quantity\": 58, \"index\": 21}, {\"type\": \"prismarine\", \"quantity\": 61, \"index\": 22}, {\"type\": \"mule_spawn_egg\", \"quantity\": 46, \"index\": 23}, {\"type\": \"gold_ingot\", \"quantity\": 22, \"index\": 24}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 33, \"index\": 26}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brown_mushroom_block\", \"quantity\": 55, \"index\": 32}, {\"type\": \"cod\", \"quantity\": 56, \"index\": 33}, {\"type\": \"lime_wool\", \"quantity\": 19, \"index\": 36}, {\"type\": \"light_weighted_pressure_plate\", \"quantity\": 40, \"index\": 37}, {\"type\": \"lime_stained_glass\", \"quantity\": 43, \"index\": 39}, {\"type\": \"diorite_slab\", \"quantity\": 53, \"index\": 40}, {\"type\": \"acacia_trapdoor\", \"quantity\": 64, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 10 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: pink_bed\ninventory=[{\"type\": \"white_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 58, \"index\": 13}, {\"type\": \"oak_wood\", \"quantity\": 45, \"index\": 16}, {\"type\": \"horse_spawn_egg\", \"quantity\": 23, \"index\": 17}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 19}, {\"type\": \"green_stained_glass_pane\", \"quantity\": 58, \"index\": 21}, {\"type\": \"prismarine\", \"quantity\": 61, \"index\": 22}, {\"type\": \"mule_spawn_egg\", \"quantity\": 46, \"index\": 23}, {\"type\": \"gold_ingot\", \"quantity\": 22, \"index\": 24}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 33, \"index\": 26}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brown_mushroom_block\", \"quantity\": 55, \"index\": 32}, {\"type\": \"cod\", \"quantity\": 56, \"index\": 33}, {\"type\": \"lime_wool\", \"quantity\": 19, \"index\": 36}, {\"type\": \"light_weighted_pressure_plate\", \"quantity\": 40, \"index\": 37}, {\"type\": \"lime_stained_glass\", \"quantity\": 43, \"index\": 39}, {\"type\": \"diorite_slab\", \"quantity\": 53, \"index\": 40}, {\"type\": \"acacia_trapdoor\", \"quantity\": 64, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: pink_bed\ninventory=[{\"type\": \"pink_dye\", \"quantity\": 2, \"index\": 0}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_dye\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 58, \"index\": 13}, {\"type\": \"oak_wood\", \"quantity\": 45, \"index\": 16}, {\"type\": \"horse_spawn_egg\", \"quantity\": 23, \"index\": 17}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 19}, {\"type\": \"green_stained_glass_pane\", \"quantity\": 58, \"index\": 21}, {\"type\": \"prismarine\", \"quantity\": 61, \"index\": 22}, {\"type\": \"mule_spawn_egg\", \"quantity\": 46, \"index\": 23}, {\"type\": \"gold_ingot\", \"quantity\": 22, \"index\": 24}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 33, \"index\": 26}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brown_mushroom_block\", \"quantity\": 55, \"index\": 32}, {\"type\": \"cod\", \"quantity\": 56, \"index\": 33}, {\"type\": \"lime_wool\", \"quantity\": 19, \"index\": 36}, {\"type\": \"light_weighted_pressure_plate\", \"quantity\": 40, \"index\": 37}, {\"type\": \"lime_stained_glass\", \"quantity\": 43, \"index\": 39}, {\"type\": \"diorite_slab\", \"quantity\": 53, \"index\": 40}, {\"type\": \"acacia_trapdoor\", \"quantity\": 64, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 2"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: pink_bed\ninventory=[{\"type\": \"pink_dye\", \"quantity\": 2, \"index\": 11}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 58, \"index\": 13}, {\"type\": \"oak_wood\", \"quantity\": 45, \"index\": 16}, {\"type\": \"horse_spawn_egg\", \"quantity\": 23, \"index\": 17}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 19}, {\"type\": \"green_stained_glass_pane\", \"quantity\": 58, \"index\": 21}, {\"type\": \"prismarine\", \"quantity\": 61, \"index\": 22}, {\"type\": \"mule_spawn_egg\", \"quantity\": 46, \"index\": 23}, {\"type\": \"gold_ingot\", \"quantity\": 22, \"index\": 24}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 33, \"index\": 26}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brown_mushroom_block\", \"quantity\": 55, \"index\": 32}, {\"type\": \"cod\", \"quantity\": 56, \"index\": 33}, {\"type\": \"lime_wool\", \"quantity\": 19, \"index\": 36}, {\"type\": \"light_weighted_pressure_plate\", \"quantity\": 40, \"index\": 37}, {\"type\": \"lime_stained_glass\", \"quantity\": 43, \"index\": 39}, {\"type\": \"diorite_slab\", \"quantity\": 53, \"index\": 40}, {\"type\": \"acacia_trapdoor\", \"quantity\": 64, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: pink_bed\ninventory=[{\"type\": \"pink_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"pink_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 58, \"index\": 13}, {\"type\": \"oak_wood\", \"quantity\": 45, \"index\": 16}, {\"type\": \"horse_spawn_egg\", \"quantity\": 23, \"index\": 17}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 19}, {\"type\": \"green_stained_glass_pane\", \"quantity\": 58, \"index\": 21}, {\"type\": \"prismarine\", \"quantity\": 61, \"index\": 22}, {\"type\": \"mule_spawn_egg\", \"quantity\": 46, \"index\": 23}, {\"type\": \"gold_ingot\", \"quantity\": 22, \"index\": 24}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 33, \"index\": 26}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brown_mushroom_block\", \"quantity\": 55, \"index\": 32}, {\"type\": \"cod\", \"quantity\": 56, \"index\": 33}, {\"type\": \"lime_wool\", \"quantity\": 19, \"index\": 36}, {\"type\": \"light_weighted_pressure_plate\", \"quantity\": 40, \"index\": 37}, {\"type\": \"lime_stained_glass\", \"quantity\": 43, \"index\": 39}, {\"type\": \"diorite_slab\", \"quantity\": 53, \"index\": 40}, {\"type\": \"acacia_trapdoor\", \"quantity\": 64, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 19 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: pink_bed\ninventory=[{\"type\": \"pink_bed\", \"quantity\": 1, \"index\": 0}, {\"type\": \"pink_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 2}, {\"type\": \"pink_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 58, \"index\": 13}, {\"type\": \"oak_wood\", \"quantity\": 45, \"index\": 16}, {\"type\": \"horse_spawn_egg\", \"quantity\": 23, \"index\": 17}, {\"type\": \"green_stained_glass_pane\", \"quantity\": 58, \"index\": 21}, {\"type\": \"prismarine\", \"quantity\": 61, \"index\": 22}, {\"type\": \"mule_spawn_egg\", \"quantity\": 46, \"index\": 23}, {\"type\": \"gold_ingot\", \"quantity\": 22, \"index\": 24}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 33, \"index\": 26}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 27}, {\"type\": \"brown_mushroom_block\", \"quantity\": 55, \"index\": 32}, {\"type\": \"cod\", \"quantity\": 56, \"index\": 33}, {\"type\": \"lime_wool\", \"quantity\": 19, \"index\": 36}, {\"type\": \"light_weighted_pressure_plate\", \"quantity\": 40, \"index\": 37}, {\"type\": \"lime_stained_glass\", \"quantity\": 43, \"index\": 39}, {\"type\": \"diorite_slab\", \"quantity\": 53, \"index\": 40}, {\"type\": \"acacia_trapdoor\", \"quantity\": 64, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: pink_bed\ninventory:\n - white_dye [I1] quantity 1\n - cracked_nether_bricks [I4] quantity 58\n - oak_wood [I7] quantity 45\n - horse_spawn_egg [I8] quantity 23\n - beetroot [I9] quantity 1\n - white_bed [I10] quantity 1\n - green_stained_glass_pane [I12] quantity 58\n - prismarine [I13] quantity 61\n - mule_spawn_egg [I14] quantity 46\n - gold_ingot [I15] quantity 22\n - magma_cube_spawn_egg [I17] quantity 33\n - furnace_minecart [I18] quantity 1\n - brown_mushroom_block [I23] quantity 55\n - cod [I24] quantity 56\n - lime_wool [I27] quantity 19\n - light_weighted_pressure_plate [I28] quantity 40\n - lime_stained_glass [I30] quantity 43\n - diorite_slab [I31] quantity 53\n - acacia_trapdoor [I32] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I9] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: pink_bed\ninventory:\n - red_dye [0] quantity 1\n - beetroot [A1] quantity 1\n - white_dye [I1] quantity 1\n - cracked_nether_bricks [I4] quantity 58\n - oak_wood [I7] quantity 45\n - horse_spawn_egg [I8] quantity 23\n - white_bed [I10] quantity 1\n - green_stained_glass_pane [I12] quantity 58\n - prismarine [I13] quantity 61\n - mule_spawn_egg [I14] quantity 46\n - gold_ingot [I15] quantity 22\n - magma_cube_spawn_egg [I17] quantity 33\n - furnace_minecart [I18] quantity 1\n - brown_mushroom_block [I23] quantity 55\n - cod [I24] quantity 56\n - lime_wool [I27] quantity 19\n - light_weighted_pressure_plate [I28] quantity 40\n - lime_stained_glass [I30] quantity 43\n - diorite_slab [I31] quantity 53\n - acacia_trapdoor [I32] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: pink_bed\ninventory:\n - white_dye [I1] quantity 1\n - red_dye [I2] quantity 1\n - cracked_nether_bricks [I4] quantity 58\n - oak_wood [I7] quantity 45\n - horse_spawn_egg [I8] quantity 23\n - white_bed [I10] quantity 1\n - green_stained_glass_pane [I12] quantity 58\n - prismarine [I13] quantity 61\n - mule_spawn_egg [I14] quantity 46\n - gold_ingot [I15] quantity 22\n - magma_cube_spawn_egg [I17] quantity 33\n - furnace_minecart [I18] quantity 1\n - brown_mushroom_block [I23] quantity 55\n - cod [I24] quantity 56\n - lime_wool [I27] quantity 19\n - light_weighted_pressure_plate [I28] quantity 40\n - lime_stained_glass [I30] quantity 43\n - diorite_slab [I31] quantity 53\n - acacia_trapdoor [I32] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I1] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: pink_bed\ninventory:\n - white_dye [A1] quantity 1\n - red_dye [I2] quantity 1\n - cracked_nether_bricks [I4] quantity 58\n - oak_wood [I7] quantity 45\n - horse_spawn_egg [I8] quantity 23\n - white_bed [I10] quantity 1\n - green_stained_glass_pane [I12] quantity 58\n - prismarine [I13] quantity 61\n - mule_spawn_egg [I14] quantity 46\n - gold_ingot [I15] quantity 22\n - magma_cube_spawn_egg [I17] quantity 33\n - furnace_minecart [I18] quantity 1\n - brown_mushroom_block [I23] quantity 55\n - cod [I24] quantity 56\n - lime_wool [I27] quantity 19\n - light_weighted_pressure_plate [I28] quantity 40\n - lime_stained_glass [I30] quantity 43\n - diorite_slab [I31] quantity 53\n - acacia_trapdoor [I32] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: pink_bed\ninventory:\n - pink_dye [0] quantity 2\n - white_dye [A1] quantity 1\n - red_dye [A2] quantity 1\n - cracked_nether_bricks [I4] quantity 58\n - oak_wood [I7] quantity 45\n - horse_spawn_egg [I8] quantity 23\n - white_bed [I10] quantity 1\n - green_stained_glass_pane [I12] quantity 58\n - prismarine [I13] quantity 61\n - mule_spawn_egg [I14] quantity 46\n - gold_ingot [I15] quantity 22\n - magma_cube_spawn_egg [I17] quantity 33\n - furnace_minecart [I18] quantity 1\n - brown_mushroom_block [I23] quantity 55\n - cod [I24] quantity 56\n - lime_wool [I27] quantity 19\n - light_weighted_pressure_plate [I28] quantity 40\n - lime_stained_glass [I30] quantity 43\n - diorite_slab [I31] quantity 53\n - acacia_trapdoor [I32] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 2"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: pink_bed\ninventory:\n - pink_dye [I2] quantity 2\n - cracked_nether_bricks [I4] quantity 58\n - oak_wood [I7] quantity 45\n - horse_spawn_egg [I8] quantity 23\n - white_bed [I10] quantity 1\n - green_stained_glass_pane [I12] quantity 58\n - prismarine [I13] quantity 61\n - mule_spawn_egg [I14] quantity 46\n - gold_ingot [I15] quantity 22\n - magma_cube_spawn_egg [I17] quantity 33\n - furnace_minecart [I18] quantity 1\n - brown_mushroom_block [I23] quantity 55\n - cod [I24] quantity 56\n - lime_wool [I27] quantity 19\n - light_weighted_pressure_plate [I28] quantity 40\n - lime_stained_glass [I30] quantity 43\n - diorite_slab [I31] quantity 53\n - acacia_trapdoor [I32] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: pink_bed\ninventory:\n - pink_dye [A1] quantity 1\n - pink_dye [I2] quantity 1\n - cracked_nether_bricks [I4] quantity 58\n - oak_wood [I7] quantity 45\n - horse_spawn_egg [I8] quantity 23\n - white_bed [I10] quantity 1\n - green_stained_glass_pane [I12] quantity 58\n - prismarine [I13] quantity 61\n - mule_spawn_egg [I14] quantity 46\n - gold_ingot [I15] quantity 22\n - magma_cube_spawn_egg [I17] quantity 33\n - furnace_minecart [I18] quantity 1\n - brown_mushroom_block [I23] quantity 55\n - cod [I24] quantity 56\n - lime_wool [I27] quantity 19\n - light_weighted_pressure_plate [I28] quantity 40\n - lime_stained_glass [I30] quantity 43\n - diorite_slab [I31] quantity 53\n - acacia_trapdoor [I32] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I10] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: pink_bed\ninventory:\n - pink_bed [0] quantity 1\n - pink_dye [A1] quantity 1\n - white_bed [A2] quantity 1\n - pink_dye [I2] quantity 1\n - cracked_nether_bricks [I4] quantity 58\n - oak_wood [I7] quantity 45\n - horse_spawn_egg [I8] quantity 23\n - green_stained_glass_pane [I12] quantity 58\n - prismarine [I13] quantity 61\n - mule_spawn_egg [I14] quantity 46\n - gold_ingot [I15] quantity 22\n - magma_cube_spawn_egg [I17] quantity 33\n - furnace_minecart [I18] quantity 1\n - brown_mushroom_block [I23] quantity 55\n - cod [I24] quantity 56\n - lime_wool [I27] quantity 19\n - light_weighted_pressure_plate [I28] quantity 40\n - lime_stained_glass [I30] quantity 43\n - diorite_slab [I31] quantity 53\n - acacia_trapdoor [I32] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0174"
+}

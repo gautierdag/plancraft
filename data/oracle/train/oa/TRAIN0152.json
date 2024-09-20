@@ -1,186 +1,193 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"blaze_rod\", \"quantity\": 2, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}, {\"type\": \"slime_block\", \"quantity\": 1, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 17 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 0}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}, {\"type\": \"slime_block\", \"quantity\": 1, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 2"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}, {\"type\": \"slime_block\", \"quantity\": 1, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 17 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 0}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}, {\"type\": \"slime_block\", \"quantity\": 1, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 2"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}, {\"type\": \"slime_block\", \"quantity\": 1, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 42 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"slime_ball\", \"quantity\": 9, \"index\": 0}, {\"type\": \"slime_block\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 15 with quantity 9"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 9, \"index\": 15}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 9, \"index\": 15}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 15 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 0}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"slime_ball\", \"quantity\": 1, \"index\": 2}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 8, \"index\": 15}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 16 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 8, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 8, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 15 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 0}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"slime_ball\", \"quantity\": 1, \"index\": 2}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 7, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 7, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 7, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 15 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 0}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"slime_ball\", \"quantity\": 1, \"index\": 2}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 6, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 17 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 12}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 6, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 6, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 15 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 0}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"slime_ball\", \"quantity\": 1, \"index\": 2}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 12}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 5, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 12}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 5, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 13}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 5, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 1}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 2}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 5, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 16}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 16 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 1}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 2}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 4}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 5, \"index\": 15}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 17}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 17 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: magma_block\ninventory=[{\"type\": \"magma_block\", \"quantity\": 1, \"index\": 0}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 1}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 2}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 4}, {\"type\": \"magma_cream\", \"quantity\": 1, \"index\": 5}, {\"type\": \"snow\", \"quantity\": 6, \"index\": 11}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 14}, {\"type\": \"slime_ball\", \"quantity\": 5, \"index\": 15}, {\"type\": \"composter\", \"quantity\": 27, \"index\": 23}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 24}, {\"type\": \"magenta_glazed_terracotta\", \"quantity\": 31, \"index\": 27}, {\"type\": \"purple_stained_glass\", \"quantity\": 5, \"index\": 29}, {\"type\": \"end_stone_brick_slab\", \"quantity\": 57, \"index\": 30}, {\"type\": \"crimson_hyphae\", \"quantity\": 63, \"index\": 31}, {\"type\": \"light_blue_dye\", \"quantity\": 60, \"index\": 32}, {\"type\": \"nether_bricks\", \"quantity\": 63, \"index\": 35}, {\"type\": \"granite_slab\", \"quantity\": 30, \"index\": 36}, {\"type\": \"brown_dye\", \"quantity\": 19, \"index\": 37}, {\"type\": \"golden_leggings\", \"quantity\": 1, \"index\": 38}, {\"type\": \"cauldron\", \"quantity\": 60, \"index\": 39}, {\"type\": \"feather\", \"quantity\": 1, \"index\": 40}, {\"type\": \"diamond_shovel\", \"quantity\": 1, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - snow [I2] quantity 6\n - tnt_minecart [I5] quantity 1\n - blaze_rod [I8] quantity 2\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1\n - slime_block [I33] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I33] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - slime_ball [0] quantity 9\n - slime_block [A1] quantity 1\n - snow [I2] quantity 6\n - tnt_minecart [I5] quantity 1\n - blaze_rod [I8] quantity 2\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 9"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 9\n - tnt_minecart [I5] quantity 1\n - blaze_rod [I8] quantity 2\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I8] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - blaze_powder [0] quantity 2\n - blaze_rod [A1] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 9\n - tnt_minecart [I5] quantity 1\n - blaze_rod [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 2"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 9\n - blaze_powder [I4] quantity 2\n - tnt_minecart [I5] quantity 1\n - blaze_rod [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - slime_ball [A1] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 8\n - blaze_powder [I4] quantity 2\n - tnt_minecart [I5] quantity 1\n - blaze_rod [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - magma_cream [0] quantity 1\n - slime_ball [A1] quantity 1\n - blaze_powder [A2] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 8\n - blaze_powder [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - blaze_rod [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I6] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 8\n - blaze_powder [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_rod [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - slime_ball [A1] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 7\n - blaze_powder [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_rod [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - magma_cream [0] quantity 1\n - slime_ball [A1] quantity 1\n - blaze_powder [A2] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 7\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_rod [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 7\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_rod [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I8] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - blaze_powder [0] quantity 2\n - blaze_rod [A1] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 7\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I7] with quantity 2"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 7\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_powder [I7] quantity 2\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - slime_ball [A1] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 6\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_powder [I7] quantity 2\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - magma_cream [0] quantity 1\n - slime_ball [A1] quantity 1\n - blaze_powder [A2] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 6\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_powder [I7] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I8] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 6\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_powder [I7] quantity 1\n - magma_cream [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - slime_ball [A1] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 5\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - blaze_powder [I7] quantity 1\n - magma_cream [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - magma_cream [0] quantity 1\n - slime_ball [A1] quantity 1\n - blaze_powder [A2] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 5\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - magma_cream [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I7] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 5\n - magma_cream [I4] quantity 1\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - magma_cream [I7] quantity 1\n - magma_cream [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - magma_cream [A1] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 5\n - tnt_minecart [I5] quantity 1\n - magma_cream [I6] quantity 1\n - magma_cream [I7] quantity 1\n - magma_cream [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I6] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - magma_cream [A1] quantity 1\n - magma_cream [A2] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 5\n - tnt_minecart [I5] quantity 1\n - magma_cream [I7] quantity 1\n - magma_cream [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - magma_cream [A1] quantity 1\n - magma_cream [A2] quantity 1\n - magma_cream [B1] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 5\n - tnt_minecart [I5] quantity 1\n - magma_cream [I8] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I8] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: magma_block\ninventory:\n - magma_block [0] quantity 1\n - magma_cream [A1] quantity 1\n - magma_cream [A2] quantity 1\n - magma_cream [B1] quantity 1\n - magma_cream [B2] quantity 1\n - snow [I2] quantity 6\n - slime_ball [I3] quantity 5\n - tnt_minecart [I5] quantity 1\n - composter [I14] quantity 27\n - golden_boots [I15] quantity 1\n - magenta_glazed_terracotta [I18] quantity 31\n - purple_stained_glass [I20] quantity 5\n - end_stone_brick_slab [I21] quantity 57\n - crimson_hyphae [I22] quantity 63\n - light_blue_dye [I23] quantity 60\n - nether_bricks [I26] quantity 63\n - granite_slab [I27] quantity 30\n - brown_dye [I28] quantity 19\n - golden_leggings [I29] quantity 1\n - cauldron [I30] quantity 60\n - feather [I31] quantity 1\n - diamond_shovel [I32] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0152"
+}

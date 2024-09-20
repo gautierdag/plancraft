@@ -1,10 +1,17 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: nether_brick\ninventory=[{\"type\": \"cat_spawn_egg\", \"quantity\": 17, \"index\": 10}, {\"type\": \"stone_bricks\", \"quantity\": 46, \"index\": 12}, {\"type\": \"observer\", \"quantity\": 50, \"index\": 13}, {\"type\": \"repeating_command_block\", \"quantity\": 47, \"index\": 14}, {\"type\": \"purple_dye\", \"quantity\": 10, \"index\": 16}, {\"type\": \"bone\", \"quantity\": 35, \"index\": 19}, {\"type\": \"netherrack\", \"quantity\": 1, \"index\": 20}, {\"type\": \"dragon_egg\", \"quantity\": 16, \"index\": 21}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 44, \"index\": 23}, {\"type\": \"diorite\", \"quantity\": 60, \"index\": 24}, {\"type\": \"red_mushroom_block\", \"quantity\": 22, \"index\": 25}, {\"type\": \"witch_spawn_egg\", \"quantity\": 46, \"index\": 29}, {\"type\": \"nautilus_shell\", \"quantity\": 10, \"index\": 34}, {\"type\": \"writable_book\", \"quantity\": 1, \"index\": 35}, {\"type\": \"villager_spawn_egg\", \"quantity\": 60, \"index\": 37}, {\"type\": \"blast_furnace\", \"quantity\": 43, \"index\": 41}, {\"type\": \"bamboo\", \"quantity\": 17, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 20 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: nether_brick\ninventory:\n - cat_spawn_egg [I1] quantity 17\n - stone_bricks [I3] quantity 46\n - observer [I4] quantity 50\n - repeating_command_block [I5] quantity 47\n - purple_dye [I7] quantity 10\n - bone [I10] quantity 35\n - netherrack [I11] quantity 1\n - dragon_egg [I12] quantity 16\n - smooth_quartz_stairs [I14] quantity 44\n - diorite [I15] quantity 60\n - red_mushroom_block [I16] quantity 22\n - witch_spawn_egg [I20] quantity 46\n - nautilus_shell [I25] quantity 10\n - writable_book [I26] quantity 1\n - villager_spawn_egg [I28] quantity 60\n - blast_furnace [I32] quantity 43\n - bamboo [I36] quantity 17"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I11] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0323"
+}

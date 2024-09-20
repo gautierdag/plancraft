@@ -1,10 +1,17 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: popped_chorus_fruit\ninventory=[{\"type\": \"purpur_pillar\", \"quantity\": 5, \"index\": 10}, {\"type\": \"chorus_fruit\", \"quantity\": 1, \"index\": 11}, {\"type\": \"weeping_vines\", \"quantity\": 35, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 10, \"index\": 14}, {\"type\": \"rotten_flesh\", \"quantity\": 37, \"index\": 16}, {\"type\": \"green_terracotta\", \"quantity\": 47, \"index\": 17}, {\"type\": \"granite_stairs\", \"quantity\": 1, \"index\": 21}, {\"type\": \"dead_brain_coral\", \"quantity\": 14, \"index\": 25}, {\"type\": \"stripped_oak_log\", \"quantity\": 42, \"index\": 27}, {\"type\": \"music_disc_ward\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_wood\", \"quantity\": 50, \"index\": 31}, {\"type\": \"spruce_planks\", \"quantity\": 51, \"index\": 32}, {\"type\": \"dark_prismarine_stairs\", \"quantity\": 55, \"index\": 33}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 58, \"index\": 35}, {\"type\": \"turtle_spawn_egg\", \"quantity\": 63, \"index\": 38}, {\"type\": \"black_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"milk_bucket\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 11 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: popped_chorus_fruit\ninventory:\n - purpur_pillar [I1] quantity 5\n - chorus_fruit [I2] quantity 1\n - weeping_vines [I4] quantity 35\n - warped_fungus [I5] quantity 10\n - rotten_flesh [I7] quantity 37\n - green_terracotta [I8] quantity 47\n - granite_stairs [I12] quantity 1\n - dead_brain_coral [I16] quantity 14\n - stripped_oak_log [I18] quantity 42\n - music_disc_ward [I21] quantity 1\n - spruce_wood [I22] quantity 50\n - spruce_planks [I23] quantity 51\n - dark_prismarine_stairs [I24] quantity 55\n - mossy_cobblestone_stairs [I26] quantity 58\n - turtle_spawn_egg [I29] quantity 63\n - black_bed [I32] quantity 1\n - milk_bucket [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I2] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0703"
+}

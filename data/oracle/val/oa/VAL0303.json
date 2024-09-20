@@ -1,98 +1,105 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 34}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"dark_oak_planks\", \"quantity\": 3, \"index\": 42}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 42 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"dark_oak_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 34}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"dark_oak_planks\", \"quantity\": 2, \"index\": 42}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 42 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"dark_oak_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 34}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 42}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 42 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"dark_oak_slab\", \"quantity\": 6, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 2}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 34}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 6"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"dark_oak_slab\", \"quantity\": 6, \"index\": 12}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 34}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"dark_oak_slab\", \"quantity\": 6, \"index\": 12}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"dark_oak_slab\", \"quantity\": 5, \"index\": 12}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"dark_oak_slab\", \"quantity\": 4, \"index\": 12}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 6}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"dark_oak_slab\", \"quantity\": 3, \"index\": 12}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 6}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 7}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"dark_oak_slab\", \"quantity\": 2, \"index\": 12}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 6}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 7}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 8}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 12}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: composter\ninventory=[{\"type\": \"composter\", \"quantity\": 1, \"index\": 0}, {\"type\": \"birch_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 6}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 7}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 8}, {\"type\": \"dark_oak_slab\", \"quantity\": 1, \"index\": 9}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 26, \"index\": 11}, {\"type\": \"crimson_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"creeper_head\", \"quantity\": 29, \"index\": 14}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 50, \"index\": 18}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 47, \"index\": 21}, {\"type\": \"white_dye\", \"quantity\": 47, \"index\": 29}, {\"type\": \"magenta_concrete\", \"quantity\": 62, \"index\": 30}, {\"type\": \"warped_planks\", \"quantity\": 3, \"index\": 38}, {\"type\": \"green_concrete_powder\", \"quantity\": 38, \"index\": 43}, {\"type\": \"snow\", \"quantity\": 32, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - dolphin_spawn_egg [I2] quantity 26\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - warped_planks [I29] quantity 3\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I29] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_button [0] quantity 1\n - warped_planks [A1] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - warped_planks [I29] quantity 2\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I29] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_pressure_plate [0] quantity 1\n - warped_planks [A1] quantity 1\n - warped_planks [A2] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - warped_planks [I29] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I29] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_slab [0] quantity 6\n - warped_planks [A1] quantity 1\n - warped_planks [A2] quantity 1\n - warped_planks [A3] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 6"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - dolphin_spawn_egg [I2] quantity 26\n - warped_slab [I3] quantity 6\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_slab [A1] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - warped_slab [I3] quantity 5\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_slab [A1] quantity 1\n - warped_slab [A3] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - warped_slab [I3] quantity 4\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_slab [A1] quantity 1\n - warped_slab [A3] quantity 1\n - warped_slab [B1] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - warped_slab [I3] quantity 3\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_slab [A1] quantity 1\n - warped_slab [A3] quantity 1\n - warped_slab [B1] quantity 1\n - warped_slab [B3] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - warped_slab [I3] quantity 2\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_slab [A1] quantity 1\n - warped_slab [A3] quantity 1\n - warped_slab [B1] quantity 1\n - warped_slab [B3] quantity 1\n - warped_slab [C1] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - warped_slab [I3] quantity 1\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - warped_slab [A1] quantity 1\n - warped_slab [A3] quantity 1\n - warped_slab [B1] quantity 1\n - warped_slab [B3] quantity 1\n - warped_slab [C1] quantity 1\n - warped_slab [C2] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - birch_slab [I25] quantity 1\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: composter\ninventory:\n - composter [0] quantity 1\n - warped_slab [A1] quantity 1\n - warped_slab [A3] quantity 1\n - warped_slab [B1] quantity 1\n - warped_slab [B3] quantity 1\n - warped_slab [C1] quantity 1\n - warped_slab [C2] quantity 1\n - birch_slab [C3] quantity 1\n - dolphin_spawn_egg [I2] quantity 26\n - crimson_planks [I4] quantity 3\n - creeper_head [I5] quantity 29\n - smooth_sandstone_stairs [I9] quantity 50\n - red_nether_brick_slab [I12] quantity 47\n - white_dye [I20] quantity 47\n - magenta_concrete [I21] quantity 62\n - dark_oak_planks [I33] quantity 3\n - green_concrete_powder [I34] quantity 38\n - snow [I35] quantity 32"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0303"
+}

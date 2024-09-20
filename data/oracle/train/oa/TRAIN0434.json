@@ -1,58 +1,65 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_nether_bricks\ninventory=[{\"type\": \"spider_eye\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 9, \"index\": 14}, {\"type\": \"jukebox\", \"quantity\": 25, \"index\": 16}, {\"type\": \"brain_coral_block\", \"quantity\": 6, \"index\": 18}, {\"type\": \"blue_concrete_powder\", \"quantity\": 1, \"index\": 19}, {\"type\": \"netherrack\", \"quantity\": 2, \"index\": 23}, {\"type\": \"sand\", \"quantity\": 43, \"index\": 25}, {\"type\": \"smoker\", \"quantity\": 60, \"index\": 27}, {\"type\": \"dark_oak_fence\", \"quantity\": 17, \"index\": 30}, {\"type\": \"acacia_button\", \"quantity\": 26, \"index\": 31}, {\"type\": \"nether_wart\", \"quantity\": 2, \"index\": 33}, {\"type\": \"dark_oak_leaves\", \"quantity\": 64, \"index\": 34}, {\"type\": \"andesite_wall\", \"quantity\": 16, \"index\": 36}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 38}, {\"type\": \"apple\", \"quantity\": 13, \"index\": 41}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 25, \"index\": 43}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 44}, {\"type\": \"quartz_bricks\", \"quantity\": 31, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 23 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_nether_bricks\ninventory=[{\"type\": \"spider_eye\", \"quantity\": 33, \"index\": 10}, {\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 9, \"index\": 14}, {\"type\": \"jukebox\", \"quantity\": 25, \"index\": 16}, {\"type\": \"brain_coral_block\", \"quantity\": 6, \"index\": 18}, {\"type\": \"blue_concrete_powder\", \"quantity\": 1, \"index\": 19}, {\"type\": \"netherrack\", \"quantity\": 1, \"index\": 23}, {\"type\": \"sand\", \"quantity\": 43, \"index\": 25}, {\"type\": \"smoker\", \"quantity\": 60, \"index\": 27}, {\"type\": \"dark_oak_fence\", \"quantity\": 17, \"index\": 30}, {\"type\": \"acacia_button\", \"quantity\": 26, \"index\": 31}, {\"type\": \"nether_wart\", \"quantity\": 2, \"index\": 33}, {\"type\": \"dark_oak_leaves\", \"quantity\": 64, \"index\": 34}, {\"type\": \"andesite_wall\", \"quantity\": 16, \"index\": 36}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 38}, {\"type\": \"apple\", \"quantity\": 13, \"index\": 41}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 25, \"index\": 43}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 44}, {\"type\": \"quartz_bricks\", \"quantity\": 31, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 23 to slot 12 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_nether_bricks\ninventory=[{\"type\": \"spider_eye\", \"quantity\": 33, \"index\": 10}, {\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 9, \"index\": 14}, {\"type\": \"jukebox\", \"quantity\": 25, \"index\": 16}, {\"type\": \"brain_coral_block\", \"quantity\": 6, \"index\": 18}, {\"type\": \"blue_concrete_powder\", \"quantity\": 1, \"index\": 19}, {\"type\": \"sand\", \"quantity\": 43, \"index\": 25}, {\"type\": \"smoker\", \"quantity\": 60, \"index\": 27}, {\"type\": \"dark_oak_fence\", \"quantity\": 17, \"index\": 30}, {\"type\": \"acacia_button\", \"quantity\": 26, \"index\": 31}, {\"type\": \"nether_wart\", \"quantity\": 2, \"index\": 33}, {\"type\": \"dark_oak_leaves\", \"quantity\": 64, \"index\": 34}, {\"type\": \"andesite_wall\", \"quantity\": 16, \"index\": 36}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 38}, {\"type\": \"apple\", \"quantity\": 13, \"index\": 41}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 25, \"index\": 43}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 44}, {\"type\": \"quartz_bricks\", \"quantity\": 31, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_nether_bricks\ninventory=[{\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spider_eye\", \"quantity\": 33, \"index\": 10}, {\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 9, \"index\": 14}, {\"type\": \"jukebox\", \"quantity\": 25, \"index\": 16}, {\"type\": \"brain_coral_block\", \"quantity\": 6, \"index\": 18}, {\"type\": \"blue_concrete_powder\", \"quantity\": 1, \"index\": 19}, {\"type\": \"sand\", \"quantity\": 43, \"index\": 25}, {\"type\": \"smoker\", \"quantity\": 60, \"index\": 27}, {\"type\": \"dark_oak_fence\", \"quantity\": 17, \"index\": 30}, {\"type\": \"acacia_button\", \"quantity\": 26, \"index\": 31}, {\"type\": \"nether_wart\", \"quantity\": 2, \"index\": 33}, {\"type\": \"dark_oak_leaves\", \"quantity\": 64, \"index\": 34}, {\"type\": \"andesite_wall\", \"quantity\": 16, \"index\": 36}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 38}, {\"type\": \"apple\", \"quantity\": 13, \"index\": 41}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 25, \"index\": 43}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 44}, {\"type\": \"quartz_bricks\", \"quantity\": 31, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 33 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_nether_bricks\ninventory=[{\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"nether_wart\", \"quantity\": 1, \"index\": 2}, {\"type\": \"spider_eye\", \"quantity\": 33, \"index\": 10}, {\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 9, \"index\": 14}, {\"type\": \"jukebox\", \"quantity\": 25, \"index\": 16}, {\"type\": \"brain_coral_block\", \"quantity\": 6, \"index\": 18}, {\"type\": \"blue_concrete_powder\", \"quantity\": 1, \"index\": 19}, {\"type\": \"sand\", \"quantity\": 43, \"index\": 25}, {\"type\": \"smoker\", \"quantity\": 60, \"index\": 27}, {\"type\": \"dark_oak_fence\", \"quantity\": 17, \"index\": 30}, {\"type\": \"acacia_button\", \"quantity\": 26, \"index\": 31}, {\"type\": \"nether_wart\", \"quantity\": 1, \"index\": 33}, {\"type\": \"dark_oak_leaves\", \"quantity\": 64, \"index\": 34}, {\"type\": \"andesite_wall\", \"quantity\": 16, \"index\": 36}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 38}, {\"type\": \"apple\", \"quantity\": 13, \"index\": 41}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 25, \"index\": 43}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 44}, {\"type\": \"quartz_bricks\", \"quantity\": 31, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 33 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_nether_bricks\ninventory=[{\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"nether_wart\", \"quantity\": 1, \"index\": 2}, {\"type\": \"nether_wart\", \"quantity\": 1, \"index\": 4}, {\"type\": \"spider_eye\", \"quantity\": 33, \"index\": 10}, {\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 12}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 9, \"index\": 14}, {\"type\": \"jukebox\", \"quantity\": 25, \"index\": 16}, {\"type\": \"brain_coral_block\", \"quantity\": 6, \"index\": 18}, {\"type\": \"blue_concrete_powder\", \"quantity\": 1, \"index\": 19}, {\"type\": \"sand\", \"quantity\": 43, \"index\": 25}, {\"type\": \"smoker\", \"quantity\": 60, \"index\": 27}, {\"type\": \"dark_oak_fence\", \"quantity\": 17, \"index\": 30}, {\"type\": \"acacia_button\", \"quantity\": 26, \"index\": 31}, {\"type\": \"dark_oak_leaves\", \"quantity\": 64, \"index\": 34}, {\"type\": \"andesite_wall\", \"quantity\": 16, \"index\": 36}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 38}, {\"type\": \"apple\", \"quantity\": 13, \"index\": 41}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 25, \"index\": 43}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 44}, {\"type\": \"quartz_bricks\", \"quantity\": 31, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_nether_bricks\ninventory=[{\"type\": \"red_nether_bricks\", \"quantity\": 1, \"index\": 0}, {\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"nether_wart\", \"quantity\": 1, \"index\": 2}, {\"type\": \"nether_wart\", \"quantity\": 1, \"index\": 4}, {\"type\": \"nether_brick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"spider_eye\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 9, \"index\": 14}, {\"type\": \"jukebox\", \"quantity\": 25, \"index\": 16}, {\"type\": \"brain_coral_block\", \"quantity\": 6, \"index\": 18}, {\"type\": \"blue_concrete_powder\", \"quantity\": 1, \"index\": 19}, {\"type\": \"sand\", \"quantity\": 43, \"index\": 25}, {\"type\": \"smoker\", \"quantity\": 60, \"index\": 27}, {\"type\": \"dark_oak_fence\", \"quantity\": 17, \"index\": 30}, {\"type\": \"acacia_button\", \"quantity\": 26, \"index\": 31}, {\"type\": \"dark_oak_leaves\", \"quantity\": 64, \"index\": 34}, {\"type\": \"andesite_wall\", \"quantity\": 16, \"index\": 36}, {\"type\": \"hopper_minecart\", \"quantity\": 1, \"index\": 38}, {\"type\": \"apple\", \"quantity\": 13, \"index\": 41}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 25, \"index\": 43}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 44}, {\"type\": \"quartz_bricks\", \"quantity\": 31, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_nether_bricks\ninventory:\n - spider_eye [I1] quantity 33\n - dolphin_spawn_egg [I5] quantity 9\n - jukebox [I7] quantity 25\n - brain_coral_block [I9] quantity 6\n - blue_concrete_powder [I10] quantity 1\n - netherrack [I14] quantity 2\n - sand [I16] quantity 43\n - smoker [I18] quantity 60\n - dark_oak_fence [I21] quantity 17\n - acacia_button [I22] quantity 26\n - nether_wart [I24] quantity 2\n - dark_oak_leaves [I25] quantity 64\n - andesite_wall [I27] quantity 16\n - hopper_minecart [I29] quantity 1\n - apple [I32] quantity 13\n - smooth_quartz_stairs [I34] quantity 25\n - totem_of_undying [I35] quantity 1\n - quartz_bricks [I36] quantity 31"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I14] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_nether_bricks\ninventory:\n - spider_eye [I1] quantity 33\n - nether_brick [I2] quantity 1\n - dolphin_spawn_egg [I5] quantity 9\n - jukebox [I7] quantity 25\n - brain_coral_block [I9] quantity 6\n - blue_concrete_powder [I10] quantity 1\n - netherrack [I14] quantity 1\n - sand [I16] quantity 43\n - smoker [I18] quantity 60\n - dark_oak_fence [I21] quantity 17\n - acacia_button [I22] quantity 26\n - nether_wart [I24] quantity 2\n - dark_oak_leaves [I25] quantity 64\n - andesite_wall [I27] quantity 16\n - hopper_minecart [I29] quantity 1\n - apple [I32] quantity 13\n - smooth_quartz_stairs [I34] quantity 25\n - totem_of_undying [I35] quantity 1\n - quartz_bricks [I36] quantity 31"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I14] to [I3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_nether_bricks\ninventory:\n - spider_eye [I1] quantity 33\n - nether_brick [I2] quantity 1\n - nether_brick [I3] quantity 1\n - dolphin_spawn_egg [I5] quantity 9\n - jukebox [I7] quantity 25\n - brain_coral_block [I9] quantity 6\n - blue_concrete_powder [I10] quantity 1\n - sand [I16] quantity 43\n - smoker [I18] quantity 60\n - dark_oak_fence [I21] quantity 17\n - acacia_button [I22] quantity 26\n - nether_wart [I24] quantity 2\n - dark_oak_leaves [I25] quantity 64\n - andesite_wall [I27] quantity 16\n - hopper_minecart [I29] quantity 1\n - apple [I32] quantity 13\n - smooth_quartz_stairs [I34] quantity 25\n - totem_of_undying [I35] quantity 1\n - quartz_bricks [I36] quantity 31"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_nether_bricks\ninventory:\n - nether_brick [A1] quantity 1\n - spider_eye [I1] quantity 33\n - nether_brick [I3] quantity 1\n - dolphin_spawn_egg [I5] quantity 9\n - jukebox [I7] quantity 25\n - brain_coral_block [I9] quantity 6\n - blue_concrete_powder [I10] quantity 1\n - sand [I16] quantity 43\n - smoker [I18] quantity 60\n - dark_oak_fence [I21] quantity 17\n - acacia_button [I22] quantity 26\n - nether_wart [I24] quantity 2\n - dark_oak_leaves [I25] quantity 64\n - andesite_wall [I27] quantity 16\n - hopper_minecart [I29] quantity 1\n - apple [I32] quantity 13\n - smooth_quartz_stairs [I34] quantity 25\n - totem_of_undying [I35] quantity 1\n - quartz_bricks [I36] quantity 31"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I24] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_nether_bricks\ninventory:\n - nether_brick [A1] quantity 1\n - nether_wart [A2] quantity 1\n - spider_eye [I1] quantity 33\n - nether_brick [I3] quantity 1\n - dolphin_spawn_egg [I5] quantity 9\n - jukebox [I7] quantity 25\n - brain_coral_block [I9] quantity 6\n - blue_concrete_powder [I10] quantity 1\n - sand [I16] quantity 43\n - smoker [I18] quantity 60\n - dark_oak_fence [I21] quantity 17\n - acacia_button [I22] quantity 26\n - nether_wart [I24] quantity 1\n - dark_oak_leaves [I25] quantity 64\n - andesite_wall [I27] quantity 16\n - hopper_minecart [I29] quantity 1\n - apple [I32] quantity 13\n - smooth_quartz_stairs [I34] quantity 25\n - totem_of_undying [I35] quantity 1\n - quartz_bricks [I36] quantity 31"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I24] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_nether_bricks\ninventory:\n - nether_brick [A1] quantity 1\n - nether_wart [A2] quantity 1\n - nether_wart [B1] quantity 1\n - spider_eye [I1] quantity 33\n - nether_brick [I3] quantity 1\n - dolphin_spawn_egg [I5] quantity 9\n - jukebox [I7] quantity 25\n - brain_coral_block [I9] quantity 6\n - blue_concrete_powder [I10] quantity 1\n - sand [I16] quantity 43\n - smoker [I18] quantity 60\n - dark_oak_fence [I21] quantity 17\n - acacia_button [I22] quantity 26\n - dark_oak_leaves [I25] quantity 64\n - andesite_wall [I27] quantity 16\n - hopper_minecart [I29] quantity 1\n - apple [I32] quantity 13\n - smooth_quartz_stairs [I34] quantity 25\n - totem_of_undying [I35] quantity 1\n - quartz_bricks [I36] quantity 31"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_nether_bricks\ninventory:\n - red_nether_bricks [0] quantity 1\n - nether_brick [A1] quantity 1\n - nether_wart [A2] quantity 1\n - nether_wart [B1] quantity 1\n - nether_brick [B2] quantity 1\n - spider_eye [I1] quantity 33\n - dolphin_spawn_egg [I5] quantity 9\n - jukebox [I7] quantity 25\n - brain_coral_block [I9] quantity 6\n - blue_concrete_powder [I10] quantity 1\n - sand [I16] quantity 43\n - smoker [I18] quantity 60\n - dark_oak_fence [I21] quantity 17\n - acacia_button [I22] quantity 26\n - dark_oak_leaves [I25] quantity 64\n - andesite_wall [I27] quantity 16\n - hopper_minecart [I29] quantity 1\n - apple [I32] quantity 13\n - smooth_quartz_stairs [I34] quantity 25\n - totem_of_undying [I35] quantity 1\n - quartz_bricks [I36] quantity 31"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0434"
+}

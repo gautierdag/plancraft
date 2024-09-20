@@ -1,50 +1,57 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: fire_charge\ninventory=[{\"type\": \"cooked_salmon\", \"quantity\": 36, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 48, \"index\": 12}, {\"type\": \"rabbit_spawn_egg\", \"quantity\": 45, \"index\": 13}, {\"type\": \"redstone\", \"quantity\": 46, \"index\": 16}, {\"type\": \"orange_tulip\", \"quantity\": 41, \"index\": 19}, {\"type\": \"coal\", \"quantity\": 1, \"index\": 21}, {\"type\": \"stone_bricks\", \"quantity\": 59, \"index\": 22}, {\"type\": \"red_concrete\", \"quantity\": 51, \"index\": 23}, {\"type\": \"red_mushroom_block\", \"quantity\": 29, \"index\": 24}, {\"type\": \"stripped_oak_log\", \"quantity\": 28, \"index\": 26}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 1, \"index\": 31}, {\"type\": \"gunpowder\", \"quantity\": 1, \"index\": 34}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 50, \"index\": 35}, {\"type\": \"blue_carpet\", \"quantity\": 50, \"index\": 36}, {\"type\": \"warped_roots\", \"quantity\": 30, \"index\": 38}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 52, \"index\": 39}, {\"type\": \"iron_horse_armor\", \"quantity\": 1, \"index\": 40}, {\"type\": \"campfire\", \"quantity\": 62, \"index\": 41}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 42 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: fire_charge\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 0}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cooked_salmon\", \"quantity\": 36, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 48, \"index\": 12}, {\"type\": \"rabbit_spawn_egg\", \"quantity\": 45, \"index\": 13}, {\"type\": \"redstone\", \"quantity\": 46, \"index\": 16}, {\"type\": \"orange_tulip\", \"quantity\": 41, \"index\": 19}, {\"type\": \"coal\", \"quantity\": 1, \"index\": 21}, {\"type\": \"stone_bricks\", \"quantity\": 59, \"index\": 22}, {\"type\": \"red_concrete\", \"quantity\": 51, \"index\": 23}, {\"type\": \"red_mushroom_block\", \"quantity\": 29, \"index\": 24}, {\"type\": \"stripped_oak_log\", \"quantity\": 28, \"index\": 26}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 1, \"index\": 31}, {\"type\": \"gunpowder\", \"quantity\": 1, \"index\": 34}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 50, \"index\": 35}, {\"type\": \"blue_carpet\", \"quantity\": 50, \"index\": 36}, {\"type\": \"warped_roots\", \"quantity\": 30, \"index\": 38}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 52, \"index\": 39}, {\"type\": \"iron_horse_armor\", \"quantity\": 1, \"index\": 40}, {\"type\": \"campfire\", \"quantity\": 62, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 14 with quantity 2"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: fire_charge\ninventory=[{\"type\": \"cooked_salmon\", \"quantity\": 36, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 48, \"index\": 12}, {\"type\": \"rabbit_spawn_egg\", \"quantity\": 45, \"index\": 13}, {\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 14}, {\"type\": \"redstone\", \"quantity\": 46, \"index\": 16}, {\"type\": \"orange_tulip\", \"quantity\": 41, \"index\": 19}, {\"type\": \"coal\", \"quantity\": 1, \"index\": 21}, {\"type\": \"stone_bricks\", \"quantity\": 59, \"index\": 22}, {\"type\": \"red_concrete\", \"quantity\": 51, \"index\": 23}, {\"type\": \"red_mushroom_block\", \"quantity\": 29, \"index\": 24}, {\"type\": \"stripped_oak_log\", \"quantity\": 28, \"index\": 26}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 1, \"index\": 31}, {\"type\": \"gunpowder\", \"quantity\": 1, \"index\": 34}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 50, \"index\": 35}, {\"type\": \"blue_carpet\", \"quantity\": 50, \"index\": 36}, {\"type\": \"warped_roots\", \"quantity\": 30, \"index\": 38}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 52, \"index\": 39}, {\"type\": \"iron_horse_armor\", \"quantity\": 1, \"index\": 40}, {\"type\": \"campfire\", \"quantity\": 62, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 14 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: fire_charge\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cooked_salmon\", \"quantity\": 36, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 48, \"index\": 12}, {\"type\": \"rabbit_spawn_egg\", \"quantity\": 45, \"index\": 13}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 14}, {\"type\": \"redstone\", \"quantity\": 46, \"index\": 16}, {\"type\": \"orange_tulip\", \"quantity\": 41, \"index\": 19}, {\"type\": \"coal\", \"quantity\": 1, \"index\": 21}, {\"type\": \"stone_bricks\", \"quantity\": 59, \"index\": 22}, {\"type\": \"red_concrete\", \"quantity\": 51, \"index\": 23}, {\"type\": \"red_mushroom_block\", \"quantity\": 29, \"index\": 24}, {\"type\": \"stripped_oak_log\", \"quantity\": 28, \"index\": 26}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 1, \"index\": 31}, {\"type\": \"gunpowder\", \"quantity\": 1, \"index\": 34}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 50, \"index\": 35}, {\"type\": \"blue_carpet\", \"quantity\": 50, \"index\": 36}, {\"type\": \"warped_roots\", \"quantity\": 30, \"index\": 38}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 52, \"index\": 39}, {\"type\": \"iron_horse_armor\", \"quantity\": 1, \"index\": 40}, {\"type\": \"campfire\", \"quantity\": 62, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 21 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: fire_charge\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"coal\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cooked_salmon\", \"quantity\": 36, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 48, \"index\": 12}, {\"type\": \"rabbit_spawn_egg\", \"quantity\": 45, \"index\": 13}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 14}, {\"type\": \"redstone\", \"quantity\": 46, \"index\": 16}, {\"type\": \"orange_tulip\", \"quantity\": 41, \"index\": 19}, {\"type\": \"stone_bricks\", \"quantity\": 59, \"index\": 22}, {\"type\": \"red_concrete\", \"quantity\": 51, \"index\": 23}, {\"type\": \"red_mushroom_block\", \"quantity\": 29, \"index\": 24}, {\"type\": \"stripped_oak_log\", \"quantity\": 28, \"index\": 26}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 1, \"index\": 31}, {\"type\": \"gunpowder\", \"quantity\": 1, \"index\": 34}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 50, \"index\": 35}, {\"type\": \"blue_carpet\", \"quantity\": 50, \"index\": 36}, {\"type\": \"warped_roots\", \"quantity\": 30, \"index\": 38}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 52, \"index\": 39}, {\"type\": \"iron_horse_armor\", \"quantity\": 1, \"index\": 40}, {\"type\": \"campfire\", \"quantity\": 62, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: fire_charge\ninventory=[{\"type\": \"fire_charge\", \"quantity\": 3, \"index\": 0}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 1}, {\"type\": \"coal\", \"quantity\": 1, \"index\": 2}, {\"type\": \"gunpowder\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cooked_salmon\", \"quantity\": 36, \"index\": 11}, {\"type\": \"brick_stairs\", \"quantity\": 48, \"index\": 12}, {\"type\": \"rabbit_spawn_egg\", \"quantity\": 45, \"index\": 13}, {\"type\": \"blaze_powder\", \"quantity\": 1, \"index\": 14}, {\"type\": \"redstone\", \"quantity\": 46, \"index\": 16}, {\"type\": \"orange_tulip\", \"quantity\": 41, \"index\": 19}, {\"type\": \"stone_bricks\", \"quantity\": 59, \"index\": 22}, {\"type\": \"red_concrete\", \"quantity\": 51, \"index\": 23}, {\"type\": \"red_mushroom_block\", \"quantity\": 29, \"index\": 24}, {\"type\": \"stripped_oak_log\", \"quantity\": 28, \"index\": 26}, {\"type\": \"stripped_warped_hyphae\", \"quantity\": 1, \"index\": 31}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 50, \"index\": 35}, {\"type\": \"blue_carpet\", \"quantity\": 50, \"index\": 36}, {\"type\": \"warped_roots\", \"quantity\": 30, \"index\": 38}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 52, \"index\": 39}, {\"type\": \"iron_horse_armor\", \"quantity\": 1, \"index\": 40}, {\"type\": \"campfire\", \"quantity\": 62, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 15 with quantity 3"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: fire_charge\ninventory:\n - cooked_salmon [I2] quantity 36\n - brick_stairs [I3] quantity 48\n - rabbit_spawn_egg [I4] quantity 45\n - redstone [I7] quantity 46\n - orange_tulip [I10] quantity 41\n - coal [I12] quantity 1\n - stone_bricks [I13] quantity 59\n - red_concrete [I14] quantity 51\n - red_mushroom_block [I15] quantity 29\n - stripped_oak_log [I17] quantity 28\n - stripped_warped_hyphae [I22] quantity 1\n - gunpowder [I25] quantity 1\n - chiseled_quartz_block [I26] quantity 50\n - blue_carpet [I27] quantity 50\n - warped_roots [I29] quantity 30\n - chiseled_polished_blackstone [I30] quantity 52\n - iron_horse_armor [I31] quantity 1\n - campfire [I32] quantity 62\n - blaze_rod [I33] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I33] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: fire_charge\ninventory:\n - blaze_powder [0] quantity 2\n - blaze_rod [A1] quantity 1\n - cooked_salmon [I2] quantity 36\n - brick_stairs [I3] quantity 48\n - rabbit_spawn_egg [I4] quantity 45\n - redstone [I7] quantity 46\n - orange_tulip [I10] quantity 41\n - coal [I12] quantity 1\n - stone_bricks [I13] quantity 59\n - red_concrete [I14] quantity 51\n - red_mushroom_block [I15] quantity 29\n - stripped_oak_log [I17] quantity 28\n - stripped_warped_hyphae [I22] quantity 1\n - gunpowder [I25] quantity 1\n - chiseled_quartz_block [I26] quantity 50\n - blue_carpet [I27] quantity 50\n - warped_roots [I29] quantity 30\n - chiseled_polished_blackstone [I30] quantity 52\n - iron_horse_armor [I31] quantity 1\n - campfire [I32] quantity 62"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I5] with quantity 2"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: fire_charge\ninventory:\n - cooked_salmon [I2] quantity 36\n - brick_stairs [I3] quantity 48\n - rabbit_spawn_egg [I4] quantity 45\n - blaze_powder [I5] quantity 2\n - redstone [I7] quantity 46\n - orange_tulip [I10] quantity 41\n - coal [I12] quantity 1\n - stone_bricks [I13] quantity 59\n - red_concrete [I14] quantity 51\n - red_mushroom_block [I15] quantity 29\n - stripped_oak_log [I17] quantity 28\n - stripped_warped_hyphae [I22] quantity 1\n - gunpowder [I25] quantity 1\n - chiseled_quartz_block [I26] quantity 50\n - blue_carpet [I27] quantity 50\n - warped_roots [I29] quantity 30\n - chiseled_polished_blackstone [I30] quantity 52\n - iron_horse_armor [I31] quantity 1\n - campfire [I32] quantity 62"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I5] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: fire_charge\ninventory:\n - blaze_powder [A1] quantity 1\n - cooked_salmon [I2] quantity 36\n - brick_stairs [I3] quantity 48\n - rabbit_spawn_egg [I4] quantity 45\n - blaze_powder [I5] quantity 1\n - redstone [I7] quantity 46\n - orange_tulip [I10] quantity 41\n - coal [I12] quantity 1\n - stone_bricks [I13] quantity 59\n - red_concrete [I14] quantity 51\n - red_mushroom_block [I15] quantity 29\n - stripped_oak_log [I17] quantity 28\n - stripped_warped_hyphae [I22] quantity 1\n - gunpowder [I25] quantity 1\n - chiseled_quartz_block [I26] quantity 50\n - blue_carpet [I27] quantity 50\n - warped_roots [I29] quantity 30\n - chiseled_polished_blackstone [I30] quantity 52\n - iron_horse_armor [I31] quantity 1\n - campfire [I32] quantity 62"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I12] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: fire_charge\ninventory:\n - blaze_powder [A1] quantity 1\n - coal [A2] quantity 1\n - cooked_salmon [I2] quantity 36\n - brick_stairs [I3] quantity 48\n - rabbit_spawn_egg [I4] quantity 45\n - blaze_powder [I5] quantity 1\n - redstone [I7] quantity 46\n - orange_tulip [I10] quantity 41\n - stone_bricks [I13] quantity 59\n - red_concrete [I14] quantity 51\n - red_mushroom_block [I15] quantity 29\n - stripped_oak_log [I17] quantity 28\n - stripped_warped_hyphae [I22] quantity 1\n - gunpowder [I25] quantity 1\n - chiseled_quartz_block [I26] quantity 50\n - blue_carpet [I27] quantity 50\n - warped_roots [I29] quantity 30\n - chiseled_polished_blackstone [I30] quantity 52\n - iron_horse_armor [I31] quantity 1\n - campfire [I32] quantity 62"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: fire_charge\ninventory:\n - fire_charge [0] quantity 3\n - blaze_powder [A1] quantity 1\n - coal [A2] quantity 1\n - gunpowder [A3] quantity 1\n - cooked_salmon [I2] quantity 36\n - brick_stairs [I3] quantity 48\n - rabbit_spawn_egg [I4] quantity 45\n - blaze_powder [I5] quantity 1\n - redstone [I7] quantity 46\n - orange_tulip [I10] quantity 41\n - stone_bricks [I13] quantity 59\n - red_concrete [I14] quantity 51\n - red_mushroom_block [I15] quantity 29\n - stripped_oak_log [I17] quantity 28\n - stripped_warped_hyphae [I22] quantity 1\n - chiseled_quartz_block [I26] quantity 50\n - blue_carpet [I27] quantity 50\n - warped_roots [I29] quantity 30\n - chiseled_polished_blackstone [I30] quantity 52\n - iron_horse_armor [I31] quantity 1\n - campfire [I32] quantity 62"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I6] with quantity 3"
+    }
+  ],
+  "example_id": "VAL0206"
+}

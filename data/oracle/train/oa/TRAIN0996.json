@@ -1,90 +1,97 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"cactus\", \"quantity\": 1, \"index\": 27}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 8, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 27 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"green_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 8, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 7, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 6, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 5, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 4, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 4, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 6}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 3, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 6}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 7}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 2, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 6}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 7}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 8}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 43 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_terracotta\ninventory=[{\"type\": \"green_terracotta\", \"quantity\": 8, \"index\": 0}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 6}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 7}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 8}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 9}, {\"type\": \"netherrack\", \"quantity\": 25, \"index\": 12}, {\"type\": \"orange_wool\", \"quantity\": 15, \"index\": 14}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 18}, {\"type\": \"composter\", \"quantity\": 23, \"index\": 23}, {\"type\": \"zombie_villager_spawn_egg\", \"quantity\": 4, \"index\": 24}, {\"type\": \"ghast_tear\", \"quantity\": 42, \"index\": 26}, {\"type\": \"quartz_block\", \"quantity\": 61, \"index\": 34}, {\"type\": \"slime_ball\", \"quantity\": 25, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 8"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - cactus [I18] quantity 1\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I18] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - green_dye [I2] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - green_dye [I2] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - green_dye [I2] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - green_dye [I2] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - green_dye [I2] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 4"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - green_dye [B2] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 4"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - green_dye [B2] quantity 1\n - terracotta [B3] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 3"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - green_dye [B2] quantity 1\n - terracotta [B3] quantity 1\n - terracotta [C1] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - green_dye [B2] quantity 1\n - terracotta [B3] quantity 1\n - terracotta [C1] quantity 1\n - terracotta [C2] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25\n - terracotta [I34] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I34] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_terracotta\ninventory:\n - green_terracotta [0] quantity 8\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - green_dye [B2] quantity 1\n - terracotta [B3] quantity 1\n - terracotta [C1] quantity 1\n - terracotta [C2] quantity 1\n - terracotta [C3] quantity 1\n - netherrack [I3] quantity 25\n - orange_wool [I5] quantity 15\n - red_bed [I9] quantity 1\n - composter [I14] quantity 23\n - zombie_villager_spawn_egg [I15] quantity 4\n - ghast_tear [I17] quantity 42\n - quartz_block [I25] quantity 61\n - slime_ball [I33] quantity 25"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 8"
+    }
+  ],
+  "example_id": "TRAIN0996"
+}

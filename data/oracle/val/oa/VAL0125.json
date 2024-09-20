@@ -1,90 +1,97 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"bamboo\", \"quantity\": 2, \"index\": 29}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 29 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 29}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 29 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 0}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 4}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 9, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 5, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 4, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 11}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 3, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 3, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 2, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 7}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 36}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 36 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"rail\", \"quantity\": 16, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 7}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 9}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_button\", \"quantity\": 16, \"index\": 15}, {\"type\": \"sticky_piston\", \"quantity\": 36, \"index\": 24}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 40, \"index\": 27}, {\"type\": \"warped_door\", \"quantity\": 60, \"index\": 35}, {\"type\": \"smithing_table\", \"quantity\": 29, \"index\": 37}, {\"type\": \"tnt\", \"quantity\": 23, \"index\": 41}, {\"type\": \"grass_block\", \"quantity\": 49, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 16"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - diamond_leggings [I1] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - bamboo [I20] quantity 2\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 6\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I20] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - bamboo [A1] quantity 1\n - diamond_leggings [I1] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - bamboo [I20] quantity 1\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 6\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I20] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - stick [0] quantity 1\n - bamboo [A1] quantity 1\n - bamboo [B1] quantity 1\n - diamond_leggings [I1] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 6\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - diamond_leggings [I1] quantity 1\n - stick [I2] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 6\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_nugget [0] quantity 9\n - iron_ingot [A1] quantity 1\n - diamond_leggings [I1] quantity 1\n - stick [I2] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 5\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - diamond_leggings [I1] quantity 1\n - stick [I2] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 4\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - diamond_leggings [I1] quantity 1\n - stick [I2] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 3\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - diamond_leggings [I1] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 3\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - diamond_leggings [I1] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 2\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - iron_ingot [C1] quantity 1\n - diamond_leggings [I1] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - iron_ingot [I27] quantity 1\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I27] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - rail [0] quantity 16\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - iron_ingot [C1] quantity 1\n - iron_ingot [C3] quantity 1\n - diamond_leggings [I1] quantity 1\n - crimson_button [I6] quantity 16\n - sticky_piston [I15] quantity 36\n - dolphin_spawn_egg [I18] quantity 40\n - warped_door [I26] quantity 60\n - smithing_table [I28] quantity 29\n - tnt [I32] quantity 23\n - grass_block [I33] quantity 49"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 16"
+    }
+  ],
+  "example_id": "VAL0125"
+}

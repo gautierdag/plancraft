@@ -1,34 +1,41 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_bed\ninventory=[{\"type\": \"purple_dye\", \"quantity\": 10, \"index\": 10}, {\"type\": \"polished_blackstone_brick_stairs\", \"quantity\": 55, \"index\": 11}, {\"type\": \"jungle_stairs\", \"quantity\": 25, \"index\": 12}, {\"type\": \"suspicious_stew\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_trapdoor\", \"quantity\": 17, \"index\": 15}, {\"type\": \"polished_blackstone_stairs\", \"quantity\": 1, \"index\": 16}, {\"type\": \"pink_shulker_box\", \"quantity\": 1, \"index\": 18}, {\"type\": \"blue_bed\", \"quantity\": 1, \"index\": 26}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 51, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 29}, {\"type\": \"wooden_axe\", \"quantity\": 1, \"index\": 30}, {\"type\": \"prismarine_brick_stairs\", \"quantity\": 52, \"index\": 32}, {\"type\": \"cactus\", \"quantity\": 1, \"index\": 33}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 34}, {\"type\": \"blue_orchid\", \"quantity\": 22, \"index\": 35}, {\"type\": \"potato\", \"quantity\": 61, \"index\": 36}, {\"type\": \"rabbit_foot\", \"quantity\": 1, \"index\": 41}, {\"type\": \"anvil\", \"quantity\": 61, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 33 to slot 13 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_bed\ninventory=[{\"type\": \"purple_dye\", \"quantity\": 10, \"index\": 10}, {\"type\": \"polished_blackstone_brick_stairs\", \"quantity\": 55, \"index\": 11}, {\"type\": \"jungle_stairs\", \"quantity\": 25, \"index\": 12}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 13}, {\"type\": \"suspicious_stew\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_trapdoor\", \"quantity\": 17, \"index\": 15}, {\"type\": \"polished_blackstone_stairs\", \"quantity\": 1, \"index\": 16}, {\"type\": \"pink_shulker_box\", \"quantity\": 1, \"index\": 18}, {\"type\": \"blue_bed\", \"quantity\": 1, \"index\": 26}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 51, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 29}, {\"type\": \"wooden_axe\", \"quantity\": 1, \"index\": 30}, {\"type\": \"prismarine_brick_stairs\", \"quantity\": 52, \"index\": 32}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 34}, {\"type\": \"blue_orchid\", \"quantity\": 22, \"index\": 35}, {\"type\": \"potato\", \"quantity\": 61, \"index\": 36}, {\"type\": \"rabbit_foot\", \"quantity\": 1, \"index\": 41}, {\"type\": \"anvil\", \"quantity\": 61, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_bed\ninventory=[{\"type\": \"green_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"purple_dye\", \"quantity\": 10, \"index\": 10}, {\"type\": \"polished_blackstone_brick_stairs\", \"quantity\": 55, \"index\": 11}, {\"type\": \"jungle_stairs\", \"quantity\": 25, \"index\": 12}, {\"type\": \"suspicious_stew\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_trapdoor\", \"quantity\": 17, \"index\": 15}, {\"type\": \"polished_blackstone_stairs\", \"quantity\": 1, \"index\": 16}, {\"type\": \"pink_shulker_box\", \"quantity\": 1, \"index\": 18}, {\"type\": \"blue_bed\", \"quantity\": 1, \"index\": 26}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 51, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 29}, {\"type\": \"wooden_axe\", \"quantity\": 1, \"index\": 30}, {\"type\": \"prismarine_brick_stairs\", \"quantity\": 52, \"index\": 32}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 34}, {\"type\": \"blue_orchid\", \"quantity\": 22, \"index\": 35}, {\"type\": \"potato\", \"quantity\": 61, \"index\": 36}, {\"type\": \"rabbit_foot\", \"quantity\": 1, \"index\": 41}, {\"type\": \"anvil\", \"quantity\": 61, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: green_bed\ninventory=[{\"type\": \"green_bed\", \"quantity\": 1, \"index\": 0}, {\"type\": \"green_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 2}, {\"type\": \"purple_dye\", \"quantity\": 10, \"index\": 10}, {\"type\": \"polished_blackstone_brick_stairs\", \"quantity\": 55, \"index\": 11}, {\"type\": \"jungle_stairs\", \"quantity\": 25, \"index\": 12}, {\"type\": \"suspicious_stew\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_trapdoor\", \"quantity\": 17, \"index\": 15}, {\"type\": \"polished_blackstone_stairs\", \"quantity\": 1, \"index\": 16}, {\"type\": \"pink_shulker_box\", \"quantity\": 1, \"index\": 18}, {\"type\": \"blue_bed\", \"quantity\": 1, \"index\": 26}, {\"type\": \"sheep_spawn_egg\", \"quantity\": 51, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 29}, {\"type\": \"wooden_axe\", \"quantity\": 1, \"index\": 30}, {\"type\": \"prismarine_brick_stairs\", \"quantity\": 52, \"index\": 32}, {\"type\": \"blue_orchid\", \"quantity\": 22, \"index\": 35}, {\"type\": \"potato\", \"quantity\": 61, \"index\": 36}, {\"type\": \"rabbit_foot\", \"quantity\": 1, \"index\": 41}, {\"type\": \"anvil\", \"quantity\": 61, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_bed\ninventory:\n - purple_dye [I1] quantity 10\n - polished_blackstone_brick_stairs [I2] quantity 55\n - jungle_stairs [I3] quantity 25\n - suspicious_stew [I5] quantity 1\n - spruce_trapdoor [I6] quantity 17\n - polished_blackstone_stairs [I7] quantity 1\n - pink_shulker_box [I9] quantity 1\n - blue_bed [I17] quantity 1\n - sheep_spawn_egg [I18] quantity 51\n - mushroom_stew [I20] quantity 1\n - wooden_axe [I21] quantity 1\n - prismarine_brick_stairs [I23] quantity 52\n - cactus [I24] quantity 1\n - white_bed [I25] quantity 1\n - blue_orchid [I26] quantity 22\n - potato [I27] quantity 61\n - rabbit_foot [I32] quantity 1\n - anvil [I35] quantity 61"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I24] to [I4] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_bed\ninventory:\n - purple_dye [I1] quantity 10\n - polished_blackstone_brick_stairs [I2] quantity 55\n - jungle_stairs [I3] quantity 25\n - green_dye [I4] quantity 1\n - suspicious_stew [I5] quantity 1\n - spruce_trapdoor [I6] quantity 17\n - polished_blackstone_stairs [I7] quantity 1\n - pink_shulker_box [I9] quantity 1\n - blue_bed [I17] quantity 1\n - sheep_spawn_egg [I18] quantity 51\n - mushroom_stew [I20] quantity 1\n - wooden_axe [I21] quantity 1\n - prismarine_brick_stairs [I23] quantity 52\n - white_bed [I25] quantity 1\n - blue_orchid [I26] quantity 22\n - potato [I27] quantity 61\n - rabbit_foot [I32] quantity 1\n - anvil [I35] quantity 61"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_bed\ninventory:\n - green_dye [A1] quantity 1\n - purple_dye [I1] quantity 10\n - polished_blackstone_brick_stairs [I2] quantity 55\n - jungle_stairs [I3] quantity 25\n - suspicious_stew [I5] quantity 1\n - spruce_trapdoor [I6] quantity 17\n - polished_blackstone_stairs [I7] quantity 1\n - pink_shulker_box [I9] quantity 1\n - blue_bed [I17] quantity 1\n - sheep_spawn_egg [I18] quantity 51\n - mushroom_stew [I20] quantity 1\n - wooden_axe [I21] quantity 1\n - prismarine_brick_stairs [I23] quantity 52\n - white_bed [I25] quantity 1\n - blue_orchid [I26] quantity 22\n - potato [I27] quantity 61\n - rabbit_foot [I32] quantity 1\n - anvil [I35] quantity 61"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_bed\ninventory:\n - green_bed [0] quantity 1\n - green_dye [A1] quantity 1\n - white_bed [A2] quantity 1\n - purple_dye [I1] quantity 10\n - polished_blackstone_brick_stairs [I2] quantity 55\n - jungle_stairs [I3] quantity 25\n - suspicious_stew [I5] quantity 1\n - spruce_trapdoor [I6] quantity 17\n - polished_blackstone_stairs [I7] quantity 1\n - pink_shulker_box [I9] quantity 1\n - blue_bed [I17] quantity 1\n - sheep_spawn_egg [I18] quantity 51\n - mushroom_stew [I20] quantity 1\n - wooden_axe [I21] quantity 1\n - prismarine_brick_stairs [I23] quantity 52\n - blue_orchid [I26] quantity 22\n - potato [I27] quantity 61\n - rabbit_foot [I32] quantity 1\n - anvil [I35] quantity 61"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0008"
+}

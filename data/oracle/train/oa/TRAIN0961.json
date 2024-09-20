@@ -1,18 +1,25 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: coal\ninventory=[{\"type\": \"ice\", \"quantity\": 37, \"index\": 11}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"purple_banner\", \"quantity\": 11, \"index\": 14}, {\"type\": \"brown_bed\", \"quantity\": 1, \"index\": 15}, {\"type\": \"bone\", \"quantity\": 51, \"index\": 16}, {\"type\": \"dirt\", \"quantity\": 33, \"index\": 17}, {\"type\": \"chainmail_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"dark_oak_boat\", \"quantity\": 1, \"index\": 26}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 28}, {\"type\": \"jungle_sapling\", \"quantity\": 14, \"index\": 29}, {\"type\": \"pig_spawn_egg\", \"quantity\": 30, \"index\": 30}, {\"type\": \"mossy_stone_brick_stairs\", \"quantity\": 15, \"index\": 31}, {\"type\": \"sweet_berries\", \"quantity\": 61, \"index\": 32}, {\"type\": \"iron_shovel\", \"quantity\": 1, \"index\": 37}, {\"type\": \"coal_block\", \"quantity\": 1, \"index\": 39}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 19, \"index\": 41}, {\"type\": \"firework_star\", \"quantity\": 4, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 39 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: coal\ninventory=[{\"type\": \"coal\", \"quantity\": 9, \"index\": 0}, {\"type\": \"coal_block\", \"quantity\": 1, \"index\": 1}, {\"type\": \"ice\", \"quantity\": 37, \"index\": 11}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 12}, {\"type\": \"purple_banner\", \"quantity\": 11, \"index\": 14}, {\"type\": \"brown_bed\", \"quantity\": 1, \"index\": 15}, {\"type\": \"bone\", \"quantity\": 51, \"index\": 16}, {\"type\": \"dirt\", \"quantity\": 33, \"index\": 17}, {\"type\": \"chainmail_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"dark_oak_boat\", \"quantity\": 1, \"index\": 26}, {\"type\": \"white_bed\", \"quantity\": 1, \"index\": 28}, {\"type\": \"jungle_sapling\", \"quantity\": 14, \"index\": 29}, {\"type\": \"pig_spawn_egg\", \"quantity\": 30, \"index\": 30}, {\"type\": \"mossy_stone_brick_stairs\", \"quantity\": 15, \"index\": 31}, {\"type\": \"sweet_berries\", \"quantity\": 61, \"index\": 32}, {\"type\": \"iron_shovel\", \"quantity\": 1, \"index\": 37}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 19, \"index\": 41}, {\"type\": \"firework_star\", \"quantity\": 4, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 9"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: coal\ninventory:\n - ice [I2] quantity 37\n - yellow_bed [I3] quantity 1\n - purple_banner [I5] quantity 11\n - brown_bed [I6] quantity 1\n - bone [I7] quantity 51\n - dirt [I8] quantity 33\n - chainmail_helmet [I14] quantity 1\n - dark_oak_boat [I17] quantity 1\n - white_bed [I19] quantity 1\n - jungle_sapling [I20] quantity 14\n - pig_spawn_egg [I21] quantity 30\n - mossy_stone_brick_stairs [I22] quantity 15\n - sweet_berries [I23] quantity 61\n - iron_shovel [I28] quantity 1\n - coal_block [I30] quantity 1\n - polar_bear_spawn_egg [I32] quantity 19\n - firework_star [I33] quantity 4"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I30] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: coal\ninventory:\n - coal [0] quantity 9\n - coal_block [A1] quantity 1\n - ice [I2] quantity 37\n - yellow_bed [I3] quantity 1\n - purple_banner [I5] quantity 11\n - brown_bed [I6] quantity 1\n - bone [I7] quantity 51\n - dirt [I8] quantity 33\n - chainmail_helmet [I14] quantity 1\n - dark_oak_boat [I17] quantity 1\n - white_bed [I19] quantity 1\n - jungle_sapling [I20] quantity 14\n - pig_spawn_egg [I21] quantity 30\n - mossy_stone_brick_stairs [I22] quantity 15\n - sweet_berries [I23] quantity 61\n - iron_shovel [I28] quantity 1\n - polar_bear_spawn_egg [I32] quantity 19\n - firework_star [I33] quantity 4"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 9"
+    }
+  ],
+  "example_id": "TRAIN0961"
+}

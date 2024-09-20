@@ -1,26 +1,33 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_pressure_plate\ninventory=[{\"type\": \"item_frame\", \"quantity\": 38, \"index\": 10}, {\"type\": \"orange_carpet\", \"quantity\": 1, \"index\": 13}, {\"type\": \"fletching_table\", \"quantity\": 31, \"index\": 14}, {\"type\": \"acacia_fence\", \"quantity\": 15, \"index\": 16}, {\"type\": \"cyan_stained_glass_pane\", \"quantity\": 49, \"index\": 17}, {\"type\": \"polished_blackstone\", \"quantity\": 2, \"index\": 18}, {\"type\": \"pink_wool\", \"quantity\": 52, \"index\": 21}, {\"type\": \"oak_leaves\", \"quantity\": 15, \"index\": 22}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 14, \"index\": 24}, {\"type\": \"green_bed\", \"quantity\": 1, \"index\": 28}, {\"type\": \"smooth_red_sandstone_stairs\", \"quantity\": 11, \"index\": 30}, {\"type\": \"kelp\", \"quantity\": 8, \"index\": 32}, {\"type\": \"dead_bush\", \"quantity\": 43, \"index\": 33}, {\"type\": \"azure_bluet\", \"quantity\": 45, \"index\": 35}, {\"type\": \"beetroot\", \"quantity\": 30, \"index\": 37}, {\"type\": \"spider_spawn_egg\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 18 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_pressure_plate\ninventory=[{\"type\": \"polished_blackstone_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"item_frame\", \"quantity\": 38, \"index\": 10}, {\"type\": \"orange_carpet\", \"quantity\": 1, \"index\": 13}, {\"type\": \"fletching_table\", \"quantity\": 31, \"index\": 14}, {\"type\": \"acacia_fence\", \"quantity\": 15, \"index\": 16}, {\"type\": \"cyan_stained_glass_pane\", \"quantity\": 49, \"index\": 17}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 18}, {\"type\": \"pink_wool\", \"quantity\": 52, \"index\": 21}, {\"type\": \"oak_leaves\", \"quantity\": 15, \"index\": 22}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 14, \"index\": 24}, {\"type\": \"green_bed\", \"quantity\": 1, \"index\": 28}, {\"type\": \"smooth_red_sandstone_stairs\", \"quantity\": 11, \"index\": 30}, {\"type\": \"kelp\", \"quantity\": 8, \"index\": 32}, {\"type\": \"dead_bush\", \"quantity\": 43, \"index\": 33}, {\"type\": \"azure_bluet\", \"quantity\": 45, \"index\": 35}, {\"type\": \"beetroot\", \"quantity\": 30, \"index\": 37}, {\"type\": \"spider_spawn_egg\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 18 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_pressure_plate\ninventory=[{\"type\": \"polished_blackstone_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"item_frame\", \"quantity\": 38, \"index\": 10}, {\"type\": \"orange_carpet\", \"quantity\": 1, \"index\": 13}, {\"type\": \"fletching_table\", \"quantity\": 31, \"index\": 14}, {\"type\": \"acacia_fence\", \"quantity\": 15, \"index\": 16}, {\"type\": \"cyan_stained_glass_pane\", \"quantity\": 49, \"index\": 17}, {\"type\": \"pink_wool\", \"quantity\": 52, \"index\": 21}, {\"type\": \"oak_leaves\", \"quantity\": 15, \"index\": 22}, {\"type\": \"chest_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"birch_sign\", \"quantity\": 14, \"index\": 24}, {\"type\": \"green_bed\", \"quantity\": 1, \"index\": 28}, {\"type\": \"smooth_red_sandstone_stairs\", \"quantity\": 11, \"index\": 30}, {\"type\": \"kelp\", \"quantity\": 8, \"index\": 32}, {\"type\": \"dead_bush\", \"quantity\": 43, \"index\": 33}, {\"type\": \"azure_bluet\", \"quantity\": 45, \"index\": 35}, {\"type\": \"beetroot\", \"quantity\": 30, \"index\": 37}, {\"type\": \"spider_spawn_egg\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_pressure_plate\ninventory:\n - item_frame [I1] quantity 38\n - orange_carpet [I4] quantity 1\n - fletching_table [I5] quantity 31\n - acacia_fence [I7] quantity 15\n - cyan_stained_glass_pane [I8] quantity 49\n - polished_blackstone [I9] quantity 2\n - pink_wool [I12] quantity 52\n - oak_leaves [I13] quantity 15\n - chest_minecart [I14] quantity 1\n - birch_sign [I15] quantity 14\n - green_bed [I19] quantity 1\n - smooth_red_sandstone_stairs [I21] quantity 11\n - kelp [I23] quantity 8\n - dead_bush [I24] quantity 43\n - azure_bluet [I26] quantity 45\n - beetroot [I28] quantity 30\n - spider_spawn_egg [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I9] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_pressure_plate\ninventory:\n - polished_blackstone_button [0] quantity 1\n - polished_blackstone [A1] quantity 1\n - item_frame [I1] quantity 38\n - orange_carpet [I4] quantity 1\n - fletching_table [I5] quantity 31\n - acacia_fence [I7] quantity 15\n - cyan_stained_glass_pane [I8] quantity 49\n - polished_blackstone [I9] quantity 1\n - pink_wool [I12] quantity 52\n - oak_leaves [I13] quantity 15\n - chest_minecart [I14] quantity 1\n - birch_sign [I15] quantity 14\n - green_bed [I19] quantity 1\n - smooth_red_sandstone_stairs [I21] quantity 11\n - kelp [I23] quantity 8\n - dead_bush [I24] quantity 43\n - azure_bluet [I26] quantity 45\n - beetroot [I28] quantity 30\n - spider_spawn_egg [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I9] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_pressure_plate\ninventory:\n - polished_blackstone_pressure_plate [0] quantity 1\n - polished_blackstone [A1] quantity 1\n - polished_blackstone [A2] quantity 1\n - item_frame [I1] quantity 38\n - orange_carpet [I4] quantity 1\n - fletching_table [I5] quantity 31\n - acacia_fence [I7] quantity 15\n - cyan_stained_glass_pane [I8] quantity 49\n - pink_wool [I12] quantity 52\n - oak_leaves [I13] quantity 15\n - chest_minecart [I14] quantity 1\n - birch_sign [I15] quantity 14\n - green_bed [I19] quantity 1\n - smooth_red_sandstone_stairs [I21] quantity 11\n - kelp [I23] quantity 8\n - dead_bush [I24] quantity 43\n - azure_bluet [I26] quantity 45\n - beetroot [I28] quantity 30\n - spider_spawn_egg [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0545"
+}

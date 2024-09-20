@@ -1,34 +1,41 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: granite\ninventory=[{\"type\": \"polished_diorite_slab\", \"quantity\": 59, \"index\": 12}, {\"type\": \"fire_coral\", \"quantity\": 44, \"index\": 13}, {\"type\": \"birch_planks\", \"quantity\": 45, \"index\": 18}, {\"type\": \"magenta_bed\", \"quantity\": 1, \"index\": 21}, {\"type\": \"nether_quartz_ore\", \"quantity\": 1, \"index\": 22}, {\"type\": \"purpur_pillar\", \"quantity\": 27, \"index\": 23}, {\"type\": \"redstone_block\", \"quantity\": 5, \"index\": 26}, {\"type\": \"jungle_sign\", \"quantity\": 7, \"index\": 27}, {\"type\": \"cocoa_beans\", \"quantity\": 41, \"index\": 28}, {\"type\": \"diorite\", \"quantity\": 1, \"index\": 30}, {\"type\": \"yellow_banner\", \"quantity\": 5, \"index\": 32}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 33}, {\"type\": \"blaze_spawn_egg\", \"quantity\": 61, \"index\": 34}, {\"type\": \"netherite_ingot\", \"quantity\": 38, \"index\": 38}, {\"type\": \"brown_mushroom_block\", \"quantity\": 30, \"index\": 39}, {\"type\": \"jigsaw\", \"quantity\": 36, \"index\": 40}, {\"type\": \"iron_bars\", \"quantity\": 37, \"index\": 41}, {\"type\": \"yellow_dye\", \"quantity\": 6, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 22 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: granite\ninventory=[{\"type\": \"quartz\", \"quantity\": 1, \"index\": 11}, {\"type\": \"polished_diorite_slab\", \"quantity\": 59, \"index\": 12}, {\"type\": \"fire_coral\", \"quantity\": 44, \"index\": 13}, {\"type\": \"birch_planks\", \"quantity\": 45, \"index\": 18}, {\"type\": \"magenta_bed\", \"quantity\": 1, \"index\": 21}, {\"type\": \"purpur_pillar\", \"quantity\": 27, \"index\": 23}, {\"type\": \"redstone_block\", \"quantity\": 5, \"index\": 26}, {\"type\": \"jungle_sign\", \"quantity\": 7, \"index\": 27}, {\"type\": \"cocoa_beans\", \"quantity\": 41, \"index\": 28}, {\"type\": \"diorite\", \"quantity\": 1, \"index\": 30}, {\"type\": \"yellow_banner\", \"quantity\": 5, \"index\": 32}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 33}, {\"type\": \"blaze_spawn_egg\", \"quantity\": 61, \"index\": 34}, {\"type\": \"netherite_ingot\", \"quantity\": 38, \"index\": 38}, {\"type\": \"brown_mushroom_block\", \"quantity\": 30, \"index\": 39}, {\"type\": \"jigsaw\", \"quantity\": 36, \"index\": 40}, {\"type\": \"iron_bars\", \"quantity\": 37, \"index\": 41}, {\"type\": \"yellow_dye\", \"quantity\": 6, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: granite\ninventory=[{\"type\": \"quartz\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_diorite_slab\", \"quantity\": 59, \"index\": 12}, {\"type\": \"fire_coral\", \"quantity\": 44, \"index\": 13}, {\"type\": \"birch_planks\", \"quantity\": 45, \"index\": 18}, {\"type\": \"magenta_bed\", \"quantity\": 1, \"index\": 21}, {\"type\": \"purpur_pillar\", \"quantity\": 27, \"index\": 23}, {\"type\": \"redstone_block\", \"quantity\": 5, \"index\": 26}, {\"type\": \"jungle_sign\", \"quantity\": 7, \"index\": 27}, {\"type\": \"cocoa_beans\", \"quantity\": 41, \"index\": 28}, {\"type\": \"diorite\", \"quantity\": 1, \"index\": 30}, {\"type\": \"yellow_banner\", \"quantity\": 5, \"index\": 32}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 33}, {\"type\": \"blaze_spawn_egg\", \"quantity\": 61, \"index\": 34}, {\"type\": \"netherite_ingot\", \"quantity\": 38, \"index\": 38}, {\"type\": \"brown_mushroom_block\", \"quantity\": 30, \"index\": 39}, {\"type\": \"jigsaw\", \"quantity\": 36, \"index\": 40}, {\"type\": \"iron_bars\", \"quantity\": 37, \"index\": 41}, {\"type\": \"yellow_dye\", \"quantity\": 6, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 30 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: granite\ninventory=[{\"type\": \"granite\", \"quantity\": 1, \"index\": 0}, {\"type\": \"quartz\", \"quantity\": 1, \"index\": 1}, {\"type\": \"diorite\", \"quantity\": 1, \"index\": 2}, {\"type\": \"polished_diorite_slab\", \"quantity\": 59, \"index\": 12}, {\"type\": \"fire_coral\", \"quantity\": 44, \"index\": 13}, {\"type\": \"birch_planks\", \"quantity\": 45, \"index\": 18}, {\"type\": \"magenta_bed\", \"quantity\": 1, \"index\": 21}, {\"type\": \"purpur_pillar\", \"quantity\": 27, \"index\": 23}, {\"type\": \"redstone_block\", \"quantity\": 5, \"index\": 26}, {\"type\": \"jungle_sign\", \"quantity\": 7, \"index\": 27}, {\"type\": \"cocoa_beans\", \"quantity\": 41, \"index\": 28}, {\"type\": \"yellow_banner\", \"quantity\": 5, \"index\": 32}, {\"type\": \"totem_of_undying\", \"quantity\": 1, \"index\": 33}, {\"type\": \"blaze_spawn_egg\", \"quantity\": 61, \"index\": 34}, {\"type\": \"netherite_ingot\", \"quantity\": 38, \"index\": 38}, {\"type\": \"brown_mushroom_block\", \"quantity\": 30, \"index\": 39}, {\"type\": \"jigsaw\", \"quantity\": 36, \"index\": 40}, {\"type\": \"iron_bars\", \"quantity\": 37, \"index\": 41}, {\"type\": \"yellow_dye\", \"quantity\": 6, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: granite\ninventory:\n - polished_diorite_slab [I3] quantity 59\n - fire_coral [I4] quantity 44\n - birch_planks [I9] quantity 45\n - magenta_bed [I12] quantity 1\n - nether_quartz_ore [I13] quantity 1\n - purpur_pillar [I14] quantity 27\n - redstone_block [I17] quantity 5\n - jungle_sign [I18] quantity 7\n - cocoa_beans [I19] quantity 41\n - diorite [I21] quantity 1\n - yellow_banner [I23] quantity 5\n - totem_of_undying [I24] quantity 1\n - blaze_spawn_egg [I25] quantity 61\n - netherite_ingot [I29] quantity 38\n - brown_mushroom_block [I30] quantity 30\n - jigsaw [I31] quantity 36\n - iron_bars [I32] quantity 37\n - yellow_dye [I34] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I13] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: granite\ninventory:\n - quartz [I2] quantity 1\n - polished_diorite_slab [I3] quantity 59\n - fire_coral [I4] quantity 44\n - birch_planks [I9] quantity 45\n - magenta_bed [I12] quantity 1\n - purpur_pillar [I14] quantity 27\n - redstone_block [I17] quantity 5\n - jungle_sign [I18] quantity 7\n - cocoa_beans [I19] quantity 41\n - diorite [I21] quantity 1\n - yellow_banner [I23] quantity 5\n - totem_of_undying [I24] quantity 1\n - blaze_spawn_egg [I25] quantity 61\n - netherite_ingot [I29] quantity 38\n - brown_mushroom_block [I30] quantity 30\n - jigsaw [I31] quantity 36\n - iron_bars [I32] quantity 37\n - yellow_dye [I34] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: granite\ninventory:\n - quartz [A1] quantity 1\n - polished_diorite_slab [I3] quantity 59\n - fire_coral [I4] quantity 44\n - birch_planks [I9] quantity 45\n - magenta_bed [I12] quantity 1\n - purpur_pillar [I14] quantity 27\n - redstone_block [I17] quantity 5\n - jungle_sign [I18] quantity 7\n - cocoa_beans [I19] quantity 41\n - diorite [I21] quantity 1\n - yellow_banner [I23] quantity 5\n - totem_of_undying [I24] quantity 1\n - blaze_spawn_egg [I25] quantity 61\n - netherite_ingot [I29] quantity 38\n - brown_mushroom_block [I30] quantity 30\n - jigsaw [I31] quantity 36\n - iron_bars [I32] quantity 37\n - yellow_dye [I34] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I21] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: granite\ninventory:\n - granite [0] quantity 1\n - quartz [A1] quantity 1\n - diorite [A2] quantity 1\n - polished_diorite_slab [I3] quantity 59\n - fire_coral [I4] quantity 44\n - birch_planks [I9] quantity 45\n - magenta_bed [I12] quantity 1\n - purpur_pillar [I14] quantity 27\n - redstone_block [I17] quantity 5\n - jungle_sign [I18] quantity 7\n - cocoa_beans [I19] quantity 41\n - yellow_banner [I23] quantity 5\n - totem_of_undying [I24] quantity 1\n - blaze_spawn_egg [I25] quantity 61\n - netherite_ingot [I29] quantity 38\n - brown_mushroom_block [I30] quantity 30\n - jigsaw [I31] quantity 36\n - iron_bars [I32] quantity 37\n - yellow_dye [I34] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0557"
+}

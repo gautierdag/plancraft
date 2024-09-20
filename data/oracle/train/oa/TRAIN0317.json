@@ -1,26 +1,33 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_red_sandstone\ninventory=[{\"type\": \"light_gray_concrete\", \"quantity\": 38, \"index\": 12}, {\"type\": \"red_sandstone_slab\", \"quantity\": 2, \"index\": 13}, {\"type\": \"magenta_stained_glass\", \"quantity\": 2, \"index\": 14}, {\"type\": \"donkey_spawn_egg\", \"quantity\": 1, \"index\": 17}, {\"type\": \"tropical_fish_bucket\", \"quantity\": 1, \"index\": 19}, {\"type\": \"warped_button\", \"quantity\": 30, \"index\": 20}, {\"type\": \"brown_shulker_box\", \"quantity\": 1, \"index\": 21}, {\"type\": \"stone_button\", \"quantity\": 14, \"index\": 24}, {\"type\": \"acacia_stairs\", \"quantity\": 61, \"index\": 25}, {\"type\": \"chiseled_nether_bricks\", \"quantity\": 22, \"index\": 27}, {\"type\": \"strider_spawn_egg\", \"quantity\": 16, \"index\": 30}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 31}, {\"type\": \"brown_glazed_terracotta\", \"quantity\": 23, \"index\": 35}, {\"type\": \"mutton\", \"quantity\": 63, \"index\": 36}, {\"type\": \"orange_stained_glass_pane\", \"quantity\": 54, \"index\": 37}, {\"type\": \"firework_rocket\", \"quantity\": 51, \"index\": 42}, {\"type\": \"white_glazed_terracotta\", \"quantity\": 51, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_red_sandstone\ninventory=[{\"type\": \"red_sandstone_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"light_gray_concrete\", \"quantity\": 38, \"index\": 12}, {\"type\": \"red_sandstone_slab\", \"quantity\": 1, \"index\": 13}, {\"type\": \"magenta_stained_glass\", \"quantity\": 2, \"index\": 14}, {\"type\": \"donkey_spawn_egg\", \"quantity\": 1, \"index\": 17}, {\"type\": \"tropical_fish_bucket\", \"quantity\": 1, \"index\": 19}, {\"type\": \"warped_button\", \"quantity\": 30, \"index\": 20}, {\"type\": \"brown_shulker_box\", \"quantity\": 1, \"index\": 21}, {\"type\": \"stone_button\", \"quantity\": 14, \"index\": 24}, {\"type\": \"acacia_stairs\", \"quantity\": 61, \"index\": 25}, {\"type\": \"chiseled_nether_bricks\", \"quantity\": 22, \"index\": 27}, {\"type\": \"strider_spawn_egg\", \"quantity\": 16, \"index\": 30}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 31}, {\"type\": \"brown_glazed_terracotta\", \"quantity\": 23, \"index\": 35}, {\"type\": \"mutton\", \"quantity\": 63, \"index\": 36}, {\"type\": \"orange_stained_glass_pane\", \"quantity\": 54, \"index\": 37}, {\"type\": \"firework_rocket\", \"quantity\": 51, \"index\": 42}, {\"type\": \"white_glazed_terracotta\", \"quantity\": 51, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_red_sandstone\ninventory=[{\"type\": \"chiseled_red_sandstone\", \"quantity\": 1, \"index\": 0}, {\"type\": \"red_sandstone_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_sandstone_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"light_gray_concrete\", \"quantity\": 38, \"index\": 12}, {\"type\": \"magenta_stained_glass\", \"quantity\": 2, \"index\": 14}, {\"type\": \"donkey_spawn_egg\", \"quantity\": 1, \"index\": 17}, {\"type\": \"tropical_fish_bucket\", \"quantity\": 1, \"index\": 19}, {\"type\": \"warped_button\", \"quantity\": 30, \"index\": 20}, {\"type\": \"brown_shulker_box\", \"quantity\": 1, \"index\": 21}, {\"type\": \"stone_button\", \"quantity\": 14, \"index\": 24}, {\"type\": \"acacia_stairs\", \"quantity\": 61, \"index\": 25}, {\"type\": \"chiseled_nether_bricks\", \"quantity\": 22, \"index\": 27}, {\"type\": \"strider_spawn_egg\", \"quantity\": 16, \"index\": 30}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 31}, {\"type\": \"brown_glazed_terracotta\", \"quantity\": 23, \"index\": 35}, {\"type\": \"mutton\", \"quantity\": 63, \"index\": 36}, {\"type\": \"orange_stained_glass_pane\", \"quantity\": 54, \"index\": 37}, {\"type\": \"firework_rocket\", \"quantity\": 51, \"index\": 42}, {\"type\": \"white_glazed_terracotta\", \"quantity\": 51, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_red_sandstone\ninventory:\n - light_gray_concrete [I3] quantity 38\n - red_sandstone_slab [I4] quantity 2\n - magenta_stained_glass [I5] quantity 2\n - donkey_spawn_egg [I8] quantity 1\n - tropical_fish_bucket [I10] quantity 1\n - warped_button [I11] quantity 30\n - brown_shulker_box [I12] quantity 1\n - stone_button [I15] quantity 14\n - acacia_stairs [I16] quantity 61\n - chiseled_nether_bricks [I18] quantity 22\n - strider_spawn_egg [I21] quantity 16\n - yellow_bed [I22] quantity 1\n - brown_glazed_terracotta [I26] quantity 23\n - mutton [I27] quantity 63\n - orange_stained_glass_pane [I28] quantity 54\n - firework_rocket [I33] quantity 51\n - white_glazed_terracotta [I36] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_red_sandstone\ninventory:\n - red_sandstone_slab [A1] quantity 1\n - light_gray_concrete [I3] quantity 38\n - red_sandstone_slab [I4] quantity 1\n - magenta_stained_glass [I5] quantity 2\n - donkey_spawn_egg [I8] quantity 1\n - tropical_fish_bucket [I10] quantity 1\n - warped_button [I11] quantity 30\n - brown_shulker_box [I12] quantity 1\n - stone_button [I15] quantity 14\n - acacia_stairs [I16] quantity 61\n - chiseled_nether_bricks [I18] quantity 22\n - strider_spawn_egg [I21] quantity 16\n - yellow_bed [I22] quantity 1\n - brown_glazed_terracotta [I26] quantity 23\n - mutton [I27] quantity 63\n - orange_stained_glass_pane [I28] quantity 54\n - firework_rocket [I33] quantity 51\n - white_glazed_terracotta [I36] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_red_sandstone\ninventory:\n - chiseled_red_sandstone [0] quantity 1\n - red_sandstone_slab [A1] quantity 1\n - red_sandstone_slab [B1] quantity 1\n - light_gray_concrete [I3] quantity 38\n - magenta_stained_glass [I5] quantity 2\n - donkey_spawn_egg [I8] quantity 1\n - tropical_fish_bucket [I10] quantity 1\n - warped_button [I11] quantity 30\n - brown_shulker_box [I12] quantity 1\n - stone_button [I15] quantity 14\n - acacia_stairs [I16] quantity 61\n - chiseled_nether_bricks [I18] quantity 22\n - strider_spawn_egg [I21] quantity 16\n - yellow_bed [I22] quantity 1\n - brown_glazed_terracotta [I26] quantity 23\n - mutton [I27] quantity 63\n - orange_stained_glass_pane [I28] quantity 54\n - firework_rocket [I33] quantity 51\n - white_glazed_terracotta [I36] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0317"
+}

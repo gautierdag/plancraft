@@ -1,18 +1,25 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: dark_oak_planks\ninventory=[{\"type\": \"nether_brick_wall\", \"quantity\": 42, \"index\": 10}, {\"type\": \"wither_rose\", \"quantity\": 29, \"index\": 11}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 7, \"index\": 12}, {\"type\": \"black_concrete\", \"quantity\": 56, \"index\": 15}, {\"type\": \"stripped_dark_oak_wood\", \"quantity\": 1, \"index\": 16}, {\"type\": \"sugar\", \"quantity\": 55, \"index\": 17}, {\"type\": \"diamond_hoe\", \"quantity\": 1, \"index\": 20}, {\"type\": \"coal\", \"quantity\": 12, \"index\": 21}, {\"type\": \"stripped_acacia_log\", \"quantity\": 37, \"index\": 24}, {\"type\": \"stray_spawn_egg\", \"quantity\": 40, \"index\": 26}, {\"type\": \"piglin_brute_spawn_egg\", \"quantity\": 28, \"index\": 31}, {\"type\": \"written_book\", \"quantity\": 5, \"index\": 34}, {\"type\": \"cod\", \"quantity\": 20, \"index\": 36}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 37}, {\"type\": \"fletching_table\", \"quantity\": 48, \"index\": 38}, {\"type\": \"cyan_concrete_powder\", \"quantity\": 63, \"index\": 39}, {\"type\": \"honeycomb_block\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 16 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: dark_oak_planks\ninventory=[{\"type\": \"dark_oak_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"stripped_dark_oak_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"nether_brick_wall\", \"quantity\": 42, \"index\": 10}, {\"type\": \"wither_rose\", \"quantity\": 29, \"index\": 11}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 7, \"index\": 12}, {\"type\": \"black_concrete\", \"quantity\": 56, \"index\": 15}, {\"type\": \"sugar\", \"quantity\": 55, \"index\": 17}, {\"type\": \"diamond_hoe\", \"quantity\": 1, \"index\": 20}, {\"type\": \"coal\", \"quantity\": 12, \"index\": 21}, {\"type\": \"stripped_acacia_log\", \"quantity\": 37, \"index\": 24}, {\"type\": \"stray_spawn_egg\", \"quantity\": 40, \"index\": 26}, {\"type\": \"piglin_brute_spawn_egg\", \"quantity\": 28, \"index\": 31}, {\"type\": \"written_book\", \"quantity\": 5, \"index\": 34}, {\"type\": \"cod\", \"quantity\": 20, \"index\": 36}, {\"type\": \"furnace_minecart\", \"quantity\": 1, \"index\": 37}, {\"type\": \"fletching_table\", \"quantity\": 48, \"index\": 38}, {\"type\": \"cyan_concrete_powder\", \"quantity\": 63, \"index\": 39}, {\"type\": \"honeycomb_block\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 4"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: dark_oak_planks\ninventory:\n - nether_brick_wall [I1] quantity 42\n - wither_rose [I2] quantity 29\n - red_nether_brick_slab [I3] quantity 7\n - black_concrete [I6] quantity 56\n - stripped_dark_oak_wood [I7] quantity 1\n - sugar [I8] quantity 55\n - diamond_hoe [I11] quantity 1\n - coal [I12] quantity 12\n - stripped_acacia_log [I15] quantity 37\n - stray_spawn_egg [I17] quantity 40\n - piglin_brute_spawn_egg [I22] quantity 28\n - written_book [I25] quantity 5\n - cod [I27] quantity 20\n - furnace_minecart [I28] quantity 1\n - fletching_table [I29] quantity 48\n - cyan_concrete_powder [I30] quantity 63\n - honeycomb_block [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: dark_oak_planks\ninventory:\n - dark_oak_planks [0] quantity 4\n - stripped_dark_oak_wood [A1] quantity 1\n - nether_brick_wall [I1] quantity 42\n - wither_rose [I2] quantity 29\n - red_nether_brick_slab [I3] quantity 7\n - black_concrete [I6] quantity 56\n - sugar [I8] quantity 55\n - diamond_hoe [I11] quantity 1\n - coal [I12] quantity 12\n - stripped_acacia_log [I15] quantity 37\n - stray_spawn_egg [I17] quantity 40\n - piglin_brute_spawn_egg [I22] quantity 28\n - written_book [I25] quantity 5\n - cod [I27] quantity 20\n - furnace_minecart [I28] quantity 1\n - fletching_table [I29] quantity 48\n - cyan_concrete_powder [I30] quantity 63\n - honeycomb_block [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 4"
+    }
+  ],
+  "example_id": "TRAIN0394"
+}

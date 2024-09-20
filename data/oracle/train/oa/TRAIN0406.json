@@ -1,98 +1,105 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"orange_tulip\", \"quantity\": 1, \"index\": 16}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 8, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 16 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"orange_tulip\", \"quantity\": 1, \"index\": 1}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 8, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 8, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 7, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 6, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 5, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 4, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 4, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 6}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 3, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 6}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 7}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 2, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 6}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 7}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 8}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 34}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: orange_terracotta\ninventory=[{\"type\": \"orange_terracotta\", \"quantity\": 8, \"index\": 0}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 1}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 2}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 3}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 4}, {\"type\": \"orange_dye\", \"quantity\": 1, \"index\": 5}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 6}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 7}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 8}, {\"type\": \"terracotta\", \"quantity\": 1, \"index\": 9}, {\"type\": \"brick_slab\", \"quantity\": 48, \"index\": 17}, {\"type\": \"polished_granite\", \"quantity\": 24, \"index\": 29}, {\"type\": \"jungle_pressure_plate\", \"quantity\": 34, \"index\": 35}, {\"type\": \"polished_andesite_slab\", \"quantity\": 26, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 8"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - orange_tulip [I7] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 8\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - orange_dye [0] quantity 1\n - orange_tulip [A1] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 8\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - orange_dye [I2] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 8\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - orange_dye [I2] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 7\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - orange_dye [I2] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 6\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - orange_dye [I2] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 5\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - orange_dye [I2] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 4\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - orange_dye [B2] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 4\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - orange_dye [B2] quantity 1\n - terracotta [B3] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 3\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - orange_dye [B2] quantity 1\n - terracotta [B3] quantity 1\n - terracotta [C1] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 2\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - orange_dye [B2] quantity 1\n - terracotta [B3] quantity 1\n - terracotta [C1] quantity 1\n - terracotta [C2] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - terracotta [I25] quantity 1\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: orange_terracotta\ninventory:\n - orange_terracotta [0] quantity 8\n - terracotta [A1] quantity 1\n - terracotta [A2] quantity 1\n - terracotta [A3] quantity 1\n - terracotta [B1] quantity 1\n - orange_dye [B2] quantity 1\n - terracotta [B3] quantity 1\n - terracotta [C1] quantity 1\n - terracotta [C2] quantity 1\n - terracotta [C3] quantity 1\n - brick_slab [I8] quantity 48\n - polished_granite [I20] quantity 24\n - jungle_pressure_plate [I26] quantity 34\n - polished_andesite_slab [I32] quantity 26"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 8"
+    }
+  ],
+  "example_id": "TRAIN0406"
+}

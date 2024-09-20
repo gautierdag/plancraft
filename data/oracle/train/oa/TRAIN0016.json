@@ -1,26 +1,33 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_quartz_block\ninventory=[{\"type\": \"dark_oak_sapling\", \"quantity\": 10, \"index\": 13}, {\"type\": \"fire_coral_fan\", \"quantity\": 56, \"index\": 14}, {\"type\": \"gold_nugget\", \"quantity\": 22, \"index\": 16}, {\"type\": \"spectral_arrow\", \"quantity\": 22, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 18, \"index\": 24}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 26}, {\"type\": \"cyan_concrete\", \"quantity\": 1, \"index\": 27}, {\"type\": \"cyan_terracotta\", \"quantity\": 56, \"index\": 28}, {\"type\": \"quartz_slab\", \"quantity\": 2, \"index\": 31}, {\"type\": \"gunpowder\", \"quantity\": 47, \"index\": 32}, {\"type\": \"villager_spawn_egg\", \"quantity\": 37, \"index\": 34}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 35}, {\"type\": \"birch_pressure_plate\", \"quantity\": 63, \"index\": 37}, {\"type\": \"diorite_slab\", \"quantity\": 27, \"index\": 39}, {\"type\": \"brick\", \"quantity\": 43, \"index\": 44}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 31 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_quartz_block\ninventory=[{\"type\": \"quartz_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_sapling\", \"quantity\": 10, \"index\": 13}, {\"type\": \"fire_coral_fan\", \"quantity\": 56, \"index\": 14}, {\"type\": \"gold_nugget\", \"quantity\": 22, \"index\": 16}, {\"type\": \"spectral_arrow\", \"quantity\": 22, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 18, \"index\": 24}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 26}, {\"type\": \"cyan_concrete\", \"quantity\": 1, \"index\": 27}, {\"type\": \"cyan_terracotta\", \"quantity\": 56, \"index\": 28}, {\"type\": \"quartz_slab\", \"quantity\": 1, \"index\": 31}, {\"type\": \"gunpowder\", \"quantity\": 47, \"index\": 32}, {\"type\": \"villager_spawn_egg\", \"quantity\": 37, \"index\": 34}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 35}, {\"type\": \"birch_pressure_plate\", \"quantity\": 63, \"index\": 37}, {\"type\": \"diorite_slab\", \"quantity\": 27, \"index\": 39}, {\"type\": \"brick\", \"quantity\": 43, \"index\": 44}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 31 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_quartz_block\ninventory=[{\"type\": \"chiseled_quartz_block\", \"quantity\": 1, \"index\": 0}, {\"type\": \"quartz_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"quartz_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dark_oak_sapling\", \"quantity\": 10, \"index\": 13}, {\"type\": \"fire_coral_fan\", \"quantity\": 56, \"index\": 14}, {\"type\": \"gold_nugget\", \"quantity\": 22, \"index\": 16}, {\"type\": \"spectral_arrow\", \"quantity\": 22, \"index\": 20}, {\"type\": \"yellow_bed\", \"quantity\": 1, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 18, \"index\": 24}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 26}, {\"type\": \"cyan_concrete\", \"quantity\": 1, \"index\": 27}, {\"type\": \"cyan_terracotta\", \"quantity\": 56, \"index\": 28}, {\"type\": \"gunpowder\", \"quantity\": 47, \"index\": 32}, {\"type\": \"villager_spawn_egg\", \"quantity\": 37, \"index\": 34}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 35}, {\"type\": \"birch_pressure_plate\", \"quantity\": 63, \"index\": 37}, {\"type\": \"diorite_slab\", \"quantity\": 27, \"index\": 39}, {\"type\": \"brick\", \"quantity\": 43, \"index\": 44}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_quartz_block\ninventory:\n - dark_oak_sapling [I4] quantity 10\n - fire_coral_fan [I5] quantity 56\n - gold_nugget [I7] quantity 22\n - spectral_arrow [I11] quantity 22\n - yellow_bed [I12] quantity 1\n - polished_blackstone [I15] quantity 18\n - golden_boots [I17] quantity 1\n - cyan_concrete [I18] quantity 1\n - cyan_terracotta [I19] quantity 56\n - quartz_slab [I22] quantity 2\n - gunpowder [I23] quantity 47\n - villager_spawn_egg [I25] quantity 37\n - iron_boots [I26] quantity 1\n - birch_pressure_plate [I28] quantity 63\n - diorite_slab [I30] quantity 27\n - brick [I35] quantity 43\n - stone_axe [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I22] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_quartz_block\ninventory:\n - quartz_slab [A1] quantity 1\n - dark_oak_sapling [I4] quantity 10\n - fire_coral_fan [I5] quantity 56\n - gold_nugget [I7] quantity 22\n - spectral_arrow [I11] quantity 22\n - yellow_bed [I12] quantity 1\n - polished_blackstone [I15] quantity 18\n - golden_boots [I17] quantity 1\n - cyan_concrete [I18] quantity 1\n - cyan_terracotta [I19] quantity 56\n - quartz_slab [I22] quantity 1\n - gunpowder [I23] quantity 47\n - villager_spawn_egg [I25] quantity 37\n - iron_boots [I26] quantity 1\n - birch_pressure_plate [I28] quantity 63\n - diorite_slab [I30] quantity 27\n - brick [I35] quantity 43\n - stone_axe [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I22] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_quartz_block\ninventory:\n - chiseled_quartz_block [0] quantity 1\n - quartz_slab [A1] quantity 1\n - quartz_slab [B1] quantity 1\n - dark_oak_sapling [I4] quantity 10\n - fire_coral_fan [I5] quantity 56\n - gold_nugget [I7] quantity 22\n - spectral_arrow [I11] quantity 22\n - yellow_bed [I12] quantity 1\n - polished_blackstone [I15] quantity 18\n - golden_boots [I17] quantity 1\n - cyan_concrete [I18] quantity 1\n - cyan_terracotta [I19] quantity 56\n - gunpowder [I23] quantity 47\n - villager_spawn_egg [I25] quantity 37\n - iron_boots [I26] quantity 1\n - birch_pressure_plate [I28] quantity 63\n - diorite_slab [I30] quantity 27\n - brick [I35] quantity 43\n - stone_axe [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0016"
+}

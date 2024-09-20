@@ -1,130 +1,137 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"cobblestone\", \"quantity\": 2, \"index\": 18}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"redstone_block\", \"quantity\": 1, \"index\": 39}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 39 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"redstone\", \"quantity\": 9, \"index\": 0}, {\"type\": \"redstone_block\", \"quantity\": 1, \"index\": 1}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"cobblestone\", \"quantity\": 2, \"index\": 18}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 9"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"cobblestone\", \"quantity\": 2, \"index\": 18}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 18 to slot 12 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 12}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"cobblestone\", \"quantity\": 1, \"index\": 18}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 18 to slot 13 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 12}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 13}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"stone_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 13}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 12}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 9, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 12}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 5, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 12}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 4, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 12}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 3, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 5}, {\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 3, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 2, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 7}, {\"type\": \"redstone\", \"quantity\": 9, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 7}, {\"type\": \"redstone\", \"quantity\": 1, \"index\": 8}, {\"type\": \"redstone\", \"quantity\": 8, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: detector_rail\ninventory=[{\"type\": \"detector_rail\", \"quantity\": 6, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stone_pressure_plate\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 7}, {\"type\": \"redstone\", \"quantity\": 1, \"index\": 8}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 9}, {\"type\": \"redstone\", \"quantity\": 8, \"index\": 11}, {\"type\": \"light_blue_concrete_powder\", \"quantity\": 59, \"index\": 15}, {\"type\": \"diorite\", \"quantity\": 14, \"index\": 25}, {\"type\": \"acacia_pressure_plate\", \"quantity\": 12, \"index\": 28}, {\"type\": \"diamond_helmet\", \"quantity\": 1, \"index\": 30}, {\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 33}, {\"type\": \"experience_bottle\", \"quantity\": 37, \"index\": 36}, {\"type\": \"warped_stem\", \"quantity\": 54, \"index\": 37}, {\"type\": \"quartz_pillar\", \"quantity\": 45, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 6"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - light_blue_concrete_powder [I6] quantity 59\n - cobblestone [I9] quantity 2\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - redstone_block [I30] quantity 1\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I30] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - redstone [0] quantity 9\n - redstone_block [A1] quantity 1\n - light_blue_concrete_powder [I6] quantity 59\n - cobblestone [I9] quantity 2\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 9"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - redstone [I2] quantity 9\n - light_blue_concrete_powder [I6] quantity 59\n - cobblestone [I9] quantity 2\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I9] to [I3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - redstone [I2] quantity 9\n - stone [I3] quantity 1\n - light_blue_concrete_powder [I6] quantity 59\n - cobblestone [I9] quantity 1\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I9] to [I4] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - redstone [I2] quantity 9\n - stone [I3] quantity 1\n - stone [I4] quantity 1\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - stone_button [0] quantity 1\n - stone [A1] quantity 1\n - redstone [I2] quantity 9\n - stone [I4] quantity 1\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - stone_pressure_plate [0] quantity 1\n - stone [A1] quantity 1\n - stone [A2] quantity 1\n - redstone [I2] quantity 9\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - redstone [I2] quantity 9\n - stone_pressure_plate [I3] quantity 1\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - iron_nugget [0] quantity 9\n - iron_ingot [A1] quantity 1\n - redstone [I2] quantity 9\n - stone_pressure_plate [I3] quantity 1\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - redstone [I2] quantity 9\n - stone_pressure_plate [I3] quantity 1\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 4"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - redstone [I2] quantity 9\n - stone_pressure_plate [I3] quantity 1\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 3"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stone_pressure_plate [B2] quantity 1\n - redstone [I2] quantity 9\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 3"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stone_pressure_plate [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - redstone [I2] quantity 9\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stone_pressure_plate [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - iron_ingot [C1] quantity 1\n - redstone [I2] quantity 9\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stone_pressure_plate [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - iron_ingot [C1] quantity 1\n - redstone [C2] quantity 1\n - redstone [I2] quantity 8\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45\n - iron_ingot [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: detector_rail\ninventory:\n - detector_rail [0] quantity 6\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stone_pressure_plate [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - iron_ingot [C1] quantity 1\n - redstone [C2] quantity 1\n - iron_ingot [C3] quantity 1\n - redstone [I2] quantity 8\n - light_blue_concrete_powder [I6] quantity 59\n - diorite [I16] quantity 14\n - acacia_pressure_plate [I19] quantity 12\n - diamond_helmet [I21] quantity 1\n - spruce_boat [I24] quantity 1\n - experience_bottle [I27] quantity 37\n - warped_stem [I28] quantity 54\n - quartz_pillar [I31] quantity 45"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 6"
+    }
+  ],
+  "example_id": "TRAIN0647"
+}

@@ -1,90 +1,97 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"bamboo\", \"quantity\": 2, \"index\": 31}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 31 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 31}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 31 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 0}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 1}, {\"type\": \"bamboo\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 16 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 6, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 16}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 10 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 9, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 5, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 16}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 10 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 4, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 16}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 10 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_ingot\", \"quantity\": 3, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 16}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 16 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 3, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 10 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_ingot\", \"quantity\": 2, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 10 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 7}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 10}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 10 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: rail\ninventory=[{\"type\": \"rail\", \"quantity\": 16, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 7}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 9}, {\"type\": \"stone_pressure_plate\", \"quantity\": 36, \"index\": 11}, {\"type\": \"potato\", \"quantity\": 28, \"index\": 12}, {\"type\": \"beacon\", \"quantity\": 52, \"index\": 13}, {\"type\": \"diamond\", \"quantity\": 50, \"index\": 14}, {\"type\": \"dropper\", \"quantity\": 33, \"index\": 15}, {\"type\": \"chainmail_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"polar_bear_spawn_egg\", \"quantity\": 15, \"index\": 23}, {\"type\": \"lever\", \"quantity\": 36, \"index\": 24}, {\"type\": \"pink_carpet\", \"quantity\": 5, \"index\": 26}, {\"type\": \"leather_horse_armor\", \"quantity\": 1, \"index\": 27}, {\"type\": \"mushroom_stew\", \"quantity\": 1, \"index\": 28}, {\"type\": \"polished_granite\", \"quantity\": 47, \"index\": 32}, {\"type\": \"black_glazed_terracotta\", \"quantity\": 61, \"index\": 38}, {\"type\": \"glass_pane\", \"quantity\": 24, \"index\": 40}, {\"type\": \"blue_dye\", \"quantity\": 10, \"index\": 43}, {\"type\": \"end_stone\", \"quantity\": 51, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 16 with quantity 16"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [I1] quantity 6\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - bamboo [I22] quantity 2\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I22] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - bamboo [A1] quantity 1\n - iron_ingot [I1] quantity 6\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - bamboo [I22] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I22] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - stick [0] quantity 1\n - bamboo [A1] quantity 1\n - bamboo [B1] quantity 1\n - iron_ingot [I1] quantity 6\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I7] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [I1] quantity 6\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - stick [I7] quantity 1\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I1] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_nugget [0] quantity 9\n - iron_ingot [A1] quantity 1\n - iron_ingot [I1] quantity 5\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - stick [I7] quantity 1\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I1] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [I1] quantity 4\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - stick [I7] quantity 1\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I1] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - iron_ingot [I1] quantity 3\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - stick [I7] quantity 1\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - iron_ingot [I1] quantity 3\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I1] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - iron_ingot [I1] quantity 2\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I1] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - iron_ingot [C1] quantity 1\n - iron_ingot [I1] quantity 1\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I1] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: rail\ninventory:\n - rail [0] quantity 16\n - iron_ingot [A1] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - iron_ingot [B3] quantity 1\n - iron_ingot [C1] quantity 1\n - iron_ingot [C3] quantity 1\n - stone_pressure_plate [I2] quantity 36\n - potato [I3] quantity 28\n - beacon [I4] quantity 52\n - diamond [I5] quantity 50\n - dropper [I6] quantity 33\n - chainmail_boots [I8] quantity 1\n - polar_bear_spawn_egg [I14] quantity 15\n - lever [I15] quantity 36\n - pink_carpet [I17] quantity 5\n - leather_horse_armor [I18] quantity 1\n - mushroom_stew [I19] quantity 1\n - polished_granite [I23] quantity 47\n - black_glazed_terracotta [I29] quantity 61\n - glass_pane [I31] quantity 24\n - blue_dye [I34] quantity 10\n - end_stone [I35] quantity 51"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I7] with quantity 16"
+    }
+  ],
+  "example_id": "VAL0127"
+}

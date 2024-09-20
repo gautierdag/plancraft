@@ -1,50 +1,57 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_helmet\ninventory=[{\"type\": \"snow\", \"quantity\": 37, \"index\": 12}, {\"type\": \"black_dye\", \"quantity\": 24, \"index\": 14}, {\"type\": \"birch_leaves\", \"quantity\": 41, \"index\": 19}, {\"type\": \"arrow\", \"quantity\": 56, \"index\": 23}, {\"type\": \"jungle_leaves\", \"quantity\": 62, \"index\": 30}, {\"type\": \"tipped_arrow\", \"quantity\": 55, \"index\": 31}, {\"type\": \"spider_eye\", \"quantity\": 32, \"index\": 32}, {\"type\": \"bee_nest\", \"quantity\": 44, \"index\": 37}, {\"type\": \"iron_ingot\", \"quantity\": 5, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 40 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_helmet\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 9, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"snow\", \"quantity\": 37, \"index\": 12}, {\"type\": \"black_dye\", \"quantity\": 24, \"index\": 14}, {\"type\": \"birch_leaves\", \"quantity\": 41, \"index\": 19}, {\"type\": \"arrow\", \"quantity\": 56, \"index\": 23}, {\"type\": \"jungle_leaves\", \"quantity\": 62, \"index\": 30}, {\"type\": \"tipped_arrow\", \"quantity\": 55, \"index\": 31}, {\"type\": \"spider_eye\", \"quantity\": 32, \"index\": 32}, {\"type\": \"bee_nest\", \"quantity\": 44, \"index\": 37}, {\"type\": \"iron_ingot\", \"quantity\": 4, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 40 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_helmet\ninventory=[{\"type\": \"heavy_weighted_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"snow\", \"quantity\": 37, \"index\": 12}, {\"type\": \"black_dye\", \"quantity\": 24, \"index\": 14}, {\"type\": \"birch_leaves\", \"quantity\": 41, \"index\": 19}, {\"type\": \"arrow\", \"quantity\": 56, \"index\": 23}, {\"type\": \"jungle_leaves\", \"quantity\": 62, \"index\": 30}, {\"type\": \"tipped_arrow\", \"quantity\": 55, \"index\": 31}, {\"type\": \"spider_eye\", \"quantity\": 32, \"index\": 32}, {\"type\": \"bee_nest\", \"quantity\": 44, \"index\": 37}, {\"type\": \"iron_ingot\", \"quantity\": 3, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 40 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_helmet\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"snow\", \"quantity\": 37, \"index\": 12}, {\"type\": \"black_dye\", \"quantity\": 24, \"index\": 14}, {\"type\": \"birch_leaves\", \"quantity\": 41, \"index\": 19}, {\"type\": \"arrow\", \"quantity\": 56, \"index\": 23}, {\"type\": \"jungle_leaves\", \"quantity\": 62, \"index\": 30}, {\"type\": \"tipped_arrow\", \"quantity\": 55, \"index\": 31}, {\"type\": \"spider_eye\", \"quantity\": 32, \"index\": 32}, {\"type\": \"bee_nest\", \"quantity\": 44, \"index\": 37}, {\"type\": \"iron_ingot\", \"quantity\": 2, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 40 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_helmet\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"snow\", \"quantity\": 37, \"index\": 12}, {\"type\": \"black_dye\", \"quantity\": 24, \"index\": 14}, {\"type\": \"birch_leaves\", \"quantity\": 41, \"index\": 19}, {\"type\": \"arrow\", \"quantity\": 56, \"index\": 23}, {\"type\": \"jungle_leaves\", \"quantity\": 62, \"index\": 30}, {\"type\": \"tipped_arrow\", \"quantity\": 55, \"index\": 31}, {\"type\": \"spider_eye\", \"quantity\": 32, \"index\": 32}, {\"type\": \"bee_nest\", \"quantity\": 44, \"index\": 37}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 40 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_helmet\ninventory=[{\"type\": \"iron_helmet\", \"quantity\": 1, \"index\": 0}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 6}, {\"type\": \"snow\", \"quantity\": 37, \"index\": 12}, {\"type\": \"black_dye\", \"quantity\": 24, \"index\": 14}, {\"type\": \"birch_leaves\", \"quantity\": 41, \"index\": 19}, {\"type\": \"arrow\", \"quantity\": 56, \"index\": 23}, {\"type\": \"jungle_leaves\", \"quantity\": 62, \"index\": 30}, {\"type\": \"tipped_arrow\", \"quantity\": 55, \"index\": 31}, {\"type\": \"spider_eye\", \"quantity\": 32, \"index\": 32}, {\"type\": \"bee_nest\", \"quantity\": 44, \"index\": 37}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_helmet\ninventory:\n - snow [I3] quantity 37\n - black_dye [I5] quantity 24\n - birch_leaves [I10] quantity 41\n - arrow [I14] quantity 56\n - jungle_leaves [I21] quantity 62\n - tipped_arrow [I22] quantity 55\n - spider_eye [I23] quantity 32\n - bee_nest [I28] quantity 44\n - iron_ingot [I31] quantity 5"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I31] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_helmet\ninventory:\n - iron_nugget [0] quantity 9\n - iron_ingot [A1] quantity 1\n - snow [I3] quantity 37\n - black_dye [I5] quantity 24\n - birch_leaves [I10] quantity 41\n - arrow [I14] quantity 56\n - jungle_leaves [I21] quantity 62\n - tipped_arrow [I22] quantity 55\n - spider_eye [I23] quantity 32\n - bee_nest [I28] quantity 44\n - iron_ingot [I31] quantity 4"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I31] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_helmet\ninventory:\n - heavy_weighted_pressure_plate [0] quantity 1\n - iron_ingot [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - snow [I3] quantity 37\n - black_dye [I5] quantity 24\n - birch_leaves [I10] quantity 41\n - arrow [I14] quantity 56\n - jungle_leaves [I21] quantity 62\n - tipped_arrow [I22] quantity 55\n - spider_eye [I23] quantity 32\n - bee_nest [I28] quantity 44\n - iron_ingot [I31] quantity 3"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I31] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_helmet\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - iron_ingot [A3] quantity 1\n - snow [I3] quantity 37\n - black_dye [I5] quantity 24\n - birch_leaves [I10] quantity 41\n - arrow [I14] quantity 56\n - jungle_leaves [I21] quantity 62\n - tipped_arrow [I22] quantity 55\n - spider_eye [I23] quantity 32\n - bee_nest [I28] quantity 44\n - iron_ingot [I31] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I31] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_helmet\ninventory:\n - iron_ingot [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - snow [I3] quantity 37\n - black_dye [I5] quantity 24\n - birch_leaves [I10] quantity 41\n - arrow [I14] quantity 56\n - jungle_leaves [I21] quantity 62\n - tipped_arrow [I22] quantity 55\n - spider_eye [I23] quantity 32\n - bee_nest [I28] quantity 44\n - iron_ingot [I31] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I31] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_helmet\ninventory:\n - iron_helmet [0] quantity 1\n - iron_ingot [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - iron_ingot [A3] quantity 1\n - iron_ingot [B1] quantity 1\n - iron_ingot [B3] quantity 1\n - snow [I3] quantity 37\n - black_dye [I5] quantity 24\n - birch_leaves [I10] quantity 41\n - arrow [I14] quantity 56\n - jungle_leaves [I21] quantity 62\n - tipped_arrow [I22] quantity 55\n - spider_eye [I23] quantity 32\n - bee_nest [I28] quantity 44"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0342"
+}

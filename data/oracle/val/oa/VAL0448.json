@@ -1,18 +1,25 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: jungle_planks\ninventory=[{\"type\": \"netherite_pickaxe\", \"quantity\": 1, \"index\": 14}, {\"type\": \"chest\", \"quantity\": 11, \"index\": 15}, {\"type\": \"cornflower\", \"quantity\": 56, \"index\": 16}, {\"type\": \"snow\", \"quantity\": 50, \"index\": 17}, {\"type\": \"orange_stained_glass\", \"quantity\": 55, \"index\": 19}, {\"type\": \"black_carpet\", \"quantity\": 48, \"index\": 20}, {\"type\": \"jungle_log\", \"quantity\": 1, \"index\": 24}, {\"type\": \"soul_lantern\", \"quantity\": 49, \"index\": 26}, {\"type\": \"dragon_egg\", \"quantity\": 22, \"index\": 27}, {\"type\": \"campfire\", \"quantity\": 37, \"index\": 29}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 45, \"index\": 30}, {\"type\": \"cat_spawn_egg\", \"quantity\": 11, \"index\": 32}, {\"type\": \"bone_block\", \"quantity\": 42, \"index\": 34}, {\"type\": \"brick_slab\", \"quantity\": 24, \"index\": 38}, {\"type\": \"black_wool\", \"quantity\": 17, \"index\": 39}, {\"type\": \"sugar_cane\", \"quantity\": 27, \"index\": 41}, {\"type\": \"stone_shovel\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: jungle_planks\ninventory=[{\"type\": \"jungle_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"jungle_log\", \"quantity\": 1, \"index\": 1}, {\"type\": \"netherite_pickaxe\", \"quantity\": 1, \"index\": 14}, {\"type\": \"chest\", \"quantity\": 11, \"index\": 15}, {\"type\": \"cornflower\", \"quantity\": 56, \"index\": 16}, {\"type\": \"snow\", \"quantity\": 50, \"index\": 17}, {\"type\": \"orange_stained_glass\", \"quantity\": 55, \"index\": 19}, {\"type\": \"black_carpet\", \"quantity\": 48, \"index\": 20}, {\"type\": \"soul_lantern\", \"quantity\": 49, \"index\": 26}, {\"type\": \"dragon_egg\", \"quantity\": 22, \"index\": 27}, {\"type\": \"campfire\", \"quantity\": 37, \"index\": 29}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 45, \"index\": 30}, {\"type\": \"cat_spawn_egg\", \"quantity\": 11, \"index\": 32}, {\"type\": \"bone_block\", \"quantity\": 42, \"index\": 34}, {\"type\": \"brick_slab\", \"quantity\": 24, \"index\": 38}, {\"type\": \"black_wool\", \"quantity\": 17, \"index\": 39}, {\"type\": \"sugar_cane\", \"quantity\": 27, \"index\": 41}, {\"type\": \"stone_shovel\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 4"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: jungle_planks\ninventory:\n - netherite_pickaxe [I5] quantity 1\n - chest [I6] quantity 11\n - cornflower [I7] quantity 56\n - snow [I8] quantity 50\n - orange_stained_glass [I10] quantity 55\n - black_carpet [I11] quantity 48\n - jungle_log [I15] quantity 1\n - soul_lantern [I17] quantity 49\n - dragon_egg [I18] quantity 22\n - campfire [I20] quantity 37\n - popped_chorus_fruit [I21] quantity 45\n - cat_spawn_egg [I23] quantity 11\n - bone_block [I25] quantity 42\n - brick_slab [I29] quantity 24\n - black_wool [I30] quantity 17\n - sugar_cane [I32] quantity 27\n - stone_shovel [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: jungle_planks\ninventory:\n - jungle_planks [0] quantity 4\n - jungle_log [A1] quantity 1\n - netherite_pickaxe [I5] quantity 1\n - chest [I6] quantity 11\n - cornflower [I7] quantity 56\n - snow [I8] quantity 50\n - orange_stained_glass [I10] quantity 55\n - black_carpet [I11] quantity 48\n - soul_lantern [I17] quantity 49\n - dragon_egg [I18] quantity 22\n - campfire [I20] quantity 37\n - popped_chorus_fruit [I21] quantity 45\n - cat_spawn_egg [I23] quantity 11\n - bone_block [I25] quantity 42\n - brick_slab [I29] quantity 24\n - black_wool [I30] quantity 17\n - sugar_cane [I32] quantity 27\n - stone_shovel [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 4"
+    }
+  ],
+  "example_id": "VAL0448"
+}

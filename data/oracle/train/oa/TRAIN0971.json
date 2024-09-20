@@ -1,82 +1,89 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}, {\"type\": \"spruce_wood\", \"quantity\": 2, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"spruce_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}, {\"type\": \"spruce_wood\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 12}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}, {\"type\": \"spruce_wood\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"spruce_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 12}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 15 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 12}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 15}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 3, \"index\": 12}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 15}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 15}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 12}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 15}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 5}, {\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 15}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 15 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 0}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 5}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 6}, {\"type\": \"light_gray_carpet\", \"quantity\": 37, \"index\": 10}, {\"type\": \"smooth_quartz_slab\", \"quantity\": 58, \"index\": 11}, {\"type\": \"slime_block\", \"quantity\": 45, \"index\": 13}, {\"type\": \"jack_o_lantern\", \"quantity\": 1, \"index\": 14}, {\"type\": \"spruce_planks\", \"quantity\": 3, \"index\": 15}, {\"type\": \"mossy_cobblestone_stairs\", \"quantity\": 3, \"index\": 19}, {\"type\": \"dandelion\", \"quantity\": 20, \"index\": 24}, {\"type\": \"red_sandstone_slab\", \"quantity\": 15, \"index\": 27}, {\"type\": \"nether_brick\", \"quantity\": 48, \"index\": 31}, {\"type\": \"green_carpet\", \"quantity\": 49, \"index\": 32}, {\"type\": \"gold_ore\", \"quantity\": 57, \"index\": 33}, {\"type\": \"bone_meal\", \"quantity\": 54, \"index\": 35}, {\"type\": \"yellow_carpet\", \"quantity\": 61, \"index\": 36}, {\"type\": \"pink_terracotta\", \"quantity\": 52, \"index\": 38}, {\"type\": \"potato\", \"quantity\": 29, \"index\": 40}, {\"type\": \"sea_lantern\", \"quantity\": 31, \"index\": 42}, {\"type\": \"infested_chiseled_stone_bricks\", \"quantity\": 23, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23\n - spruce_wood [I36] quantity 2"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [0] quantity 4\n - spruce_wood [A1] quantity 1\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23\n - spruce_wood [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - spruce_planks [I3] quantity 4\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23\n - spruce_wood [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [0] quantity 4\n - spruce_wood [A1] quantity 1\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - spruce_planks [I3] quantity 4\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I6] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - spruce_planks [I3] quantity 4\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - spruce_planks [I6] quantity 4\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_button [0] quantity 1\n - spruce_planks [A1] quantity 1\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - spruce_planks [I3] quantity 3\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - spruce_planks [I6] quantity 4\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [A1] quantity 1\n - spruce_planks [A3] quantity 1\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - spruce_planks [I3] quantity 2\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - spruce_planks [I6] quantity 4\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [A1] quantity 1\n - spruce_planks [A3] quantity 1\n - spruce_planks [B1] quantity 1\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - spruce_planks [I3] quantity 1\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - spruce_planks [I6] quantity 4\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [A1] quantity 1\n - spruce_planks [A3] quantity 1\n - spruce_planks [B1] quantity 1\n - spruce_planks [B2] quantity 1\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - spruce_planks [I6] quantity 4\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I6] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_boat [0] quantity 1\n - spruce_planks [A1] quantity 1\n - spruce_planks [A3] quantity 1\n - spruce_planks [B1] quantity 1\n - spruce_planks [B2] quantity 1\n - spruce_planks [B3] quantity 1\n - light_gray_carpet [I1] quantity 37\n - smooth_quartz_slab [I2] quantity 58\n - slime_block [I4] quantity 45\n - jack_o_lantern [I5] quantity 1\n - spruce_planks [I6] quantity 3\n - mossy_cobblestone_stairs [I10] quantity 3\n - dandelion [I15] quantity 20\n - red_sandstone_slab [I18] quantity 15\n - nether_brick [I22] quantity 48\n - green_carpet [I23] quantity 49\n - gold_ore [I24] quantity 57\n - bone_meal [I26] quantity 54\n - yellow_carpet [I27] quantity 61\n - pink_terracotta [I29] quantity 52\n - potato [I31] quantity 29\n - sea_lantern [I33] quantity 31\n - infested_chiseled_stone_bricks [I34] quantity 23"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0971"
+}

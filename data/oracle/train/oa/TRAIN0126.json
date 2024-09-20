@@ -1,66 +1,73 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_banner\ninventory=[{\"type\": \"cut_sandstone_slab\", \"quantity\": 5, \"index\": 10}, {\"type\": \"jack_o_lantern\", \"quantity\": 57, \"index\": 13}, {\"type\": \"iron_sword\", \"quantity\": 1, \"index\": 14}, {\"type\": \"lime_concrete_powder\", \"quantity\": 41, \"index\": 15}, {\"type\": \"pink_concrete\", \"quantity\": 41, \"index\": 16}, {\"type\": \"lily_pad\", \"quantity\": 47, \"index\": 18}, {\"type\": \"soul_torch\", \"quantity\": 39, \"index\": 20}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 22}, {\"type\": \"written_book\", \"quantity\": 15, \"index\": 26}, {\"type\": \"pumpkin_seeds\", \"quantity\": 49, \"index\": 27}, {\"type\": \"lilac\", \"quantity\": 59, \"index\": 31}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 63, \"index\": 35}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 36}, {\"type\": \"red_wool\", \"quantity\": 6, \"index\": 37}, {\"type\": \"smooth_sandstone_slab\", \"quantity\": 40, \"index\": 39}, {\"type\": \"warped_fungus\", \"quantity\": 23, \"index\": 40}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"crimson_planks\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 37 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_banner\ninventory=[{\"type\": \"red_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cut_sandstone_slab\", \"quantity\": 5, \"index\": 10}, {\"type\": \"jack_o_lantern\", \"quantity\": 57, \"index\": 13}, {\"type\": \"iron_sword\", \"quantity\": 1, \"index\": 14}, {\"type\": \"lime_concrete_powder\", \"quantity\": 41, \"index\": 15}, {\"type\": \"pink_concrete\", \"quantity\": 41, \"index\": 16}, {\"type\": \"lily_pad\", \"quantity\": 47, \"index\": 18}, {\"type\": \"soul_torch\", \"quantity\": 39, \"index\": 20}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 22}, {\"type\": \"written_book\", \"quantity\": 15, \"index\": 26}, {\"type\": \"pumpkin_seeds\", \"quantity\": 49, \"index\": 27}, {\"type\": \"lilac\", \"quantity\": 59, \"index\": 31}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 63, \"index\": 35}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 36}, {\"type\": \"red_wool\", \"quantity\": 5, \"index\": 37}, {\"type\": \"smooth_sandstone_slab\", \"quantity\": 40, \"index\": 39}, {\"type\": \"warped_fungus\", \"quantity\": 23, \"index\": 40}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"crimson_planks\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 37 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_banner\ninventory=[{\"type\": \"red_carpet\", \"quantity\": 3, \"index\": 0}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cut_sandstone_slab\", \"quantity\": 5, \"index\": 10}, {\"type\": \"jack_o_lantern\", \"quantity\": 57, \"index\": 13}, {\"type\": \"iron_sword\", \"quantity\": 1, \"index\": 14}, {\"type\": \"lime_concrete_powder\", \"quantity\": 41, \"index\": 15}, {\"type\": \"pink_concrete\", \"quantity\": 41, \"index\": 16}, {\"type\": \"lily_pad\", \"quantity\": 47, \"index\": 18}, {\"type\": \"soul_torch\", \"quantity\": 39, \"index\": 20}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 22}, {\"type\": \"written_book\", \"quantity\": 15, \"index\": 26}, {\"type\": \"pumpkin_seeds\", \"quantity\": 49, \"index\": 27}, {\"type\": \"lilac\", \"quantity\": 59, \"index\": 31}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 63, \"index\": 35}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 36}, {\"type\": \"red_wool\", \"quantity\": 4, \"index\": 37}, {\"type\": \"smooth_sandstone_slab\", \"quantity\": 40, \"index\": 39}, {\"type\": \"warped_fungus\", \"quantity\": 23, \"index\": 40}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"crimson_planks\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 37 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_banner\ninventory=[{\"type\": \"red_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cut_sandstone_slab\", \"quantity\": 5, \"index\": 10}, {\"type\": \"jack_o_lantern\", \"quantity\": 57, \"index\": 13}, {\"type\": \"iron_sword\", \"quantity\": 1, \"index\": 14}, {\"type\": \"lime_concrete_powder\", \"quantity\": 41, \"index\": 15}, {\"type\": \"pink_concrete\", \"quantity\": 41, \"index\": 16}, {\"type\": \"lily_pad\", \"quantity\": 47, \"index\": 18}, {\"type\": \"soul_torch\", \"quantity\": 39, \"index\": 20}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 22}, {\"type\": \"written_book\", \"quantity\": 15, \"index\": 26}, {\"type\": \"pumpkin_seeds\", \"quantity\": 49, \"index\": 27}, {\"type\": \"lilac\", \"quantity\": 59, \"index\": 31}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 63, \"index\": 35}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 36}, {\"type\": \"red_wool\", \"quantity\": 3, \"index\": 37}, {\"type\": \"smooth_sandstone_slab\", \"quantity\": 40, \"index\": 39}, {\"type\": \"warped_fungus\", \"quantity\": 23, \"index\": 40}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"crimson_planks\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 37 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_banner\ninventory=[{\"type\": \"red_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 4}, {\"type\": \"cut_sandstone_slab\", \"quantity\": 5, \"index\": 10}, {\"type\": \"jack_o_lantern\", \"quantity\": 57, \"index\": 13}, {\"type\": \"iron_sword\", \"quantity\": 1, \"index\": 14}, {\"type\": \"lime_concrete_powder\", \"quantity\": 41, \"index\": 15}, {\"type\": \"pink_concrete\", \"quantity\": 41, \"index\": 16}, {\"type\": \"lily_pad\", \"quantity\": 47, \"index\": 18}, {\"type\": \"soul_torch\", \"quantity\": 39, \"index\": 20}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 22}, {\"type\": \"written_book\", \"quantity\": 15, \"index\": 26}, {\"type\": \"pumpkin_seeds\", \"quantity\": 49, \"index\": 27}, {\"type\": \"lilac\", \"quantity\": 59, \"index\": 31}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 63, \"index\": 35}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 36}, {\"type\": \"red_wool\", \"quantity\": 2, \"index\": 37}, {\"type\": \"smooth_sandstone_slab\", \"quantity\": 40, \"index\": 39}, {\"type\": \"warped_fungus\", \"quantity\": 23, \"index\": 40}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"crimson_planks\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 37 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_banner\ninventory=[{\"type\": \"red_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 4}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 5}, {\"type\": \"cut_sandstone_slab\", \"quantity\": 5, \"index\": 10}, {\"type\": \"jack_o_lantern\", \"quantity\": 57, \"index\": 13}, {\"type\": \"iron_sword\", \"quantity\": 1, \"index\": 14}, {\"type\": \"lime_concrete_powder\", \"quantity\": 41, \"index\": 15}, {\"type\": \"pink_concrete\", \"quantity\": 41, \"index\": 16}, {\"type\": \"lily_pad\", \"quantity\": 47, \"index\": 18}, {\"type\": \"soul_torch\", \"quantity\": 39, \"index\": 20}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 22}, {\"type\": \"written_book\", \"quantity\": 15, \"index\": 26}, {\"type\": \"pumpkin_seeds\", \"quantity\": 49, \"index\": 27}, {\"type\": \"lilac\", \"quantity\": 59, \"index\": 31}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 63, \"index\": 35}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 36}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 37}, {\"type\": \"smooth_sandstone_slab\", \"quantity\": 40, \"index\": 39}, {\"type\": \"warped_fungus\", \"quantity\": 23, \"index\": 40}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"crimson_planks\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 37 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_banner\ninventory=[{\"type\": \"red_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 4}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 5}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 6}, {\"type\": \"cut_sandstone_slab\", \"quantity\": 5, \"index\": 10}, {\"type\": \"jack_o_lantern\", \"quantity\": 57, \"index\": 13}, {\"type\": \"iron_sword\", \"quantity\": 1, \"index\": 14}, {\"type\": \"lime_concrete_powder\", \"quantity\": 41, \"index\": 15}, {\"type\": \"pink_concrete\", \"quantity\": 41, \"index\": 16}, {\"type\": \"lily_pad\", \"quantity\": 47, \"index\": 18}, {\"type\": \"soul_torch\", \"quantity\": 39, \"index\": 20}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 22}, {\"type\": \"written_book\", \"quantity\": 15, \"index\": 26}, {\"type\": \"pumpkin_seeds\", \"quantity\": 49, \"index\": 27}, {\"type\": \"lilac\", \"quantity\": 59, \"index\": 31}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 63, \"index\": 35}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 36}, {\"type\": \"smooth_sandstone_slab\", \"quantity\": 40, \"index\": 39}, {\"type\": \"warped_fungus\", \"quantity\": 23, \"index\": 40}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"crimson_planks\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 22 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: red_banner\ninventory=[{\"type\": \"red_banner\", \"quantity\": 1, \"index\": 0}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 1}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 3}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 4}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 5}, {\"type\": \"red_wool\", \"quantity\": 1, \"index\": 6}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 8}, {\"type\": \"cut_sandstone_slab\", \"quantity\": 5, \"index\": 10}, {\"type\": \"jack_o_lantern\", \"quantity\": 57, \"index\": 13}, {\"type\": \"iron_sword\", \"quantity\": 1, \"index\": 14}, {\"type\": \"lime_concrete_powder\", \"quantity\": 41, \"index\": 15}, {\"type\": \"pink_concrete\", \"quantity\": 41, \"index\": 16}, {\"type\": \"lily_pad\", \"quantity\": 47, \"index\": 18}, {\"type\": \"soul_torch\", \"quantity\": 39, \"index\": 20}, {\"type\": \"written_book\", \"quantity\": 15, \"index\": 26}, {\"type\": \"pumpkin_seeds\", \"quantity\": 49, \"index\": 27}, {\"type\": \"lilac\", \"quantity\": 59, \"index\": 31}, {\"type\": \"magma_cube_spawn_egg\", \"quantity\": 63, \"index\": 35}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 36}, {\"type\": \"smooth_sandstone_slab\", \"quantity\": 40, \"index\": 39}, {\"type\": \"warped_fungus\", \"quantity\": 23, \"index\": 40}, {\"type\": \"red_bed\", \"quantity\": 1, \"index\": 41}, {\"type\": \"crimson_planks\", \"quantity\": 52, \"index\": 42}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_banner\ninventory:\n - cut_sandstone_slab [I1] quantity 5\n - jack_o_lantern [I4] quantity 57\n - iron_sword [I5] quantity 1\n - lime_concrete_powder [I6] quantity 41\n - pink_concrete [I7] quantity 41\n - lily_pad [I9] quantity 47\n - soul_torch [I11] quantity 39\n - stick [I13] quantity 1\n - written_book [I17] quantity 15\n - pumpkin_seeds [I18] quantity 49\n - lilac [I22] quantity 59\n - magma_cube_spawn_egg [I26] quantity 63\n - carrot_on_a_stick [I27] quantity 1\n - red_wool [I28] quantity 6\n - smooth_sandstone_slab [I30] quantity 40\n - warped_fungus [I31] quantity 23\n - red_bed [I32] quantity 1\n - crimson_planks [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I28] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_banner\ninventory:\n - red_wool [A1] quantity 1\n - cut_sandstone_slab [I1] quantity 5\n - jack_o_lantern [I4] quantity 57\n - iron_sword [I5] quantity 1\n - lime_concrete_powder [I6] quantity 41\n - pink_concrete [I7] quantity 41\n - lily_pad [I9] quantity 47\n - soul_torch [I11] quantity 39\n - stick [I13] quantity 1\n - written_book [I17] quantity 15\n - pumpkin_seeds [I18] quantity 49\n - lilac [I22] quantity 59\n - magma_cube_spawn_egg [I26] quantity 63\n - carrot_on_a_stick [I27] quantity 1\n - red_wool [I28] quantity 5\n - smooth_sandstone_slab [I30] quantity 40\n - warped_fungus [I31] quantity 23\n - red_bed [I32] quantity 1\n - crimson_planks [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I28] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_banner\ninventory:\n - red_carpet [0] quantity 3\n - red_wool [A1] quantity 1\n - red_wool [A2] quantity 1\n - cut_sandstone_slab [I1] quantity 5\n - jack_o_lantern [I4] quantity 57\n - iron_sword [I5] quantity 1\n - lime_concrete_powder [I6] quantity 41\n - pink_concrete [I7] quantity 41\n - lily_pad [I9] quantity 47\n - soul_torch [I11] quantity 39\n - stick [I13] quantity 1\n - written_book [I17] quantity 15\n - pumpkin_seeds [I18] quantity 49\n - lilac [I22] quantity 59\n - magma_cube_spawn_egg [I26] quantity 63\n - carrot_on_a_stick [I27] quantity 1\n - red_wool [I28] quantity 4\n - smooth_sandstone_slab [I30] quantity 40\n - warped_fungus [I31] quantity 23\n - red_bed [I32] quantity 1\n - crimson_planks [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I28] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_banner\ninventory:\n - red_wool [A1] quantity 1\n - red_wool [A2] quantity 1\n - red_wool [A3] quantity 1\n - cut_sandstone_slab [I1] quantity 5\n - jack_o_lantern [I4] quantity 57\n - iron_sword [I5] quantity 1\n - lime_concrete_powder [I6] quantity 41\n - pink_concrete [I7] quantity 41\n - lily_pad [I9] quantity 47\n - soul_torch [I11] quantity 39\n - stick [I13] quantity 1\n - written_book [I17] quantity 15\n - pumpkin_seeds [I18] quantity 49\n - lilac [I22] quantity 59\n - magma_cube_spawn_egg [I26] quantity 63\n - carrot_on_a_stick [I27] quantity 1\n - red_wool [I28] quantity 3\n - smooth_sandstone_slab [I30] quantity 40\n - warped_fungus [I31] quantity 23\n - red_bed [I32] quantity 1\n - crimson_planks [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I28] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_banner\ninventory:\n - red_wool [A1] quantity 1\n - red_wool [A2] quantity 1\n - red_wool [A3] quantity 1\n - red_wool [B1] quantity 1\n - cut_sandstone_slab [I1] quantity 5\n - jack_o_lantern [I4] quantity 57\n - iron_sword [I5] quantity 1\n - lime_concrete_powder [I6] quantity 41\n - pink_concrete [I7] quantity 41\n - lily_pad [I9] quantity 47\n - soul_torch [I11] quantity 39\n - stick [I13] quantity 1\n - written_book [I17] quantity 15\n - pumpkin_seeds [I18] quantity 49\n - lilac [I22] quantity 59\n - magma_cube_spawn_egg [I26] quantity 63\n - carrot_on_a_stick [I27] quantity 1\n - red_wool [I28] quantity 2\n - smooth_sandstone_slab [I30] quantity 40\n - warped_fungus [I31] quantity 23\n - red_bed [I32] quantity 1\n - crimson_planks [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I28] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_banner\ninventory:\n - red_wool [A1] quantity 1\n - red_wool [A2] quantity 1\n - red_wool [A3] quantity 1\n - red_wool [B1] quantity 1\n - red_wool [B2] quantity 1\n - cut_sandstone_slab [I1] quantity 5\n - jack_o_lantern [I4] quantity 57\n - iron_sword [I5] quantity 1\n - lime_concrete_powder [I6] quantity 41\n - pink_concrete [I7] quantity 41\n - lily_pad [I9] quantity 47\n - soul_torch [I11] quantity 39\n - stick [I13] quantity 1\n - written_book [I17] quantity 15\n - pumpkin_seeds [I18] quantity 49\n - lilac [I22] quantity 59\n - magma_cube_spawn_egg [I26] quantity 63\n - carrot_on_a_stick [I27] quantity 1\n - red_wool [I28] quantity 1\n - smooth_sandstone_slab [I30] quantity 40\n - warped_fungus [I31] quantity 23\n - red_bed [I32] quantity 1\n - crimson_planks [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I28] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_banner\ninventory:\n - red_wool [A1] quantity 1\n - red_wool [A2] quantity 1\n - red_wool [A3] quantity 1\n - red_wool [B1] quantity 1\n - red_wool [B2] quantity 1\n - red_wool [B3] quantity 1\n - cut_sandstone_slab [I1] quantity 5\n - jack_o_lantern [I4] quantity 57\n - iron_sword [I5] quantity 1\n - lime_concrete_powder [I6] quantity 41\n - pink_concrete [I7] quantity 41\n - lily_pad [I9] quantity 47\n - soul_torch [I11] quantity 39\n - stick [I13] quantity 1\n - written_book [I17] quantity 15\n - pumpkin_seeds [I18] quantity 49\n - lilac [I22] quantity 59\n - magma_cube_spawn_egg [I26] quantity 63\n - carrot_on_a_stick [I27] quantity 1\n - smooth_sandstone_slab [I30] quantity 40\n - warped_fungus [I31] quantity 23\n - red_bed [I32] quantity 1\n - crimson_planks [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I13] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: red_banner\ninventory:\n - red_banner [0] quantity 1\n - red_wool [A1] quantity 1\n - red_wool [A2] quantity 1\n - red_wool [A3] quantity 1\n - red_wool [B1] quantity 1\n - red_wool [B2] quantity 1\n - red_wool [B3] quantity 1\n - stick [C2] quantity 1\n - cut_sandstone_slab [I1] quantity 5\n - jack_o_lantern [I4] quantity 57\n - iron_sword [I5] quantity 1\n - lime_concrete_powder [I6] quantity 41\n - pink_concrete [I7] quantity 41\n - lily_pad [I9] quantity 47\n - soul_torch [I11] quantity 39\n - written_book [I17] quantity 15\n - pumpkin_seeds [I18] quantity 49\n - lilac [I22] quantity 59\n - magma_cube_spawn_egg [I26] quantity 63\n - carrot_on_a_stick [I27] quantity 1\n - smooth_sandstone_slab [I30] quantity 40\n - warped_fungus [I31] quantity 23\n - red_bed [I32] quantity 1\n - crimson_planks [I33] quantity 52"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0126"
+}

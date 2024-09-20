@@ -1,26 +1,33 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: purpur_pillar\ninventory=[{\"type\": \"black_shulker_box\", \"quantity\": 1, \"index\": 11}, {\"type\": \"cut_red_sandstone_slab\", \"quantity\": 56, \"index\": 14}, {\"type\": \"green_terracotta\", \"quantity\": 40, \"index\": 15}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 16}, {\"type\": \"stripped_crimson_stem\", \"quantity\": 41, \"index\": 18}, {\"type\": \"orange_bed\", \"quantity\": 1, \"index\": 25}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 36, \"index\": 26}, {\"type\": \"spruce_button\", \"quantity\": 55, \"index\": 27}, {\"type\": \"warped_hyphae\", \"quantity\": 53, \"index\": 29}, {\"type\": \"blue_wool\", \"quantity\": 4, \"index\": 30}, {\"type\": \"turtle_helmet\", \"quantity\": 1, \"index\": 31}, {\"type\": \"coal_ore\", \"quantity\": 35, \"index\": 32}, {\"type\": \"lever\", \"quantity\": 59, \"index\": 34}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 40, \"index\": 35}, {\"type\": \"diorite\", \"quantity\": 41, \"index\": 36}, {\"type\": \"purpur_slab\", \"quantity\": 2, \"index\": 37}, {\"type\": \"wooden_sword\", \"quantity\": 1, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 37 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: purpur_pillar\ninventory=[{\"type\": \"purpur_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"black_shulker_box\", \"quantity\": 1, \"index\": 11}, {\"type\": \"cut_red_sandstone_slab\", \"quantity\": 56, \"index\": 14}, {\"type\": \"green_terracotta\", \"quantity\": 40, \"index\": 15}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 16}, {\"type\": \"stripped_crimson_stem\", \"quantity\": 41, \"index\": 18}, {\"type\": \"orange_bed\", \"quantity\": 1, \"index\": 25}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 36, \"index\": 26}, {\"type\": \"spruce_button\", \"quantity\": 55, \"index\": 27}, {\"type\": \"warped_hyphae\", \"quantity\": 53, \"index\": 29}, {\"type\": \"blue_wool\", \"quantity\": 4, \"index\": 30}, {\"type\": \"turtle_helmet\", \"quantity\": 1, \"index\": 31}, {\"type\": \"coal_ore\", \"quantity\": 35, \"index\": 32}, {\"type\": \"lever\", \"quantity\": 59, \"index\": 34}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 40, \"index\": 35}, {\"type\": \"diorite\", \"quantity\": 41, \"index\": 36}, {\"type\": \"purpur_slab\", \"quantity\": 1, \"index\": 37}, {\"type\": \"wooden_sword\", \"quantity\": 1, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 37 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: purpur_pillar\ninventory=[{\"type\": \"purpur_pillar\", \"quantity\": 1, \"index\": 0}, {\"type\": \"purpur_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"purpur_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"black_shulker_box\", \"quantity\": 1, \"index\": 11}, {\"type\": \"cut_red_sandstone_slab\", \"quantity\": 56, \"index\": 14}, {\"type\": \"green_terracotta\", \"quantity\": 40, \"index\": 15}, {\"type\": \"diamond_leggings\", \"quantity\": 1, \"index\": 16}, {\"type\": \"stripped_crimson_stem\", \"quantity\": 41, \"index\": 18}, {\"type\": \"orange_bed\", \"quantity\": 1, \"index\": 25}, {\"type\": \"chiseled_polished_blackstone\", \"quantity\": 36, \"index\": 26}, {\"type\": \"spruce_button\", \"quantity\": 55, \"index\": 27}, {\"type\": \"warped_hyphae\", \"quantity\": 53, \"index\": 29}, {\"type\": \"blue_wool\", \"quantity\": 4, \"index\": 30}, {\"type\": \"turtle_helmet\", \"quantity\": 1, \"index\": 31}, {\"type\": \"coal_ore\", \"quantity\": 35, \"index\": 32}, {\"type\": \"lever\", \"quantity\": 59, \"index\": 34}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 40, \"index\": 35}, {\"type\": \"diorite\", \"quantity\": 41, \"index\": 36}, {\"type\": \"wooden_sword\", \"quantity\": 1, \"index\": 40}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: purpur_pillar\ninventory:\n - black_shulker_box [I2] quantity 1\n - cut_red_sandstone_slab [I5] quantity 56\n - green_terracotta [I6] quantity 40\n - diamond_leggings [I7] quantity 1\n - stripped_crimson_stem [I9] quantity 41\n - orange_bed [I16] quantity 1\n - chiseled_polished_blackstone [I17] quantity 36\n - spruce_button [I18] quantity 55\n - warped_hyphae [I20] quantity 53\n - blue_wool [I21] quantity 4\n - turtle_helmet [I22] quantity 1\n - coal_ore [I23] quantity 35\n - lever [I25] quantity 59\n - stripped_crimson_hyphae [I26] quantity 40\n - diorite [I27] quantity 41\n - purpur_slab [I28] quantity 2\n - wooden_sword [I31] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I28] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: purpur_pillar\ninventory:\n - purpur_slab [A1] quantity 1\n - black_shulker_box [I2] quantity 1\n - cut_red_sandstone_slab [I5] quantity 56\n - green_terracotta [I6] quantity 40\n - diamond_leggings [I7] quantity 1\n - stripped_crimson_stem [I9] quantity 41\n - orange_bed [I16] quantity 1\n - chiseled_polished_blackstone [I17] quantity 36\n - spruce_button [I18] quantity 55\n - warped_hyphae [I20] quantity 53\n - blue_wool [I21] quantity 4\n - turtle_helmet [I22] quantity 1\n - coal_ore [I23] quantity 35\n - lever [I25] quantity 59\n - stripped_crimson_hyphae [I26] quantity 40\n - diorite [I27] quantity 41\n - purpur_slab [I28] quantity 1\n - wooden_sword [I31] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I28] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: purpur_pillar\ninventory:\n - purpur_pillar [0] quantity 1\n - purpur_slab [A1] quantity 1\n - purpur_slab [B1] quantity 1\n - black_shulker_box [I2] quantity 1\n - cut_red_sandstone_slab [I5] quantity 56\n - green_terracotta [I6] quantity 40\n - diamond_leggings [I7] quantity 1\n - stripped_crimson_stem [I9] quantity 41\n - orange_bed [I16] quantity 1\n - chiseled_polished_blackstone [I17] quantity 36\n - spruce_button [I18] quantity 55\n - warped_hyphae [I20] quantity 53\n - blue_wool [I21] quantity 4\n - turtle_helmet [I22] quantity 1\n - coal_ore [I23] quantity 35\n - lever [I25] quantity 59\n - stripped_crimson_hyphae [I26] quantity 40\n - diorite [I27] quantity 41\n - wooden_sword [I31] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN1119"
+}

@@ -1,26 +1,33 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_stone_bricks\ninventory=[{\"type\": \"globe_banner_pattern\", \"quantity\": 1, \"index\": 11}, {\"type\": \"redstone_ore\", \"quantity\": 56, \"index\": 12}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 34, \"index\": 13}, {\"type\": \"painting\", \"quantity\": 15, \"index\": 14}, {\"type\": \"nautilus_shell\", \"quantity\": 10, \"index\": 15}, {\"type\": \"gold_ore\", \"quantity\": 47, \"index\": 16}, {\"type\": \"light_gray_glazed_terracotta\", \"quantity\": 44, \"index\": 19}, {\"type\": \"dark_oak_log\", \"quantity\": 50, \"index\": 24}, {\"type\": \"emerald\", \"quantity\": 61, \"index\": 30}, {\"type\": \"dark_prismarine_stairs\", \"quantity\": 39, \"index\": 32}, {\"type\": \"stone_brick_slab\", \"quantity\": 2, \"index\": 33}, {\"type\": \"sandstone\", \"quantity\": 14, \"index\": 34}, {\"type\": \"glistering_melon_slice\", \"quantity\": 42, \"index\": 38}, {\"type\": \"tipped_arrow\", \"quantity\": 13, \"index\": 41}, {\"type\": \"blue_bed\", \"quantity\": 1, \"index\": 42}, {\"type\": \"sandstone_slab\", \"quantity\": 32, \"index\": 43}, {\"type\": \"jungle_stairs\", \"quantity\": 13, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 33 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_stone_bricks\ninventory=[{\"type\": \"stone_brick_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"globe_banner_pattern\", \"quantity\": 1, \"index\": 11}, {\"type\": \"redstone_ore\", \"quantity\": 56, \"index\": 12}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 34, \"index\": 13}, {\"type\": \"painting\", \"quantity\": 15, \"index\": 14}, {\"type\": \"nautilus_shell\", \"quantity\": 10, \"index\": 15}, {\"type\": \"gold_ore\", \"quantity\": 47, \"index\": 16}, {\"type\": \"light_gray_glazed_terracotta\", \"quantity\": 44, \"index\": 19}, {\"type\": \"dark_oak_log\", \"quantity\": 50, \"index\": 24}, {\"type\": \"emerald\", \"quantity\": 61, \"index\": 30}, {\"type\": \"dark_prismarine_stairs\", \"quantity\": 39, \"index\": 32}, {\"type\": \"stone_brick_slab\", \"quantity\": 1, \"index\": 33}, {\"type\": \"sandstone\", \"quantity\": 14, \"index\": 34}, {\"type\": \"glistering_melon_slice\", \"quantity\": 42, \"index\": 38}, {\"type\": \"tipped_arrow\", \"quantity\": 13, \"index\": 41}, {\"type\": \"blue_bed\", \"quantity\": 1, \"index\": 42}, {\"type\": \"sandstone_slab\", \"quantity\": 32, \"index\": 43}, {\"type\": \"jungle_stairs\", \"quantity\": 13, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 33 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: chiseled_stone_bricks\ninventory=[{\"type\": \"chiseled_stone_bricks\", \"quantity\": 1, \"index\": 0}, {\"type\": \"stone_brick_slab\", \"quantity\": 1, \"index\": 1}, {\"type\": \"stone_brick_slab\", \"quantity\": 1, \"index\": 4}, {\"type\": \"globe_banner_pattern\", \"quantity\": 1, \"index\": 11}, {\"type\": \"redstone_ore\", \"quantity\": 56, \"index\": 12}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 34, \"index\": 13}, {\"type\": \"painting\", \"quantity\": 15, \"index\": 14}, {\"type\": \"nautilus_shell\", \"quantity\": 10, \"index\": 15}, {\"type\": \"gold_ore\", \"quantity\": 47, \"index\": 16}, {\"type\": \"light_gray_glazed_terracotta\", \"quantity\": 44, \"index\": 19}, {\"type\": \"dark_oak_log\", \"quantity\": 50, \"index\": 24}, {\"type\": \"emerald\", \"quantity\": 61, \"index\": 30}, {\"type\": \"dark_prismarine_stairs\", \"quantity\": 39, \"index\": 32}, {\"type\": \"sandstone\", \"quantity\": 14, \"index\": 34}, {\"type\": \"glistering_melon_slice\", \"quantity\": 42, \"index\": 38}, {\"type\": \"tipped_arrow\", \"quantity\": 13, \"index\": 41}, {\"type\": \"blue_bed\", \"quantity\": 1, \"index\": 42}, {\"type\": \"sandstone_slab\", \"quantity\": 32, \"index\": 43}, {\"type\": \"jungle_stairs\", \"quantity\": 13, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 17 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_stone_bricks\ninventory:\n - globe_banner_pattern [I2] quantity 1\n - redstone_ore [I3] quantity 56\n - piglin_spawn_egg [I4] quantity 34\n - painting [I5] quantity 15\n - nautilus_shell [I6] quantity 10\n - gold_ore [I7] quantity 47\n - light_gray_glazed_terracotta [I10] quantity 44\n - dark_oak_log [I15] quantity 50\n - emerald [I21] quantity 61\n - dark_prismarine_stairs [I23] quantity 39\n - stone_brick_slab [I24] quantity 2\n - sandstone [I25] quantity 14\n - glistering_melon_slice [I29] quantity 42\n - tipped_arrow [I32] quantity 13\n - blue_bed [I33] quantity 1\n - sandstone_slab [I34] quantity 32\n - jungle_stairs [I36] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I24] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_stone_bricks\ninventory:\n - stone_brick_slab [A1] quantity 1\n - globe_banner_pattern [I2] quantity 1\n - redstone_ore [I3] quantity 56\n - piglin_spawn_egg [I4] quantity 34\n - painting [I5] quantity 15\n - nautilus_shell [I6] quantity 10\n - gold_ore [I7] quantity 47\n - light_gray_glazed_terracotta [I10] quantity 44\n - dark_oak_log [I15] quantity 50\n - emerald [I21] quantity 61\n - dark_prismarine_stairs [I23] quantity 39\n - stone_brick_slab [I24] quantity 1\n - sandstone [I25] quantity 14\n - glistering_melon_slice [I29] quantity 42\n - tipped_arrow [I32] quantity 13\n - blue_bed [I33] quantity 1\n - sandstone_slab [I34] quantity 32\n - jungle_stairs [I36] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I24] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: chiseled_stone_bricks\ninventory:\n - chiseled_stone_bricks [0] quantity 1\n - stone_brick_slab [A1] quantity 1\n - stone_brick_slab [B1] quantity 1\n - globe_banner_pattern [I2] quantity 1\n - redstone_ore [I3] quantity 56\n - piglin_spawn_egg [I4] quantity 34\n - painting [I5] quantity 15\n - nautilus_shell [I6] quantity 10\n - gold_ore [I7] quantity 47\n - light_gray_glazed_terracotta [I10] quantity 44\n - dark_oak_log [I15] quantity 50\n - emerald [I21] quantity 61\n - dark_prismarine_stairs [I23] quantity 39\n - sandstone [I25] quantity 14\n - glistering_melon_slice [I29] quantity 42\n - tipped_arrow [I32] quantity 13\n - blue_bed [I33] quantity 1\n - sandstone_slab [I34] quantity 32\n - jungle_stairs [I36] quantity 13"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I8] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0156"
+}

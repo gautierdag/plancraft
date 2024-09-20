@@ -1,34 +1,41 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: cookie\ninventory=[{\"type\": \"lime_wool\", \"quantity\": 23, \"index\": 10}, {\"type\": \"gray_glazed_terracotta\", \"quantity\": 51, \"index\": 12}, {\"type\": \"melon\", \"quantity\": 40, \"index\": 21}, {\"type\": \"wheat\", \"quantity\": 2, \"index\": 23}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 38, \"index\": 24}, {\"type\": \"nautilus_shell\", \"quantity\": 16, \"index\": 26}, {\"type\": \"cocoa_beans\", \"quantity\": 1, \"index\": 29}, {\"type\": \"pink_tulip\", \"quantity\": 2, \"index\": 32}, {\"type\": \"polished_blackstone_bricks\", \"quantity\": 45, \"index\": 33}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 47, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 23 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: cookie\ninventory=[{\"type\": \"wheat\", \"quantity\": 1, \"index\": 1}, {\"type\": \"lime_wool\", \"quantity\": 23, \"index\": 10}, {\"type\": \"gray_glazed_terracotta\", \"quantity\": 51, \"index\": 12}, {\"type\": \"melon\", \"quantity\": 40, \"index\": 21}, {\"type\": \"wheat\", \"quantity\": 1, \"index\": 23}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 38, \"index\": 24}, {\"type\": \"nautilus_shell\", \"quantity\": 16, \"index\": 26}, {\"type\": \"cocoa_beans\", \"quantity\": 1, \"index\": 29}, {\"type\": \"pink_tulip\", \"quantity\": 2, \"index\": 32}, {\"type\": \"polished_blackstone_bricks\", \"quantity\": 45, \"index\": 33}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 47, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 29 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: cookie\ninventory=[{\"type\": \"wheat\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cocoa_beans\", \"quantity\": 1, \"index\": 2}, {\"type\": \"lime_wool\", \"quantity\": 23, \"index\": 10}, {\"type\": \"gray_glazed_terracotta\", \"quantity\": 51, \"index\": 12}, {\"type\": \"melon\", \"quantity\": 40, \"index\": 21}, {\"type\": \"wheat\", \"quantity\": 1, \"index\": 23}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 38, \"index\": 24}, {\"type\": \"nautilus_shell\", \"quantity\": 16, \"index\": 26}, {\"type\": \"pink_tulip\", \"quantity\": 2, \"index\": 32}, {\"type\": \"polished_blackstone_bricks\", \"quantity\": 45, \"index\": 33}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 47, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 23 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: cookie\ninventory=[{\"type\": \"cookie\", \"quantity\": 8, \"index\": 0}, {\"type\": \"wheat\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cocoa_beans\", \"quantity\": 1, \"index\": 2}, {\"type\": \"wheat\", \"quantity\": 1, \"index\": 3}, {\"type\": \"lime_wool\", \"quantity\": 23, \"index\": 10}, {\"type\": \"gray_glazed_terracotta\", \"quantity\": 51, \"index\": 12}, {\"type\": \"melon\", \"quantity\": 40, \"index\": 21}, {\"type\": \"cracked_nether_bricks\", \"quantity\": 38, \"index\": 24}, {\"type\": \"nautilus_shell\", \"quantity\": 16, \"index\": 26}, {\"type\": \"pink_tulip\", \"quantity\": 2, \"index\": 32}, {\"type\": \"polished_blackstone_bricks\", \"quantity\": 45, \"index\": 33}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 47, \"index\": 41}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 8"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: cookie\ninventory:\n - lime_wool [I1] quantity 23\n - gray_glazed_terracotta [I3] quantity 51\n - melon [I12] quantity 40\n - wheat [I14] quantity 2\n - cracked_nether_bricks [I15] quantity 38\n - nautilus_shell [I17] quantity 16\n - cocoa_beans [I20] quantity 1\n - pink_tulip [I23] quantity 2\n - polished_blackstone_bricks [I24] quantity 45\n - dark_oak_pressure_plate [I32] quantity 47"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I14] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: cookie\ninventory:\n - wheat [A1] quantity 1\n - lime_wool [I1] quantity 23\n - gray_glazed_terracotta [I3] quantity 51\n - melon [I12] quantity 40\n - wheat [I14] quantity 1\n - cracked_nether_bricks [I15] quantity 38\n - nautilus_shell [I17] quantity 16\n - cocoa_beans [I20] quantity 1\n - pink_tulip [I23] quantity 2\n - polished_blackstone_bricks [I24] quantity 45\n - dark_oak_pressure_plate [I32] quantity 47"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I20] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: cookie\ninventory:\n - wheat [A1] quantity 1\n - cocoa_beans [A2] quantity 1\n - lime_wool [I1] quantity 23\n - gray_glazed_terracotta [I3] quantity 51\n - melon [I12] quantity 40\n - wheat [I14] quantity 1\n - cracked_nether_bricks [I15] quantity 38\n - nautilus_shell [I17] quantity 16\n - pink_tulip [I23] quantity 2\n - polished_blackstone_bricks [I24] quantity 45\n - dark_oak_pressure_plate [I32] quantity 47"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I14] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: cookie\ninventory:\n - cookie [0] quantity 8\n - wheat [A1] quantity 1\n - cocoa_beans [A2] quantity 1\n - wheat [A3] quantity 1\n - lime_wool [I1] quantity 23\n - gray_glazed_terracotta [I3] quantity 51\n - melon [I12] quantity 40\n - cracked_nether_bricks [I15] quantity 38\n - nautilus_shell [I17] quantity 16\n - pink_tulip [I23] quantity 2\n - polished_blackstone_bricks [I24] quantity 45\n - dark_oak_pressure_plate [I32] quantity 47"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 8"
+    }
+  ],
+  "example_id": "TRAIN1186"
+}

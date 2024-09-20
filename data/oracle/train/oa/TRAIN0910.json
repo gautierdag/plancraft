@@ -1,66 +1,73 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: lead\ninventory=[{\"type\": \"orange_banner\", \"quantity\": 15, \"index\": 14}, {\"type\": \"string\", \"quantity\": 4, \"index\": 17}, {\"type\": \"brain_coral\", \"quantity\": 12, \"index\": 20}, {\"type\": \"slime_block\", \"quantity\": 1, \"index\": 34}, {\"type\": \"yellow_banner\", \"quantity\": 7, \"index\": 35}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 18, \"index\": 40}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 43, \"index\": 43}, {\"type\": \"gilded_blackstone\", \"quantity\": 47, \"index\": 44}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: lead\ninventory=[{\"type\": \"slime_ball\", \"quantity\": 9, \"index\": 0}, {\"type\": \"slime_block\", \"quantity\": 1, \"index\": 1}, {\"type\": \"orange_banner\", \"quantity\": 15, \"index\": 14}, {\"type\": \"string\", \"quantity\": 4, \"index\": 17}, {\"type\": \"brain_coral\", \"quantity\": 12, \"index\": 20}, {\"type\": \"yellow_banner\", \"quantity\": 7, \"index\": 35}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 18, \"index\": 40}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 43, \"index\": 43}, {\"type\": \"gilded_blackstone\", \"quantity\": 47, \"index\": 44}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 9"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: lead\ninventory=[{\"type\": \"slime_ball\", \"quantity\": 9, \"index\": 11}, {\"type\": \"orange_banner\", \"quantity\": 15, \"index\": 14}, {\"type\": \"string\", \"quantity\": 4, \"index\": 17}, {\"type\": \"brain_coral\", \"quantity\": 12, \"index\": 20}, {\"type\": \"yellow_banner\", \"quantity\": 7, \"index\": 35}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 18, \"index\": 40}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 43, \"index\": 43}, {\"type\": \"gilded_blackstone\", \"quantity\": 47, \"index\": 44}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 17 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: lead\ninventory=[{\"type\": \"string\", \"quantity\": 1, \"index\": 1}, {\"type\": \"slime_ball\", \"quantity\": 9, \"index\": 11}, {\"type\": \"orange_banner\", \"quantity\": 15, \"index\": 14}, {\"type\": \"string\", \"quantity\": 3, \"index\": 17}, {\"type\": \"brain_coral\", \"quantity\": 12, \"index\": 20}, {\"type\": \"yellow_banner\", \"quantity\": 7, \"index\": 35}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 18, \"index\": 40}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 43, \"index\": 43}, {\"type\": \"gilded_blackstone\", \"quantity\": 47, \"index\": 44}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 17 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: lead\ninventory=[{\"type\": \"string\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"slime_ball\", \"quantity\": 9, \"index\": 11}, {\"type\": \"orange_banner\", \"quantity\": 15, \"index\": 14}, {\"type\": \"string\", \"quantity\": 2, \"index\": 17}, {\"type\": \"brain_coral\", \"quantity\": 12, \"index\": 20}, {\"type\": \"yellow_banner\", \"quantity\": 7, \"index\": 35}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 18, \"index\": 40}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 43, \"index\": 43}, {\"type\": \"gilded_blackstone\", \"quantity\": 47, \"index\": 44}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 17 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: lead\ninventory=[{\"type\": \"string\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"string\", \"quantity\": 1, \"index\": 4}, {\"type\": \"slime_ball\", \"quantity\": 9, \"index\": 11}, {\"type\": \"orange_banner\", \"quantity\": 15, \"index\": 14}, {\"type\": \"string\", \"quantity\": 1, \"index\": 17}, {\"type\": \"brain_coral\", \"quantity\": 12, \"index\": 20}, {\"type\": \"yellow_banner\", \"quantity\": 7, \"index\": 35}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 18, \"index\": 40}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 43, \"index\": 43}, {\"type\": \"gilded_blackstone\", \"quantity\": 47, \"index\": 44}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: lead\ninventory=[{\"type\": \"string\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"string\", \"quantity\": 1, \"index\": 4}, {\"type\": \"slime_ball\", \"quantity\": 1, \"index\": 5}, {\"type\": \"slime_ball\", \"quantity\": 8, \"index\": 11}, {\"type\": \"orange_banner\", \"quantity\": 15, \"index\": 14}, {\"type\": \"string\", \"quantity\": 1, \"index\": 17}, {\"type\": \"brain_coral\", \"quantity\": 12, \"index\": 20}, {\"type\": \"yellow_banner\", \"quantity\": 7, \"index\": 35}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 18, \"index\": 40}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 43, \"index\": 43}, {\"type\": \"gilded_blackstone\", \"quantity\": 47, \"index\": 44}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 17 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: lead\ninventory=[{\"type\": \"lead\", \"quantity\": 2, \"index\": 0}, {\"type\": \"string\", \"quantity\": 1, \"index\": 1}, {\"type\": \"string\", \"quantity\": 1, \"index\": 2}, {\"type\": \"string\", \"quantity\": 1, \"index\": 4}, {\"type\": \"slime_ball\", \"quantity\": 1, \"index\": 5}, {\"type\": \"string\", \"quantity\": 1, \"index\": 9}, {\"type\": \"slime_ball\", \"quantity\": 8, \"index\": 11}, {\"type\": \"orange_banner\", \"quantity\": 15, \"index\": 14}, {\"type\": \"brain_coral\", \"quantity\": 12, \"index\": 20}, {\"type\": \"yellow_banner\", \"quantity\": 7, \"index\": 35}, {\"type\": \"knowledge_book\", \"quantity\": 1, \"index\": 37}, {\"type\": \"diamond\", \"quantity\": 18, \"index\": 40}, {\"type\": \"stripped_acacia_wood\", \"quantity\": 43, \"index\": 43}, {\"type\": \"gilded_blackstone\", \"quantity\": 47, \"index\": 44}, {\"type\": \"carrot_on_a_stick\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 2"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lead\ninventory:\n - orange_banner [I5] quantity 15\n - string [I8] quantity 4\n - brain_coral [I11] quantity 12\n - slime_block [I25] quantity 1\n - yellow_banner [I26] quantity 7\n - knowledge_book [I28] quantity 1\n - diamond [I31] quantity 18\n - stripped_acacia_wood [I34] quantity 43\n - gilded_blackstone [I35] quantity 47\n - carrot_on_a_stick [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lead\ninventory:\n - slime_ball [0] quantity 9\n - slime_block [A1] quantity 1\n - orange_banner [I5] quantity 15\n - string [I8] quantity 4\n - brain_coral [I11] quantity 12\n - yellow_banner [I26] quantity 7\n - knowledge_book [I28] quantity 1\n - diamond [I31] quantity 18\n - stripped_acacia_wood [I34] quantity 43\n - gilded_blackstone [I35] quantity 47\n - carrot_on_a_stick [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 9"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lead\ninventory:\n - slime_ball [I2] quantity 9\n - orange_banner [I5] quantity 15\n - string [I8] quantity 4\n - brain_coral [I11] quantity 12\n - yellow_banner [I26] quantity 7\n - knowledge_book [I28] quantity 1\n - diamond [I31] quantity 18\n - stripped_acacia_wood [I34] quantity 43\n - gilded_blackstone [I35] quantity 47\n - carrot_on_a_stick [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I8] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lead\ninventory:\n - string [A1] quantity 1\n - slime_ball [I2] quantity 9\n - orange_banner [I5] quantity 15\n - string [I8] quantity 3\n - brain_coral [I11] quantity 12\n - yellow_banner [I26] quantity 7\n - knowledge_book [I28] quantity 1\n - diamond [I31] quantity 18\n - stripped_acacia_wood [I34] quantity 43\n - gilded_blackstone [I35] quantity 47\n - carrot_on_a_stick [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I8] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lead\ninventory:\n - string [A1] quantity 1\n - string [A2] quantity 1\n - slime_ball [I2] quantity 9\n - orange_banner [I5] quantity 15\n - string [I8] quantity 2\n - brain_coral [I11] quantity 12\n - yellow_banner [I26] quantity 7\n - knowledge_book [I28] quantity 1\n - diamond [I31] quantity 18\n - stripped_acacia_wood [I34] quantity 43\n - gilded_blackstone [I35] quantity 47\n - carrot_on_a_stick [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I8] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lead\ninventory:\n - string [A1] quantity 1\n - string [A2] quantity 1\n - string [B1] quantity 1\n - slime_ball [I2] quantity 9\n - orange_banner [I5] quantity 15\n - string [I8] quantity 1\n - brain_coral [I11] quantity 12\n - yellow_banner [I26] quantity 7\n - knowledge_book [I28] quantity 1\n - diamond [I31] quantity 18\n - stripped_acacia_wood [I34] quantity 43\n - gilded_blackstone [I35] quantity 47\n - carrot_on_a_stick [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lead\ninventory:\n - string [A1] quantity 1\n - string [A2] quantity 1\n - string [B1] quantity 1\n - slime_ball [B2] quantity 1\n - slime_ball [I2] quantity 8\n - orange_banner [I5] quantity 15\n - string [I8] quantity 1\n - brain_coral [I11] quantity 12\n - yellow_banner [I26] quantity 7\n - knowledge_book [I28] quantity 1\n - diamond [I31] quantity 18\n - stripped_acacia_wood [I34] quantity 43\n - gilded_blackstone [I35] quantity 47\n - carrot_on_a_stick [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I8] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: lead\ninventory:\n - lead [0] quantity 2\n - string [A1] quantity 1\n - string [A2] quantity 1\n - string [B1] quantity 1\n - slime_ball [B2] quantity 1\n - string [C3] quantity 1\n - slime_ball [I2] quantity 8\n - orange_banner [I5] quantity 15\n - brain_coral [I11] quantity 12\n - yellow_banner [I26] quantity 7\n - knowledge_book [I28] quantity 1\n - diamond [I31] quantity 18\n - stripped_acacia_wood [I34] quantity 43\n - gilded_blackstone [I35] quantity 47\n - carrot_on_a_stick [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 2"
+    }
+  ],
+  "example_id": "TRAIN0910"
+}

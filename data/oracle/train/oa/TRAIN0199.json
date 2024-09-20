@@ -1,50 +1,57 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: bowl\ninventory=[{\"type\": \"shulker_shell\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 11}, {\"type\": \"warped_fungus\", \"quantity\": 36, \"index\": 13}, {\"type\": \"acacia_log\", \"quantity\": 1, \"index\": 14}, {\"type\": \"podzol\", \"quantity\": 9, \"index\": 16}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 19, \"index\": 19}, {\"type\": \"red_nether_brick_wall\", \"quantity\": 51, \"index\": 20}, {\"type\": \"cauldron\", \"quantity\": 41, \"index\": 24}, {\"type\": \"brown_dye\", \"quantity\": 15, \"index\": 27}, {\"type\": \"crimson_button\", \"quantity\": 52, \"index\": 28}, {\"type\": \"glass_pane\", \"quantity\": 62, \"index\": 30}, {\"type\": \"spruce_log\", \"quantity\": 42, \"index\": 31}, {\"type\": \"snow_block\", \"quantity\": 57, \"index\": 32}, {\"type\": \"spawner\", \"quantity\": 23, \"index\": 33}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 39}, {\"type\": \"netherite_block\", \"quantity\": 17, \"index\": 40}, {\"type\": \"infested_mossy_stone_bricks\", \"quantity\": 7, \"index\": 41}, {\"type\": \"stone\", \"quantity\": 31, \"index\": 44}, {\"type\": \"dark_oak_log\", \"quantity\": 34, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: bowl\ninventory=[{\"type\": \"dark_oak_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"dark_oak_log\", \"quantity\": 1, \"index\": 1}, {\"type\": \"shulker_shell\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 11}, {\"type\": \"warped_fungus\", \"quantity\": 36, \"index\": 13}, {\"type\": \"acacia_log\", \"quantity\": 1, \"index\": 14}, {\"type\": \"podzol\", \"quantity\": 9, \"index\": 16}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 19, \"index\": 19}, {\"type\": \"red_nether_brick_wall\", \"quantity\": 51, \"index\": 20}, {\"type\": \"cauldron\", \"quantity\": 41, \"index\": 24}, {\"type\": \"brown_dye\", \"quantity\": 15, \"index\": 27}, {\"type\": \"crimson_button\", \"quantity\": 52, \"index\": 28}, {\"type\": \"glass_pane\", \"quantity\": 62, \"index\": 30}, {\"type\": \"spruce_log\", \"quantity\": 42, \"index\": 31}, {\"type\": \"snow_block\", \"quantity\": 57, \"index\": 32}, {\"type\": \"spawner\", \"quantity\": 23, \"index\": 33}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 39}, {\"type\": \"netherite_block\", \"quantity\": 17, \"index\": 40}, {\"type\": \"infested_mossy_stone_bricks\", \"quantity\": 7, \"index\": 41}, {\"type\": \"stone\", \"quantity\": 31, \"index\": 44}, {\"type\": \"dark_oak_log\", \"quantity\": 33, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: bowl\ninventory=[{\"type\": \"shulker_shell\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 11}, {\"type\": \"dark_oak_planks\", \"quantity\": 4, \"index\": 12}, {\"type\": \"warped_fungus\", \"quantity\": 36, \"index\": 13}, {\"type\": \"acacia_log\", \"quantity\": 1, \"index\": 14}, {\"type\": \"podzol\", \"quantity\": 9, \"index\": 16}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 19, \"index\": 19}, {\"type\": \"red_nether_brick_wall\", \"quantity\": 51, \"index\": 20}, {\"type\": \"cauldron\", \"quantity\": 41, \"index\": 24}, {\"type\": \"brown_dye\", \"quantity\": 15, \"index\": 27}, {\"type\": \"crimson_button\", \"quantity\": 52, \"index\": 28}, {\"type\": \"glass_pane\", \"quantity\": 62, \"index\": 30}, {\"type\": \"spruce_log\", \"quantity\": 42, \"index\": 31}, {\"type\": \"snow_block\", \"quantity\": 57, \"index\": 32}, {\"type\": \"spawner\", \"quantity\": 23, \"index\": 33}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 39}, {\"type\": \"netherite_block\", \"quantity\": 17, \"index\": 40}, {\"type\": \"infested_mossy_stone_bricks\", \"quantity\": 7, \"index\": 41}, {\"type\": \"stone\", \"quantity\": 31, \"index\": 44}, {\"type\": \"dark_oak_log\", \"quantity\": 33, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: bowl\ninventory=[{\"type\": \"dark_oak_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"shulker_shell\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 11}, {\"type\": \"dark_oak_planks\", \"quantity\": 3, \"index\": 12}, {\"type\": \"warped_fungus\", \"quantity\": 36, \"index\": 13}, {\"type\": \"acacia_log\", \"quantity\": 1, \"index\": 14}, {\"type\": \"podzol\", \"quantity\": 9, \"index\": 16}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 19, \"index\": 19}, {\"type\": \"red_nether_brick_wall\", \"quantity\": 51, \"index\": 20}, {\"type\": \"cauldron\", \"quantity\": 41, \"index\": 24}, {\"type\": \"brown_dye\", \"quantity\": 15, \"index\": 27}, {\"type\": \"crimson_button\", \"quantity\": 52, \"index\": 28}, {\"type\": \"glass_pane\", \"quantity\": 62, \"index\": 30}, {\"type\": \"spruce_log\", \"quantity\": 42, \"index\": 31}, {\"type\": \"snow_block\", \"quantity\": 57, \"index\": 32}, {\"type\": \"spawner\", \"quantity\": 23, \"index\": 33}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 39}, {\"type\": \"netherite_block\", \"quantity\": 17, \"index\": 40}, {\"type\": \"infested_mossy_stone_bricks\", \"quantity\": 7, \"index\": 41}, {\"type\": \"stone\", \"quantity\": 31, \"index\": 44}, {\"type\": \"dark_oak_log\", \"quantity\": 33, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: bowl\ninventory=[{\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"shulker_shell\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 11}, {\"type\": \"dark_oak_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"warped_fungus\", \"quantity\": 36, \"index\": 13}, {\"type\": \"acacia_log\", \"quantity\": 1, \"index\": 14}, {\"type\": \"podzol\", \"quantity\": 9, \"index\": 16}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 19, \"index\": 19}, {\"type\": \"red_nether_brick_wall\", \"quantity\": 51, \"index\": 20}, {\"type\": \"cauldron\", \"quantity\": 41, \"index\": 24}, {\"type\": \"brown_dye\", \"quantity\": 15, \"index\": 27}, {\"type\": \"crimson_button\", \"quantity\": 52, \"index\": 28}, {\"type\": \"glass_pane\", \"quantity\": 62, \"index\": 30}, {\"type\": \"spruce_log\", \"quantity\": 42, \"index\": 31}, {\"type\": \"snow_block\", \"quantity\": 57, \"index\": 32}, {\"type\": \"spawner\", \"quantity\": 23, \"index\": 33}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 39}, {\"type\": \"netherite_block\", \"quantity\": 17, \"index\": 40}, {\"type\": \"infested_mossy_stone_bricks\", \"quantity\": 7, \"index\": 41}, {\"type\": \"stone\", \"quantity\": 31, \"index\": 44}, {\"type\": \"dark_oak_log\", \"quantity\": 33, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: bowl\ninventory=[{\"type\": \"bowl\", \"quantity\": 4, \"index\": 0}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 5}, {\"type\": \"shulker_shell\", \"quantity\": 1, \"index\": 10}, {\"type\": \"crimson_planks\", \"quantity\": 1, \"index\": 11}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 12}, {\"type\": \"warped_fungus\", \"quantity\": 36, \"index\": 13}, {\"type\": \"acacia_log\", \"quantity\": 1, \"index\": 14}, {\"type\": \"podzol\", \"quantity\": 9, \"index\": 16}, {\"type\": \"smooth_quartz_stairs\", \"quantity\": 19, \"index\": 19}, {\"type\": \"red_nether_brick_wall\", \"quantity\": 51, \"index\": 20}, {\"type\": \"cauldron\", \"quantity\": 41, \"index\": 24}, {\"type\": \"brown_dye\", \"quantity\": 15, \"index\": 27}, {\"type\": \"crimson_button\", \"quantity\": 52, \"index\": 28}, {\"type\": \"glass_pane\", \"quantity\": 62, \"index\": 30}, {\"type\": \"spruce_log\", \"quantity\": 42, \"index\": 31}, {\"type\": \"snow_block\", \"quantity\": 57, \"index\": 32}, {\"type\": \"spawner\", \"quantity\": 23, \"index\": 33}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 39}, {\"type\": \"netherite_block\", \"quantity\": 17, \"index\": 40}, {\"type\": \"infested_mossy_stone_bricks\", \"quantity\": 7, \"index\": 41}, {\"type\": \"stone\", \"quantity\": 31, \"index\": 44}, {\"type\": \"dark_oak_log\", \"quantity\": 33, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 15 with quantity 4"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: bowl\ninventory:\n - shulker_shell [I1] quantity 1\n - crimson_planks [I2] quantity 1\n - warped_fungus [I4] quantity 36\n - acacia_log [I5] quantity 1\n - podzol [I7] quantity 9\n - smooth_quartz_stairs [I10] quantity 19\n - red_nether_brick_wall [I11] quantity 51\n - cauldron [I15] quantity 41\n - brown_dye [I18] quantity 15\n - crimson_button [I19] quantity 52\n - glass_pane [I21] quantity 62\n - spruce_log [I22] quantity 42\n - snow_block [I23] quantity 57\n - spawner [I24] quantity 23\n - dark_oak_planks [I30] quantity 1\n - netherite_block [I31] quantity 17\n - infested_mossy_stone_bricks [I32] quantity 7\n - stone [I35] quantity 31\n - dark_oak_log [I36] quantity 34"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I5] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: bowl\ninventory:\n - acacia_planks [0] quantity 4\n - acacia_log [A1] quantity 1\n - shulker_shell [I1] quantity 1\n - crimson_planks [I2] quantity 1\n - warped_fungus [I4] quantity 36\n - podzol [I7] quantity 9\n - smooth_quartz_stairs [I10] quantity 19\n - red_nether_brick_wall [I11] quantity 51\n - cauldron [I15] quantity 41\n - brown_dye [I18] quantity 15\n - crimson_button [I19] quantity 52\n - glass_pane [I21] quantity 62\n - spruce_log [I22] quantity 42\n - snow_block [I23] quantity 57\n - spawner [I24] quantity 23\n - dark_oak_planks [I30] quantity 1\n - netherite_block [I31] quantity 17\n - infested_mossy_stone_bricks [I32] quantity 7\n - stone [I35] quantity 31\n - dark_oak_log [I36] quantity 34"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: bowl\ninventory:\n - shulker_shell [I1] quantity 1\n - crimson_planks [I2] quantity 1\n - acacia_planks [I3] quantity 4\n - warped_fungus [I4] quantity 36\n - podzol [I7] quantity 9\n - smooth_quartz_stairs [I10] quantity 19\n - red_nether_brick_wall [I11] quantity 51\n - cauldron [I15] quantity 41\n - brown_dye [I18] quantity 15\n - crimson_button [I19] quantity 52\n - glass_pane [I21] quantity 62\n - spruce_log [I22] quantity 42\n - snow_block [I23] quantity 57\n - spawner [I24] quantity 23\n - dark_oak_planks [I30] quantity 1\n - netherite_block [I31] quantity 17\n - infested_mossy_stone_bricks [I32] quantity 7\n - stone [I35] quantity 31\n - dark_oak_log [I36] quantity 34"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: bowl\ninventory:\n - acacia_button [0] quantity 1\n - acacia_planks [A1] quantity 1\n - shulker_shell [I1] quantity 1\n - crimson_planks [I2] quantity 1\n - acacia_planks [I3] quantity 3\n - warped_fungus [I4] quantity 36\n - podzol [I7] quantity 9\n - smooth_quartz_stairs [I10] quantity 19\n - red_nether_brick_wall [I11] quantity 51\n - cauldron [I15] quantity 41\n - brown_dye [I18] quantity 15\n - crimson_button [I19] quantity 52\n - glass_pane [I21] quantity 62\n - spruce_log [I22] quantity 42\n - snow_block [I23] quantity 57\n - spawner [I24] quantity 23\n - dark_oak_planks [I30] quantity 1\n - netherite_block [I31] quantity 17\n - infested_mossy_stone_bricks [I32] quantity 7\n - stone [I35] quantity 31\n - dark_oak_log [I36] quantity 34"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: bowl\ninventory:\n - acacia_planks [A1] quantity 1\n - acacia_planks [A3] quantity 1\n - shulker_shell [I1] quantity 1\n - crimson_planks [I2] quantity 1\n - acacia_planks [I3] quantity 2\n - warped_fungus [I4] quantity 36\n - podzol [I7] quantity 9\n - smooth_quartz_stairs [I10] quantity 19\n - red_nether_brick_wall [I11] quantity 51\n - cauldron [I15] quantity 41\n - brown_dye [I18] quantity 15\n - crimson_button [I19] quantity 52\n - glass_pane [I21] quantity 62\n - spruce_log [I22] quantity 42\n - snow_block [I23] quantity 57\n - spawner [I24] quantity 23\n - dark_oak_planks [I30] quantity 1\n - netherite_block [I31] quantity 17\n - infested_mossy_stone_bricks [I32] quantity 7\n - stone [I35] quantity 31\n - dark_oak_log [I36] quantity 34"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: bowl\ninventory:\n - bowl [0] quantity 4\n - acacia_planks [A1] quantity 1\n - acacia_planks [A3] quantity 1\n - acacia_planks [B2] quantity 1\n - shulker_shell [I1] quantity 1\n - crimson_planks [I2] quantity 1\n - acacia_planks [I3] quantity 1\n - warped_fungus [I4] quantity 36\n - podzol [I7] quantity 9\n - smooth_quartz_stairs [I10] quantity 19\n - red_nether_brick_wall [I11] quantity 51\n - cauldron [I15] quantity 41\n - brown_dye [I18] quantity 15\n - crimson_button [I19] quantity 52\n - glass_pane [I21] quantity 62\n - spruce_log [I22] quantity 42\n - snow_block [I23] quantity 57\n - spawner [I24] quantity 23\n - dark_oak_planks [I30] quantity 1\n - netherite_block [I31] quantity 17\n - infested_mossy_stone_bricks [I32] quantity 7\n - stone [I35] quantity 31\n - dark_oak_log [I36] quantity 34"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I5] with quantity 4"
+    }
+  ],
+  "example_id": "TRAIN0199"
+}

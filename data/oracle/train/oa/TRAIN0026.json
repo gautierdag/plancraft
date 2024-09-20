@@ -1,34 +1,41 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: end_rod\ninventory=[{\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 11}, {\"type\": \"tube_coral\", \"quantity\": 42, \"index\": 16}, {\"type\": \"yellow_carpet\", \"quantity\": 35, \"index\": 18}, {\"type\": \"chorus_fruit\", \"quantity\": 1, \"index\": 22}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 47, \"index\": 41}, {\"type\": \"iron_ore\", \"quantity\": 11, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 22 to slot 12 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: end_rod\ninventory=[{\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 11}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 1, \"index\": 12}, {\"type\": \"tube_coral\", \"quantity\": 42, \"index\": 16}, {\"type\": \"yellow_carpet\", \"quantity\": 35, \"index\": 18}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 47, \"index\": 41}, {\"type\": \"iron_ore\", \"quantity\": 11, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: end_rod\ninventory=[{\"type\": \"blaze_powder\", \"quantity\": 2, \"index\": 0}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 1}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 1, \"index\": 12}, {\"type\": \"tube_coral\", \"quantity\": 42, \"index\": 16}, {\"type\": \"yellow_carpet\", \"quantity\": 35, \"index\": 18}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 47, \"index\": 41}, {\"type\": \"iron_ore\", \"quantity\": 11, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: end_rod\ninventory=[{\"type\": \"end_rod\", \"quantity\": 4, \"index\": 0}, {\"type\": \"blaze_rod\", \"quantity\": 1, \"index\": 1}, {\"type\": \"popped_chorus_fruit\", \"quantity\": 1, \"index\": 4}, {\"type\": \"tube_coral\", \"quantity\": 42, \"index\": 16}, {\"type\": \"yellow_carpet\", \"quantity\": 35, \"index\": 18}, {\"type\": \"purple_glazed_terracotta\", \"quantity\": 47, \"index\": 41}, {\"type\": \"iron_ore\", \"quantity\": 11, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 4"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: end_rod\ninventory:\n - blaze_rod [I2] quantity 1\n - tube_coral [I7] quantity 42\n - yellow_carpet [I9] quantity 35\n - chorus_fruit [I13] quantity 1\n - purple_glazed_terracotta [I32] quantity 47\n - iron_ore [I36] quantity 11"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I13] to [I3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: end_rod\ninventory:\n - blaze_rod [I2] quantity 1\n - popped_chorus_fruit [I3] quantity 1\n - tube_coral [I7] quantity 42\n - yellow_carpet [I9] quantity 35\n - purple_glazed_terracotta [I32] quantity 47\n - iron_ore [I36] quantity 11"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: end_rod\ninventory:\n - blaze_powder [0] quantity 2\n - blaze_rod [A1] quantity 1\n - popped_chorus_fruit [I3] quantity 1\n - tube_coral [I7] quantity 42\n - yellow_carpet [I9] quantity 35\n - purple_glazed_terracotta [I32] quantity 47\n - iron_ore [I36] quantity 11"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: end_rod\ninventory:\n - end_rod [0] quantity 4\n - blaze_rod [A1] quantity 1\n - popped_chorus_fruit [B1] quantity 1\n - tube_coral [I7] quantity 42\n - yellow_carpet [I9] quantity 35\n - purple_glazed_terracotta [I32] quantity 47\n - iron_ore [I36] quantity 11"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 4"
+    }
+  ],
+  "example_id": "TRAIN0026"
+}

@@ -1,26 +1,33 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: mojang_banner_pattern\ninventory=[{\"type\": \"smooth_sandstone_stairs\", \"quantity\": 4, \"index\": 10}, {\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 13}, {\"type\": \"guardian_spawn_egg\", \"quantity\": 29, \"index\": 17}, {\"type\": \"enchanted_golden_apple\", \"quantity\": 1, \"index\": 22}, {\"type\": \"fletching_table\", \"quantity\": 34, \"index\": 23}, {\"type\": \"jungle_slab\", \"quantity\": 40, \"index\": 29}, {\"type\": \"gold_ingot\", \"quantity\": 18, \"index\": 37}, {\"type\": \"paper\", \"quantity\": 1, \"index\": 38}, {\"type\": \"jungle_boat\", \"quantity\": 1, \"index\": 39}, {\"type\": \"experience_bottle\", \"quantity\": 12, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 22 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: mojang_banner_pattern\ninventory=[{\"type\": \"enchanted_golden_apple\", \"quantity\": 1, \"index\": 1}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 4, \"index\": 10}, {\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 13}, {\"type\": \"guardian_spawn_egg\", \"quantity\": 29, \"index\": 17}, {\"type\": \"fletching_table\", \"quantity\": 34, \"index\": 23}, {\"type\": \"jungle_slab\", \"quantity\": 40, \"index\": 29}, {\"type\": \"gold_ingot\", \"quantity\": 18, \"index\": 37}, {\"type\": \"paper\", \"quantity\": 1, \"index\": 38}, {\"type\": \"jungle_boat\", \"quantity\": 1, \"index\": 39}, {\"type\": \"experience_bottle\", \"quantity\": 12, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 38 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: mojang_banner_pattern\ninventory=[{\"type\": \"mojang_banner_pattern\", \"quantity\": 1, \"index\": 0}, {\"type\": \"enchanted_golden_apple\", \"quantity\": 1, \"index\": 1}, {\"type\": \"paper\", \"quantity\": 1, \"index\": 2}, {\"type\": \"smooth_sandstone_stairs\", \"quantity\": 4, \"index\": 10}, {\"type\": \"iron_pickaxe\", \"quantity\": 1, \"index\": 13}, {\"type\": \"guardian_spawn_egg\", \"quantity\": 29, \"index\": 17}, {\"type\": \"fletching_table\", \"quantity\": 34, \"index\": 23}, {\"type\": \"jungle_slab\", \"quantity\": 40, \"index\": 29}, {\"type\": \"gold_ingot\", \"quantity\": 18, \"index\": 37}, {\"type\": \"jungle_boat\", \"quantity\": 1, \"index\": 39}, {\"type\": \"experience_bottle\", \"quantity\": 12, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: mojang_banner_pattern\ninventory:\n - smooth_sandstone_stairs [I1] quantity 4\n - iron_pickaxe [I4] quantity 1\n - guardian_spawn_egg [I8] quantity 29\n - enchanted_golden_apple [I13] quantity 1\n - fletching_table [I14] quantity 34\n - jungle_slab [I20] quantity 40\n - gold_ingot [I28] quantity 18\n - paper [I29] quantity 1\n - jungle_boat [I30] quantity 1\n - experience_bottle [I35] quantity 12"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I13] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: mojang_banner_pattern\ninventory:\n - enchanted_golden_apple [A1] quantity 1\n - smooth_sandstone_stairs [I1] quantity 4\n - iron_pickaxe [I4] quantity 1\n - guardian_spawn_egg [I8] quantity 29\n - fletching_table [I14] quantity 34\n - jungle_slab [I20] quantity 40\n - gold_ingot [I28] quantity 18\n - paper [I29] quantity 1\n - jungle_boat [I30] quantity 1\n - experience_bottle [I35] quantity 12"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I29] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: mojang_banner_pattern\ninventory:\n - mojang_banner_pattern [0] quantity 1\n - enchanted_golden_apple [A1] quantity 1\n - paper [A2] quantity 1\n - smooth_sandstone_stairs [I1] quantity 4\n - iron_pickaxe [I4] quantity 1\n - guardian_spawn_egg [I8] quantity 29\n - fletching_table [I14] quantity 34\n - jungle_slab [I20] quantity 40\n - gold_ingot [I28] quantity 18\n - jungle_boat [I30] quantity 1\n - experience_bottle [I35] quantity 12"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN1083"
+}

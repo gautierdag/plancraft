@@ -1,42 +1,49 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_dye\ninventory=[{\"type\": \"yellow_concrete_powder\", \"quantity\": 4, \"index\": 13}, {\"type\": \"jungle_button\", \"quantity\": 40, \"index\": 19}, {\"type\": \"bone_meal\", \"quantity\": 1, \"index\": 20}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 11, \"index\": 22}, {\"type\": \"black_dye\", \"quantity\": 1, \"index\": 26}, {\"type\": \"dragon_head\", \"quantity\": 56, \"index\": 27}, {\"type\": \"bubble_coral_block\", \"quantity\": 19, \"index\": 29}, {\"type\": \"pink_dye\", \"quantity\": 9, \"index\": 34}, {\"type\": \"red_sandstone_wall\", \"quantity\": 32, \"index\": 40}, {\"type\": \"brown_carpet\", \"quantity\": 41, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 20 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_dye\ninventory=[{\"type\": \"white_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"bone_meal\", \"quantity\": 1, \"index\": 1}, {\"type\": \"yellow_concrete_powder\", \"quantity\": 4, \"index\": 13}, {\"type\": \"jungle_button\", \"quantity\": 40, \"index\": 19}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 11, \"index\": 22}, {\"type\": \"black_dye\", \"quantity\": 1, \"index\": 26}, {\"type\": \"dragon_head\", \"quantity\": 56, \"index\": 27}, {\"type\": \"bubble_coral_block\", \"quantity\": 19, \"index\": 29}, {\"type\": \"pink_dye\", \"quantity\": 9, \"index\": 34}, {\"type\": \"red_sandstone_wall\", \"quantity\": 32, \"index\": 40}, {\"type\": \"brown_carpet\", \"quantity\": 41, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_dye\ninventory=[{\"type\": \"white_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"yellow_concrete_powder\", \"quantity\": 4, \"index\": 13}, {\"type\": \"jungle_button\", \"quantity\": 40, \"index\": 19}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 11, \"index\": 22}, {\"type\": \"black_dye\", \"quantity\": 1, \"index\": 26}, {\"type\": \"dragon_head\", \"quantity\": 56, \"index\": 27}, {\"type\": \"bubble_coral_block\", \"quantity\": 19, \"index\": 29}, {\"type\": \"pink_dye\", \"quantity\": 9, \"index\": 34}, {\"type\": \"red_sandstone_wall\", \"quantity\": 32, \"index\": 40}, {\"type\": \"brown_carpet\", \"quantity\": 41, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_dye\ninventory=[{\"type\": \"white_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"yellow_concrete_powder\", \"quantity\": 4, \"index\": 13}, {\"type\": \"jungle_button\", \"quantity\": 40, \"index\": 19}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 11, \"index\": 22}, {\"type\": \"black_dye\", \"quantity\": 1, \"index\": 26}, {\"type\": \"dragon_head\", \"quantity\": 56, \"index\": 27}, {\"type\": \"bubble_coral_block\", \"quantity\": 19, \"index\": 29}, {\"type\": \"pink_dye\", \"quantity\": 9, \"index\": 34}, {\"type\": \"red_sandstone_wall\", \"quantity\": 32, \"index\": 40}, {\"type\": \"brown_carpet\", \"quantity\": 41, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 26 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_dye\ninventory=[{\"type\": \"gray_dye\", \"quantity\": 2, \"index\": 0}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"black_dye\", \"quantity\": 1, \"index\": 2}, {\"type\": \"yellow_concrete_powder\", \"quantity\": 4, \"index\": 13}, {\"type\": \"jungle_button\", \"quantity\": 40, \"index\": 19}, {\"type\": \"stripped_crimson_hyphae\", \"quantity\": 11, \"index\": 22}, {\"type\": \"dragon_head\", \"quantity\": 56, \"index\": 27}, {\"type\": \"bubble_coral_block\", \"quantity\": 19, \"index\": 29}, {\"type\": \"pink_dye\", \"quantity\": 9, \"index\": 34}, {\"type\": \"red_sandstone_wall\", \"quantity\": 32, \"index\": 40}, {\"type\": \"brown_carpet\", \"quantity\": 41, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 2"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_dye\ninventory:\n - yellow_concrete_powder [I4] quantity 4\n - jungle_button [I10] quantity 40\n - bone_meal [I11] quantity 1\n - stripped_crimson_hyphae [I13] quantity 11\n - black_dye [I17] quantity 1\n - dragon_head [I18] quantity 56\n - bubble_coral_block [I20] quantity 19\n - pink_dye [I25] quantity 9\n - red_sandstone_wall [I31] quantity 32\n - brown_carpet [I34] quantity 41"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I11] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_dye\ninventory:\n - white_dye [0] quantity 1\n - bone_meal [A1] quantity 1\n - yellow_concrete_powder [I4] quantity 4\n - jungle_button [I10] quantity 40\n - stripped_crimson_hyphae [I13] quantity 11\n - black_dye [I17] quantity 1\n - dragon_head [I18] quantity 56\n - bubble_coral_block [I20] quantity 19\n - pink_dye [I25] quantity 9\n - red_sandstone_wall [I31] quantity 32\n - brown_carpet [I34] quantity 41"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_dye\ninventory:\n - white_dye [I2] quantity 1\n - yellow_concrete_powder [I4] quantity 4\n - jungle_button [I10] quantity 40\n - stripped_crimson_hyphae [I13] quantity 11\n - black_dye [I17] quantity 1\n - dragon_head [I18] quantity 56\n - bubble_coral_block [I20] quantity 19\n - pink_dye [I25] quantity 9\n - red_sandstone_wall [I31] quantity 32\n - brown_carpet [I34] quantity 41"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_dye\ninventory:\n - white_dye [A1] quantity 1\n - yellow_concrete_powder [I4] quantity 4\n - jungle_button [I10] quantity 40\n - stripped_crimson_hyphae [I13] quantity 11\n - black_dye [I17] quantity 1\n - dragon_head [I18] quantity 56\n - bubble_coral_block [I20] quantity 19\n - pink_dye [I25] quantity 9\n - red_sandstone_wall [I31] quantity 32\n - brown_carpet [I34] quantity 41"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I17] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_dye\ninventory:\n - gray_dye [0] quantity 2\n - white_dye [A1] quantity 1\n - black_dye [A2] quantity 1\n - yellow_concrete_powder [I4] quantity 4\n - jungle_button [I10] quantity 40\n - stripped_crimson_hyphae [I13] quantity 11\n - dragon_head [I18] quantity 56\n - bubble_coral_block [I20] quantity 19\n - pink_dye [I25] quantity 9\n - red_sandstone_wall [I31] quantity 32\n - brown_carpet [I34] quantity 41"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 2"
+    }
+  ],
+  "example_id": "VAL0212"
+}

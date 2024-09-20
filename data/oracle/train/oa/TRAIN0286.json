@@ -1,82 +1,89 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 9, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 8, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 2}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 7, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 3}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 6, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 4}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 5, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 5}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 4, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 6}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 3, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 7 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 7}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 2, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 7}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 8}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 24}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 9 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: iron_ingot\ninventory=[{\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 0}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 2}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 3}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 4}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 5}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 6}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 7}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 8}, {\"type\": \"iron_nugget\", \"quantity\": 1, \"index\": 9}, {\"type\": \"oak_fence_gate\", \"quantity\": 33, \"index\": 10}, {\"type\": \"rotten_flesh\", \"quantity\": 58, \"index\": 13}, {\"type\": \"warped_fungus\", \"quantity\": 21, \"index\": 16}, {\"type\": \"piglin_spawn_egg\", \"quantity\": 49, \"index\": 19}, {\"type\": \"leather_helmet\", \"quantity\": 1, \"index\": 21}, {\"type\": \"tnt_minecart\", \"quantity\": 1, \"index\": 23}, {\"type\": \"bricks\", \"quantity\": 15, \"index\": 26}, {\"type\": \"damaged_anvil\", \"quantity\": 12, \"index\": 27}, {\"type\": \"jungle_slab\", \"quantity\": 55, \"index\": 28}, {\"type\": \"leather_boots\", \"quantity\": 1, \"index\": 31}, {\"type\": \"wooden_hoe\", \"quantity\": 1, \"index\": 34}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 62, \"index\": 36}, {\"type\": \"lectern\", \"quantity\": 1, \"index\": 37}, {\"type\": \"potato\", \"quantity\": 43, \"index\": 39}, {\"type\": \"brown_concrete\", \"quantity\": 48, \"index\": 40}, {\"type\": \"player_head\", \"quantity\": 8, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 9\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_nugget [A1] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 8\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_nugget [A1] quantity 1\n - iron_nugget [A2] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 7\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_nugget [A1] quantity 1\n - iron_nugget [A2] quantity 1\n - iron_nugget [A3] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 6\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_nugget [A1] quantity 1\n - iron_nugget [A2] quantity 1\n - iron_nugget [A3] quantity 1\n - iron_nugget [B1] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 5\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_nugget [A1] quantity 1\n - iron_nugget [A2] quantity 1\n - iron_nugget [A3] quantity 1\n - iron_nugget [B1] quantity 1\n - iron_nugget [B2] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 4\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_nugget [A1] quantity 1\n - iron_nugget [A2] quantity 1\n - iron_nugget [A3] quantity 1\n - iron_nugget [B1] quantity 1\n - iron_nugget [B2] quantity 1\n - iron_nugget [B3] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 3\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [C1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_nugget [A1] quantity 1\n - iron_nugget [A2] quantity 1\n - iron_nugget [A3] quantity 1\n - iron_nugget [B1] quantity 1\n - iron_nugget [B2] quantity 1\n - iron_nugget [B3] quantity 1\n - iron_nugget [C1] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 2\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_nugget [A1] quantity 1\n - iron_nugget [A2] quantity 1\n - iron_nugget [A3] quantity 1\n - iron_nugget [B1] quantity 1\n - iron_nugget [B2] quantity 1\n - iron_nugget [B3] quantity 1\n - iron_nugget [C1] quantity 1\n - iron_nugget [C2] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - iron_nugget [I15] quantity 1\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [C3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: iron_ingot\ninventory:\n - iron_ingot [0] quantity 1\n - iron_nugget [A1] quantity 1\n - iron_nugget [A2] quantity 1\n - iron_nugget [A3] quantity 1\n - iron_nugget [B1] quantity 1\n - iron_nugget [B2] quantity 1\n - iron_nugget [B3] quantity 1\n - iron_nugget [C1] quantity 1\n - iron_nugget [C2] quantity 1\n - iron_nugget [C3] quantity 1\n - oak_fence_gate [I1] quantity 33\n - rotten_flesh [I4] quantity 58\n - warped_fungus [I7] quantity 21\n - piglin_spawn_egg [I10] quantity 49\n - leather_helmet [I12] quantity 1\n - tnt_minecart [I14] quantity 1\n - bricks [I17] quantity 15\n - damaged_anvil [I18] quantity 12\n - jungle_slab [I19] quantity 55\n - leather_boots [I22] quantity 1\n - wooden_hoe [I25] quantity 1\n - mossy_stone_bricks [I27] quantity 62\n - lectern [I28] quantity 1\n - potato [I30] quantity 43\n - brown_concrete [I31] quantity 48\n - player_head [I35] quantity 8"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "TRAIN0286"
+}

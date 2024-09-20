@@ -1,66 +1,73 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_wool\ninventory=[{\"type\": \"jack_o_lantern\", \"quantity\": 59, \"index\": 10}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 13, \"index\": 12}, {\"type\": \"ender_chest\", \"quantity\": 22, \"index\": 14}, {\"type\": \"light_gray_concrete\", \"quantity\": 47, \"index\": 16}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 43, \"index\": 19}, {\"type\": \"music_disc_cat\", \"quantity\": 1, \"index\": 21}, {\"type\": \"lapis_ore\", \"quantity\": 7, \"index\": 22}, {\"type\": \"prismarine_bricks\", \"quantity\": 13, \"index\": 23}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 24}, {\"type\": \"blackstone_slab\", \"quantity\": 23, \"index\": 27}, {\"type\": \"polished_diorite\", \"quantity\": 31, \"index\": 29}, {\"type\": \"purple_stained_glass\", \"quantity\": 9, \"index\": 33}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 34}, {\"type\": \"redstone_torch\", \"quantity\": 30, \"index\": 35}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 24, \"index\": 40}, {\"type\": \"cooked_cod\", \"quantity\": 47, \"index\": 42}, {\"type\": \"light_blue_dye\", \"quantity\": 64, \"index\": 43}, {\"type\": \"ink_sac\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 45 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_wool\ninventory=[{\"type\": \"black_dye\", \"quantity\": 1, \"index\": 0}, {\"type\": \"ink_sac\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jack_o_lantern\", \"quantity\": 59, \"index\": 10}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 13, \"index\": 12}, {\"type\": \"ender_chest\", \"quantity\": 22, \"index\": 14}, {\"type\": \"light_gray_concrete\", \"quantity\": 47, \"index\": 16}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 43, \"index\": 19}, {\"type\": \"music_disc_cat\", \"quantity\": 1, \"index\": 21}, {\"type\": \"lapis_ore\", \"quantity\": 7, \"index\": 22}, {\"type\": \"prismarine_bricks\", \"quantity\": 13, \"index\": 23}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 24}, {\"type\": \"blackstone_slab\", \"quantity\": 23, \"index\": 27}, {\"type\": \"polished_diorite\", \"quantity\": 31, \"index\": 29}, {\"type\": \"purple_stained_glass\", \"quantity\": 9, \"index\": 33}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 34}, {\"type\": \"redstone_torch\", \"quantity\": 30, \"index\": 35}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 24, \"index\": 40}, {\"type\": \"cooked_cod\", \"quantity\": 47, \"index\": 42}, {\"type\": \"light_blue_dye\", \"quantity\": 64, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_wool\ninventory=[{\"type\": \"jack_o_lantern\", \"quantity\": 59, \"index\": 10}, {\"type\": \"black_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 13, \"index\": 12}, {\"type\": \"ender_chest\", \"quantity\": 22, \"index\": 14}, {\"type\": \"light_gray_concrete\", \"quantity\": 47, \"index\": 16}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 43, \"index\": 19}, {\"type\": \"music_disc_cat\", \"quantity\": 1, \"index\": 21}, {\"type\": \"lapis_ore\", \"quantity\": 7, \"index\": 22}, {\"type\": \"prismarine_bricks\", \"quantity\": 13, \"index\": 23}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 24}, {\"type\": \"blackstone_slab\", \"quantity\": 23, \"index\": 27}, {\"type\": \"polished_diorite\", \"quantity\": 31, \"index\": 29}, {\"type\": \"purple_stained_glass\", \"quantity\": 9, \"index\": 33}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 34}, {\"type\": \"redstone_torch\", \"quantity\": 30, \"index\": 35}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 24, \"index\": 40}, {\"type\": \"cooked_cod\", \"quantity\": 47, \"index\": 42}, {\"type\": \"light_blue_dye\", \"quantity\": 64, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_wool\ninventory=[{\"type\": \"black_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jack_o_lantern\", \"quantity\": 59, \"index\": 10}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 13, \"index\": 12}, {\"type\": \"ender_chest\", \"quantity\": 22, \"index\": 14}, {\"type\": \"light_gray_concrete\", \"quantity\": 47, \"index\": 16}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 43, \"index\": 19}, {\"type\": \"music_disc_cat\", \"quantity\": 1, \"index\": 21}, {\"type\": \"lapis_ore\", \"quantity\": 7, \"index\": 22}, {\"type\": \"prismarine_bricks\", \"quantity\": 13, \"index\": 23}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 24}, {\"type\": \"blackstone_slab\", \"quantity\": 23, \"index\": 27}, {\"type\": \"polished_diorite\", \"quantity\": 31, \"index\": 29}, {\"type\": \"purple_stained_glass\", \"quantity\": 9, \"index\": 33}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 34}, {\"type\": \"redstone_torch\", \"quantity\": 30, \"index\": 35}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 24, \"index\": 40}, {\"type\": \"cooked_cod\", \"quantity\": 47, \"index\": 42}, {\"type\": \"light_blue_dye\", \"quantity\": 64, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 24 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_wool\ninventory=[{\"type\": \"gray_dye\", \"quantity\": 2, \"index\": 0}, {\"type\": \"black_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_dye\", \"quantity\": 1, \"index\": 2}, {\"type\": \"jack_o_lantern\", \"quantity\": 59, \"index\": 10}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 13, \"index\": 12}, {\"type\": \"ender_chest\", \"quantity\": 22, \"index\": 14}, {\"type\": \"light_gray_concrete\", \"quantity\": 47, \"index\": 16}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 43, \"index\": 19}, {\"type\": \"music_disc_cat\", \"quantity\": 1, \"index\": 21}, {\"type\": \"lapis_ore\", \"quantity\": 7, \"index\": 22}, {\"type\": \"prismarine_bricks\", \"quantity\": 13, \"index\": 23}, {\"type\": \"blackstone_slab\", \"quantity\": 23, \"index\": 27}, {\"type\": \"polished_diorite\", \"quantity\": 31, \"index\": 29}, {\"type\": \"purple_stained_glass\", \"quantity\": 9, \"index\": 33}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 34}, {\"type\": \"redstone_torch\", \"quantity\": 30, \"index\": 35}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 24, \"index\": 40}, {\"type\": \"cooked_cod\", \"quantity\": 47, \"index\": 42}, {\"type\": \"light_blue_dye\", \"quantity\": 64, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 2"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_wool\ninventory=[{\"type\": \"jack_o_lantern\", \"quantity\": 59, \"index\": 10}, {\"type\": \"gray_dye\", \"quantity\": 2, \"index\": 11}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 13, \"index\": 12}, {\"type\": \"ender_chest\", \"quantity\": 22, \"index\": 14}, {\"type\": \"light_gray_concrete\", \"quantity\": 47, \"index\": 16}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 43, \"index\": 19}, {\"type\": \"music_disc_cat\", \"quantity\": 1, \"index\": 21}, {\"type\": \"lapis_ore\", \"quantity\": 7, \"index\": 22}, {\"type\": \"prismarine_bricks\", \"quantity\": 13, \"index\": 23}, {\"type\": \"blackstone_slab\", \"quantity\": 23, \"index\": 27}, {\"type\": \"polished_diorite\", \"quantity\": 31, \"index\": 29}, {\"type\": \"purple_stained_glass\", \"quantity\": 9, \"index\": 33}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 34}, {\"type\": \"redstone_torch\", \"quantity\": 30, \"index\": 35}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 24, \"index\": 40}, {\"type\": \"cooked_cod\", \"quantity\": 47, \"index\": 42}, {\"type\": \"light_blue_dye\", \"quantity\": 64, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 11 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_wool\ninventory=[{\"type\": \"gray_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"jack_o_lantern\", \"quantity\": 59, \"index\": 10}, {\"type\": \"gray_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 13, \"index\": 12}, {\"type\": \"ender_chest\", \"quantity\": 22, \"index\": 14}, {\"type\": \"light_gray_concrete\", \"quantity\": 47, \"index\": 16}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 43, \"index\": 19}, {\"type\": \"music_disc_cat\", \"quantity\": 1, \"index\": 21}, {\"type\": \"lapis_ore\", \"quantity\": 7, \"index\": 22}, {\"type\": \"prismarine_bricks\", \"quantity\": 13, \"index\": 23}, {\"type\": \"blackstone_slab\", \"quantity\": 23, \"index\": 27}, {\"type\": \"polished_diorite\", \"quantity\": 31, \"index\": 29}, {\"type\": \"purple_stained_glass\", \"quantity\": 9, \"index\": 33}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 34}, {\"type\": \"redstone_torch\", \"quantity\": 30, \"index\": 35}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 24, \"index\": 40}, {\"type\": \"cooked_cod\", \"quantity\": 47, \"index\": 42}, {\"type\": \"light_blue_dye\", \"quantity\": 64, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 34 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: gray_wool\ninventory=[{\"type\": \"gray_wool\", \"quantity\": 1, \"index\": 0}, {\"type\": \"gray_dye\", \"quantity\": 1, \"index\": 1}, {\"type\": \"white_wool\", \"quantity\": 1, \"index\": 2}, {\"type\": \"jack_o_lantern\", \"quantity\": 59, \"index\": 10}, {\"type\": \"gray_dye\", \"quantity\": 1, \"index\": 11}, {\"type\": \"dead_bubble_coral_fan\", \"quantity\": 13, \"index\": 12}, {\"type\": \"ender_chest\", \"quantity\": 22, \"index\": 14}, {\"type\": \"light_gray_concrete\", \"quantity\": 47, \"index\": 16}, {\"type\": \"cyan_glazed_terracotta\", \"quantity\": 43, \"index\": 19}, {\"type\": \"music_disc_cat\", \"quantity\": 1, \"index\": 21}, {\"type\": \"lapis_ore\", \"quantity\": 7, \"index\": 22}, {\"type\": \"prismarine_bricks\", \"quantity\": 13, \"index\": 23}, {\"type\": \"blackstone_slab\", \"quantity\": 23, \"index\": 27}, {\"type\": \"polished_diorite\", \"quantity\": 31, \"index\": 29}, {\"type\": \"purple_stained_glass\", \"quantity\": 9, \"index\": 33}, {\"type\": \"redstone_torch\", \"quantity\": 30, \"index\": 35}, {\"type\": \"iron_boots\", \"quantity\": 1, \"index\": 36}, {\"type\": \"mossy_stone_bricks\", \"quantity\": 24, \"index\": 40}, {\"type\": \"cooked_cod\", \"quantity\": 47, \"index\": 42}, {\"type\": \"light_blue_dye\", \"quantity\": 64, \"index\": 43}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_wool\ninventory:\n - jack_o_lantern [I1] quantity 59\n - dead_bubble_coral_fan [I3] quantity 13\n - ender_chest [I5] quantity 22\n - light_gray_concrete [I7] quantity 47\n - cyan_glazed_terracotta [I10] quantity 43\n - music_disc_cat [I12] quantity 1\n - lapis_ore [I13] quantity 7\n - prismarine_bricks [I14] quantity 13\n - white_dye [I15] quantity 1\n - blackstone_slab [I18] quantity 23\n - polished_diorite [I20] quantity 31\n - purple_stained_glass [I24] quantity 9\n - white_wool [I25] quantity 1\n - redstone_torch [I26] quantity 30\n - iron_boots [I27] quantity 1\n - mossy_stone_bricks [I31] quantity 24\n - cooked_cod [I33] quantity 47\n - light_blue_dye [I34] quantity 64\n - ink_sac [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I36] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_wool\ninventory:\n - black_dye [0] quantity 1\n - ink_sac [A1] quantity 1\n - jack_o_lantern [I1] quantity 59\n - dead_bubble_coral_fan [I3] quantity 13\n - ender_chest [I5] quantity 22\n - light_gray_concrete [I7] quantity 47\n - cyan_glazed_terracotta [I10] quantity 43\n - music_disc_cat [I12] quantity 1\n - lapis_ore [I13] quantity 7\n - prismarine_bricks [I14] quantity 13\n - white_dye [I15] quantity 1\n - blackstone_slab [I18] quantity 23\n - polished_diorite [I20] quantity 31\n - purple_stained_glass [I24] quantity 9\n - white_wool [I25] quantity 1\n - redstone_torch [I26] quantity 30\n - iron_boots [I27] quantity 1\n - mossy_stone_bricks [I31] quantity 24\n - cooked_cod [I33] quantity 47\n - light_blue_dye [I34] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_wool\ninventory:\n - jack_o_lantern [I1] quantity 59\n - black_dye [I2] quantity 1\n - dead_bubble_coral_fan [I3] quantity 13\n - ender_chest [I5] quantity 22\n - light_gray_concrete [I7] quantity 47\n - cyan_glazed_terracotta [I10] quantity 43\n - music_disc_cat [I12] quantity 1\n - lapis_ore [I13] quantity 7\n - prismarine_bricks [I14] quantity 13\n - white_dye [I15] quantity 1\n - blackstone_slab [I18] quantity 23\n - polished_diorite [I20] quantity 31\n - purple_stained_glass [I24] quantity 9\n - white_wool [I25] quantity 1\n - redstone_torch [I26] quantity 30\n - iron_boots [I27] quantity 1\n - mossy_stone_bricks [I31] quantity 24\n - cooked_cod [I33] quantity 47\n - light_blue_dye [I34] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_wool\ninventory:\n - black_dye [A1] quantity 1\n - jack_o_lantern [I1] quantity 59\n - dead_bubble_coral_fan [I3] quantity 13\n - ender_chest [I5] quantity 22\n - light_gray_concrete [I7] quantity 47\n - cyan_glazed_terracotta [I10] quantity 43\n - music_disc_cat [I12] quantity 1\n - lapis_ore [I13] quantity 7\n - prismarine_bricks [I14] quantity 13\n - white_dye [I15] quantity 1\n - blackstone_slab [I18] quantity 23\n - polished_diorite [I20] quantity 31\n - purple_stained_glass [I24] quantity 9\n - white_wool [I25] quantity 1\n - redstone_torch [I26] quantity 30\n - iron_boots [I27] quantity 1\n - mossy_stone_bricks [I31] quantity 24\n - cooked_cod [I33] quantity 47\n - light_blue_dye [I34] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I15] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_wool\ninventory:\n - gray_dye [0] quantity 2\n - black_dye [A1] quantity 1\n - white_dye [A2] quantity 1\n - jack_o_lantern [I1] quantity 59\n - dead_bubble_coral_fan [I3] quantity 13\n - ender_chest [I5] quantity 22\n - light_gray_concrete [I7] quantity 47\n - cyan_glazed_terracotta [I10] quantity 43\n - music_disc_cat [I12] quantity 1\n - lapis_ore [I13] quantity 7\n - prismarine_bricks [I14] quantity 13\n - blackstone_slab [I18] quantity 23\n - polished_diorite [I20] quantity 31\n - purple_stained_glass [I24] quantity 9\n - white_wool [I25] quantity 1\n - redstone_torch [I26] quantity 30\n - iron_boots [I27] quantity 1\n - mossy_stone_bricks [I31] quantity 24\n - cooked_cod [I33] quantity 47\n - light_blue_dye [I34] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 2"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_wool\ninventory:\n - jack_o_lantern [I1] quantity 59\n - gray_dye [I2] quantity 2\n - dead_bubble_coral_fan [I3] quantity 13\n - ender_chest [I5] quantity 22\n - light_gray_concrete [I7] quantity 47\n - cyan_glazed_terracotta [I10] quantity 43\n - music_disc_cat [I12] quantity 1\n - lapis_ore [I13] quantity 7\n - prismarine_bricks [I14] quantity 13\n - blackstone_slab [I18] quantity 23\n - polished_diorite [I20] quantity 31\n - purple_stained_glass [I24] quantity 9\n - white_wool [I25] quantity 1\n - redstone_torch [I26] quantity 30\n - iron_boots [I27] quantity 1\n - mossy_stone_bricks [I31] quantity 24\n - cooked_cod [I33] quantity 47\n - light_blue_dye [I34] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_wool\ninventory:\n - gray_dye [A1] quantity 1\n - jack_o_lantern [I1] quantity 59\n - gray_dye [I2] quantity 1\n - dead_bubble_coral_fan [I3] quantity 13\n - ender_chest [I5] quantity 22\n - light_gray_concrete [I7] quantity 47\n - cyan_glazed_terracotta [I10] quantity 43\n - music_disc_cat [I12] quantity 1\n - lapis_ore [I13] quantity 7\n - prismarine_bricks [I14] quantity 13\n - blackstone_slab [I18] quantity 23\n - polished_diorite [I20] quantity 31\n - purple_stained_glass [I24] quantity 9\n - white_wool [I25] quantity 1\n - redstone_torch [I26] quantity 30\n - iron_boots [I27] quantity 1\n - mossy_stone_bricks [I31] quantity 24\n - cooked_cod [I33] quantity 47\n - light_blue_dye [I34] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I25] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: gray_wool\ninventory:\n - gray_wool [0] quantity 1\n - gray_dye [A1] quantity 1\n - white_wool [A2] quantity 1\n - jack_o_lantern [I1] quantity 59\n - gray_dye [I2] quantity 1\n - dead_bubble_coral_fan [I3] quantity 13\n - ender_chest [I5] quantity 22\n - light_gray_concrete [I7] quantity 47\n - cyan_glazed_terracotta [I10] quantity 43\n - music_disc_cat [I12] quantity 1\n - lapis_ore [I13] quantity 7\n - prismarine_bricks [I14] quantity 13\n - blackstone_slab [I18] quantity 23\n - polished_diorite [I20] quantity 31\n - purple_stained_glass [I24] quantity 9\n - redstone_torch [I26] quantity 30\n - iron_boots [I27] quantity 1\n - mossy_stone_bricks [I31] quantity 24\n - cooked_cod [I33] quantity 47\n - light_blue_dye [I34] quantity 64"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0375"
+}

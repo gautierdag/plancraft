@@ -1,34 +1,41 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: quartz_slab\ninventory=[{\"type\": \"enchanted_golden_apple\", \"quantity\": 54, \"index\": 15}, {\"type\": \"skeleton_skull\", \"quantity\": 4, \"index\": 16}, {\"type\": \"flower_pot\", \"quantity\": 44, \"index\": 17}, {\"type\": \"lime_stained_glass\", \"quantity\": 33, \"index\": 18}, {\"type\": \"spruce_wood\", \"quantity\": 62, \"index\": 20}, {\"type\": \"crimson_fungus\", \"quantity\": 1, \"index\": 24}, {\"type\": \"quartz_pillar\", \"quantity\": 1, \"index\": 30}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 2, \"index\": 35}, {\"type\": \"command_block_minecart\", \"quantity\": 1, \"index\": 37}, {\"type\": \"azure_bluet\", \"quantity\": 9, \"index\": 39}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 30 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: quartz_slab\ninventory=[{\"type\": \"quartz_pillar\", \"quantity\": 1, \"index\": 1}, {\"type\": \"enchanted_golden_apple\", \"quantity\": 54, \"index\": 15}, {\"type\": \"skeleton_skull\", \"quantity\": 4, \"index\": 16}, {\"type\": \"flower_pot\", \"quantity\": 44, \"index\": 17}, {\"type\": \"lime_stained_glass\", \"quantity\": 33, \"index\": 18}, {\"type\": \"spruce_wood\", \"quantity\": 62, \"index\": 20}, {\"type\": \"crimson_fungus\", \"quantity\": 1, \"index\": 24}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 2, \"index\": 35}, {\"type\": \"command_block_minecart\", \"quantity\": 1, \"index\": 37}, {\"type\": \"azure_bluet\", \"quantity\": 9, \"index\": 39}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 35 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: quartz_slab\ninventory=[{\"type\": \"quartz_pillar\", \"quantity\": 1, \"index\": 1}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 1, \"index\": 2}, {\"type\": \"enchanted_golden_apple\", \"quantity\": 54, \"index\": 15}, {\"type\": \"skeleton_skull\", \"quantity\": 4, \"index\": 16}, {\"type\": \"flower_pot\", \"quantity\": 44, \"index\": 17}, {\"type\": \"lime_stained_glass\", \"quantity\": 33, \"index\": 18}, {\"type\": \"spruce_wood\", \"quantity\": 62, \"index\": 20}, {\"type\": \"crimson_fungus\", \"quantity\": 1, \"index\": 24}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 1, \"index\": 35}, {\"type\": \"command_block_minecart\", \"quantity\": 1, \"index\": 37}, {\"type\": \"azure_bluet\", \"quantity\": 9, \"index\": 39}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 35 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: quartz_slab\ninventory=[{\"type\": \"quartz_slab\", \"quantity\": 6, \"index\": 0}, {\"type\": \"quartz_pillar\", \"quantity\": 1, \"index\": 1}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 1, \"index\": 2}, {\"type\": \"chiseled_quartz_block\", \"quantity\": 1, \"index\": 3}, {\"type\": \"enchanted_golden_apple\", \"quantity\": 54, \"index\": 15}, {\"type\": \"skeleton_skull\", \"quantity\": 4, \"index\": 16}, {\"type\": \"flower_pot\", \"quantity\": 44, \"index\": 17}, {\"type\": \"lime_stained_glass\", \"quantity\": 33, \"index\": 18}, {\"type\": \"spruce_wood\", \"quantity\": 62, \"index\": 20}, {\"type\": \"crimson_fungus\", \"quantity\": 1, \"index\": 24}, {\"type\": \"command_block_minecart\", \"quantity\": 1, \"index\": 37}, {\"type\": \"azure_bluet\", \"quantity\": 9, \"index\": 39}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 6"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: quartz_slab\ninventory:\n - enchanted_golden_apple [I6] quantity 54\n - skeleton_skull [I7] quantity 4\n - flower_pot [I8] quantity 44\n - lime_stained_glass [I9] quantity 33\n - spruce_wood [I11] quantity 62\n - crimson_fungus [I15] quantity 1\n - quartz_pillar [I21] quantity 1\n - chiseled_quartz_block [I26] quantity 2\n - command_block_minecart [I28] quantity 1\n - azure_bluet [I30] quantity 9"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I21] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: quartz_slab\ninventory:\n - quartz_pillar [A1] quantity 1\n - enchanted_golden_apple [I6] quantity 54\n - skeleton_skull [I7] quantity 4\n - flower_pot [I8] quantity 44\n - lime_stained_glass [I9] quantity 33\n - spruce_wood [I11] quantity 62\n - crimson_fungus [I15] quantity 1\n - chiseled_quartz_block [I26] quantity 2\n - command_block_minecart [I28] quantity 1\n - azure_bluet [I30] quantity 9"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I26] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: quartz_slab\ninventory:\n - quartz_pillar [A1] quantity 1\n - chiseled_quartz_block [A2] quantity 1\n - enchanted_golden_apple [I6] quantity 54\n - skeleton_skull [I7] quantity 4\n - flower_pot [I8] quantity 44\n - lime_stained_glass [I9] quantity 33\n - spruce_wood [I11] quantity 62\n - crimson_fungus [I15] quantity 1\n - chiseled_quartz_block [I26] quantity 1\n - command_block_minecart [I28] quantity 1\n - azure_bluet [I30] quantity 9"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I26] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: quartz_slab\ninventory:\n - quartz_slab [0] quantity 6\n - quartz_pillar [A1] quantity 1\n - chiseled_quartz_block [A2] quantity 1\n - chiseled_quartz_block [A3] quantity 1\n - enchanted_golden_apple [I6] quantity 54\n - skeleton_skull [I7] quantity 4\n - flower_pot [I8] quantity 44\n - lime_stained_glass [I9] quantity 33\n - spruce_wood [I11] quantity 62\n - crimson_fungus [I15] quantity 1\n - command_block_minecart [I28] quantity 1\n - azure_bluet [I30] quantity 9"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 6"
+    }
+  ],
+  "example_id": "TRAIN0356"
+}

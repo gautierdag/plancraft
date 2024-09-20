@@ -1,58 +1,65 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_wall\ninventory=[{\"type\": \"dead_brain_coral\", \"quantity\": 33, \"index\": 17}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 20, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 6, \"index\": 23}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 48, \"index\": 35}, {\"type\": \"chain\", \"quantity\": 7, \"index\": 37}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 23 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_wall\ninventory=[{\"type\": \"polished_blackstone_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"dead_brain_coral\", \"quantity\": 33, \"index\": 17}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 20, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 5, \"index\": 23}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 48, \"index\": 35}, {\"type\": \"chain\", \"quantity\": 7, \"index\": 37}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 23 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_wall\ninventory=[{\"type\": \"polished_blackstone_pressure_plate\", \"quantity\": 1, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"dead_brain_coral\", \"quantity\": 33, \"index\": 17}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 20, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 4, \"index\": 23}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 48, \"index\": 35}, {\"type\": \"chain\", \"quantity\": 7, \"index\": 37}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 23 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_wall\ninventory=[{\"type\": \"polished_blackstone_slab\", \"quantity\": 6, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"dead_brain_coral\", \"quantity\": 33, \"index\": 17}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 20, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 3, \"index\": 23}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 48, \"index\": 35}, {\"type\": \"chain\", \"quantity\": 7, \"index\": 37}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 23 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_wall\ninventory=[{\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"dead_brain_coral\", \"quantity\": 33, \"index\": 17}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 20, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 2, \"index\": 23}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 48, \"index\": 35}, {\"type\": \"chain\", \"quantity\": 7, \"index\": 37}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 23 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_wall\ninventory=[{\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 5}, {\"type\": \"dead_brain_coral\", \"quantity\": 33, \"index\": 17}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 20, \"index\": 21}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 23}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 48, \"index\": 35}, {\"type\": \"chain\", \"quantity\": 7, \"index\": 37}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 23 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: polished_blackstone_wall\ninventory=[{\"type\": \"polished_blackstone_wall\", \"quantity\": 6, \"index\": 0}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 1}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 2}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 3}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 4}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 5}, {\"type\": \"polished_blackstone\", \"quantity\": 1, \"index\": 6}, {\"type\": \"dead_brain_coral\", \"quantity\": 33, \"index\": 17}, {\"type\": \"red_nether_brick_slab\", \"quantity\": 20, \"index\": 21}, {\"type\": \"dolphin_spawn_egg\", \"quantity\": 48, \"index\": 35}, {\"type\": \"chain\", \"quantity\": 7, \"index\": 37}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 11 with quantity 6"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_wall\ninventory:\n - dead_brain_coral [I8] quantity 33\n - red_nether_brick_slab [I12] quantity 20\n - polished_blackstone [I14] quantity 6\n - dolphin_spawn_egg [I26] quantity 48\n - chain [I28] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I14] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_wall\ninventory:\n - polished_blackstone_button [0] quantity 1\n - polished_blackstone [A1] quantity 1\n - dead_brain_coral [I8] quantity 33\n - red_nether_brick_slab [I12] quantity 20\n - polished_blackstone [I14] quantity 5\n - dolphin_spawn_egg [I26] quantity 48\n - chain [I28] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I14] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_wall\ninventory:\n - polished_blackstone_pressure_plate [0] quantity 1\n - polished_blackstone [A1] quantity 1\n - polished_blackstone [A2] quantity 1\n - dead_brain_coral [I8] quantity 33\n - red_nether_brick_slab [I12] quantity 20\n - polished_blackstone [I14] quantity 4\n - dolphin_spawn_egg [I26] quantity 48\n - chain [I28] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I14] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_wall\ninventory:\n - polished_blackstone_slab [0] quantity 6\n - polished_blackstone [A1] quantity 1\n - polished_blackstone [A2] quantity 1\n - polished_blackstone [A3] quantity 1\n - dead_brain_coral [I8] quantity 33\n - red_nether_brick_slab [I12] quantity 20\n - polished_blackstone [I14] quantity 3\n - dolphin_spawn_egg [I26] quantity 48\n - chain [I28] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I14] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_wall\ninventory:\n - polished_blackstone [A1] quantity 1\n - polished_blackstone [A2] quantity 1\n - polished_blackstone [A3] quantity 1\n - polished_blackstone [B1] quantity 1\n - dead_brain_coral [I8] quantity 33\n - red_nether_brick_slab [I12] quantity 20\n - polished_blackstone [I14] quantity 2\n - dolphin_spawn_egg [I26] quantity 48\n - chain [I28] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I14] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_wall\ninventory:\n - polished_blackstone [A1] quantity 1\n - polished_blackstone [A2] quantity 1\n - polished_blackstone [A3] quantity 1\n - polished_blackstone [B1] quantity 1\n - polished_blackstone [B2] quantity 1\n - dead_brain_coral [I8] quantity 33\n - red_nether_brick_slab [I12] quantity 20\n - polished_blackstone [I14] quantity 1\n - dolphin_spawn_egg [I26] quantity 48\n - chain [I28] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I14] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: polished_blackstone_wall\ninventory:\n - polished_blackstone_wall [0] quantity 6\n - polished_blackstone [A1] quantity 1\n - polished_blackstone [A2] quantity 1\n - polished_blackstone [A3] quantity 1\n - polished_blackstone [B1] quantity 1\n - polished_blackstone [B2] quantity 1\n - polished_blackstone [B3] quantity 1\n - dead_brain_coral [I8] quantity 33\n - red_nether_brick_slab [I12] quantity 20\n - dolphin_spawn_egg [I26] quantity 48\n - chain [I28] quantity 7"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 6"
+    }
+  ],
+  "example_id": "TRAIN1191"
+}

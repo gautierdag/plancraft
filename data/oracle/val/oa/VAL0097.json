@@ -1,10 +1,17 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: black_glazed_terracotta\ninventory=[{\"type\": \"cactus\", \"quantity\": 50, \"index\": 12}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 13}, {\"type\": \"horn_coral_fan\", \"quantity\": 49, \"index\": 14}, {\"type\": \"black_terracotta\", \"quantity\": 1, \"index\": 16}, {\"type\": \"jungle_leaves\", \"quantity\": 42, \"index\": 18}, {\"type\": \"damaged_anvil\", \"quantity\": 41, \"index\": 19}, {\"type\": \"lapis_block\", \"quantity\": 58, \"index\": 21}, {\"type\": \"item_frame\", \"quantity\": 54, \"index\": 23}, {\"type\": \"light_gray_concrete\", \"quantity\": 13, \"index\": 25}, {\"type\": \"skeleton_horse_spawn_egg\", \"quantity\": 17, \"index\": 29}, {\"type\": \"polished_granite\", \"quantity\": 8, \"index\": 30}, {\"type\": \"pink_tulip\", \"quantity\": 27, \"index\": 31}, {\"type\": \"dandelion\", \"quantity\": 54, \"index\": 33}, {\"type\": \"vine\", \"quantity\": 23, \"index\": 34}, {\"type\": \"zoglin_spawn_egg\", \"quantity\": 2, \"index\": 40}, {\"type\": \"written_book\", \"quantity\": 13, \"index\": 42}, {\"type\": \"shroomlight\", \"quantity\": 24, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: smelt from slot 16 to slot 11 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: black_glazed_terracotta\ninventory:\n - cactus [I3] quantity 50\n - light_blue_shulker_box [I4] quantity 1\n - horn_coral_fan [I5] quantity 49\n - black_terracotta [I7] quantity 1\n - jungle_leaves [I9] quantity 42\n - damaged_anvil [I10] quantity 41\n - lapis_block [I12] quantity 58\n - item_frame [I14] quantity 54\n - light_gray_concrete [I16] quantity 13\n - skeleton_horse_spawn_egg [I20] quantity 17\n - polished_granite [I21] quantity 8\n - pink_tulip [I22] quantity 27\n - dandelion [I24] quantity 54\n - vine [I25] quantity 23\n - zoglin_spawn_egg [I31] quantity 2\n - written_book [I33] quantity 13\n - shroomlight [I36] quantity 24"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I7] to [I2] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0097"
+}

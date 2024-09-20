@@ -1,82 +1,89 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_wood\", \"quantity\": 2, \"index\": 14}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 14 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"spruce_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_wood\", \"quantity\": 1, \"index\": 14}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 12}, {\"type\": \"spruce_wood\", \"quantity\": 1, \"index\": 14}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 14 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"spruce_wood\", \"quantity\": 1, \"index\": 1}, {\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 12}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 12}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 13}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 3, \"index\": 12}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 13}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 13}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 12}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 13}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 5}, {\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 13}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: spruce_boat\ninventory=[{\"type\": \"spruce_boat\", \"quantity\": 1, \"index\": 0}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 3}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 5}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 6}, {\"type\": \"orange_stained_glass\", \"quantity\": 3, \"index\": 10}, {\"type\": \"shield\", \"quantity\": 1, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 3, \"index\": 13}, {\"type\": \"dead_horn_coral_block\", \"quantity\": 35, \"index\": 15}, {\"type\": \"zombified_piglin_spawn_egg\", \"quantity\": 6, \"index\": 16}, {\"type\": \"elder_guardian_spawn_egg\", \"quantity\": 2, \"index\": 18}, {\"type\": \"tube_coral_block\", \"quantity\": 59, \"index\": 22}, {\"type\": \"evoker_spawn_egg\", \"quantity\": 58, \"index\": 26}, {\"type\": \"music_disc_far\", \"quantity\": 1, \"index\": 27}, {\"type\": \"clock\", \"quantity\": 47, \"index\": 32}, {\"type\": \"iron_leggings\", \"quantity\": 1, \"index\": 33}, {\"type\": \"red_concrete\", \"quantity\": 33, \"index\": 34}, {\"type\": \"birch_stairs\", \"quantity\": 22, \"index\": 36}, {\"type\": \"red_concrete_powder\", \"quantity\": 52, \"index\": 37}, {\"type\": \"horse_spawn_egg\", \"quantity\": 29, \"index\": 42}, {\"type\": \"dark_oak_pressure_plate\", \"quantity\": 12, \"index\": 43}, {\"type\": \"stone_axe\", \"quantity\": 1, \"index\": 44}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_wood [I5] quantity 2\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I5] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [0] quantity 4\n - spruce_wood [A1] quantity 1\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_wood [I5] quantity 1\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_planks [I3] quantity 4\n - spruce_wood [I5] quantity 1\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I5] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [0] quantity 4\n - spruce_wood [A1] quantity 1\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_planks [I3] quantity 4\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_planks [I3] quantity 4\n - spruce_planks [I4] quantity 4\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_button [0] quantity 1\n - spruce_planks [A1] quantity 1\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_planks [I3] quantity 3\n - spruce_planks [I4] quantity 4\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [A1] quantity 1\n - spruce_planks [A3] quantity 1\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_planks [I3] quantity 2\n - spruce_planks [I4] quantity 4\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [A1] quantity 1\n - spruce_planks [A3] quantity 1\n - spruce_planks [B1] quantity 1\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_planks [I3] quantity 1\n - spruce_planks [I4] quantity 4\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_planks [A1] quantity 1\n - spruce_planks [A3] quantity 1\n - spruce_planks [B1] quantity 1\n - spruce_planks [B2] quantity 1\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_planks [I4] quantity 4\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: spruce_boat\ninventory:\n - spruce_boat [0] quantity 1\n - spruce_planks [A1] quantity 1\n - spruce_planks [A3] quantity 1\n - spruce_planks [B1] quantity 1\n - spruce_planks [B2] quantity 1\n - spruce_planks [B3] quantity 1\n - orange_stained_glass [I1] quantity 3\n - shield [I2] quantity 1\n - spruce_planks [I4] quantity 3\n - dead_horn_coral_block [I6] quantity 35\n - zombified_piglin_spawn_egg [I7] quantity 6\n - elder_guardian_spawn_egg [I9] quantity 2\n - tube_coral_block [I13] quantity 59\n - evoker_spawn_egg [I17] quantity 58\n - music_disc_far [I18] quantity 1\n - clock [I23] quantity 47\n - iron_leggings [I24] quantity 1\n - red_concrete [I25] quantity 33\n - birch_stairs [I27] quantity 22\n - red_concrete_powder [I28] quantity 52\n - horse_spawn_egg [I33] quantity 29\n - dark_oak_pressure_plate [I34] quantity 12\n - stone_axe [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0482"
+}

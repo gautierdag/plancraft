@@ -1,106 +1,113 @@
-[
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 16}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"spruce_log\", \"quantity\": 1, \"index\": 19}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 19 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 0}, {\"type\": \"spruce_log\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 16}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 12 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 4, \"index\": 12}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 16}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"spruce_button\", \"quantity\": 1, \"index\": 0}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 3, \"index\": 12}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 16}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 12 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"stick\", \"quantity\": 4, \"index\": 0}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 1}, {\"type\": \"spruce_planks\", \"quantity\": 1, \"index\": 4}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 16}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 13 with quantity 4"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"stick\", \"quantity\": 4, \"index\": 13}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 16}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 1 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"stick\", \"quantity\": 3, \"index\": 13}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 16}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 16 to slot 2 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"stick\", \"quantity\": 3, \"index\": 13}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 3 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 3}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 13}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 2, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 22 to slot 4 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 3}, {\"type\": \"string\", \"quantity\": 1, \"index\": 4}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 13}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 1, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 31}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 31 to slot 5 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 3}, {\"type\": \"string\", \"quantity\": 1, \"index\": 4}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 5}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 13}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"string\", \"quantity\": 1, \"index\": 22}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 22 to slot 6 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"stick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 3}, {\"type\": \"string\", \"quantity\": 1, \"index\": 4}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 5}, {\"type\": \"string\", \"quantity\": 1, \"index\": 6}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"stick\", \"quantity\": 2, \"index\": 13}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 13 to slot 8 with quantity 1"
-  },
-  {
-    "role": "user",
-    "content": "Craft an item of type: crossbow\ninventory=[{\"type\": \"crossbow\", \"quantity\": 1, \"index\": 0}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 1}, {\"type\": \"iron_ingot\", \"quantity\": 1, \"index\": 2}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 3}, {\"type\": \"string\", \"quantity\": 1, \"index\": 4}, {\"type\": \"tripwire_hook\", \"quantity\": 1, \"index\": 5}, {\"type\": \"string\", \"quantity\": 1, \"index\": 6}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 8}, {\"type\": \"cracked_polished_blackstone_bricks\", \"quantity\": 33, \"index\": 10}, {\"type\": \"dragon_breath\", \"quantity\": 22, \"index\": 11}, {\"type\": \"spruce_planks\", \"quantity\": 2, \"index\": 12}, {\"type\": \"stick\", \"quantity\": 1, \"index\": 13}, {\"type\": \"dead_bubble_coral\", \"quantity\": 6, \"index\": 15}, {\"type\": \"golden_boots\", \"quantity\": 1, \"index\": 17}, {\"type\": \"diamond_pickaxe\", \"quantity\": 1, \"index\": 18}, {\"type\": \"jungle_log\", \"quantity\": 25, \"index\": 20}, {\"type\": \"netherite_helmet\", \"quantity\": 1, \"index\": 23}, {\"type\": \"apple\", \"quantity\": 33, \"index\": 25}, {\"type\": \"sand\", \"quantity\": 28, \"index\": 29}, {\"type\": \"sandstone_slab\", \"quantity\": 15, \"index\": 32}, {\"type\": \"light_blue_shulker_box\", \"quantity\": 1, \"index\": 33}, {\"type\": \"black_dye\", \"quantity\": 32, \"index\": 34}, {\"type\": \"dark_oak_planks\", \"quantity\": 1, \"index\": 36}, {\"type\": \"emerald_block\", \"quantity\": 40, \"index\": 37}, {\"type\": \"wandering_trader_spawn_egg\", \"quantity\": 14, \"index\": 39}, {\"type\": \"acacia_wood\", \"quantity\": 42, \"index\": 40}, {\"type\": \"cake\", \"quantity\": 1, \"index\": 45}]"
-  },
-  {
-    "role": "assistant",
-    "content": "act: move from slot 0 to slot 14 with quantity 1"
-  }
-]
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are crafting in Minecraft. You need to decide on the next action.\n\nCrafting Grid: The crafting table is organized into a 3x3 grid. Each slot in the grid has a unique identifier:\n    - Top row: [A1] [A2] [A3]\n    - Middle row: [B1] [B2] [B3]\n    - Bottom row: [C1] [C2] [C3]\n\nThe output of the crafting process is placed in a designated output slot labeled [0] You cannot move or smelt items directly into slot [0]\n\nInventory Slots: The remaining inventory slots (outside of the crafting grid) are used for storing items. These slots are labeled as [I1] to [I36]\n\nActions:\n\t- move: Transfer a specific quantity of an item from one slot to another\n\t- smelt: Smelt an item in a furnace and moves the output to a specific slot\n\nFormat\n\t- `move: from [Source] to [Target] with quantity N`\n\t- `smelt: from [Source] to [Target] with quantity N`\n\nExample:\n    - `move: from [I2] to [A1] with quantity 3`\n    - `smelt: from [I5] to [I6] with quantity 1`\n\nConstraints:\n   - You cannot move or smelt items into [0]\n   - If an item is not in slot [0] then the recipe is incorrect\n   - You need to move items from [0] to a free inventory slot to complete the crafting process"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - dead_bubble_coral [I6] quantity 6\n - iron_ingot [I7] quantity 1\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 42\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I31] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - acacia_planks [0] quantity 4\n - acacia_wood [A1] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - dead_bubble_coral [I6] quantity 6\n - iron_ingot [I7] quantity 1\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 4\n - dead_bubble_coral [I6] quantity 6\n - iron_ingot [I7] quantity 1\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - acacia_button [0] quantity 1\n - acacia_planks [A1] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 3\n - dead_bubble_coral [I6] quantity 6\n - iron_ingot [I7] quantity 1\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - stick [0] quantity 4\n - acacia_planks [A1] quantity 1\n - acacia_planks [B1] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - dead_bubble_coral [I6] quantity 6\n - iron_ingot [I7] quantity 1\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I4] with quantity 4"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - stick [I4] quantity 4\n - dead_bubble_coral [I6] quantity 6\n - iron_ingot [I7] quantity 1\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - stick [A1] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - stick [I4] quantity 3\n - dead_bubble_coral [I6] quantity 6\n - iron_ingot [I7] quantity 1\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - stick [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - stick [I4] quantity 3\n - dead_bubble_coral [I6] quantity 6\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [A3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - stick [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - stick [A3] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - stick [I4] quantity 2\n - dead_bubble_coral [I6] quantity 6\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 2\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I13] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - stick [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - stick [A3] quantity 1\n - string [B1] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - stick [I4] quantity 2\n - dead_bubble_coral [I6] quantity 6\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 1\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - tripwire_hook [I22] quantity 1\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I22] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - stick [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - stick [A3] quantity 1\n - string [B1] quantity 1\n - tripwire_hook [B2] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - stick [I4] quantity 2\n - dead_bubble_coral [I6] quantity 6\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - string [I13] quantity 1\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I13] to [B3] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - stick [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - stick [A3] quantity 1\n - string [B1] quantity 1\n - tripwire_hook [B2] quantity 1\n - string [B3] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - stick [I4] quantity 2\n - dead_bubble_coral [I6] quantity 6\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [C2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: crossbow\ninventory:\n - crossbow [0] quantity 1\n - stick [A1] quantity 1\n - iron_ingot [A2] quantity 1\n - stick [A3] quantity 1\n - string [B1] quantity 1\n - tripwire_hook [B2] quantity 1\n - string [B3] quantity 1\n - stick [C2] quantity 1\n - cracked_polished_blackstone_bricks [I1] quantity 33\n - dragon_breath [I2] quantity 22\n - acacia_planks [I3] quantity 2\n - stick [I4] quantity 1\n - dead_bubble_coral [I6] quantity 6\n - golden_boots [I8] quantity 1\n - diamond_pickaxe [I9] quantity 1\n - spruce_log [I10] quantity 1\n - jungle_log [I11] quantity 25\n - netherite_helmet [I14] quantity 1\n - apple [I16] quantity 33\n - sand [I20] quantity 28\n - sandstone_slab [I23] quantity 15\n - light_blue_shulker_box [I24] quantity 1\n - black_dye [I25] quantity 32\n - dark_oak_planks [I27] quantity 1\n - emerald_block [I28] quantity 40\n - wandering_trader_spawn_egg [I30] quantity 14\n - acacia_wood [I31] quantity 41\n - cake [I36] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I5] with quantity 1"
+    }
+  ],
+  "example_id": "VAL0182"
+}
