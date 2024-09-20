@@ -38,6 +38,23 @@ CRAFTING_RECIPES = [
 wandb.require("core")
 
 
+class TwoMLPHead(nn.Module):
+    """
+    Standard heads for FPN-based models - with leaky
+    """
+
+    def __init__(self, in_channels, representation_size):
+        super().__init__()
+        self.fc6 = nn.Linear(in_channels, representation_size)
+        self.fc7 = nn.Linear(representation_size, representation_size)
+
+    def forward(self, x):
+        x = x.flatten(start_dim=1)
+        x = F.leaky_relu(self.fc6(x))
+        x = F.leaky_relu(self.fc7(x))
+        return x
+
+
 def slot_to_bbox(slot: int):
     # crafting slot
     if slot == 0:
@@ -199,6 +216,7 @@ def postprocess_detections_custom(
     self,
     class_logits,
     quantity_logits,
+    box_features,
     box_regression,
     proposals,
     image_shapes,
@@ -220,14 +238,20 @@ def postprocess_detections_custom(
     pred_boxes_list = pred_boxes.split(boxes_per_image, 0)
     pred_scores_list = pred_scores.split(boxes_per_image, 0)
     pred_quantity_list = pred_quantity.split(boxes_per_image, 0)
+    pred_features_list = box_features.split(boxes_per_image, 0)
 
     all_boxes = []
     all_scores = []
     all_labels = []
     all_quantity_labels = []
+    all_features = []
 
-    for boxes, scores, quantities, image_shape in zip(
-        pred_boxes_list, pred_scores_list, pred_quantity_list, image_shapes
+    for boxes, scores, quantities, features, image_shape in zip(
+        pred_boxes_list,
+        pred_scores_list,
+        pred_quantity_list,
+        pred_features_list,
+        image_shapes,
     ):
         boxes = box_ops.clip_boxes_to_image(boxes, image_shape)
 
@@ -235,53 +259,63 @@ def postprocess_detections_custom(
         labels = torch.arange(num_classes, device=device)
         labels = labels.view(1, -1).expand_as(scores)
 
+        box_idxs = (
+            torch.arange(boxes.size(0), device=device).view(-1, 1).expand_as(labels)
+        )
+
         # remove predictions with the background label
         boxes = boxes[:, 1:]
         scores = scores[:, 1:]
         labels = labels[:, 1:]
         quantities = quantities[:, 1:]
+        box_idxs = box_idxs[:, 1:]
 
         # batch everything, by making every class prediction be a separate instance
         boxes = boxes.reshape(-1, 4)
         scores = scores.reshape(-1)
         labels = labels.reshape(-1)
         quantities = quantities.reshape(-1)
+        box_idxs = box_idxs.reshape(-1)
 
         # remove low scoring boxes
         inds = torch.where(scores > self.score_thresh)[0]
-        boxes, scores, labels, quantities = (
+        boxes, scores, labels, quantities, box_idxs = (
             boxes[inds],
             scores[inds],
             labels[inds],
             quantities[inds],
+            box_idxs[inds],
         )
 
         # remove empty boxes
         keep = box_ops.remove_small_boxes(boxes, min_size=1e-2)
-        boxes, scores, labels, quantities = (
+        boxes, scores, labels, quantities, box_idxs = (
             boxes[keep],
             scores[keep],
             labels[keep],
             quantities[keep],
+            box_idxs[keep],
         )
 
         # non-maximum suppression, independently done per class
         keep = box_ops.batched_nms(boxes, scores, labels, self.nms_thresh)
         # keep only topk scoring predictions
         keep = keep[: self.detections_per_img]
-        boxes, scores, labels, quantities = (
+        boxes, scores, labels, quantities, box_idxs = (
             boxes[keep],
             scores[keep],
             labels[keep],
             quantities[keep],
+            box_idxs[keep],
         )
 
         all_boxes.append(boxes)
         all_scores.append(scores)
         all_labels.append(labels)
         all_quantity_labels.append(quantities)
+        all_features.append(features[box_idxs])
 
-    return all_boxes, all_scores, all_labels, all_quantity_labels
+    return all_boxes, all_scores, all_labels, all_quantity_labels, all_features
 
 
 def forward_custom(
@@ -354,8 +388,14 @@ def forward_custom(
     else:
         quantity_logits = self.quantity_prediction(box_features)
 
-        boxes, scores, labels, quantities = postprocess_detections_custom(
-            self, class_logits, quantity_logits, box_regression, proposals, image_shapes
+        boxes, scores, labels, quantities, features = postprocess_detections_custom(
+            self,
+            class_logits,
+            quantity_logits,
+            box_features,
+            box_regression,
+            proposals,
+            image_shapes,
         )
         num_images = len(boxes)
         for i in range(num_images):
@@ -365,6 +405,7 @@ def forward_custom(
                     "labels": labels[i],
                     "scores": scores[i],
                     "quantities": quantities[i],
+                    "features": features[i],
                 }
             )
 
@@ -486,8 +527,14 @@ class IntegratedBoundingBoxModel(nn.Module):
             box_detections_per_img=64,
             box_batch_size_per_image=128,
         )
-
         self.model.roi_heads.quantity_prediction = nn.Linear(1024, 65)
+
+        # load model from .pth
+        if os.path.exists("/plancraft/plancraft_fast_rcnn.pth"):
+            self.load("/plancraft/plancraft_fast_rcnn.pth")
+
+        # replace the head with leaky activations
+        self.model.roi_heads.box_head = TwoMLPHead(256 * 7 * 7, 1024)
         self.model.roi_heads.forward = forward_custom.__get__(
             self.model.roi_heads, type(self.model.roi_heads)
         )
@@ -510,19 +557,21 @@ class IntegratedBoundingBoxModel(nn.Module):
 
 
 if __name__ == "__main__":
-    m1_path = "m1.pth"
+    m1_path = "latest_maskrcnn.pth"
     M1_model = IntegratedBoundingBoxModel()
     M1_model = M1_model.cuda()
-    print("Loaded model")
 
-    N = 10000
+    print("Loaded model")
+    N = 1000
     m1_lr = 0.001
     batch_size = 16
     save_every = 500
     count = 0
     m1_optimizer = torch.optim.AdamW(M1_model.parameters(), lr=m1_lr)
 
-    wandb.init(project="plancraft-img-encoder", entity="itl")  # , mode="disabled")
+    wandb.init(
+        project="plancraft-img-encoder", entity="itl", name="mlp-box-head-leaky-relu"
+    )
 
     pbar = tqdm(total=N)
 

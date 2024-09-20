@@ -10,11 +10,13 @@ from transformers import (
     Idefics2ForConditionalGeneration,
     Trainer,
     TrainingArguments,
+    AutoTokenizer,
 )
 
 import wandb
 from plancraft.config import TrainConfig
 from plancraft.train.dataset import get_dataset_and_collate
+from plancraft.environments.actions import convert_from_slot_index
 
 wandb.require("core")
 
@@ -59,7 +61,16 @@ def main(cfg):
     else:
         raise ValueError(f"Model {cfg.training.base_model} not supported")
 
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+    # add special slots to tokenizer
+    slots = [convert_from_slot_index(i) for i in range(0, 46)]
+    tokenizer.add_special_tokens({"additional_special_tokens": slots})
+    # resize token embeddings in model
+    model.resize_token_embeddings(len(tokenizer))
+
     train_dataset, val_dataset, collate_fn = get_dataset_and_collate(
+        tokenizer,
         template_name=cfg.training.base_model,
         max_length=cfg.training.max_seq_length,
         max_message_window=cfg.training.max_message_window,
@@ -74,6 +85,7 @@ def main(cfg):
         init_lora_weights="gaussian",
         bias="none",
         task_type="CAUSAL_LM",
+        modules_to_save=["embed_tokens"],  # train and save embeddings
     )
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
@@ -126,6 +138,7 @@ def main(cfg):
 
     if cfg.training.push_to_hub:
         model.push_to_hub(name)
+        tokenizer.push_to_hub(name)
 
 
 if __name__ == "__main__":
