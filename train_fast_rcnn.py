@@ -1,19 +1,17 @@
-import os
 import random
 import time
 
-from tqdm import tqdm
 import einops
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.transforms.v2 as v2
+from huggingface_hub import PyTorchModelHubMixin
 from minerl.herobraine.hero.mc import ALL_ITEMS
 from PIL import Image, ImageDraw
 from torchvision.models.detection.faster_rcnn import (
     fasterrcnn_resnet50_fpn_v2,
 )
-from torchvision.models.resnet import ResNet50_Weights
 from torchvision.models.detection.roi_heads import (
     fastrcnn_loss,
     keypointrcnn_inference,
@@ -22,6 +20,7 @@ from torchvision.models.detection.roi_heads import (
     maskrcnn_loss,
 )
 from torchvision.ops import boxes as box_ops
+from tqdm import tqdm
 
 import wandb
 from plancraft.environments.env_real import RealPlancraft
@@ -36,23 +35,6 @@ CRAFTING_RECIPES = [
 ]
 
 wandb.require("core")
-
-
-class TwoMLPHead(nn.Module):
-    """
-    Standard heads for FPN-based models - with leaky
-    """
-
-    def __init__(self, in_channels, representation_size):
-        super().__init__()
-        self.fc6 = nn.Linear(in_channels, representation_size)
-        self.fc7 = nn.Linear(representation_size, representation_size)
-
-    def forward(self, x):
-        x = x.flatten(start_dim=1)
-        x = F.leaky_relu(self.fc6(x))
-        x = F.leaky_relu(self.fc7(x))
-        return x
 
 
 def slot_to_bbox(slot: int):
@@ -512,11 +494,10 @@ def forward_custom(
     return result, losses
 
 
-class IntegratedBoundingBoxModel(nn.Module):
+class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
     def __init__(self):
         super(IntegratedBoundingBoxModel, self).__init__()
         self.model = fasterrcnn_resnet50_fpn_v2(
-            weights_backbone=ResNet50_Weights.DEFAULT,
             image_mean=[0.63, 0.63, 0.63],
             image_std=[0.21, 0.21, 0.21],
             min_size=128,
@@ -529,12 +510,7 @@ class IntegratedBoundingBoxModel(nn.Module):
         )
         self.model.roi_heads.quantity_prediction = nn.Linear(1024, 65)
 
-        # load model from .pth
-        if os.path.exists("/plancraft/plancraft_fast_rcnn.pth"):
-            self.load("/plancraft/plancraft_fast_rcnn.pth")
-
         # replace the head with leaky activations
-        self.model.roi_heads.box_head = TwoMLPHead(256 * 7 * 7, 1024)
         self.model.roi_heads.forward = forward_custom.__get__(
             self.model.roi_heads, type(self.model.roi_heads)
         )
@@ -548,13 +524,6 @@ class IntegratedBoundingBoxModel(nn.Module):
             preds = self.model(x)
             return preds
 
-    def save(self, path):
-        torch.save(self.state_dict(), path)
-
-    def load(self, path):
-        if os.path.exists(path):
-            self.load_state_dict(torch.load(path, weights_only=True))
-
 
 if __name__ == "__main__":
     m1_path = "latest_maskrcnn.pth"
@@ -562,17 +531,14 @@ if __name__ == "__main__":
     M1_model = M1_model.cuda()
 
     print("Loaded model")
-    N = 1000
-    m1_lr = 0.001
+    N = 10000
+    m1_lr = 0.0005
     batch_size = 16
     save_every = 500
     count = 0
     m1_optimizer = torch.optim.AdamW(M1_model.parameters(), lr=m1_lr)
 
-    wandb.init(
-        project="plancraft-img-encoder", entity="itl", name="mlp-box-head-leaky-relu"
-    )
-
+    wandb.init(project="plancraft-img-encoder", entity="itl", name="original-2")
     pbar = tqdm(total=N)
 
     for images, targets, raw_images, inv in sample_environment(
@@ -619,11 +585,6 @@ if __name__ == "__main__":
                     if score > 0:
                         draw = ImageDraw.Draw(img)
                         draw.rectangle(box.cpu().tolist(), outline="green")
-                        # draw.text(
-                        #     (box[0], box[1]),
-                        #     f"{label.item()}",
-                        #     fill="green",
-                        # )
                         draw.text(
                             (box[0], box[1] + 10),
                             f"{quantity.item()}",
@@ -641,4 +602,4 @@ if __name__ == "__main__":
     wandb.finish()
 
     # save model
-    M1_model.save(m1_path)
+    M1_model.push_to_hub("plancraft-maskrcnn")
