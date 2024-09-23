@@ -10,11 +10,19 @@
     },
     {
       "role": "assistant",
-      "content": "smelt: from [I3] to [I2] with quantity 1"
+      "content": "move: from [I9] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - sand [I3] quantity 7\n - ink_sac [I9] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [0] quantity 1\n - ink_sac [A1] quantity 1\n - sand [I3] quantity 8\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - sand [I3] quantity 8\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
@@ -22,7 +30,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - sand [I3] quantity 6\n - glass [I4] quantity 1\n - ink_sac [I9] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - sand [I3] quantity 7\n - glass [I4] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
@@ -30,7 +38,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - sand [I3] quantity 5\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - ink_sac [I9] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - sand [I3] quantity 6\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
@@ -38,7 +46,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - sand [I3] quantity 4\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - ink_sac [I9] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - sand [I3] quantity 5\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
@@ -46,7 +54,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - sand [I3] quantity 3\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - ink_sac [I9] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - sand [I3] quantity 4\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
@@ -54,7 +62,15 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - sand [I3] quantity 2\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - ink_sac [I9] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - sand [I3] quantity 3\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I3] to [I9] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - sand [I3] quantity 2\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I9] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
@@ -62,7 +78,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - sand [I3] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - ink_sac [I9] quantity 1\n - glass [I10] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - sand [I3] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I9] quantity 1\n - glass [I10] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
@@ -70,75 +86,59 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - ink_sac [I9] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [I2] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I9] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
-      "content": "move: from [I9] to [A1] with quantity 1"
+      "content": "move: from [I4] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - black_dye [0] quantity 1\n - ink_sac [A1] quantity 1\n - glass [I2] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - black_dye [I2] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I9] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
-      "content": "move: from [0] to [I3] with quantity 1"
+      "content": "move: from [I5] to [A2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [I2] quantity 1\n - black_dye [I3] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - black_dye [I2] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I9] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
-      "content": "move: from [I2] to [A1] with quantity 1"
+      "content": "move: from [I6] to [A3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - black_dye [I3] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - black_dye [I2] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I9] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
-      "content": "move: from [I4] to [A2] with quantity 1"
+      "content": "move: from [I7] to [B1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - black_dye [I3] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - black_dye [I2] quantity 1\n - glass [I8] quantity 1\n - glass [I9] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
-      "content": "move: from [I5] to [A3] with quantity 1"
+      "content": "move: from [I2] to [B2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - black_dye [I3] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - black_dye [B2] quantity 1\n - glass [I8] quantity 1\n - glass [I9] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
-      "content": "move: from [I6] to [B1] with quantity 1"
+      "content": "move: from [I8] to [B3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - black_dye [I3] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
+      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - black_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [I9] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
     },
     {
       "role": "assistant",
-      "content": "move: from [I3] to [B2] with quantity 1"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - black_dye [B2] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [I7] to [B3] with quantity 1"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: black_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - black_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [I8] quantity 1\n - glass [I10] quantity 1\n - glass [I11] quantity 1\n - lava_bucket [I17] quantity 1\n - cooked_beef [I20] quantity 15\n - light_blue_concrete [I21] quantity 46\n - rabbit_spawn_egg [I32] quantity 29"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [I8] to [C1] with quantity 1"
+      "content": "move: from [I9] to [C1] with quantity 1"
     },
     {
       "role": "user",

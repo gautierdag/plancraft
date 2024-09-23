@@ -10,51 +10,19 @@
     },
     {
       "role": "assistant",
-      "content": "move: from [I27] to [A1] with quantity 1"
+      "content": "smelt: from [I14] to [I2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - bamboo [A1] quantity 1\n - music_disc_stal [I1] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 3\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 3\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 2\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 4\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
-      "content": "move: from [I27] to [B1] with quantity 1"
+      "content": "smelt: from [I14] to [I3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - stick [0] quantity 1\n - bamboo [A1] quantity 1\n - bamboo [B1] quantity 1\n - music_disc_stal [I1] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 3\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 2\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [0] to [I2] with quantity 1"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 3\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 2\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [I27] to [A1] with quantity 1"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - bamboo [A1] quantity 1\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 3\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [I27] to [B1] with quantity 1"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - stick [0] quantity 1\n - bamboo [A1] quantity 1\n - bamboo [B1] quantity 1\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 3\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [0] to [I3] with quantity 1"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 3\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - gold_ingot [I3] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 4\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
@@ -62,59 +30,91 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 2\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - gold_ingot [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 4\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
-      "content": "smelt: from [I14] to [I7] with quantity 1"
+      "content": "move: from [I27] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - gold_ingot [I7] quantity 1\n - dark_oak_button [I12] quantity 1\n - gold_ore [I14] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - bamboo [A1] quantity 1\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - gold_ingot [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 3\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
-      "content": "smelt: from [I14] to [I8] with quantity 1"
+      "content": "move: from [I27] to [B1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - gold_ingot [I7] quantity 1\n - gold_ingot [I8] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - stick [0] quantity 1\n - bamboo [A1] quantity 1\n - bamboo [B1] quantity 1\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - gold_ingot [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 2\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
-      "content": "move: from [I4] to [A1] with quantity 1"
+      "content": "move: from [0] to [I7] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - gold_nugget [0] quantity 9\n - gold_ingot [A1] quantity 1\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - gold_ingot [I7] quantity 1\n - gold_ingot [I8] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - gold_ingot [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - stick [I7] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 2\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
-      "content": "move: from [I7] to [A2] with quantity 1"
+      "content": "move: from [I27] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - light_weighted_pressure_plate [0] quantity 1\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - gold_ingot [I8] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - bamboo [A1] quantity 1\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - gold_ingot [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - stick [I7] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - bamboo [I27] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
-      "content": "move: from [I8] to [B1] with quantity 1"
+      "content": "move: from [I27] to [B1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [B1] quantity 1\n - music_disc_stal [I1] quantity 1\n - stick [I2] quantity 1\n - stick [I3] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - stick [0] quantity 1\n - bamboo [A1] quantity 1\n - bamboo [B1] quantity 1\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - gold_ingot [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - stick [I7] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
-      "content": "move: from [I2] to [B2] with quantity 1"
+      "content": "move: from [0] to [I8] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: golden_axe\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - music_disc_stal [I1] quantity 1\n - stick [I3] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+      "content": "Craft an item of type: golden_axe\ninventory:\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I2] quantity 1\n - gold_ingot [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - stick [I7] quantity 1\n - stick [I8] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
     },
     {
       "role": "assistant",
-      "content": "move: from [I3] to [C2] with quantity 1"
+      "content": "move: from [I2] to [A1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_axe\ninventory:\n - gold_nugget [0] quantity 9\n - gold_ingot [A1] quantity 1\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I3] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - stick [I7] quantity 1\n - stick [I8] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I3] to [A2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_axe\ninventory:\n - light_weighted_pressure_plate [0] quantity 1\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - music_disc_stal [I1] quantity 1\n - gold_ingot [I4] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - stick [I7] quantity 1\n - stick [I8] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I4] to [B1] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_axe\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [B1] quantity 1\n - music_disc_stal [I1] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - stick [I7] quantity 1\n - stick [I8] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I7] to [B2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: golden_axe\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [B1] quantity 1\n - stick [B2] quantity 1\n - music_disc_stal [I1] quantity 1\n - charcoal [I5] quantity 27\n - diorite_slab [I6] quantity 49\n - stick [I8] quantity 1\n - dark_oak_button [I12] quantity 1\n - skeleton_spawn_egg [I16] quantity 3\n - music_disc_mellohi [I17] quantity 1\n - dark_prismarine_slab [I30] quantity 1\n - orange_concrete_powder [I35] quantity 6"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [I8] to [C2] with quantity 1"
     },
     {
       "role": "user",

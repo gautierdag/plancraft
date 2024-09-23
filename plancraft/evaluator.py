@@ -57,6 +57,9 @@ class Evaluator:
             symb_str = "symb"
 
         model_name = self.cfg.plancraft.model.split("/")[-1]
+        if self.cfg.plancraft.adapter != "":
+            model_name = self.cfg.plancraft.adapter.split("/")[-1]
+
         mode = self.cfg.plancraft.mode
         if mode in ["dummy", "oracle"]:
             return f"{mode}_{symb_str}"

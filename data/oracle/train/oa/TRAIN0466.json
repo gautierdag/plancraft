@@ -10,11 +10,19 @@
     },
     {
       "role": "assistant",
-      "content": "smelt: from [I10] to [I3] with quantity 1"
+      "content": "move: from [I15] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - netherite_scrap [I3] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - ancient_debris [I10] quantity 3\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - gold_block [I15] quantity 1\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - gold_ingot [0] quantity 9\n - gold_block [A1] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - ancient_debris [I10] quantity 4\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 9"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 9\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - ancient_debris [I10] quantity 4\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
@@ -22,7 +30,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - netherite_scrap [I3] quantity 1\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - ancient_debris [I10] quantity 2\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - gold_block [I15] quantity 1\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 9\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - ancient_debris [I10] quantity 3\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
@@ -30,7 +38,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - netherite_scrap [I3] quantity 1\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - ancient_debris [I10] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - gold_block [I15] quantity 1\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 9\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - ancient_debris [I10] quantity 2\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
@@ -38,23 +46,15 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - netherite_scrap [I3] quantity 1\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - gold_block [I15] quantity 1\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 9\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - ancient_debris [I10] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [I15] to [A1] with quantity 1"
+      "content": "smelt: from [I10] to [I11] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - gold_ingot [0] quantity 9\n - gold_block [A1] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - netherite_scrap [I3] quantity 1\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [0] to [I10] with quantity 9"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - netherite_scrap [I3] quantity 1\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 9\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 9\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - netherite_scrap [I11] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
@@ -62,67 +62,67 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_scrap [A1] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 9\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - gold_nugget [0] quantity 9\n - gold_ingot [A1] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 8\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - netherite_scrap [I11] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [I4] to [A2] with quantity 1"
+      "content": "move: from [I3] to [A2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_scrap [A1] quantity 1\n - netherite_scrap [A2] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 9\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - light_weighted_pressure_plate [0] quantity 1\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 7\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - netherite_scrap [I11] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [I6] to [A3] with quantity 1"
+      "content": "move: from [I3] to [A3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_scrap [A1] quantity 1\n - netherite_scrap [A2] quantity 1\n - netherite_scrap [A3] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 9\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [A3] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 6\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - netherite_scrap [I11] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [I7] to [B1] with quantity 1"
+      "content": "move: from [I3] to [B1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_scrap [A1] quantity 1\n - netherite_scrap [A2] quantity 1\n - netherite_scrap [A3] quantity 1\n - netherite_scrap [B1] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 9\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [A3] quantity 1\n - gold_ingot [B1] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 5\n - netherite_scrap [I4] quantity 1\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - netherite_scrap [I11] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [I10] to [B2] with quantity 1"
+      "content": "move: from [I4] to [B2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_scrap [A1] quantity 1\n - netherite_scrap [A2] quantity 1\n - netherite_scrap [A3] quantity 1\n - netherite_scrap [B1] quantity 1\n - gold_ingot [B2] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 8\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [A3] quantity 1\n - gold_ingot [B1] quantity 1\n - netherite_scrap [B2] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 5\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I6] quantity 1\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - netherite_scrap [I11] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [I10] to [B3] with quantity 1"
+      "content": "move: from [I6] to [B3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_scrap [A1] quantity 1\n - netherite_scrap [A2] quantity 1\n - netherite_scrap [A3] quantity 1\n - netherite_scrap [B1] quantity 1\n - gold_ingot [B2] quantity 1\n - gold_ingot [B3] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 7\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [A3] quantity 1\n - gold_ingot [B1] quantity 1\n - netherite_scrap [B2] quantity 1\n - netherite_scrap [B3] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 5\n - acacia_fence_gate [I5] quantity 11\n - netherite_scrap [I7] quantity 1\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - netherite_scrap [I11] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [I10] to [C1] with quantity 1"
+      "content": "move: from [I7] to [C1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_scrap [A1] quantity 1\n - netherite_scrap [A2] quantity 1\n - netherite_scrap [A3] quantity 1\n - netherite_scrap [B1] quantity 1\n - gold_ingot [B2] quantity 1\n - gold_ingot [B3] quantity 1\n - gold_ingot [C1] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 6\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [A3] quantity 1\n - gold_ingot [B1] quantity 1\n - netherite_scrap [B2] quantity 1\n - netherite_scrap [B3] quantity 1\n - netherite_scrap [C1] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 5\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - netherite_scrap [I11] quantity 1\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [I10] to [C2] with quantity 1"
+      "content": "move: from [I11] to [C2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_ingot [0] quantity 1\n - netherite_scrap [A1] quantity 1\n - netherite_scrap [A2] quantity 1\n - netherite_scrap [A3] quantity 1\n - netherite_scrap [B1] quantity 1\n - gold_ingot [B2] quantity 1\n - gold_ingot [B3] quantity 1\n - gold_ingot [C1] quantity 1\n - gold_ingot [C2] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - gold_ingot [I10] quantity 5\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
+      "content": "Craft an item of type: netherite_ingot\ninventory:\n - netherite_ingot [0] quantity 1\n - gold_ingot [A1] quantity 1\n - gold_ingot [A2] quantity 1\n - gold_ingot [A3] quantity 1\n - gold_ingot [B1] quantity 1\n - netherite_scrap [B2] quantity 1\n - netherite_scrap [B3] quantity 1\n - netherite_scrap [C1] quantity 1\n - netherite_scrap [C2] quantity 1\n - fox_spawn_egg [I1] quantity 33\n - gray_stained_glass [I2] quantity 38\n - gold_ingot [I3] quantity 5\n - acacia_fence_gate [I5] quantity 11\n - beehive [I8] quantity 60\n - creeper_spawn_egg [I9] quantity 41\n - smooth_red_sandstone_slab [I12] quantity 13\n - ender_chest [I13] quantity 13\n - light_blue_stained_glass [I14] quantity 47\n - firework_star [I16] quantity 15\n - cyan_glazed_terracotta [I21] quantity 13\n - polished_andesite_slab [I22] quantity 28\n - horn_coral [I26] quantity 16\n - andesite [I32] quantity 12\n - green_shulker_box [I33] quantity 1\n - birch_trapdoor [I34] quantity 48\n - polished_diorite_stairs [I35] quantity 37"
     },
     {
       "role": "assistant",
-      "content": "move: from [0] to [I3] with quantity 1"
+      "content": "move: from [0] to [I4] with quantity 1"
     }
   ],
   "example_id": "TRAIN0466"

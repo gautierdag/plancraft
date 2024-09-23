@@ -10,11 +10,11 @@
     },
     {
       "role": "assistant",
-      "content": "move: from [I26] to [A1] with quantity 1"
+      "content": "move: from [I36] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: red_sandstone_slab\ninventory:\n - red_sandstone [A1] quantity 1\n - purple_dye [I2] quantity 8\n - oak_log [I15] quantity 14\n - gold_nugget [I34] quantity 34\n - leather [I35] quantity 17\n - chiseled_red_sandstone [I36] quantity 2"
+      "content": "Craft an item of type: red_sandstone_slab\ninventory:\n - chiseled_red_sandstone [A1] quantity 1\n - purple_dye [I2] quantity 8\n - oak_log [I15] quantity 14\n - red_sandstone [I26] quantity 1\n - gold_nugget [I34] quantity 34\n - leather [I35] quantity 17\n - chiseled_red_sandstone [I36] quantity 1"
     },
     {
       "role": "assistant",
@@ -22,15 +22,15 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: red_sandstone_slab\ninventory:\n - red_sandstone [A1] quantity 1\n - chiseled_red_sandstone [A2] quantity 1\n - purple_dye [I2] quantity 8\n - oak_log [I15] quantity 14\n - gold_nugget [I34] quantity 34\n - leather [I35] quantity 17\n - chiseled_red_sandstone [I36] quantity 1"
+      "content": "Craft an item of type: red_sandstone_slab\ninventory:\n - chiseled_red_sandstone [A1] quantity 1\n - chiseled_red_sandstone [A2] quantity 1\n - purple_dye [I2] quantity 8\n - oak_log [I15] quantity 14\n - red_sandstone [I26] quantity 1\n - gold_nugget [I34] quantity 34\n - leather [I35] quantity 17"
     },
     {
       "role": "assistant",
-      "content": "move: from [I36] to [A3] with quantity 1"
+      "content": "move: from [I26] to [A3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: red_sandstone_slab\ninventory:\n - red_sandstone_slab [0] quantity 6\n - red_sandstone [A1] quantity 1\n - chiseled_red_sandstone [A2] quantity 1\n - chiseled_red_sandstone [A3] quantity 1\n - purple_dye [I2] quantity 8\n - oak_log [I15] quantity 14\n - gold_nugget [I34] quantity 34\n - leather [I35] quantity 17"
+      "content": "Craft an item of type: red_sandstone_slab\ninventory:\n - red_sandstone_slab [0] quantity 6\n - chiseled_red_sandstone [A1] quantity 1\n - chiseled_red_sandstone [A2] quantity 1\n - red_sandstone [A3] quantity 1\n - purple_dye [I2] quantity 8\n - oak_log [I15] quantity 14\n - gold_nugget [I34] quantity 34\n - leather [I35] quantity 17"
     },
     {
       "role": "assistant",

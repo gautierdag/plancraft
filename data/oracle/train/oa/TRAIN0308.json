@@ -10,19 +10,11 @@
     },
     {
       "role": "assistant",
-      "content": "smelt: from [I33] to [I3] with quantity 1"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: green_wool\ninventory:\n - black_concrete [I2] quantity 32\n - green_dye [I3] quantity 1\n - warped_fungus_on_a_stick [I4] quantity 1\n - string [I7] quantity 4\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
-    },
-    {
-      "role": "assistant",
       "content": "move: from [I7] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: green_wool\ninventory:\n - string [A1] quantity 1\n - black_concrete [I2] quantity 32\n - green_dye [I3] quantity 1\n - warped_fungus_on_a_stick [I4] quantity 1\n - string [I7] quantity 3\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
+      "content": "Craft an item of type: green_wool\ninventory:\n - string [A1] quantity 1\n - black_concrete [I2] quantity 32\n - warped_fungus_on_a_stick [I4] quantity 1\n - string [I7] quantity 3\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - cactus [I33] quantity 1\n - yellow_bed [I35] quantity 1"
     },
     {
       "role": "assistant",
@@ -30,7 +22,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: green_wool\ninventory:\n - string [A1] quantity 1\n - string [A2] quantity 1\n - black_concrete [I2] quantity 32\n - green_dye [I3] quantity 1\n - warped_fungus_on_a_stick [I4] quantity 1\n - string [I7] quantity 2\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
+      "content": "Craft an item of type: green_wool\ninventory:\n - string [A1] quantity 1\n - string [A2] quantity 1\n - black_concrete [I2] quantity 32\n - warped_fungus_on_a_stick [I4] quantity 1\n - string [I7] quantity 2\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - cactus [I33] quantity 1\n - yellow_bed [I35] quantity 1"
     },
     {
       "role": "assistant",
@@ -38,7 +30,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: green_wool\ninventory:\n - string [A1] quantity 1\n - string [A2] quantity 1\n - string [B1] quantity 1\n - black_concrete [I2] quantity 32\n - green_dye [I3] quantity 1\n - warped_fungus_on_a_stick [I4] quantity 1\n - string [I7] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
+      "content": "Craft an item of type: green_wool\ninventory:\n - string [A1] quantity 1\n - string [A2] quantity 1\n - string [B1] quantity 1\n - black_concrete [I2] quantity 32\n - warped_fungus_on_a_stick [I4] quantity 1\n - string [I7] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - cactus [I33] quantity 1\n - yellow_bed [I35] quantity 1"
     },
     {
       "role": "assistant",
@@ -46,15 +38,23 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: green_wool\ninventory:\n - white_wool [0] quantity 1\n - string [A1] quantity 1\n - string [A2] quantity 1\n - string [B1] quantity 1\n - string [B2] quantity 1\n - black_concrete [I2] quantity 32\n - green_dye [I3] quantity 1\n - warped_fungus_on_a_stick [I4] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
+      "content": "Craft an item of type: green_wool\ninventory:\n - white_wool [0] quantity 1\n - string [A1] quantity 1\n - string [A2] quantity 1\n - string [B1] quantity 1\n - string [B2] quantity 1\n - black_concrete [I2] quantity 32\n - warped_fungus_on_a_stick [I4] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - cactus [I33] quantity 1\n - yellow_bed [I35] quantity 1"
     },
     {
       "role": "assistant",
-      "content": "move: from [0] to [I5] with quantity 1"
+      "content": "move: from [0] to [I3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: green_wool\ninventory:\n - black_concrete [I2] quantity 32\n - green_dye [I3] quantity 1\n - warped_fungus_on_a_stick [I4] quantity 1\n - white_wool [I5] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
+      "content": "Craft an item of type: green_wool\ninventory:\n - black_concrete [I2] quantity 32\n - white_wool [I3] quantity 1\n - warped_fungus_on_a_stick [I4] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - cactus [I33] quantity 1\n - yellow_bed [I35] quantity 1"
+    },
+    {
+      "role": "assistant",
+      "content": "smelt: from [I33] to [I5] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: green_wool\ninventory:\n - black_concrete [I2] quantity 32\n - white_wool [I3] quantity 1\n - warped_fungus_on_a_stick [I4] quantity 1\n - green_dye [I5] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
     },
     {
       "role": "assistant",
@@ -62,7 +62,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: green_wool\ninventory:\n - green_dye [A1] quantity 1\n - black_concrete [I2] quantity 32\n - warped_fungus_on_a_stick [I4] quantity 1\n - white_wool [I5] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
+      "content": "Craft an item of type: green_wool\ninventory:\n - white_wool [A1] quantity 1\n - black_concrete [I2] quantity 32\n - warped_fungus_on_a_stick [I4] quantity 1\n - green_dye [I5] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
     },
     {
       "role": "assistant",
@@ -70,7 +70,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: green_wool\ninventory:\n - green_wool [0] quantity 1\n - green_dye [A1] quantity 1\n - white_wool [A2] quantity 1\n - black_concrete [I2] quantity 32\n - warped_fungus_on_a_stick [I4] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
+      "content": "Craft an item of type: green_wool\ninventory:\n - green_wool [0] quantity 1\n - white_wool [A1] quantity 1\n - green_dye [A2] quantity 1\n - black_concrete [I2] quantity 32\n - warped_fungus_on_a_stick [I4] quantity 1\n - quartz_pillar [I12] quantity 42\n - brown_wool [I15] quantity 12\n - light_gray_concrete_powder [I19] quantity 25\n - stone_shovel [I26] quantity 1\n - dead_horn_coral_block [I29] quantity 46\n - yellow_bed [I35] quantity 1"
     },
     {
       "role": "assistant",

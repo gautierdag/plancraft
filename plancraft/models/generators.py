@@ -85,7 +85,12 @@ class TransformersGenerator:
             logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
 
             if adapter_name != "":
-                logger.info(f"Loading adapter {adapter_name}")
+                logger.info(f"Loading adapter and tokenizer from {adapter_name}")
+                self.tokenizer = AutoTokenizer.from_pretrained(
+                    adapter_name,
+                    padding_side="left",
+                )
+                self.model.resize_token_embeddings(len(self.tokenizer))
                 self.model.load_adapter(adapter_name)
 
             # set pad_token_id
@@ -292,8 +297,13 @@ class TransformersGenerator:
         # Decode the output
         text_responses = self.tokenizer.batch_decode(
             generated_sequences.sequences[:, prompt_tokens:],
-            skip_special_tokens=True,
+            skip_special_tokens=False,
         )
+
+        text_responses = [
+            text_response.replace("<|eot_id|>", "") for text_response in text_responses
+        ]
+
         _, total_tokens_used = generated_sequences.sequences.shape
         return text_responses, total_tokens_used
 

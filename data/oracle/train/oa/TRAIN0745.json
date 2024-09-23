@@ -10,11 +10,19 @@
     },
     {
       "role": "assistant",
-      "content": "smelt: from [I3] to [I2] with quantity 1"
+      "content": "move: from [I32] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - red_sand [I3] quantity 7\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14\n - blue_orchid [I32] quantity 1"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [0] quantity 1\n - blue_orchid [A1] quantity 1\n - red_sand [I3] quantity 8\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I2] with quantity 1"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - red_sand [I3] quantity 8\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
@@ -22,7 +30,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - red_sand [I3] quantity 6\n - glass [I4] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14\n - blue_orchid [I32] quantity 1"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - red_sand [I3] quantity 7\n - glass [I4] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
@@ -30,7 +38,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - red_sand [I3] quantity 5\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14\n - blue_orchid [I32] quantity 1"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - red_sand [I3] quantity 6\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
@@ -38,7 +46,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - red_sand [I3] quantity 4\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14\n - blue_orchid [I32] quantity 1"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - red_sand [I3] quantity 5\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
@@ -46,7 +54,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - red_sand [I3] quantity 3\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14\n - blue_orchid [I32] quantity 1"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - red_sand [I3] quantity 4\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
@@ -54,7 +62,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - red_sand [I3] quantity 2\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14\n - blue_orchid [I32] quantity 1"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - red_sand [I3] quantity 3\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
@@ -62,7 +70,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - red_sand [I3] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14\n - blue_orchid [I32] quantity 1"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - red_sand [I3] quantity 2\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
@@ -70,91 +78,83 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14\n - blue_orchid [I32] quantity 1"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - red_sand [I3] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I32] to [A1] with quantity 1"
+      "content": "smelt: from [I3] to [I13] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [0] quantity 1\n - blue_orchid [A1] quantity 1\n - glass [I2] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - light_blue_dye [I2] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [0] to [I3] with quantity 1"
+      "content": "move: from [I4] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [I2] quantity 1\n - light_blue_dye [I3] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - light_blue_dye [I2] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I2] to [A1] with quantity 1"
+      "content": "move: from [I5] to [A2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - light_blue_dye [I3] quantity 1\n - glass [I4] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - light_blue_dye [I2] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I4] to [A2] with quantity 1"
+      "content": "move: from [I6] to [A3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - light_blue_dye [I3] quantity 1\n - glass [I5] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - light_blue_dye [I2] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I5] to [A3] with quantity 1"
+      "content": "move: from [I7] to [B1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - light_blue_dye [I3] quantity 1\n - glass [I6] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [I2] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I6] to [B1] with quantity 1"
+      "content": "move: from [I2] to [B2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [I3] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [B2] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I3] to [B2] with quantity 1"
+      "content": "move: from [I8] to [B3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [B2] quantity 1\n - glass [I7] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [B2] quantity 1\n - glass [B3] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I7] to [B3] with quantity 1"
+      "content": "move: from [I11] to [C1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [I8] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [C1] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I12] quantity 1\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I8] to [C1] with quantity 1"
+      "content": "move: from [I12] to [C2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [C1] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I11] quantity 1\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
+      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [C1] quantity 1\n - glass [C2] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I13] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
     },
     {
       "role": "assistant",
-      "content": "move: from [I11] to [C2] with quantity 1"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: light_blue_stained_glass\ninventory:\n - glass [A1] quantity 1\n - glass [A2] quantity 1\n - glass [A3] quantity 1\n - glass [B1] quantity 1\n - light_blue_dye [B2] quantity 1\n - glass [B3] quantity 1\n - glass [C1] quantity 1\n - glass [C2] quantity 1\n - tropical_fish_spawn_egg [I9] quantity 51\n - bell [I10] quantity 23\n - glass [I12] quantity 1\n - endermite_spawn_egg [I22] quantity 36\n - painting [I23] quantity 14"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [I12] to [C3] with quantity 1"
+      "content": "move: from [I13] to [C3] with quantity 1"
     },
     {
       "role": "user",

@@ -10,11 +10,19 @@
     },
     {
       "role": "assistant",
-      "content": "smelt: from [I2] to [I3] with quantity 1"
+      "content": "move: from [I26] to [A1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - yellow_concrete [I1] quantity 18\n - cobblestone [I2] quantity 2\n - stone [I3] quantity 1\n - dark_oak_slab [I4] quantity 4\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - redstone_block [I26] quantity 1\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - redstone [0] quantity 9\n - redstone_block [A1] quantity 1\n - yellow_concrete [I1] quantity 18\n - cobblestone [I2] quantity 3\n - dark_oak_slab [I4] quantity 4\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+    },
+    {
+      "role": "assistant",
+      "content": "move: from [0] to [I3] with quantity 9"
+    },
+    {
+      "role": "user",
+      "content": "Craft an item of type: repeater\ninventory:\n - yellow_concrete [I1] quantity 18\n - cobblestone [I2] quantity 3\n - redstone [I3] quantity 9\n - dark_oak_slab [I4] quantity 4\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
@@ -22,7 +30,7 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - yellow_concrete [I1] quantity 18\n - cobblestone [I2] quantity 1\n - stone [I3] quantity 1\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - redstone_block [I26] quantity 1\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - yellow_concrete [I1] quantity 18\n - cobblestone [I2] quantity 2\n - redstone [I3] quantity 9\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
@@ -30,23 +38,15 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - yellow_concrete [I1] quantity 18\n - stone [I3] quantity 1\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - redstone_block [I26] quantity 1\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - yellow_concrete [I1] quantity 18\n - cobblestone [I2] quantity 1\n - redstone [I3] quantity 9\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
-      "content": "move: from [I26] to [A1] with quantity 1"
+      "content": "smelt: from [I2] to [I7] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - redstone [0] quantity 9\n - redstone_block [A1] quantity 1\n - yellow_concrete [I1] quantity 18\n - stone [I3] quantity 1\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
-    },
-    {
-      "role": "assistant",
-      "content": "move: from [0] to [I2] with quantity 9"
-    },
-    {
-      "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - yellow_concrete [I1] quantity 18\n - redstone [I2] quantity 9\n - stone [I3] quantity 1\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - yellow_concrete [I1] quantity 18\n - redstone [I3] quantity 9\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - stone [I7] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 2\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
@@ -54,15 +54,15 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I2] quantity 9\n - stone [I3] quantity 1\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 1\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I3] quantity 9\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - stone [I7] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 1\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
-      "content": "move: from [I2] to [A2] with quantity 1"
+      "content": "move: from [I3] to [A2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I2] quantity 8\n - stone [I3] quantity 1\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 1\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I3] quantity 8\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - stone [I7] quantity 1\n - light_blue_banner [I8] quantity 15\n - redstone_torch [I12] quantity 1\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
@@ -70,35 +70,35 @@
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - redstone_torch [A3] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I2] quantity 8\n - stone [I3] quantity 1\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - redstone_torch [A3] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I3] quantity 8\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - stone [I7] quantity 1\n - light_blue_banner [I8] quantity 15\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
-      "content": "move: from [I3] to [B1] with quantity 1"
+      "content": "move: from [I5] to [B1] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - redstone_torch [A3] quantity 1\n - stone [B1] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I2] quantity 8\n - dark_oak_slab [I4] quantity 4\n - stone [I5] quantity 1\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - redstone_torch [A3] quantity 1\n - stone [B1] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I3] quantity 8\n - dark_oak_slab [I4] quantity 4\n - stone [I6] quantity 1\n - stone [I7] quantity 1\n - light_blue_banner [I8] quantity 15\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
-      "content": "move: from [I5] to [B2] with quantity 1"
+      "content": "move: from [I6] to [B2] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - redstone_torch [A3] quantity 1\n - stone [B1] quantity 1\n - stone [B2] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I2] quantity 8\n - dark_oak_slab [I4] quantity 4\n - stone [I6] quantity 1\n - light_blue_banner [I8] quantity 15\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - redstone_torch [A3] quantity 1\n - stone [B1] quantity 1\n - stone [B2] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I3] quantity 8\n - dark_oak_slab [I4] quantity 4\n - stone [I7] quantity 1\n - light_blue_banner [I8] quantity 15\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
-      "content": "move: from [I6] to [B3] with quantity 1"
+      "content": "move: from [I7] to [B3] with quantity 1"
     },
     {
       "role": "user",
-      "content": "Craft an item of type: repeater\ninventory:\n - repeater [0] quantity 1\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - redstone_torch [A3] quantity 1\n - stone [B1] quantity 1\n - stone [B2] quantity 1\n - stone [B3] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I2] quantity 8\n - dark_oak_slab [I4] quantity 4\n - light_blue_banner [I8] quantity 15\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
+      "content": "Craft an item of type: repeater\ninventory:\n - repeater [0] quantity 1\n - redstone_torch [A1] quantity 1\n - redstone [A2] quantity 1\n - redstone_torch [A3] quantity 1\n - stone [B1] quantity 1\n - stone [B2] quantity 1\n - stone [B3] quantity 1\n - yellow_concrete [I1] quantity 18\n - redstone [I3] quantity 8\n - dark_oak_slab [I4] quantity 4\n - light_blue_banner [I8] quantity 15\n - spruce_trapdoor [I17] quantity 4\n - crimson_nylium [I20] quantity 58\n - magenta_wool [I27] quantity 38\n - infested_cobblestone [I31] quantity 10\n - blue_orchid [I35] quantity 44"
     },
     {
       "role": "assistant",
-      "content": "move: from [0] to [I3] with quantity 1"
+      "content": "move: from [0] to [I2] with quantity 1"
     }
   ],
   "example_id": "TRAIN0088"
