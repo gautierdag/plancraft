@@ -144,6 +144,13 @@ class OracleModel(ABCModel):
                 n = 0
                 while n < quantity:
                     from_slot = find_item_in_inventory(item, current_inventory)
+
+                    # skip if from_slot is the crafting slot
+                    if from_slot == crafting_slot:
+                        crafting_slot += 1
+                        n += 1
+                        continue
+
                     # low_level_plan.append(("move", item, from_slot, crafting_slot, 1))
                     action = SymbolicMoveAction(
                         slot_from=from_slot, slot_to=crafting_slot, quantity=1
@@ -153,6 +160,7 @@ class OracleModel(ABCModel):
                         current_inventory, from_slot, crafting_slot, 1
                     )
                     self.subplans.append(action)
+
                     crafting_slot += 1
                     n += 1
 

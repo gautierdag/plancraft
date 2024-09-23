@@ -21,18 +21,9 @@ def flatten_cfg(cfg):
 def main(cfg):
     logger.info(cfg)
     cfg = EvalConfig(**flatten_cfg(dict(cfg)))
-    for valid_actions in [
-        ["move", "smelt"],
-        ["move", "smelt", "think"],
-        ["move", "smelt", "think", "search"],
-        ["move", "smelt", "think", "search", "impossible"],
-    ]:
-        cfg.plancraft.valid_actions = valid_actions
-        for mode in ["act", "react"]:
-            cfg.plancraft.mode = mode
-            evaluator = Evaluator(cfg)
-            evaluator.eval_all()
-            evaluator.close()
+    evaluator = Evaluator(cfg)
+    evaluator.eval_all()
+    evaluator.close()
 
 
 if __name__ == "__main__":

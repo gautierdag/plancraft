@@ -85,7 +85,7 @@ def main(cfg):
         init_lora_weights="gaussian",
         bias="none",
         task_type="CAUSAL_LM",
-        modules_to_save=["embed_tokens"],  # train and save embeddings
+        modules_to_save=["embed_tokens", "lm_head"],  # train and save embeddings/output layer
     )
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
