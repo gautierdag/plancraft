@@ -1,15 +1,17 @@
 import copy
 import logging
 
+import torch
 from dotenv import load_dotenv
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
+    StopAction,
     SymbolicAction,
     SymbolicMoveAction,
-    StopAction,
 )
 from plancraft.models.base import ABCModel, History
+from plancraft.models.bbox_model import IntegratedBoundingBoxModel
 from plancraft.models.few_shot_images import load_prompt_images
 from plancraft.models.generators import (
     OpenAIGenerator,
@@ -36,7 +38,22 @@ class ActModel(ABCModel):
             cfg.plancraft.environment.symbolic_action_space
         ), "Real action space unsupported"
 
-        self.is_multimodal = not cfg.plancraft.environment.symbolic
+        self.env_is_multimodal = not cfg.plancraft.environment.symbolic
+        self.model_is_multimodal = self.env_is_multimodal
+        self.use_maskrcnn = cfg.plancraft.use_maskrcnn
+
+        self.bbox_model = None
+        if self.use_maskrcnn:
+            assert self.env_is_multimodal, "MaskRCNN only supported in multimodal mode"
+            self.bbox_model = IntegratedBoundingBoxModel.from_pretrained(
+                "gautierdag/plancraft-maskrcnn"
+            )
+            self.bbox_model.eval()
+            if torch.cuda.is_available():
+                self.bbox_model.cuda()
+            # MaskRCNN is not multimodal model but a separate model
+            self.model_is_multimodal = False
+
         self.few_shot = cfg.plancraft.few_shot
         self.use_system_prompt = cfg.plancraft.system_prompt
         self.max_invalid_actions = 3
@@ -44,7 +61,7 @@ class ActModel(ABCModel):
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
             self.llm = OpenAIGenerator(
-                is_multimodal=self.is_multimodal, model_name=cfg.plancraft.model
+                is_multimodal=self.model_is_multimodal, model_name=cfg.plancraft.model
             )
         # model is transformers based
         else:
@@ -52,7 +69,7 @@ class ActModel(ABCModel):
                 model_name=cfg.plancraft.model,
                 tokenizer_name=cfg.plancraft.tokenizer,
                 quantize=cfg.plancraft.quantize,
-                is_multimodal=self.is_multimodal,
+                is_multimodal=self.model_is_multimodal,
                 use_hot_cache=cfg.plancraft.hot_cache,
                 adapter_name=cfg.plancraft.adapter,
             )
@@ -62,8 +79,8 @@ class ActModel(ABCModel):
         self.valid_actions = cfg.plancraft.valid_actions
         self.system_prompt_text = get_system_prompt(self.valid_actions)
 
-        examples = get_prompt_example(self.valid_actions, self.is_multimodal)
-        if self.is_multimodal:
+        examples = get_prompt_example(self.valid_actions, self.model_is_multimodal)
+        if self.env_is_multimodal:
             self.prompt_images = load_prompt_images()
             self.system_prompt = {
                 "role": "system",
@@ -83,8 +100,7 @@ class ActModel(ABCModel):
             self.system_prompt = None
 
         self.history = History(
-            initial_dialogue=examples,
-            is_multimodal=self.is_multimodal,
+            initial_dialogue=examples, is_multimodal=self.model_is_multimodal
         )
 
         self.max_messages_window = cfg.plancraft.max_message_window
@@ -96,7 +112,7 @@ class ActModel(ABCModel):
     ):
         examples = []
         if self.few_shot:
-            examples = get_prompt_example(self.valid_actions, self.is_multimodal)
+            examples = get_prompt_example(self.valid_actions, self.model_is_multimodal)
 
         self.history.reset(objective=objective, initial_dialogue=examples)
         self.llm.reset()
@@ -108,7 +124,8 @@ class ActModel(ABCModel):
         observation_message = convert_observation_to_message(
             observation,
             objective=self.history.objective,
-            is_multimodal=self.is_multimodal,
+            is_multimodal=self.env_is_multimodal,
+            bbox_model=self.bbox_model,
         )
         self.history.add_message_to_history(content=observation_message, role="user")
 

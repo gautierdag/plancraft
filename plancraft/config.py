@@ -27,9 +27,7 @@ class PlancraftConfig(BaseModel):
     num_generations: int
     mode: Literal["react", "act", "oracle", "dummy"] = "react"
     output_dir: str
-    max_steps: int = (
-        30  # max number of steps (smelt/move) to take in the environment before stopping
-    )
+    max_steps: int = 30  # max number of steps (smelt/move) to take in the environment before stopping
     quantize: Literal[False, "int4", "int8"]
     environment: EnvironmentConfig
     split: DatasetSplit = "val.small"
@@ -39,6 +37,7 @@ class PlancraftConfig(BaseModel):
     few_shot: bool = True  # whether to use few-shot prompt
     system_prompt: bool = True  # whether to use system prompt
     valid_actions: list[str] = ["move", "smelt", "think", "search", "impossible"]
+    use_maskrcnn: bool = False  # whether to use maskrcnn for multimodal parsing
 
     @model_validator(mode="after")
     def validate(self):

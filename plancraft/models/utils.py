@@ -153,13 +153,20 @@ def tokenize(
 
 
 def convert_observation_to_message(
-    observation: dict, objective: str, is_multimodal=False
+    observation: dict, objective: str, is_multimodal=False, bbox_model=None
 ) -> str | dict:
     """
     Convert an observation to a message format
     NOTE: this needs to align with template in few-shot
     """
-    if is_multimodal:
+    if bbox_model is not None:
+        assert is_multimodal, "bbox_model should be provided for multimodal parsing"
+        # convert to tensor
+        inventory = bbox_model.get_inventory(observation["pov"].copy())
+        return objective_and_inventory_to_str(
+            objective, sorted(inventory, key=lambda x: x["slot"])
+        )
+    elif is_multimodal:
         content_message = {
             "content": [
                 {"type": "text", "text": f"{objective}"},
@@ -167,19 +174,19 @@ def convert_observation_to_message(
             ]
         }
         return content_message
-    else:
-        # if not multimodal, we only have text - we just dump a JSON of the inventory
-        inventory = []
-        for o in observation["inventory"]:
-            if o["quantity"] > 0:
-                inventory.append(
-                    {
-                        "type": o["type"],
-                        "slot": convert_from_slot_index(o["index"]),
-                        "quantity": o["quantity"],
-                    }
-                )
-        return objective_and_inventory_to_str(objective, inventory)
+
+    # if not multimodal, we only have text - we just dump a JSON of the inventory
+    inventory = []
+    for o in observation["inventory"]:
+        if o["quantity"] > 0:
+            inventory.append(
+                {
+                    "type": o["type"],
+                    "slot": convert_from_slot_index(o["index"]),
+                    "quantity": o["quantity"],
+                }
+            )
+    return objective_and_inventory_to_str(objective, inventory)
 
 
 def objective_and_inventory_to_str(objective: str, inventory: list[dict]) -> str:
