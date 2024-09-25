@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     SymbolicAction,
-    SymbolicMoveAction,
+    NoOp,
 )
 from plancraft.models.base import ABCModel, History
 from plancraft.models.few_shot_images import load_prompt_images
@@ -163,8 +163,4 @@ class ReactModel(ABCModel):
             i += 1
 
         # default move action
-        return SymbolicMoveAction(
-            slot_from=0,
-            slot_to=1,
-            quantity=1,
-        )
+        return NoOp()

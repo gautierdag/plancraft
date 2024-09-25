@@ -109,6 +109,7 @@ class OracleModel(ABCModel):
         inventory_counter = get_inventory_counter(observation["inventory"])
         self.plans = optimal_planner(target=target, inventory=inventory_counter)
 
+
     def get_next_action(
         self, observation: dict
     ) -> SymbolicMoveAction | SymbolicSmeltAction:

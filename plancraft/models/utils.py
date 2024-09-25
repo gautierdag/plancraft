@@ -237,7 +237,7 @@ def parse_content_response(
     Given a message and set of valid actions, parse the content to return the action
     or a message if the action is not valid/requires message response
     """
-
+    
     action_match = re.search(f"({'|'.join(valid_actions)}):", content)
     if action_match:
         action = action_match.group(1)

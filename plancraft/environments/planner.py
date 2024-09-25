@@ -27,6 +27,23 @@ def optimal_planner(
     # timeout=10,
     timeout=30,
 ) -> list[tuple[BaseRecipe, dict[str, int]]]:
+    """
+    Optimal planner for crafting the target item from the given inventory.
+
+    Uses depth-first search with memoization to find the shortest path of crafting steps.
+
+    Args:
+        target: The target item to craft.
+        inventory: The current inventory.
+        steps: The current path of crafting steps.
+        best_steps: The best path of crafting steps found so far.
+        max_steps: The maximum number of steps to take.
+        timeout: The maximum time to spend searching for a solution.
+
+    Returns:
+        list of tuples of (recipe, inventory) for each step in the optimal path.
+    """
+
     memo = {}
     # only look at recipes that are ancestors of the target
     ancestors = get_ancestors(target)
@@ -62,7 +79,7 @@ def optimal_planner(
             return best_steps
 
         for recipe_name in [target] + ancestors:
-            # skip if already have 9
+            # skip if already have 9 of the item
             if starting_inventory.get(recipe_name, 0) >= 9:
                 continue
             # TODO prevent looping between equivalent recipes (coal <-> coal_block)
@@ -86,6 +103,21 @@ def optimal_planner(
         return best_steps
 
     try:
-        return dfs(inventory, steps, best_steps)
+        path = dfs(inventory, steps, best_steps)
+
+        # Combine adjacent smelting steps into a single step.
+        if path is not None and len(path) > 1:
+            new_path = [path[0]]
+            prev_recipe = path[0][0]
+            for recipe, inv in path[1:]:
+                if recipe.recipe_type == "smelting" and recipe == prev_recipe:
+                    new_path[-1] = (recipe, inv)
+                else:
+                    new_path.append((recipe, inv))
+                    prev_recipe = recipe
+            return new_path
+
+        return path
+
     except TimeoutError:
         return None

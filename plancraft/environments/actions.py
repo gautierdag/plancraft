@@ -283,6 +283,20 @@ class StopAction(BaseModel):
     reason: str = ""
 
 
+class NoOp(SymbolicMoveAction):
+    """No operation action - special instance of move"""
+
+    def __init__(self):
+        super().__init__(slot_from=0, slot_to=1, quantity=1)
+        self.slot_to = 0
+
+    def __call__(self, *args, **kwargs):
+        return None
+
+    def __str__(self):
+        return "NoOp"
+
+
 # when symbolic action is true, can either move objects around or smelt
 SymbolicAction = SymbolicMoveAction | SymbolicSmeltAction
 

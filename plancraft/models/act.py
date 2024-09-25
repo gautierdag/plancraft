@@ -8,7 +8,7 @@ from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     StopAction,
     SymbolicAction,
-    SymbolicMoveAction,
+    NoOp,
 )
 from plancraft.models.base import ABCModel, History
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel
@@ -163,9 +163,5 @@ class ActModel(ABCModel):
             )
             i += 1
 
-        # if no action is found after max_invalid_actions, default to (mostly) useless move action
-        return SymbolicMoveAction(
-            slot_from=0,
-            slot_to=1,
-            quantity=1,
-        )
+        # if no action is found after max_invalid_actions, default to useless move action
+        return NoOp()
