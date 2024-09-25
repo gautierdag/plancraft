@@ -136,20 +136,20 @@ class PlancraftAOM(PreTrainedModel):
         # load text model
         self.text_model = AutoModelForCausalLM.from_pretrained(
             "/nfs/public/hf/models/meta-llama/Meta-Llama-3.1-8B-Instruct",
-            device_map="auto",
+            # device_map="auto",
         )
         # load vision model
         self.vision_model = IntegratedBoundingBoxModel.from_pretrained(
             "gautierdag/plancraft-maskrcnn"
         )
         self.vision_model.eval()
-        self.vision_model = self.vision_model.cuda()
+        # self.vision_model = self.vision_model.cuda()
 
         # convert vision features to text embedding
         self.vision_to_text_embedding = nn.Linear(
             1024, self.text_model.config.hidden_size
         )
-        self.vision_to_text_embedding = self.vision_to_text_embedding.cuda()
+        # self.vision_to_text_embedding = self.vision_to_text_embedding.cuda()
 
         self.tokenizer = AutoTokenizer.from_pretrained(
             "/nfs/public/hf/models/meta-llama/Meta-Llama-3.1-8B-Instruct",
@@ -163,6 +163,7 @@ class PlancraftAOM(PreTrainedModel):
                 ]
             }
         )
+        self.tokenizer.pad_token = self.tokenizer.eos_token
         self.inventory_idx = self.tokenizer.convert_tokens_to_ids("<|inventory|>")
         self.text_model.resize_token_embeddings(len(self.tokenizer))
 
@@ -228,13 +229,17 @@ class PlancraftAOM(PreTrainedModel):
         batch = self.tokenizer(
             texts_batch,
             truncation=True,
+            padding=True,
             max_length=16000,
             return_tensors="pt",
         )
+        # move to cuda
+        batch = {k: v.cuda() for k, v in batch.items()}
         labels = batch["input_ids"].clone()
 
         # remove inventory tokens from labels
         labels[labels == self.inventory_idx] = -100
+
         # sanity check: should have same number of boxes as inventory tokens
         assert (labels == -100).sum() == total_boxes
 
@@ -251,6 +256,7 @@ class PlancraftAOM(PreTrainedModel):
         # forward pass
         outputs = self.text_model(
             inputs_embeds=inputs_embeds,
+            attention_mask=batch["attention_mask"],
             labels=labels,
             return_dict=True,
         )

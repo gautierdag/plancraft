@@ -1,29 +1,29 @@
 plancraft:
-  model: meta-llama/Meta-Llama-3.1-70B-Instruct
-  tokenizer: meta-llama/Meta-Llama-3.1-70B-Instruct
+  # model: meta-llama/Meta-Llama-3.1-70B-Instruct
+  # tokenizer: meta-llama/Meta-Llama-3.1-70B-Instruct
   # tokenizer: gautierdag/oa-llama3-r64-a32
   # adapter: gautierdag/oa-llama3-r64-a32
   # model: gpt-4o-mini
   # tokenizer: gpt-4o-mini"
-  # model: oracle
-  # tokenizer: oracle
-  num_generations: 3
-  mode: act
+  model: oracle
+  tokenizer: oracle
+  num_generations: 1
+  mode: oracle
   hot_cache: True
   max_steps: 80
   quantize: False
   environment:
-    symbolic: False
+    symbolic: True
     symbolic_observation_space: True
     symbolic_action_space: True
   split: val.small
   max_message_window: 30
-  resume: True
+  resume: False
   output_dir: "outputs"
   few_shot: True
   system_prompt: True
   valid_actions: ["move", "smelt"]
-  use_maskrcnn: True # Whether to use pretrained MaskRCNN for object detection - only use if symbolic=False
+  use_maskrcnn: False # Whether to use pretrained MaskRCNN for object detection - only use if symbolic=False
 wandb:
   project: "plancraft"
   entity: "itl"
