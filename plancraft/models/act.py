@@ -6,14 +6,15 @@ from dotenv import load_dotenv
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
+    NoOp,
     StopAction,
     SymbolicAction,
-    NoOp,
 )
 from plancraft.models.base import ABCModel, History
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel
 from plancraft.models.few_shot_images import load_prompt_images
 from plancraft.models.generators import (
+    OAMGenerator,
     OpenAIGenerator,
     TransformersGenerator,
 )
@@ -63,6 +64,9 @@ class ActModel(ABCModel):
             self.llm = OpenAIGenerator(
                 is_multimodal=self.model_is_multimodal, model_name=cfg.plancraft.model
             )
+        if "oam" in cfg.plancraft.model:
+            self.llm = OAMGenerator(model_name=cfg.plancraft.model)
+            self.model_is_multimodal = False
         # model is transformers based
         else:
             self.llm = TransformersGenerator(
@@ -82,6 +86,8 @@ class ActModel(ABCModel):
         examples = get_prompt_example(self.valid_actions, self.model_is_multimodal)
         if self.env_is_multimodal:
             self.prompt_images = load_prompt_images()
+
+        if self.model_is_multimodal:
             self.system_prompt = {
                 "role": "system",
                 "content": [
@@ -124,8 +130,9 @@ class ActModel(ABCModel):
         observation_message = convert_observation_to_message(
             observation,
             objective=self.history.objective,
-            is_multimodal=self.env_is_multimodal,
+            env_is_multimodal=self.env_is_multimodal,
             bbox_model=self.bbox_model,
+            oam_model="oam" in self.llm.model_name,
         )
         self.history.add_message_to_history(content=observation_message, role="user")
 

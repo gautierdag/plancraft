@@ -153,20 +153,28 @@ def tokenize(
 
 
 def convert_observation_to_message(
-    observation: dict, objective: str, is_multimodal=False, bbox_model=None
+    observation: dict,
+    objective: str,
+    env_is_multimodal=False,
+    bbox_model=None,
+    oam_model=False,
 ) -> str | dict:
     """
     Convert an observation to a message format
     NOTE: this needs to align with template in few-shot
     """
     if bbox_model is not None:
-        assert is_multimodal, "bbox_model should be provided for multimodal parsing"
+        assert env_is_multimodal, "bbox_model should be provided for multimodal parsing"
         # convert to tensor
         inventory = bbox_model.get_inventory(observation["pov"].copy())
         return objective_and_inventory_to_str(
             objective, sorted(inventory, key=lambda x: x["slot"])
         )
-    elif is_multimodal:
+    elif oam_model:
+        assert env_is_multimodal, "oam_model is only supported for multimodal parsing"
+        return f"{objective}\ninventory:\n"
+
+    elif env_is_multimodal:
         content_message = {
             "content": [
                 {"type": "text", "text": f"{objective}"},
@@ -237,7 +245,7 @@ def parse_content_response(
     Given a message and set of valid actions, parse the content to return the action
     or a message if the action is not valid/requires message response
     """
-    
+
     action_match = re.search(f"({'|'.join(valid_actions)}):", content)
     if action_match:
         action = action_match.group(1)

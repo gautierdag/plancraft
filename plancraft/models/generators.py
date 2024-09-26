@@ -16,11 +16,13 @@ from transformers import (
 from transformers.cache_utils import DynamicCache
 
 from plancraft.models.base import History
+from plancraft.models.oam import PlancraftOAM
 from plancraft.models.utils import (
     get_downloaded_models,
     numpy_to_base64,
     tokenize,
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +86,7 @@ class TransformersGenerator:
             )
             logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
 
+            # load OA adapter
             if adapter_name != "":
                 logger.info(f"Loading adapter and tokenizer from {adapter_name}")
                 self.tokenizer = AutoTokenizer.from_pretrained(
@@ -385,3 +388,88 @@ class OpenAIGenerator:
             tokens_used += response.usage.total_tokens
             contents.append(content)
         return contents, tokens_used
+
+
+class OAMGenerator:
+    def __init__(
+        self,
+        model_name,
+    ):
+        self.model_name = model_name
+        logger.info("Loading model")
+        time_now = time.time()
+        self.model = PlancraftOAM.from_pretrained(model_name)
+        self.model.cuda()
+        logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+        # compile
+        time_now = time.time()
+        self.model = torch.compile(self.model)
+        logger.info(f"Model compiled in {time.time() - time_now:.2f} seconds")
+
+        self.model.eval()
+        self.model.tokenizer.pad_token = self.model.tokenizer.eos_token
+        self.model.tokenizer.truncation_side = "left"
+
+    def reset(self):
+        pass
+
+    def prepare_messages(
+        self,
+        history: History,
+        max_messages_window: int,
+        system_prompt: dict = None,
+        prompt_images: list = [],
+    ) -> tuple[list[dict], list]:
+        """
+        Prepare the messages using a history
+        """
+        message_window = history.dialogue_history[-max_messages_window:]
+        # remove the first assistant message if it is present
+        if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+            message_window = message_window[1:]
+        # add the system prompt if the first message is not a system message
+        if message_window[0]["role"] != "system" and system_prompt is not None:
+            message_window = [system_prompt] + message_window
+
+        image_window = []
+
+        image_list = prompt_images + history.images
+        image_count = 0
+
+        # iterate through the messages in reverse order to assign images
+        for i in range(len(message_window)):
+            content = message_window[i]["content"]
+            if "\ninventory\n" in content:
+                content = (
+                    content.split("\ninventory\n")[0] + "\ninventory:<|inventory|>"
+                )
+                image_count += 1
+
+        assert image_count <= len(image_list), "Too many images"
+        image_window = image_list[-image_count:]
+        image_window = [Image.fromarray(img) for img in image_window]
+
+        return message_window, image_window
+
+    @torch.inference_mode()
+    def generate_unconstrained(
+        self,
+        batch_messages: list[list[dict]],
+        images: list,
+        max_tokens: int = 256,
+        temperature=0.6,
+        **kwargs,
+    ) -> tuple[list[str], int]:
+        """
+        Generate unconstrained text based on the batch of messages.
+        """
+        text_responses, total_tokens_used = self.model.generate(
+            batch_messages=batch_messages,
+            batch_images=images,
+            do_sample=True,
+            temperature=temperature,
+            max_new_tokens=max_tokens,
+            return_dict_in_generate=True,
+            use_cache=True,
+        )
+        return text_responses, total_tokens_used

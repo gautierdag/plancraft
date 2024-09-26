@@ -107,7 +107,7 @@ class ReactModel(ABCModel):
         observation_message = convert_observation_to_message(
             observation,
             objective=self.history.objective,
-            is_multimodal=self.is_multimodal,
+            env_is_multimodal=self.is_multimodal,
         )
         # add observation to history
         self.history.add_message_to_history(content=observation_message, role="user")

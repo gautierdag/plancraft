@@ -65,7 +65,7 @@ def get_system_prompt(actions: list[str]):
 CRAFTING_STEPS = [
     "Craft an item of type: andesite\ninventory:\n - diorite [I18] quantity 1\n - cobblestone [I30] quantity 1",
     "Craft an item of type: andesite\ninventory:\n - diorite [B1] quantity 1\n - cobblestone [I30] quantity 1",
-    "Craft an item of type: andesite\ninventory:\nandesite [0] quantity 1\n - diorite [B1] quantity 1\n - cobblestone [B2] quantity 1",
+    "Craft an item of type: andesite\ninventory:\n - andesite [0] quantity 1\n - diorite [B1] quantity 1\n - cobblestone [B2] quantity 1",
     "Craft an item of type: iron_ingot\ninventory:\n - iron_ore [I36] quantity 1\n - cobblestone [I30] quantity 1",
 ]
 
