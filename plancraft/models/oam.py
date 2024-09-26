@@ -133,9 +133,10 @@ class PlancraftOAM(PreTrainedModel):
                 )
                 i_pred += 1
             new_messages.append(new_message)
+
         assert i_pred == len(
             bboxes
-        ), "Number of inventory tokens does not match number of bounding boxes"
+        ), "Number of inventory tokens does not match number of images"
         # add special tokens
 
         text = self.tokenizer.apply_chat_template(

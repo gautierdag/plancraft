@@ -436,20 +436,31 @@ class OAMGenerator:
         image_list = prompt_images + history.images
         image_count = 0
 
-        # iterate through the messages in reverse order to assign images
-        for i in range(len(message_window)):
-            content = message_window[i]["content"]
-            if "\ninventory\n" in content:
-                content = (
-                    content.split("\ninventory\n")[0] + "\ninventory:<|inventory|>"
+        # iterate through the messages to count how many images are present
+        new_message_window = []
+        for m in message_window:
+            message_content = m["content"]
+            message_role = m["role"]
+
+            if "\ninventory:\n" in message_content:
+                message_content = (
+                    message_content.split("\ninventory:\n")[0]
+                    + "\ninventory:<|inventory|>"
                 )
+
+            if "<|inventory|>" in message_content:
                 image_count += 1
 
+            new_message_window.append(
+                {"role": message_role, "content": message_content}
+            )
+
         assert image_count <= len(image_list), "Too many images"
+        # get messages from end of queue
         image_window = image_list[-image_count:]
         image_window = [Image.fromarray(img) for img in image_window]
 
-        return message_window, image_window
+        return new_message_window, image_window
 
     @torch.inference_mode()
     def generate_unconstrained(
