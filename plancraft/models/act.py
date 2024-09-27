@@ -63,16 +63,13 @@ class ActModel(ABCModel):
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
             self.use_multimodal_content_format = True
-            if self.env_is_multimodal:
-                self.use_images = True
-
             self.llm = OpenAIGenerator(
                 use_images=self.use_images, model_name=cfg.plancraft.model
             )
-        if "oam" in cfg.plancraft.model:
+        elif "oam" in cfg.plancraft.model:
             self.llm = OAMGenerator(model_name=cfg.plancraft.model)
-        # model is transformers based
         else:
+            # model is transformers based
             self.llm = TransformersGenerator(
                 model_name=cfg.plancraft.model,
                 tokenizer_name=cfg.plancraft.tokenizer,

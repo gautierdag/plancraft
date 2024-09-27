@@ -2,13 +2,12 @@ import einops
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+import torchvision.transforms.v2 as v2
 from huggingface_hub import PyTorchModelHubMixin
 from minerl.herobraine.hero.mc import ALL_ITEMS
-
-import torchvision.transforms.v2 as v2
 from torchvision.models.detection.faster_rcnn import (
     fasterrcnn_resnet50_fpn_v2,
+    ResNet50_Weights,
 )
 from torchvision.models.detection.roi_heads import (
     fastrcnn_loss,
@@ -412,9 +411,14 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
     Also returns the feature vectors of the detected boxes
     """
 
-    def __init__(self):
+    def __init__(self, load_resnet_weights=False):
         super(IntegratedBoundingBoxModel, self).__init__()
+        weights = None
+        if load_resnet_weights:
+            weights = ResNet50_Weights.DEFAULT
+
         self.model = fasterrcnn_resnet50_fpn_v2(
+            weights_backbone=weights,
             image_mean=[0.63, 0.63, 0.63],
             image_std=[0.21, 0.21, 0.21],
             min_size=128,
@@ -483,3 +487,6 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
         self.model.training = False
         self.model.roi_heads.training = False
         self.model.rpn.training = False
+
+    def save(self, path: str):
+        torch.save(self.state_dict(), path)

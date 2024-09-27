@@ -145,7 +145,7 @@ def sample_environment(batch_size=32, N=100):
 
 if __name__ == "__main__":
     m1_path = "latest_maskrcnn.pth"
-    M1_model = IntegratedBoundingBoxModel()
+    M1_model = IntegratedBoundingBoxModel(load_resnet_weights=True)
     M1_model = M1_model.cuda()
 
     print("Loaded model")
