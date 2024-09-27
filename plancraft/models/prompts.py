@@ -91,17 +91,31 @@ SEARCH_STEPS = [
 ]
 
 
-def get_prompt_example(actions: list[str], is_multimodal=False) -> list[dict]:
+def get_prompt_example(
+    actions: list[str],
+    use_text_inventory=True,
+    use_multimodal_content_format=False,
+    use_images=False,
+) -> list[dict]:
     assert set(actions).issubset(VALID_ACTIONS), f"Invalid actions: {actions}"
     assert "move" in actions, "move should be one of the actions"
     assert "smelt" in actions, "smelt should be one of the actions"
 
+    if use_images:
+        assert (
+            use_multimodal_content_format
+        ), "use_images requires use_multimodal_content_format"
+
     example_dialogue = []
     for i, step in enumerate(CRAFTING_STEPS):
-        example_dialogue.append({"role": "user", "content": step})
+        text = step
+        if not use_text_inventory:
+            text = text.split("\ninventory:\n")[0]
+
+        example_dialogue.append({"role": "user", "content": text})
         if "search" in actions and SEARCH_STEPS[i]:
             example_dialogue.append({"role": "assistant", "content": SEARCH_STEPS[i]})
-            search_target = step.split("seach: ")[-1].strip()
+            search_target = text.split("seach: ")[-1].strip()
             search_response = gold_search_recipe(search_target)
             example_dialogue.append({"role": "user", "content": search_response})
         if "think" in actions:
@@ -109,24 +123,28 @@ def get_prompt_example(actions: list[str], is_multimodal=False) -> list[dict]:
             example_dialogue.append({"role": "user", "content": "Ok"})
         example_dialogue.append({"role": "assistant", "content": BASE_ACTION_STEPS[i]})
 
-    if not is_multimodal:
+    if not use_multimodal_content_format:
         return example_dialogue
 
     # convert to multimodal dialogue
     multimodal_dialogue = []
     for message in example_dialogue:
-        if "\ninventory:\n" in message["content"]:
-            multimodal_dialogue.append(
+        if "Craft an item" in message["content"]:
+            content_list = [
                 {
-                    "role": message["role"],
-                    "content": [
-                        {
-                            "type": "text",
-                            "text": message["content"].split("\ninventory:\n")[0],
-                        },
-                        {"type": "image"},
-                    ],
+                    "type": "text",
+                    "text": message["content"],
                 }
+            ]
+            if use_images:
+                content_list.append(
+                    {
+                        "type": "image",
+                    }
+                )
+
+            multimodal_dialogue.append(
+                {"role": message["role"], "content": content_list}
             )
         else:
             multimodal_dialogue.append(

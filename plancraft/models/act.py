@@ -38,10 +38,12 @@ class ActModel(ABCModel):
         assert (
             cfg.plancraft.environment.symbolic_action_space
         ), "Real action space unsupported"
-
+        self.cfg = cfg
         self.env_is_multimodal = not cfg.plancraft.environment.symbolic
-        self.model_is_multimodal = self.env_is_multimodal
         self.use_maskrcnn = cfg.plancraft.use_maskrcnn
+        self.use_multimodal_content_format = cfg.plancraft.use_multimodal_content_format
+        self.use_text_inventory = cfg.plancraft.use_text_inventory
+        self.use_images = cfg.plancraft.use_images
 
         self.bbox_model = None
         if self.use_maskrcnn:
@@ -53,7 +55,6 @@ class ActModel(ABCModel):
             if torch.cuda.is_available():
                 self.bbox_model.cuda()
             # MaskRCNN is not multimodal model but a separate model
-            self.model_is_multimodal = False
 
         self.few_shot = cfg.plancraft.few_shot
         self.use_system_prompt = cfg.plancraft.system_prompt
@@ -61,19 +62,21 @@ class ActModel(ABCModel):
 
         # underlying language model
         if "gpt-4o" in cfg.plancraft.model:
+            self.use_multimodal_content_format = True
+            if self.env_is_multimodal:
+                self.use_images = True
+
             self.llm = OpenAIGenerator(
-                is_multimodal=self.model_is_multimodal, model_name=cfg.plancraft.model
+                use_images=self.use_images, model_name=cfg.plancraft.model
             )
         if "oam" in cfg.plancraft.model:
             self.llm = OAMGenerator(model_name=cfg.plancraft.model)
-            self.model_is_multimodal = False
         # model is transformers based
         else:
             self.llm = TransformersGenerator(
                 model_name=cfg.plancraft.model,
                 tokenizer_name=cfg.plancraft.tokenizer,
                 quantize=cfg.plancraft.quantize,
-                is_multimodal=self.model_is_multimodal,
                 use_hot_cache=cfg.plancraft.hot_cache,
                 adapter_name=cfg.plancraft.adapter,
             )
@@ -83,11 +86,16 @@ class ActModel(ABCModel):
         self.valid_actions = cfg.plancraft.valid_actions
         self.system_prompt_text = get_system_prompt(self.valid_actions)
 
-        examples = get_prompt_example(self.valid_actions, self.model_is_multimodal)
-        if self.env_is_multimodal:
+        examples = get_prompt_example(
+            self.valid_actions,
+            use_text_inventory=self.use_text_inventory,
+            use_multimodal_content_format=self.use_multimodal_content_format,
+            use_images=self.use_images,
+        )
+        if self.env_is_multimodal and self.use_images:
             self.prompt_images = load_prompt_images()
 
-        if self.model_is_multimodal:
+        if self.use_multimodal_content_format:
             self.system_prompt = {
                 "role": "system",
                 "content": [
@@ -106,7 +114,8 @@ class ActModel(ABCModel):
             self.system_prompt = None
 
         self.history = History(
-            initial_dialogue=examples, is_multimodal=self.model_is_multimodal
+            initial_dialogue=examples,
+            use_multimodal_content_format=self.use_multimodal_content_format,
         )
 
         self.max_messages_window = cfg.plancraft.max_message_window
@@ -118,7 +127,12 @@ class ActModel(ABCModel):
     ):
         examples = []
         if self.few_shot:
-            examples = get_prompt_example(self.valid_actions, self.model_is_multimodal)
+            examples = get_prompt_example(
+                self.valid_actions,
+                use_text_inventory=self.use_text_inventory,
+                use_multimodal_content_format=self.use_multimodal_content_format,
+                use_images=self.use_images,
+            )
 
         self.history.reset(objective=objective, initial_dialogue=examples)
         self.llm.reset()
@@ -130,9 +144,11 @@ class ActModel(ABCModel):
         observation_message = convert_observation_to_message(
             observation,
             objective=self.history.objective,
-            env_is_multimodal=self.env_is_multimodal,
             bbox_model=self.bbox_model,
             oam_model="oam" in self.llm.model_name,
+            use_text_inventory=self.use_text_inventory,
+            use_multimodal_content_format=self.use_multimodal_content_format,
+            use_images=self.use_images,
         )
         self.history.add_message_to_history(content=observation_message, role="user")
 

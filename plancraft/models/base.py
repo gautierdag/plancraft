@@ -15,7 +15,7 @@ class History:
         self,
         objective: str = "",
         initial_dialogue: list[dict] = [],
-        is_multimodal=False,
+        use_multimodal_content_format=False,
     ):
         self.dialogue_history = initial_dialogue
         self.initial_dialogue_length = len(initial_dialogue)
@@ -25,7 +25,7 @@ class History:
         self.images = []
         self.objective = objective
         self.tokens_used = 0
-        self.is_multimodal = is_multimodal
+        self.use_multimodal_content_format = use_multimodal_content_format
 
     def add_message_to_history(self, content: str | dict, role="user"):
         if role == "assistant":
@@ -37,7 +37,7 @@ class History:
             self.dialogue_history.append(content)
         else:
             # fix for listed content type
-            if self.is_multimodal:
+            if self.use_multimodal_content_format:
                 return self.add_message_to_history(
                     content={
                         "content": [{"type": "text", "text": content}],

@@ -152,51 +152,6 @@ def tokenize(
     return tokenized_messages
 
 
-def convert_observation_to_message(
-    observation: dict,
-    objective: str,
-    env_is_multimodal=False,
-    bbox_model=None,
-    oam_model=False,
-) -> str | dict:
-    """
-    Convert an observation to a message format
-    NOTE: this needs to align with template in few-shot
-    """
-    if bbox_model is not None:
-        assert env_is_multimodal, "bbox_model should be provided for multimodal parsing"
-        # convert to tensor
-        inventory = bbox_model.get_inventory(observation["pov"].copy())
-        return objective_and_inventory_to_str(
-            objective, sorted(inventory, key=lambda x: x["slot"])
-        )
-    elif oam_model:
-        assert env_is_multimodal, "oam_model is only supported for multimodal parsing"
-        return f"{objective}\ninventory:\n"
-
-    elif env_is_multimodal:
-        content_message = {
-            "content": [
-                {"type": "text", "text": f"{objective}"},
-                {"type": "image"},
-            ]
-        }
-        return content_message
-
-    # if not multimodal, we only have text - we just dump a JSON of the inventory
-    inventory = []
-    for o in observation["inventory"]:
-        if o["quantity"] > 0:
-            inventory.append(
-                {
-                    "type": o["type"],
-                    "slot": convert_from_slot_index(o["index"]),
-                    "quantity": o["quantity"],
-                }
-            )
-    return objective_and_inventory_to_str(objective, inventory)
-
-
 def objective_and_inventory_to_str(objective: str, inventory: list[dict]) -> str:
     inventory_str = ""
     for item in inventory:
@@ -212,6 +167,60 @@ def objective_and_inventory_to_str(objective: str, inventory: list[dict]) -> str
         inventory_str += f"\n - {item['type']} {slot} quantity {item['quantity']}"
 
     return f"{objective}\ninventory:{inventory_str}"
+
+
+def convert_observation_to_message(
+    observation: dict,
+    objective: str,
+    bbox_model=None,
+    oam_model=False,
+    use_text_inventory=True,
+    use_multimodal_content_format=False,
+    use_images=False,
+) -> str | dict:
+    """
+    Convert an observation to a message format
+
+    Parameters:
+    - observation: dict - The observation to convert.
+    - objective: str - The objective of the observation.
+    - bbox_model: Optional - The bounding box model to use.
+    - oam_model: bool - Whether to use the OAM model.
+    - use_text_inventory: bool - Whether to use text inventory.
+    - use_multimodal_content_format: bool - Whether to use multimodal content format.
+    - use_images: bool - Whether to append an image to the message content - must be used with use_multimodal_content_format.
+    """
+    if bbox_model is not None:
+        # convert to tensor
+        inventory = bbox_model.get_inventory(observation["pov"].copy())
+        text_content = objective_and_inventory_to_str(
+            objective, sorted(inventory, key=lambda x: x["slot"])
+        )
+    elif oam_model:
+        text_content = f"{objective}\ninventory:\n"
+    elif not use_text_inventory:
+        text_content = objective
+    else:
+        # if not multimodal, we only have text - we just dump a JSON of the inventory
+        inventory = []
+        for o in observation["inventory"]:
+            if o["quantity"] > 0:
+                inventory.append(
+                    {
+                        "type": o["type"],
+                        "slot": convert_from_slot_index(o["index"]),
+                        "quantity": o["quantity"],
+                    }
+                )
+        text_content = objective_and_inventory_to_str(objective, inventory)
+
+    if not use_multimodal_content_format:
+        return text_content
+
+    content_list = [{"type": "text", "text": text_content}]
+    if use_images:
+        content_list.append({"type": "image"})
+    return {"content": content_list}
 
 
 def gold_search_recipe(recipe_name: str) -> str:

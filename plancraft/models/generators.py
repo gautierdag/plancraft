@@ -35,7 +35,7 @@ class TransformersGenerator:
         model_name: str,
         tokenizer_name: str = "same",
         quantize=False,
-        is_multimodal=False,
+        use_images=False,
         use_hot_cache=True,
         adapter_name="",
         **kwargs,
@@ -46,13 +46,13 @@ class TransformersGenerator:
         if tokenizer_name == "same":
             tokenizer_name = model_name
 
-        self.is_multimodal = is_multimodal
+        self.use_images = use_images
         model_name, model_kwargs = self.build_model_kwargs(
             model_name, quantize=quantize
         )
         self.processor = None
         if "idefics" in model_name:
-            assert is_multimodal, "Idefics model requires multimodal input"
+            assert use_images, "Idefics model requires multimodal input"
             self.tokenizer = AutoProcessor.from_pretrained(
                 tokenizer_name,
                 **model_kwargs,
@@ -134,7 +134,7 @@ class TransformersGenerator:
             return
 
         # caching doesn't seem to work with multimodal models
-        if self.is_multimodal:
+        if self.use_images:
             self.past_key_values_kwargs = {}
             return
 
@@ -221,7 +221,7 @@ class TransformersGenerator:
             message_window = [system_prompt] + message_window
 
         image_window = []
-        if self.is_multimodal:
+        if self.use_images:
             image_list = prompt_images + history.images
             image_count = 0
             # iterate through the messages in reverse order to assign images
@@ -247,7 +247,7 @@ class TransformersGenerator:
         """
         Generate unconstrained text based on the batch of messages.
         """
-        if self.is_multimodal:
+        if self.use_images:
             assert "images" in kwargs, "Images required for multimodal model"
 
         tokenized_messages = tokenize(
@@ -256,7 +256,7 @@ class TransformersGenerator:
             batch_messages,
             start_messages_generation=[start_messages_generation] * len(batch_messages),
             max_tokens=max_tokens,
-            images=kwargs.get("images") if self.is_multimodal else None,
+            images=kwargs.get("images") if self.use_images else None,
         )
         prompt_tokens = tokenized_messages["input_ids"].shape[-1]
 
@@ -312,9 +312,9 @@ class TransformersGenerator:
 
 
 class OpenAIGenerator:
-    def __init__(self, is_multimodal=False, model_name="gpt-4o-mini"):
+    def __init__(self, use_images=False, model_name="gpt-4o-mini"):
         self.client = OpenAI()
-        self.is_multimodal = is_multimodal
+        self.use_images = use_images
         self.model_name = model_name
 
     def reset(self):
@@ -338,9 +338,8 @@ class OpenAIGenerator:
         if message_window[0]["role"] != "system" and system_prompt is not None:
             message_window = [system_prompt] + message_window
 
-        if self.is_multimodal:
+        if self.use_images:
             image_list = prompt_images + history.images
-
             img_idx = -1
             seen_images = 0
             # iterate through the messages in reverse order to assign images

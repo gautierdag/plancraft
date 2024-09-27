@@ -39,6 +39,13 @@ class PlancraftConfig(BaseModel):
     valid_actions: list[str] = ["move", "smelt", "think", "search", "impossible"]
     use_maskrcnn: bool = False  # whether to use maskrcnn for multimodal parsing
 
+    # observations
+    use_text_inventory: bool = True  # whether to include inventory in text
+    use_images: bool = False  # whether to include images in multimodal content
+    use_multimodal_content_format: bool = (
+        False  # whether to use multimodal content format
+    )
+
     @model_validator(mode="after")
     def validate(self):
         assert set(
@@ -46,6 +53,12 @@ class PlancraftConfig(BaseModel):
         ).issubset(
             {"move", "smelt", "think", "search", "impossible"}
         ), "valid_actions should be subset of {'move', 'smelt', 'think', 'search', 'impossible'}"
+
+        if self.use_images:
+            assert (
+                not self.environment.symbolic
+            ), "Set environment.symbolic to False when using images"
+
         return self
 
 

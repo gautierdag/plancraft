@@ -1,4 +1,3 @@
-import copy
 import logging
 
 from dotenv import load_dotenv
@@ -8,106 +7,39 @@ from plancraft.environments.actions import (
     SymbolicAction,
     NoOp,
 )
-from plancraft.models.base import ABCModel, History
-from plancraft.models.few_shot_images import load_prompt_images
-from plancraft.models.generators import (
-    OpenAIGenerator,
-    TransformersGenerator,
-)
-from plancraft.models.prompts import (
-    get_prompt_example,
-    get_system_prompt,
-)
 from plancraft.models.utils import (
     convert_observation_to_message,
     parse_content_response,
 )
+
+from plancraft.models.act import ActModel
 
 logger = logging.getLogger(__name__)
 
 load_dotenv()
 
 
-class ReactModel(ABCModel):
+class ReactModel(ActModel):
     """
     Model that does action with interleaved thinking step
     """
 
     def __init__(self, cfg: EvalConfig):
-        assert (
-            cfg.plancraft.environment.symbolic_action_space
-        ), "Real action space unsupported"
-
-        self.is_multimodal = not cfg.plancraft.environment.symbolic
-        self.few_shot = cfg.plancraft.few_shot
-        self.use_system_prompt = cfg.plancraft.system_prompt
+        super().__init__(cfg)
         self.max_invalid_actions = 3
 
-        # underlying language model
-        if "gpt-4o" in cfg.plancraft.model:
-            self.llm = OpenAIGenerator(
-                is_multimodal=self.is_multimodal, model_name=cfg.plancraft.model
-            )
-        # model is transformers based
-        else:
-            self.llm = TransformersGenerator(
-                model_name=cfg.plancraft.model,
-                tokenizer_name=cfg.plancraft.tokenizer,
-                quantize=cfg.plancraft.quantize,
-                is_multimodal=self.is_multimodal,
-                use_hot_cache=cfg.plancraft.hot_cache,
-                adapter_name=cfg.plancraft.adapter,
-            )
-
-        self.prompt_images = []
-        self.valid_actions = cfg.plancraft.valid_actions
-        self.system_prompt_text = get_system_prompt(self.valid_actions)
-
-        examples = get_prompt_example(self.valid_actions, self.is_multimodal)
-        if self.is_multimodal:
-            self.prompt_images = load_prompt_images()
-            self.system_prompt = {
-                "role": "system",
-                "content": [
-                    {"text": copy.deepcopy(self.system_prompt_text), "type": "text"}
-                ],
-            }
-        else:
-            self.system_prompt = {
-                "role": "system",
-                "content": copy.deepcopy(self.system_prompt_text),
-            }
-
-        if not self.few_shot:
-            examples = []
-        if not self.use_system_prompt:
-            self.system_prompt = None
-
-        self.history = History(
-            initial_dialogue=examples,
-            is_multimodal=self.is_multimodal,
-        )
-
-        self.max_messages_window = cfg.plancraft.max_message_window
-        self.kv_cache = None
-
-    def reset_history(
-        self,
-        objective: str,
-    ):
-        examples = []
-        if self.few_shot:
-            examples = get_prompt_example(self.valid_actions, self.is_multimodal)
-
-        self.history.reset(objective=objective, initial_dialogue=examples)
-        self.llm.reset()
-
     def step(self, observation: dict) -> SymbolicAction:
+        # override the step method in ActModel to force thinking step
+
         self.history.add_observation_to_history(observation)
         observation_message = convert_observation_to_message(
             observation,
             objective=self.history.objective,
-            env_is_multimodal=self.is_multimodal,
+            bbox_model=self.bbox_model,
+            oam_model="oam" in self.llm.model_name,
+            use_text_inventory=self.use_text_inventory,
+            use_multimodal_content_format=self.use_multimodal_content_format,
+            use_images=self.use_images,
         )
         # add observation to history
         self.history.add_message_to_history(content=observation_message, role="user")
