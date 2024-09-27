@@ -104,19 +104,6 @@ def optimal_planner(
 
     try:
         path = dfs(inventory, steps, best_steps)
-
-        # Combine adjacent smelting steps into a single step.
-        if path is not None and len(path) > 1:
-            new_path = [path[0]]
-            prev_recipe = path[0][0]
-            for recipe, inv in path[1:]:
-                if recipe.recipe_type == "smelting" and recipe == prev_recipe:
-                    new_path[-1] = (recipe, inv)
-                else:
-                    new_path.append((recipe, inv))
-                    prev_recipe = recipe
-            return new_path
-
         return path
 
     except TimeoutError:

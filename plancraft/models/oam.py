@@ -23,11 +23,9 @@ class PlancraftOAMConfig(PretrainedConfig):
 
     def __init__(
         self,
-        use_cache=True,
         from_llama=False,
         **kwargs,
     ):
-        self.use_cache = use_cache
         self.from_llama = from_llama
         super().__init__(**kwargs)
 
@@ -261,8 +259,6 @@ class PlancraftOAM(PreTrainedModel):
         do_sample=True,
         temperature=0.6,
         max_new_tokens=32,
-        return_dict_in_generate=True,
-        use_cache=True,
     ):
         self.training = False
         self.tokenizer.padding_side = "left"
@@ -286,7 +282,6 @@ class PlancraftOAM(PreTrainedModel):
             temperature=temperature,
             max_new_tokens=max_new_tokens,
             pad_token_id=self.tokenizer.eos_token_id,
-            use_cache=use_cache,
         )
 
         # Decode the output

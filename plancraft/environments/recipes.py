@@ -480,18 +480,22 @@ class SmeltingRecipe(BaseRecipe):
     def can_craft_from_inventory(self, inventory: dict[str, int]) -> bool:
         return len(set(inventory.keys()).intersection(self.ingredient)) > 0
 
-    def craft_from_inventory(self, inventory: dict[str, int]) -> dict[str, int]:
+    def craft_from_inventory(
+        self, inventory: dict[str, int], quantity=1
+    ) -> dict[str, int]:
         assert self.can_craft_from_inventory(inventory), "Cannot craft from inventory"
+
         new_inventory = deepcopy(inventory)
         for ingredient in self.ingredient:
-            if ingredient in new_inventory:
-                new_inventory[ingredient] -= 1
+            if ingredient in new_inventory and new_inventory[ingredient] >= quantity:
+                new_inventory[ingredient] -= quantity
                 if new_inventory[ingredient] == 0:
                     del new_inventory[ingredient]
                 new_inventory[self.result.item] = (
-                    new_inventory.get(self.result.item, 0) + self.result.count
+                    new_inventory.get(self.result.item, 0) + quantity  # count
                 )
                 return new_inventory
+        return None
 
     def sample_inputs(self) -> tuple[dict[str, int], set]:
         # sample a random ingredient from the list of possible
