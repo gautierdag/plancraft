@@ -479,7 +479,5 @@ class OAMGenerator:
             do_sample=True,
             temperature=temperature,
             max_new_tokens=max_tokens,
-            return_dict_in_generate=True,
-            use_cache=True,
         )
         return text_responses, total_tokens_used

@@ -48,8 +48,6 @@ class PlancraftOAM(PreTrainedModel):
             )
             self.text_model = AutoModelForCausalLM.from_config(text_model_config)
 
-        self.lm_head = self.text_model.get_output_embeddings()
-
         # load vision model
         self.vision_model = IntegratedBoundingBoxModel.from_pretrained(
             "gautierdag/plancraft-maskrcnn"
@@ -90,10 +88,10 @@ class PlancraftOAM(PreTrainedModel):
         self.text_model.set_input_embeddings(value)
 
     def get_output_embeddings(self):
-        return self.lm_head
+        return self.text_model.lm_head
 
     def set_output_embeddings(self, new_embeddings):
-        self.lm_head = new_embeddings
+        self.text_model.lm_head = new_embeddings
 
     @torch.no_grad()
     def extract_bboxes(self, images: list) -> list[dict]:
@@ -206,7 +204,7 @@ class PlancraftOAM(PreTrainedModel):
             texts_batch.append(text)
 
         # tokenize text
-        # @NOTE: truncation might cause issues with inventory tokens not matching number of boxes
+        # @NOTE: truncation could cause issues with inventory tokens not matching number of boxes
         # in that case, we will truncate the boxes from the end, and issue a warning
         batch = self.tokenizer(
             texts_batch,
@@ -231,12 +229,12 @@ class PlancraftOAM(PreTrainedModel):
         batch = {k: v.cuda() for k, v in batch.items()}
         attention_mask = batch["attention_mask"]
         input_ids = batch["input_ids"]
-        if self.training:
-            labels = input_ids.clone()
-            # remove inventory tokens from labels
-            labels[labels == self.inventory_idx] = -100
-            # sanity check: should have same number of boxes as inventory tokens
-            assert (labels == -100).sum() == total_boxes
+
+        labels = input_ids.clone()
+        # remove inventory tokens from labels
+        labels[labels == self.inventory_idx] = -100
+        # sanity check: should have same number of boxes as inventory tokens
+        assert (labels == -100).sum() == total_boxes
 
         # get text embeddings
         inputs_embeds = self.text_model.get_input_embeddings()(input_ids)
@@ -260,7 +258,6 @@ class PlancraftOAM(PreTrainedModel):
         temperature=0.6,
         max_new_tokens=32,
     ):
-        self.training = False
         self.tokenizer.padding_side = "left"
 
         batch, image_hidden_states, _ = self.process_inputs(

@@ -17,6 +17,7 @@ from plancraft.environments.recipes import (
     id_to_item,
 )
 from plancraft.models.base import ABCModel, History
+from plancraft.environments.sampler import MAX_STACK_SIZE
 
 logger = logging.getLogger(__name__)
 
@@ -25,13 +26,57 @@ def item_set_id_to_type(item_set_ids: set[int]):
     return set(id_to_item(i) for i in item_set_ids)
 
 
-def find_free_inventory_slot(inventory: list[dict]) -> int:
+def find_free_inventory_slot(inventory: list[dict], from_slot: int) -> int:
+    # find a free slot in the inventory for the item in from_slot
+    from_item_type, from_item_quantity = None, None
+
+    type_to_slot = {}
+    slot_to_quantity = {}
     for item in inventory:
-        if item["quantity"] == 0:
-            if "slot" in item and item["slot"] > 10:
-                return item["slot"]
-            elif "index" in item and item["index"] > 10:
-                return item["index"]
+        if ("slot" in item and item["slot"] == from_slot) or (
+            "index" in item and item["index"] == from_slot
+        ):
+            from_item_quantity = item["quantity"]
+            from_item_type = item["type"]
+            # break
+        item_type = item["type"]
+        quantity = item["quantity"]
+        if quantity == 0:
+            item_type = "air"
+
+        if "slot" in item:
+            item_slot = item["slot"]
+        else:
+            item_slot = item["index"]
+
+        if item_type not in type_to_slot:
+            type_to_slot[item_type] = [item_slot]
+        else:
+            type_to_slot[item_type].append(item_slot)
+
+        if item_slot not in slot_to_quantity:
+            slot_to_quantity[item_slot] = quantity
+        else:
+            slot_to_quantity[item_slot] += quantity
+
+    assert from_item_type is not None, f"Item not found in slot {from_slot}"
+
+    # if there is a free slot with the same item type
+    if from_item_type in type_to_slot:
+        for slot in type_to_slot[from_item_type]:
+            if (
+                slot != from_slot
+                and slot_to_quantity[slot] + from_item_quantity
+                <= MAX_STACK_SIZE[from_item_type]
+            ):
+                return slot
+
+    # if there is a free slot with air
+    for slot in type_to_slot["air"]:
+        if slot != from_slot and slot > 10:
+            return slot
+
+    raise ValueError("No free slot found")
 
 
 def find_item_in_inventory(target: str, inventory: list[dict]) -> int:
@@ -109,7 +154,6 @@ class OracleModel(ABCModel):
         inventory_counter = get_inventory_counter(observation["inventory"])
         self.plans = optimal_planner(target=target, inventory=inventory_counter)
 
-
     def get_next_action(
         self, observation: dict
     ) -> SymbolicMoveAction | SymbolicSmeltAction:
@@ -123,7 +167,7 @@ class OracleModel(ABCModel):
         # take item from crafting slot
         if slot_item := get_crafting_slot_item(observed_inventory):
             # move item from crafting slot to inventory
-            free_slot = find_free_inventory_slot(observed_inventory)
+            free_slot = find_free_inventory_slot(observed_inventory, from_slot=0)
             return SymbolicMoveAction(
                 slot_from=0, slot_to=free_slot, quantity=slot_item["quantity"]
             )
@@ -167,10 +211,12 @@ class OracleModel(ABCModel):
 
         # if plan_recipe is a smelting recipe
         elif isinstance(plan_recipe, SmeltingRecipe):
-            free_slot = find_free_inventory_slot(current_inventory)
             assert len(items_to_use_counter) == 1, "smelting only supports one item"
             for item, quantity in items_to_use_counter.items():
                 from_slot = find_item_in_inventory(item, current_inventory)
+                free_slot = find_free_inventory_slot(
+                    current_inventory, from_slot=from_slot
+                )
                 action = SymbolicSmeltAction(
                     slot_from=from_slot, slot_to=free_slot, quantity=quantity
                 )

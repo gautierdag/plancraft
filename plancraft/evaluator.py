@@ -56,6 +56,9 @@ class Evaluator:
         if self.cfg.plancraft.environment.symbolic:
             symb_str = "symb"
 
+        if self.cfg.plancraft.use_maskrcnn:
+            symb_str += "_mrcnn"
+
         model_name = self.cfg.plancraft.model.split("/")[-1]
         if self.cfg.plancraft.adapter != "":
             model_name = self.cfg.plancraft.adapter.split("/")[-1]

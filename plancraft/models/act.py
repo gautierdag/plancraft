@@ -1,6 +1,4 @@
 import copy
-import logging
-
 import torch
 from dotenv import load_dotenv
 
@@ -24,7 +22,6 @@ from plancraft.models.utils import (
     parse_content_response,
 )
 
-logger = logging.getLogger(__name__)
 
 load_dotenv()
 
