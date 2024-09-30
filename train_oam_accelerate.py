@@ -282,26 +282,25 @@ def main(cfg):
                             f"Epoch {epoch} - Step {step} - Train loss: {total_loss * gradient_accumulation_steps}"
                         )
                     total_loss = 0.0
+    # Evaluation
+    model.eval()
+    eval_loss = 0.0
+    eval_steps = 0
 
-        # Evaluation
-        model.eval()
-        eval_loss = 0.0
-        eval_steps = 0
+    for batch in val_loader:
+        with torch.no_grad():
+            with accelerator.autocast():
+                outputs = model(**batch)
+                loss = outputs.loss
+                eval_loss += loss.item()
+                eval_steps += 1
 
-        for batch in val_loader:
-            with torch.no_grad():
-                with accelerator.autocast():
-                    outputs = model(**batch)
-                    loss = outputs.loss
-                    eval_loss += loss.item()
-                    eval_steps += 1
+    avg_eval_loss = eval_loss / eval_steps
 
-        avg_eval_loss = eval_loss / eval_steps
-
-        # Logging
-        if accelerator.is_main_process:
-            wandb.log({"eval_loss": avg_eval_loss})
-            accelerator.print(f"Epoch {epoch} - Avg eval loss: {avg_eval_loss}")
+    # Logging
+    if accelerator.is_main_process:
+        wandb.log({"eval_loss": avg_eval_loss})
+        accelerator.print(f"Epoch {epoch} - Avg eval loss: {avg_eval_loss}")
 
     # Push to hub if required
     if cfg.training.push_to_hub:
@@ -314,7 +313,35 @@ def main(cfg):
         accelerator.wait_for_everyone()
 
         if accelerator.is_main_process:
-            model.push_to_hub(name)
+            model.eval()
+            # batch_messages = [[{"role": "user", "content": "hi how are you?"}]]
+            # batch_images = [[]]
+            # text, _ = model.generate(
+            #     batch_messages=batch_messages, batch_images=batch_images
+            # )
+            # accelerator.print("Canary test")
+            # accelerator.print(text)
+
+            # # print the first 10 embeddings vectors
+            # accelerator.print("Embeddings")
+            # for i in range(10):
+            #     accelerator.print(
+            #         model.text_model.lm_head.weight[i].cpu().detach()[:20]
+            #     )
+
+            # # save layer to pth
+            # torch.save(
+            #     model.text_model.lm_head,
+            #     "model.text_model.lm_head.pth",
+            # )
+
+            # save to local
+            model.save_pretrained(
+                f"model_dump/{name}",
+                save_peft_format=False,
+                push_to_hub=True,
+                repo_id=name,
+            )
 
     # Finish logging
     if accelerator.is_main_process:

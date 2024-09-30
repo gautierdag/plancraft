@@ -72,7 +72,6 @@ class PlancraftOAM(PreTrainedModel):
         )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.inventory_idx = self.tokenizer.convert_tokens_to_ids("<|inventory|>")
-        self.bos_token_id = self.tokenizer.eos_token_id
 
         # resize token embeddings
         self.text_model.resize_token_embeddings(len(self.tokenizer))
@@ -80,18 +79,6 @@ class PlancraftOAM(PreTrainedModel):
         self.transforms = v2.Compose(
             [v2.ToImage(), v2.ToDtype(torch.float32, scale=True)]
         )
-
-    def get_input_embeddings(self):
-        return self.text_model.get_input_embeddings()
-
-    def set_input_embeddings(self, value):
-        self.text_model.set_input_embeddings(value)
-
-    def get_output_embeddings(self):
-        return self.text_model.lm_head
-
-    def set_output_embeddings(self, new_embeddings):
-        self.text_model.lm_head = new_embeddings
 
     @torch.no_grad()
     def extract_bboxes(self, images: list) -> list[dict]:
