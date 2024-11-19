@@ -3,12 +3,12 @@ name: "Publish"
 on:
   release:
     types: ["published"]
-
 jobs:
   run:
     name: "Build and publish release"
     runs-on: ubuntu-latest
-    environment: pypi
+    environment:
+      name: pypi
     permissions:
       id-token: write
     steps:
@@ -26,4 +26,4 @@ jobs:
         run: uv build
 
       - name: Publish
-        run: uv publish
+        run: uv publish --trusted-publishing always
