@@ -1,5 +1,7 @@
 FROM nvcr.io/nvidia/cuda:12.0.0-devel-ubuntu22.04
 
+
+
 RUN apt-get update
 RUN apt-get upgrade -y
 
@@ -7,6 +9,9 @@ RUN apt-get upgrade -y
 COPY apt.txt apt.txt
 ARG DEBIAN_FRONTEND=noninteractive
 RUN xargs -a apt.txt apt-get install -y --no-install-recommends && rm -rf /var/cache/*
+
+# Install uv
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Install VirtualGL
 ARG VIRTUALGL_VERSION=3.0.2
@@ -30,15 +35,12 @@ ENV VGL_ISACTIVE 1
 ENV VGL_DISPLAY egl
 ENV VGL_WM 1
 
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-
 # CLONE MINERL
 ARG CACHEBUST=1
 RUN git clone https://github.com/gautierdag/minerl.git /minerl
-RUN pip3 install -e /minerl --no-dependencies
+RUN uv add --editable /minerl
 # For some reason needs to be installed separately
-RUN pip3 install flash-attn
+RUN uv add flash-attn
 
 COPY entrypoint.sh /etc/entrypoint.sh
 RUN chmod 755 /etc/entrypoint.sh
@@ -48,7 +50,7 @@ RUN curl -Lk 'https://code.visualstudio.com/sha/download?build=stable&os=cli-alp
 RUN tar -xf vscode_cli.tar.gz
 
 # copy above docker folder to /plancraft and set working directory
-COPY .. /plancraft
+COPY ../.. /plancraft
 WORKDIR /plancraft
 
 ENTRYPOINT ["/etc/entrypoint.sh"]
