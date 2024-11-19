@@ -1,27 +1,26 @@
-import logging
 import warnings
 
 import hydra
 import torch
+import wandb
+from loguru import logger
 from peft import LoraConfig, get_peft_model
 from transformers import (
     AutoModelForCausalLM,
+    AutoTokenizer,
     EarlyStoppingCallback,
     Idefics2ForConditionalGeneration,
     Trainer,
     TrainingArguments,
-    AutoTokenizer,
 )
 
-import wandb
 from plancraft.config import TrainConfig
-from plancraft.train.dataset import get_dataset_and_collate
 from plancraft.environments.actions import convert_from_slot_index
+from plancraft.train.dataset import get_dataset_and_collate
 
 wandb.require("core")
 
 warnings.filterwarnings("ignore")
-logger = logging.getLogger(__name__)
 
 
 def flatten_cfg(cfg):

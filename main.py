@@ -1,13 +1,12 @@
-import logging
 import warnings
 
 import hydra
 
+from loguru import logger
 from plancraft.config import EvalConfig
 from plancraft.evaluator import Evaluator
 
 warnings.filterwarnings("ignore")
-logger = logging.getLogger(__name__)
 
 
 def flatten_cfg(cfg):

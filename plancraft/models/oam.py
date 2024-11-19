@@ -1,5 +1,6 @@
-import logging
 from typing import Optional
+
+from loguru import logger
 
 import torch
 import torch.nn as nn
@@ -13,8 +14,6 @@ from transformers import (
 )
 
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel
-
-logger = logging.getLogger(__name__)
 
 
 class PlancraftOAMConfig(PretrainedConfig):

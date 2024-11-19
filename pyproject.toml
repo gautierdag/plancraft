@@ -1,6 +1,6 @@
 [project]
 name = "plancraft"
-version = "0.1.0"
+version = "0.1.1"
 description = "Plancraft: an evaluation dataset for planning with LLM agents"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -20,6 +20,7 @@ dependencies = [
     "inflection>=0.3.1",
     "ipython>=7.5.0",
     "jinja2>=2.11.2",
+    "loguru>=0.7.2",
     "lxml>=4.3.3",
     "matplotlib>=3.9.2",
     "networkx>=3.2.1",

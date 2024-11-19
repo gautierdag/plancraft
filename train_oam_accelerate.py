@@ -1,6 +1,6 @@
 import glob
 import json
-import logging
+
 import math
 import random
 import warnings
@@ -16,6 +16,7 @@ from transformers import (
     AdamW,
     get_scheduler,
 )
+from loguru import logger
 
 import wandb
 from plancraft.config import TrainConfig
@@ -109,9 +110,7 @@ def collate_fn(batch):
 
 
 wandb.require("core")
-
 warnings.filterwarnings("ignore")
-logger = logging.getLogger(__name__)
 
 
 def flatten_cfg(cfg):

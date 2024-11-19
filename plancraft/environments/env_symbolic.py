@@ -1,4 +1,3 @@
-import logging
 from typing import Optional
 
 from plancraft.environments.actions import SymbolicAction
@@ -10,8 +9,6 @@ from plancraft.environments.recipes import (
     convert_ingredients_to_table,
 )
 from plancraft.environments.sampler import MAX_STACK_SIZE
-
-logger = logging.getLogger(__name__)
 
 
 class PseudoActionSpace:

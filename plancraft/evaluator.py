@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 import random
 import string
@@ -8,9 +7,10 @@ import time
 import imageio
 import pandas as pd
 import torch
+import wandb
+from loguru import logger
 from tqdm import tqdm
 
-import wandb
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environments.actions import StopAction
 from plancraft.environments.env_real import RealPlancraft
@@ -18,8 +18,6 @@ from plancraft.environments.env_symbolic import SymbolicPlancraft
 from plancraft.models import get_model
 
 wandb.require("core")
-
-logger = logging.getLogger(__name__)
 
 
 class Evaluator:

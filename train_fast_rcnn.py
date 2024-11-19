@@ -3,7 +3,7 @@ import time
 
 import torch
 import torchvision.transforms.v2 as v2
-from minerl.herobraine.hero.mc import ALL_ITEMS
+from plancraft.environments.items import ALL_ITEMS
 from PIL import Image, ImageDraw
 from tqdm import tqdm
 

@@ -1,20 +1,15 @@
-import logging
-
 from dotenv import load_dotenv
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
-    SymbolicAction,
     NoOp,
+    SymbolicAction,
 )
+from plancraft.models.act import ActModel
 from plancraft.models.utils import (
     convert_observation_to_message,
     parse_content_response,
 )
-
-from plancraft.models.act import ActModel
-
-logger = logging.getLogger(__name__)
 
 load_dotenv()
 

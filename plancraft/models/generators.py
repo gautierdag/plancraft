@@ -1,9 +1,9 @@
-import logging
 import os
 import time
 
 import torch
 from dotenv import load_dotenv
+from loguru import logger
 from openai import OpenAI
 from PIL import Image
 from transformers import (
@@ -22,9 +22,6 @@ from plancraft.models.utils import (
     numpy_to_base64,
     tokenize,
 )
-
-
-logger = logging.getLogger(__name__)
 
 load_dotenv()
 

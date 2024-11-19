@@ -1,13 +1,12 @@
-import logging
 import copy
 from collections import Counter
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     RealActionInteraction,
+    StopAction,
     SymbolicMoveAction,
     SymbolicSmeltAction,
-    StopAction,
 )
 from plancraft.environments.planner import optimal_planner
 from plancraft.environments.recipes import (
@@ -16,10 +15,8 @@ from plancraft.environments.recipes import (
     SmeltingRecipe,
     id_to_item,
 )
-from plancraft.models.base import ABCModel, History
 from plancraft.environments.sampler import MAX_STACK_SIZE
-
-logger = logging.getLogger(__name__)
+from plancraft.models.base import ABCModel, History
 
 
 def item_set_id_to_type(item_set_ids: set[int]):
