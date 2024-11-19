@@ -6,12 +6,11 @@ on:
 
 jobs:
   run:
-    permissions:
-      contents: read
-      id-token: write
     name: "Build and publish release"
     runs-on: ubuntu-latest
     environment: pypi
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
       - name: Install uv
