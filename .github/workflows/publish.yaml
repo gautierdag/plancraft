@@ -3,6 +3,11 @@ name: "Publish"
 on:
   release:
     types: ["published"]
+
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   run:
     name: "Build and publish release"
@@ -18,7 +23,7 @@ jobs:
 
       - name: Set up Python
         run: uv python install 3.10
-        
+
       - name: Build
         run: uv build
 
