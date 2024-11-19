@@ -8,7 +8,8 @@ from copy import deepcopy
 from dataclasses import dataclass
 
 import numpy as np
-from minerl.herobraine.hero.mc import ALL_ITEMS
+
+from plancraft.environments.items import ALL_ITEMS
 
 
 def clean_item_name(item: str) -> str:

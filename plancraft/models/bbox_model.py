@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.transforms.v2 as v2
 from huggingface_hub import PyTorchModelHubMixin
-from minerl.herobraine.hero.mc import ALL_ITEMS
+from plancraft.environments.items import ALL_ITEMS
 from torchvision.models.detection.faster_rcnn import (
     fasterrcnn_resnet50_fpn_v2,
     ResNet50_Weights,

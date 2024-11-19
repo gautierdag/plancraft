@@ -3,8 +3,7 @@ import random
 from collections import Counter
 
 import numpy as np
-from minerl.herobraine.hero.mc import all_data, ALL_ITEMS
-
+from plancraft.environments.items import all_data, ALL_ITEMS
 from plancraft.environments.recipes import RECIPES
 from plancraft.environments.planner import optimal_planner, get_ancestors
 

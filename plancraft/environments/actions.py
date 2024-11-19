@@ -1,96 +1,6 @@
-import json
+from typing import Union
 
-from pydantic import BaseModel, model_validator, field_validator
-
-import numpy as np
-from minerl.herobraine.hero import spaces
-from minerl.herobraine.hero.handlers.agent.action import Action
-
-
-class InventoryCommandAction(Action):
-    """
-    Handler which lets agents programmatically interact with an open container
-
-    Using this - agents can move a chosen quantity of items from one slot to another.
-    """
-
-    def to_string(self):
-        return "inventory_command"
-
-    def xml_template(self) -> str:
-        return str("<InventoryCommands/>")
-
-    def __init__(self):
-        self._command = "inventory_command"
-        # first argument is the slot to take from
-        # second is the slot to put into
-        # third is the count to take
-        super().__init__(
-            self.command,
-            spaces.Tuple(
-                (
-                    spaces.Discrete(46),
-                    spaces.Discrete(46),
-                    spaces.Discrete(64),
-                )
-            ),
-        )
-
-    def from_universal(self, x):
-        return np.array([0, 0, 0], dtype=np.int32)
-
-
-class SmeltCommandAction(Action):
-    """
-    An action handler for smelting an item
-    We assume smelting is immediate.
-    @TODO: might be interesting to explore using the smelting time as an additional planning parameter.
-
-    Using this agents can smelt items in their inventory.
-    """
-
-    def __init__(self):
-        self._command = "smelt"
-        # first argument is the slot to take from
-        # second is the slot to put into
-        # third is the count to smelt
-        super().__init__(
-            self.command,
-            spaces.Tuple(
-                (
-                    spaces.Discrete(46),
-                    spaces.Discrete(46),
-                    spaces.Discrete(64),
-                )
-            ),
-        )
-
-    def to_string(self):
-        return "smelt"
-
-    def xml_template(self) -> str:
-        return str("<SmeltCommands/>")
-
-    def from_universal(self, x):
-        return np.array([0, 0, 0], dtype=np.int32)
-
-
-class InventoryResetAction(Action):
-    def __init__(self):
-        self._command = "inventory_reset"
-        super().__init__(self._command, spaces.Text([1]))
-
-    def to_string(self) -> str:
-        return "inventory_reset"
-
-    def to_hero(self, inventory_items: list[dict]):
-        return "{} {}".format(self._command, json.dumps(inventory_items))
-
-    def xml_template(self) -> str:
-        return "<InventoryResetCommands/>"
-
-    def from_universal(self, x):
-        return []
+from pydantic import BaseModel, field_validator, model_validator
 
 
 def convert_to_slot_index(slot: str) -> int:
@@ -298,11 +208,11 @@ class NoOp(SymbolicMoveAction):
 
 
 # when symbolic action is true, can either move objects around or smelt
-SymbolicAction = SymbolicMoveAction | SymbolicSmeltAction
+SymbolicAction = SymbolicMoveAction  # | SymbolicSmeltAction
 
 # when symbolic action is false, then need to use mouse to move things around, but can use smelt action
 RealAction = RealActionInteraction | SymbolicSmeltAction
 
 
 class PydanticSymbolicAction(BaseModel):
-    root: SymbolicMoveAction | SymbolicSmeltAction
+    root: Union[SymbolicMoveAction, SymbolicSmeltAction]

@@ -1,21 +1,111 @@
 from typing import Sequence, Union
 
 import numpy as np
-from minerl.env import _singleagent
+import json
 
-from minerl.herobraine.env_specs.human_controls import HumanControlEnvSpec
-from minerl.herobraine.hero import handlers, mc, spaces
-from minerl.herobraine.hero.handler import Handler
 
-from minerl.herobraine.hero.handlers.agent.start import InventoryAgentStart
-from minerl.herobraine.hero.handlers.translation import TranslationHandler
+try:
+    from minerl.env import _singleagent
+    from minerl.herobraine.env_specs.human_controls import HumanControlEnvSpec
+    from minerl.herobraine.hero import handlers, mc, spaces
+    from minerl.herobraine.hero.handler import Handler
+    from minerl.herobraine.hero.handlers.agent.action import Action
+    from minerl.herobraine.hero.handlers.agent.start import InventoryAgentStart
+    from minerl.herobraine.hero.handlers.translation import TranslationHandler
+except ImportError as e:
+    raise ImportError(
+        "The 'minerl' package is required to use RealPlancraft. "
+        "Please install it using 'pip install plancraft[full]' or 'pip install minerl'."
+    ) from e
 
-from plancraft.environments.actions import (
-    InventoryCommandAction,
-    SmeltCommandAction,
-    InventoryResetAction,
-    RealAction,
-)
+
+from plancraft.environments.actions import RealAction
+
+
+class InventoryCommandAction(Action):
+    """
+    Handler which lets agents programmatically interact with an open container
+
+    Using this - agents can move a chosen quantity of items from one slot to another.
+    """
+
+    def to_string(self):
+        return "inventory_command"
+
+    def xml_template(self) -> str:
+        return str("<InventoryCommands/>")
+
+    def __init__(self):
+        self._command = "inventory_command"
+        # first argument is the slot to take from
+        # second is the slot to put into
+        # third is the count to take
+        super().__init__(
+            self.command,
+            spaces.Tuple(
+                (
+                    spaces.Discrete(46),
+                    spaces.Discrete(46),
+                    spaces.Discrete(64),
+                )
+            ),
+        )
+
+    def from_universal(self, x):
+        return np.array([0, 0, 0], dtype=np.int32)
+
+
+class SmeltCommandAction(Action):
+    """
+    An action handler for smelting an item
+    We assume smelting is immediate.
+    @TODO: might be interesting to explore using the smelting time as an additional planning parameter.
+
+    Using this agents can smelt items in their inventory.
+    """
+
+    def __init__(self):
+        self._command = "smelt"
+        # first argument is the slot to take from
+        # second is the slot to put into
+        # third is the count to smelt
+        super().__init__(
+            self.command,
+            spaces.Tuple(
+                (
+                    spaces.Discrete(46),
+                    spaces.Discrete(46),
+                    spaces.Discrete(64),
+                )
+            ),
+        )
+
+    def to_string(self):
+        return "smelt"
+
+    def xml_template(self) -> str:
+        return str("<SmeltCommands/>")
+
+    def from_universal(self, x):
+        return np.array([0, 0, 0], dtype=np.int32)
+
+
+class InventoryResetAction(Action):
+    def __init__(self):
+        self._command = "inventory_reset"
+        super().__init__(self._command, spaces.Text([1]))
+
+    def to_string(self) -> str:
+        return "inventory_reset"
+
+    def to_hero(self, inventory_items: list[dict]):
+        return "{} {}".format(self._command, json.dumps(inventory_items))
+
+    def xml_template(self) -> str:
+        return "<InventoryResetCommands/>"
+
+    def from_universal(self, x):
+        return []
 
 
 MINUTE = 20 * 60

@@ -44,12 +44,7 @@ class Evaluator:
         self.record_frames = not (cfg.plancraft.environment.symbolic)
 
         # no_op action
-        if cfg.plancraft.environment.symbolic:
-            self.no_op = {
-                "inventory_command": (0, 0, 0),
-            }
-        else:
-            self.no_op = self.environment.action_space.no_op()
+        self.no_op = self.environment.action_space.no_op()
 
     def evaluator_name(self) -> str:
         symb_str = "real"

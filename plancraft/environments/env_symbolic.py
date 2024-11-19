@@ -1,9 +1,6 @@
 import logging
 from typing import Optional
 
-from gym import Env
-from minerl.herobraine.hero import spaces
-
 from plancraft.environments.actions import SymbolicAction
 from plancraft.environments.recipes import (
     RECIPES,
@@ -17,31 +14,21 @@ from plancraft.environments.sampler import MAX_STACK_SIZE
 logger = logging.getLogger(__name__)
 
 
-class SymbolicPlancraft(Env):
-    def __init__(self, inventory: list[dict] = [], recipes=RECIPES, **kwargs):
-        self.action_space = spaces.Dict(
-            {
-                "inventory_command": spaces.Tuple(
-                    (
-                        spaces.Discrete(46),
-                        spaces.Discrete(46),
-                        spaces.Discrete(64),
-                    )
-                ),
-                "smelt": spaces.Tuple(
-                    (
-                        spaces.Discrete(46),
-                        spaces.Discrete(46),
-                        spaces.Discrete(64),
-                    )
-                ),
-            }
-        )
+class PseudoActionSpace:
+    def no_op(self):
+        return {
+            "inventory_command": (0, 0, 0),
+        }
 
+
+class SymbolicPlancraft:
+    def __init__(self, inventory: list[dict] = [], recipes=RECIPES, **kwargs):
         self.inventory = inventory
         self.reset_state()
         self.table_indexes = list(range(1, 10))
         self.output_index = 0
+
+        self.action_space = PseudoActionSpace()
 
         self.recipes = recipes
 
@@ -223,3 +210,6 @@ class SymbolicPlancraft(Env):
 
     def render(self):
         print(f"state: {self.state}")
+
+    def close(self):
+        self.reset_state()

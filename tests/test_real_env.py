@@ -1,6 +1,10 @@
 import pytest
 
-from plancraft.environments.env_real import RealPlancraft
+try:
+    import minerl
+    from plancraft.environments.env_real import RealPlancraft
+except ImportError:
+    pytest.skip("minerl package not found", allow_module_level=True)
 
 
 @pytest.mark.slow
