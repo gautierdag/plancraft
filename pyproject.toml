@@ -58,13 +58,13 @@ dev-dependencies = [
     "uv>=0.4.25",
 ]
 
-[tool.setuptools.packages]
-find = { where = ["plancraft"], include = ["plancraft*"] }
-
 [project.optional-dependencies]
 full = [
     "gym>=0.19.0,<=0.23.1",
 ]
+
+[tool.setuptools.package-dir]
+plancraft = "plancraft"
 
 [build-system]
 requires = ["setuptools"]
