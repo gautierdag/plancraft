@@ -59,7 +59,7 @@ dev-dependencies = [
 ]
 
 [tool.setuptools.packages]
-find = { where = ["plancraft"]}
+find = { where = ["plancraft"], include = ["plancraft*"] }
 
 [project.optional-dependencies]
 full = [
