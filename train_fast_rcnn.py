@@ -8,7 +8,8 @@ from PIL import Image, ImageDraw
 from tqdm import tqdm
 
 import wandb
-from plancraft.environments.env_real import RealPlancraft
+
+# from plancraft.environments.env_real import RealPlancraft
 from plancraft.environments.recipes import RECIPES, ShapedRecipe, ShapelessRecipe
 from plancraft.environments.sampler import sample_distractors
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel, slot_to_bbox
@@ -74,7 +75,7 @@ class EnvWrapper:
     def step(self, starting_inv: list[dict[str, int]]):
         try:
             self.env.fast_reset(new_inventory=starting_inv)
-            obs, _, _, _ = self.env.step(self.env.action_space.no_op())
+            obs = self.env.step()
             return obs
         except RuntimeError:
             print("Env reset due to RuntimeError")
@@ -90,7 +91,7 @@ class EnvWrapper:
             )
             self.env.reset()
             self.env.fast_reset(new_inventory=starting_inv)
-            obs, _, _, _ = self.env.step(self.env.action_space.no_op())
+            obs = self.env.step()
             return obs
 
 

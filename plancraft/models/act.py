@@ -32,9 +32,6 @@ class ActModel(ABCModel):
     """
 
     def __init__(self, cfg: EvalConfig):
-        assert (
-            cfg.plancraft.environment.symbolic_action_space
-        ), "Real action space unsupported"
         self.cfg = cfg
         self.env_is_multimodal = not cfg.plancraft.environment.symbolic
         self.use_maskrcnn = cfg.plancraft.use_maskrcnn

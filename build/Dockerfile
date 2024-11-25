@@ -1,7 +1,5 @@
 FROM nvcr.io/nvidia/cuda:12.0.0-devel-ubuntu22.04
 
-
-
 RUN apt-get update
 RUN apt-get upgrade -y
 

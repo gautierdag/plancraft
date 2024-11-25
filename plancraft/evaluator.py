@@ -13,8 +13,7 @@ from tqdm import tqdm
 
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environments.actions import StopAction
-from plancraft.environments.env_real import RealPlancraft
-from plancraft.environments.env_symbolic import SymbolicPlancraft
+from plancraft.environments.env import PlancraftEnv
 from plancraft.models import get_model
 
 wandb.require("core")
@@ -40,9 +39,6 @@ class Evaluator:
         self.model = get_model(cfg)
 
         self.record_frames = not (cfg.plancraft.environment.symbolic)
-
-        # no_op action
-        self.no_op = self.environment.action_space.no_op()
 
     def evaluator_name(self) -> str:
         symb_str = "real"
@@ -87,19 +83,11 @@ class Evaluator:
         with open(path, "r") as f:
             return json.load(f)
 
-    def create_env(self, cfg: EvalConfig) -> RealPlancraft | SymbolicPlancraft:
-        if cfg.plancraft.environment.symbolic:
-            return SymbolicPlancraft(inventory=[])
-        return RealPlancraft(
+    def create_env(self, cfg: EvalConfig) -> PlancraftEnv:
+        return PlancraftEnv(
             inventory=[],
-            symbolic_action_space=cfg.plancraft.environment.symbolic_action_space,
-            symbolic_observation_space=cfg.plancraft.environment.symbolic_observation_space,
-            preferred_spawn_biome=cfg.plancraft.environment.preferred_spawn_biome,
             resolution=cfg.plancraft.environment.resolution,
         )
-
-    def close(self):
-        self.environment.close()
 
     def load_dataset(self, dataset_split: str) -> list[PlancraftExample]:
         with open(f"data/{dataset_split}.json", "r") as f:
@@ -113,7 +101,7 @@ class Evaluator:
         current_inventory = example.slotted_inventory
         self.environment.fast_reset(new_inventory=current_inventory)
         # do a no op to an initial observation
-        obs, _, _, _ = self.environment.step(self.no_op)
+        obs = self.environment.step()
         # assert that the inventory is correct
         if "inventory" in obs:
             for item in current_inventory:
@@ -147,8 +135,6 @@ class Evaluator:
     @torch.no_grad()
     def eval_all_examples(self, progress_bar=False) -> list:
         results = []
-        action = self.no_op.copy()
-
         pbar = tqdm(
             total=len(self.examples),
             disable=not progress_bar,
@@ -165,7 +151,7 @@ class Evaluator:
             success = False
 
             self.reset(example)
-            action = self.no_op.copy()
+            action = None
 
             while (
                 not self.model.history.check_stuck()
@@ -179,7 +165,7 @@ class Evaluator:
                     break
 
                 # step action
-                observation, _, _, _ = self.environment.step(action)
+                observation = self.environment.step(action)
 
                 # check if the episode is done
                 success = self.check_done(observation["inventory"], example.target)

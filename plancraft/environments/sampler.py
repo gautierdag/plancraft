@@ -3,10 +3,11 @@ import random
 from collections import Counter
 
 import numpy as np
-from plancraft.environments.items import all_data, ALL_ITEMS
-from plancraft.environments.recipes import RECIPES
-from plancraft.environments.planner import optimal_planner, get_ancestors
+from loguru import logger
 
+from plancraft.environments.items import ALL_ITEMS, all_data
+from plancraft.environments.planner import get_ancestors, optimal_planner
+from plancraft.environments.recipes import RECIPES
 
 MAX_STACK_SIZE = {}
 for data_item in all_data["items"]:
@@ -38,7 +39,7 @@ def assign_to_slots(inventory: dict[str, int]) -> list[dict]:
     for item, total_count in inventory.items():
         while total_count > 0:
             if len(available_slots) == 0:
-                print("Not enough slots available")
+                logger.info("Not enough slots available")
                 break
             slot = available_slots.pop()
             count_in_slot = min(total_count, MAX_STACK_SIZE[item])

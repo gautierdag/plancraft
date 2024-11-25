@@ -13,11 +13,7 @@ DatasetSplit = Literal[
 
 
 class EnvironmentConfig(BaseModel):
-    symbolic: bool
-    symbolic_observation_space: bool
-    symbolic_action_space: bool
-    preferred_spawn_biome: str = "plains"
-    resolution: list[int] = [512, 512]
+    resolution: Literal["low", "medium", "high"] = "high"
 
 
 class PlancraftConfig(BaseModel):

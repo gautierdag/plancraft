@@ -22,7 +22,6 @@ def main(cfg):
     cfg = EvalConfig(**flatten_cfg(dict(cfg)))
     evaluator = Evaluator(cfg)
     evaluator.eval_all()
-    evaluator.close()
 
 
 if __name__ == "__main__":

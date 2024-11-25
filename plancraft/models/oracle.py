@@ -3,7 +3,6 @@ from collections import Counter
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
-    RealActionInteraction,
     StopAction,
     SymbolicMoveAction,
     SymbolicSmeltAction,
@@ -132,9 +131,6 @@ class OracleModel(ABCModel):
     """
 
     def __init__(self, cfg: EvalConfig):
-        assert (
-            cfg.plancraft.environment.symbolic_action_space
-        ), "Only symbolic actions are supported for oracle"
         self.history = History(objective="")
         self.plans = []
         self.subplans = []
@@ -245,9 +241,7 @@ class OracleModel(ABCModel):
 
         return self.subplans.pop(0)
 
-    def step(
-        self, observation: dict
-    ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
+    def step(self, observation: dict) -> list[SymbolicMoveAction | SymbolicSmeltAction]:
         # add observation to history
         self.history.add_observation_to_history(observation)
 

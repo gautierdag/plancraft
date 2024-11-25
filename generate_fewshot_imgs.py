@@ -1,4 +1,4 @@
-from plancraft.environments.env_real import RealPlancraft
+from plancraft.environments.env import PlancraftEnv
 import imageio
 
 
@@ -7,22 +7,16 @@ starting_inv = [
     {"type": "cobblestone", "slot": 39, "quantity": 1},
 ]
 
-env = RealPlancraft(
-    inventory=starting_inv,
-    symbolic_action_space=True,
-    symbolic_observation_space=True,
-    resolution=[512, 512],
-    crop=True,
-)
+env = PlancraftEnv(inventory=starting_inv, resolution="medium")
 
 actions = [
-    env.action_space.no_op(),
+    {"inventory_command": [0, 0, 0]},
     {"inventory_command": [27, 4, 1]},
     {"inventory_command": [39, 5, 1]},
 ]
 images = []
 for action in actions:
-    obs, _, done, _ = env.step(action)
+    obs = env.step(action)
     images.append(obs["pov"])
 
 second_inv = [
@@ -30,13 +24,13 @@ second_inv = [
     {"type": "cobblestone", "slot": 39, "quantity": 1},
 ]
 new_actions = [
-    env.action_space.no_op(),
+    {"inventory_command": [0, 0, 0]},
     {"smelt": [45, 44, 1]},
 ]
-env.fast_reset(new_inventory=second_inv)
+env.reset(new_inventory=second_inv)
 
 for action in new_actions:
-    obs, _, done, _ = env.step(action)
+    obs = env.step(action)
     images.append(obs["pov"])
 
 
@@ -60,17 +54,15 @@ third_inv = [
     {"slot": 40, "type": "netherite_axe", "quantity": 1},
 ]
 new_actions = [
-    env.action_space.no_op(),
+    {"inventory_command": [0, 0, 0]},
 ]
 
-env.fast_reset(new_inventory=third_inv)
+env.reset(new_inventory=third_inv)
 
 for action in new_actions:
-    obs, _, done, _ = env.step(action)
+    obs = env.step(action)
     images.append(obs["pov"])
 
 # save each image for each environment
 for i, img in enumerate(images):
     imageio.imsave(f"demo_env_{i}.png", img)
-
-env.close()

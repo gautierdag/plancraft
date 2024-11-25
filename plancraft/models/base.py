@@ -1,11 +1,11 @@
 import abc
-
-from copy import copy
 from collections import Counter
+from copy import copy
+
+from loguru import logger
 
 from plancraft.environments.actions import (
     SymbolicMoveAction,
-    RealActionInteraction,
     SymbolicSmeltAction,
 )
 
@@ -29,7 +29,7 @@ class History:
 
     def add_message_to_history(self, content: str | dict, role="user"):
         if role == "assistant":
-            print(content)
+            logger.info(content)
 
         if isinstance(content, dict):
             assert "content" in content, "content key not found in message"
@@ -48,9 +48,7 @@ class History:
             else:
                 self.dialogue_history.append({"role": role, "content": content})
 
-    def add_action_to_history(
-        self, action: SymbolicSmeltAction | RealActionInteraction | SymbolicMoveAction
-    ):
+    def add_action_to_history(self, action: SymbolicSmeltAction | SymbolicMoveAction):
         if action is None:
             return
         self.action_history.append(action.model_dump())
@@ -139,7 +137,7 @@ class ABCModel(abc.ABC):
     @abc.abstractmethod
     def step(
         self, observation: list[dict]
-    ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
+    ) -> list[SymbolicMoveAction | SymbolicSmeltAction]:
         """
         Model should output a valid action based on the 3 types available
 

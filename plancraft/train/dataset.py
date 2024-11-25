@@ -3,6 +3,7 @@ import json
 import random
 
 import torch
+from loguru import logger
 from torch.utils.data import Dataset
 
 TEMPLATES = {
@@ -34,7 +35,7 @@ class PlancraftDialogueDataset(Dataset):
 
         assert trace_mode in ["oa", "ota"], f"Invalid trace mode {trace_mode}"
 
-        print("Loading dialogue dataset")
+        logger.info("Loading dialogue dataset")
         data = []
         for example_path in sorted(
             glob.glob(f"{dataset_dir}/{split}/{trace_mode}/*.json")

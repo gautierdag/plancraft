@@ -162,28 +162,6 @@ class SearchAction(BaseModel):
         }
 
 
-class RealActionInteraction(BaseModel):
-    mouse_direction_x: float = 0
-    mouse_direction_y: float = 0
-    right_click: bool = False
-    left_click: bool = False
-
-    @field_validator("mouse_direction_x", "mouse_direction_y")
-    def prevent_zero(cls, v):
-        if v > 10:
-            return 10
-        elif v < -10:
-            return -10
-        return v
-
-    def to_action_dict(self) -> dict:
-        return {
-            "camera": [self.mouse_direction_x, self.mouse_direction_y],
-            "use": int(self.right_click),
-            "attack": int(self.left_click),
-        }
-
-
 class StopAction(BaseModel):
     """
     Action that model can take to stop planning - decide impossible to continue
@@ -208,10 +186,7 @@ class NoOp(SymbolicMoveAction):
 
 
 # when symbolic action is true, can either move objects around or smelt
-SymbolicAction = SymbolicMoveAction  # | SymbolicSmeltAction
-
-# when symbolic action is false, then need to use mouse to move things around, but can use smelt action
-RealAction = RealActionInteraction | SymbolicSmeltAction
+SymbolicAction = SymbolicMoveAction | SymbolicSmeltAction
 
 
 class PydanticSymbolicAction(BaseModel):

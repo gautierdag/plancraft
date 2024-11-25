@@ -6,6 +6,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 from PIL import Image
+from loguru import logger
 
 
 def get_downloaded_models() -> dict:
@@ -28,7 +29,7 @@ def get_torch_device() -> torch.device:
         device = torch.device("cuda", 0)
     elif torch.backends.mps.is_available():
         if not torch.backends.mps.is_built():
-            print(
+            logger.info(
                 "MPS not available because the current PyTorch install was not built with MPS enabled."
             )
         else:

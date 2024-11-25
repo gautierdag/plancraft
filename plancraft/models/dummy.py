@@ -2,7 +2,6 @@ import random
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
-    RealActionInteraction,
     SymbolicMoveAction,
     SymbolicSmeltAction,
 )
@@ -15,7 +14,6 @@ class DummyModel(ABCModel):
     """
 
     def __init__(self, cfg: EvalConfig):
-        self.symbolic_move_action = cfg.plancraft.environment.symbolic_action_space
         self.history = History(objective="")
 
     def random_select(self, observation):
@@ -36,17 +34,12 @@ class DummyModel(ABCModel):
             slot_from=random_slot_from, slot_to=random_slot_to, quantity=1
         )
 
-    def step(
-        self, observation: dict
-    ) -> list[SymbolicMoveAction | RealActionInteraction | SymbolicSmeltAction]:
+    def step(self, observation: dict) -> list[SymbolicMoveAction | SymbolicSmeltAction]:
         # add observation to history
         self.history.add_observation_to_history(observation)
 
         # get action
-        if self.symbolic_move_action:
-            action = self.random_select(observation)
-        else:
-            action = RealActionInteraction()
+        action = self.random_select(observation)
 
         # add action to history
         self.history.add_action_to_history(action)
