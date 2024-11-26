@@ -131,9 +131,13 @@ class OracleModel(ABCModel):
     """
 
     def __init__(self, cfg: EvalConfig):
-        self.history = History(objective="")
+        self._history = History(objective="")
         self.plans = []
         self.subplans = []
+
+    @property
+    def history(self):
+        return self._history
 
     def reset_history(self, objective: str = ""):
         self.history.reset(objective=objective)

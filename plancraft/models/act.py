@@ -104,13 +104,17 @@ class ActModel(ABCModel):
         if not self.use_system_prompt:
             self.system_prompt = None
 
-        self.history = History(
+        self._history = History(
             initial_dialogue=examples,
             use_multimodal_content_format=self.use_multimodal_content_format,
         )
 
         self.max_messages_window = cfg.plancraft.max_message_window
         self.kv_cache = None
+
+    @property
+    def history(self):
+        return self._history
 
     def reset_history(
         self,

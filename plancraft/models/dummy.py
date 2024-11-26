@@ -14,7 +14,11 @@ class DummyModel(ABCModel):
     """
 
     def __init__(self, cfg: EvalConfig):
-        self.history = History(objective="")
+        self._history = History(objective="")
+
+    @property
+    def history(self):
+        return self._history
 
     def random_select(self, observation):
         if observation is None or "inventory" not in observation:

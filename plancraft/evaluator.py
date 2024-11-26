@@ -180,6 +180,8 @@ class Evaluator:
                 success = self.check_done(observation["inventory"], example.target)
                 # exit if success
                 if success:
+                    # add final observation to history
+                    self.model.history.add_observation_to_history(observation)
                     break
 
                 # predict next action
