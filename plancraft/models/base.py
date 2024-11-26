@@ -148,3 +148,10 @@ class ABCModel(abc.ABC):
 
     def reset_history(self, objective: str = ""):
         self.history.reset(objective=objective)
+
+    @property
+    def history(self) -> History:
+        """
+        Return the history object
+        """
+        raise NotImplementedError()
