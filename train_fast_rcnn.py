@@ -1,15 +1,13 @@
 import random
-import time
 
 import torch
 import torchvision.transforms.v2 as v2
-from plancraft.environments.items import ALL_ITEMS
 from PIL import Image, ImageDraw
 from tqdm import tqdm
 
 import wandb
-
-# from plancraft.environments.env_real import RealPlancraft
+from plancraft.environments.env import PlancraftEnv
+from plancraft.environments.items import ALL_ITEMS
 from plancraft.environments.recipes import RECIPES, ShapedRecipe, ShapelessRecipe
 from plancraft.environments.sampler import sample_distractors
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel, slot_to_bbox
@@ -20,8 +18,6 @@ CRAFTING_RECIPES = [
     for r in recipes
     if isinstance(r, ShapelessRecipe) or isinstance(r, ShapedRecipe)
 ]
-
-wandb.require("core")
 
 
 def sample_random_recipe_crafting_table() -> list[dict[str, int]]:
@@ -60,12 +56,9 @@ def sample_starting_inv():
 
 class EnvWrapper:
     def __init__(self):
-        self.env = RealPlancraft(
+        self.env = PlancraftEnv(
             inventory=sample_starting_inv(),
-            symbolic_action_space=True,
-            symbolic_observation_space=True,
             resolution=[512, 512],
-            crop=True,
         )
         self.env.reset()
 
@@ -73,26 +66,9 @@ class EnvWrapper:
         self.env.reset()
 
     def step(self, starting_inv: list[dict[str, int]]):
-        try:
-            self.env.fast_reset(new_inventory=starting_inv)
-            obs = self.env.step()
-            return obs
-        except RuntimeError:
-            print("Env reset due to RuntimeError")
-            self.env.close()
-            time.sleep(5)
-            # reset env
-            self.env = RealPlancraft(
-                inventory=starting_inv,
-                symbolic_action_space=True,
-                symbolic_observation_space=True,
-                resolution=[512, 512],
-                crop=True,
-            )
-            self.env.reset()
-            self.env.fast_reset(new_inventory=starting_inv)
-            obs = self.env.step()
-            return obs
+        self.env.reset(new_inventory=starting_inv)
+        obs = self.env.step()
+        return obs
 
 
 def sample_environment(batch_size=32, N=100):

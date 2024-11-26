@@ -109,7 +109,6 @@ def collate_fn(batch):
     return {"batch_messages": messages, "batch_images": images}
 
 
-wandb.require("core")
 warnings.filterwarnings("ignore")
 
 

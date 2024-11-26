@@ -6,7 +6,6 @@ import time
 
 import imageio
 import pandas as pd
-import torch
 import wandb
 from loguru import logger
 from tqdm import tqdm
@@ -16,14 +15,17 @@ from plancraft.environments.actions import StopAction
 from plancraft.environments.env import PlancraftEnv
 from plancraft.models import get_model
 
-wandb.require("core")
-
 
 class Evaluator:
     """
     The evaluator class handles the environment loop and model interaction
 
     The environment is created based on the configuration and the examples are loaded from the dataset.
+
+    The Evaluator uses the dataset examples and initializes the environment with the example's inventory.
+
+    It is also responsible for early stopping and verifying the target object has been craft.
+    Finally, it also saves the results of the evaluation and the images generated during the evaluation.
     """
 
     def __init__(self, cfg: EvalConfig):
@@ -38,15 +40,20 @@ class Evaluator:
         self.environment = self.create_env(cfg)
         self.model = get_model(cfg)
 
-        self.record_frames = not (cfg.plancraft.environment.symbolic)
-
     def evaluator_name(self) -> str:
-        symb_str = "real"
-        if self.cfg.plancraft.environment.symbolic:
-            symb_str = "symb"
+        if self.cfg.plancraft.use_text_inventory and self.cfg.plancraft.use_images:
+            name_str = "both"
+        elif self.cfg.plancraft.use_images:
+            name_str = "images"
+        elif self.cfg.plancraft.use_text_inventory:
+            name_str = "text"
+        else:
+            raise ValueError(
+                "At least one of use_text_inventory or use_images should be True"
+            )
 
         if self.cfg.plancraft.use_maskrcnn:
-            symb_str += "_mrcnn"
+            name_str += "_mrcnn"
 
         model_name = self.cfg.plancraft.model.split("/")[-1]
         if self.cfg.plancraft.adapter != "":
@@ -54,10 +61,10 @@ class Evaluator:
 
         mode = self.cfg.plancraft.mode
         if mode in ["dummy", "oracle"]:
-            return f"{mode}_{symb_str}"
+            return f"{mode}_{name_str}"
 
         actions = "|".join(self.cfg.plancraft.valid_actions)
-        return f"{self.cfg.plancraft.mode}_{symb_str}_{model_name}_{actions}"
+        return f"{self.cfg.plancraft.mode}_{name_str}_{model_name}_{actions}"
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"
@@ -65,7 +72,9 @@ class Evaluator:
         json_path = f"{output_dir}/{example.id}.json"
         with open(json_path, "w") as f:
             json.dump(results_dict, f, indent=4)
-        wandb.save(json_path, policy="now")
+
+        if wandb.run is not None:
+            wandb.save(json_path, policy="now")
 
     def save_images(self, example: PlancraftExample, frames: list):
         if len(frames) == 0:
@@ -74,7 +83,8 @@ class Evaluator:
         os.makedirs(output_dir, exist_ok=True)
         imageio.mimsave(f"{output_dir}/{example.id}.gif", frames)
         # upload to wandb
-        wandb.save(f"{output_dir}/{example.id}.gif", policy="now")
+        if wandb.run is not None:
+            wandb.save(f"{output_dir}/{example.id}.gif", policy="now")
 
     def load_results_dict(self, example: PlancraftExample) -> dict:
         path = f"{self.output_dir}/{self.generation_number}/{example.id}.json"
@@ -99,7 +109,7 @@ class Evaluator:
         example: PlancraftExample,
     ):
         current_inventory = example.slotted_inventory
-        self.environment.fast_reset(new_inventory=current_inventory)
+        self.environment.reset(new_inventory=current_inventory)
         # do a no op to an initial observation
         obs = self.environment.step()
         # assert that the inventory is correct
@@ -132,7 +142,6 @@ class Evaluator:
                     return True
         return False
 
-    @torch.no_grad()
     def eval_all_examples(self, progress_bar=False) -> list:
         results = []
         pbar = tqdm(

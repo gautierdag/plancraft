@@ -13,9 +13,7 @@ plancraft:
   max_steps: 80
   quantize: False
   environment:
-    symbolic: True
-    symbolic_observation_space: True
-    symbolic_action_space: True
+    resolution: high
   split: val.small
   max_message_window: 30
   resume: False
@@ -27,7 +25,7 @@ plancraft:
 wandb:
   project: "plancraft"
   entity: "itl"
-  mode: "online"
+  mode: "offline"
 launch:
   command: "python main.py"
   job_name: "plancraft-s2234411"

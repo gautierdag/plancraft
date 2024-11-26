@@ -18,8 +18,6 @@ from plancraft.config import TrainConfig
 from plancraft.environments.actions import convert_from_slot_index
 from plancraft.train.dataset import get_dataset_and_collate
 
-wandb.require("core")
-
 warnings.filterwarnings("ignore")
 
 
