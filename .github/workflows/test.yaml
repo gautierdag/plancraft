@@ -21,6 +21,6 @@ jobs:
 
       - name: Set up Python
         run: uv python install 3.10
-        
+
       - name: Run tests
-        run: uv run pytest
+        run: uv run --extra full pytest

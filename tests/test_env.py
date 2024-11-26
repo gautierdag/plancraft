@@ -94,7 +94,7 @@ def test_reset_state():
 def test_step_inventory_command():
     env = PlancraftEnv(inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}])
     action = {"inventory_command": [1, 2, 5]}
-    obs = env.step(action)
+    env.step(action)
     assert env.state[1]["quantity"] == 5
     assert env.state[2]["type"] == "iron_ore"
     assert env.state[2]["quantity"] == 5
@@ -103,7 +103,7 @@ def test_step_inventory_command():
 def test_step_smelt():
     env = PlancraftEnv(inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}])
     action = {"smelt": [1, 2, 5]}
-    obs = env.step(action)
+    env.step(action)
     assert env.state[1]["quantity"] == 5
     assert env.state[2]["type"] == "iron_ingot"
     assert env.state[2]["quantity"] == 5
