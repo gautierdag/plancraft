@@ -1,13 +1,14 @@
+from typing import Literal
+
 import einops
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.transforms.v2 as v2
 from huggingface_hub import PyTorchModelHubMixin
-from plancraft.environments.items import ALL_ITEMS
 from torchvision.models.detection.faster_rcnn import (
-    fasterrcnn_resnet50_fpn_v2,
     ResNet50_Weights,
+    fasterrcnn_resnet50_fpn_v2,
 )
 from torchvision.models.detection.roi_heads import (
     fastrcnn_loss,
@@ -18,15 +19,22 @@ from torchvision.models.detection.roi_heads import (
 )
 from torchvision.ops import boxes as box_ops
 
+from plancraft.environments.items import ALL_ITEMS
 
-def slot_to_bbox(slot: int):
+from functools import lru_cache
+
+
+@lru_cache
+def slot_to_bbox(
+    slot: int, resolution: Literal["low", "medium", "high"] = "high"
+) -> list[int]:
     # crafting slot
     if slot == 0:
         # slot size: 25x25
         # top left corner: (x= 118, y=30)
-        box_size = 25
-        left_x = 117
-        top_y = 29
+        box_size = 26
+        left_x = 119
+        top_y = 30
     # crafting grid
     elif slot < 10:
         # slot size: 18x18
@@ -34,8 +42,8 @@ def slot_to_bbox(slot: int):
         box_size = 18
         row = (slot - 1) // 3
         col = (slot - 1) % 3
-        left_x = 27 + (box_size * col)
-        top_y = 15 + (box_size * row)
+        left_x = 29 + (box_size * col)
+        top_y = 16 + (box_size * row)
     # inventory
     elif slot < 37:
         # slot size: 18x18
@@ -43,29 +51,22 @@ def slot_to_bbox(slot: int):
         box_size = 18
         row = (slot - 10) // 9
         col = (slot - 10) % 9
-        left_x = 5 + (box_size * col)
-        top_y = 82 + (box_size * row)
+        left_x = 7 + (box_size * col)
+        top_y = 83 + (box_size * row)
     # hotbar
     else:
         # slot size: 18x18
         # top left corner: (x= 6 + 18 * col, y=141)
         box_size = 18
         col = (slot - 37) % 9
-        left_x = 5 + (box_size * col)
-        top_y = 140
-    return [left_x, top_y, left_x + box_size, top_y + box_size]
-
-
-def precompute_slot_bboxes():
-    """Precompute the bounding boxes for all slots."""
-    slot_bboxes = {}
-    for slot in range(46):  # Assuming slot indices range from 0 to 45
-        slot_bboxes[slot] = slot_to_bbox(slot)
-    return slot_bboxes
-
-
-# Precompute all slot bounding boxes
-IDX_TO_BBOX = precompute_slot_bboxes()
+        left_x = 7 + (box_size * col)
+        top_y = 141
+    bounding_box = [left_x, top_y, left_x + box_size, top_y + box_size]
+    if resolution == "medium":
+        bounding_box = [i * 2 for i in bounding_box]
+    elif resolution == "high":
+        bounding_box = [i * 4 for i in bounding_box]
+    return bounding_box
 
 
 def postprocess_detections_custom(
@@ -391,10 +392,15 @@ def calculate_iou(boxA, boxB):
     return iou
 
 
-def bbox_to_slot_index_iou(bbox: tuple[int, int, int, int]) -> int:
+def bbox_to_slot_index_iou(bbox: tuple[int, int, int, int], resolution="high") -> int:
     """Assign the given bounding box to the slot with the highest IoU."""
     best_slot = None
     best_iou = -1
+
+    IDX_TO_BBOX = {
+        slot: slot_to_bbox(slot, resolution=resolution) for slot in range(46)
+    }
+
     # Iterate through all precomputed slot bounding boxes
     for slot, slot_bbox in IDX_TO_BBOX.items():
         iou = calculate_iou(bbox, slot_bbox)
@@ -449,7 +455,7 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
             preds = self.model(x)
             return preds
 
-    def get_inventory(self, pil_image):
+    def get_inventory(self, pil_image, resolution="high"):
         """
         Predict boxes and quantities
         """
@@ -458,14 +464,16 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
             img_tensor = img_tensor.cuda()
         with torch.no_grad():
             predictions = self.model(img_tensor.unsqueeze(0))
-        return self.prediction_to_inventory(predictions[0])
+        return self.prediction_to_inventory(predictions[0], resolution=resolution)
 
     @staticmethod
-    def prediction_to_inventory(prediction, threshold=0.9) -> list[dict]:
+    def prediction_to_inventory(
+        prediction, threshold=0.9, resolution="high"
+    ) -> list[dict]:
         inventory = []
         seen_slots = set()
         for i in range(len(prediction["boxes"])):
-            slot = bbox_to_slot_index_iou(prediction["boxes"][i])
+            slot = bbox_to_slot_index_iou(prediction["boxes"][i], resolution=resolution)
             score = prediction["scores"][i]
             label_idx = prediction["labels"][i].item()
             label = ALL_ITEMS[label_idx]
