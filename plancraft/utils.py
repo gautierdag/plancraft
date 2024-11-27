@@ -5,8 +5,8 @@ import cv2
 import numpy as np
 import torch
 import torch.nn.functional as F
-from PIL import Image
 from loguru import logger
+from PIL import Image
 
 
 def get_downloaded_models() -> dict:
@@ -38,9 +38,9 @@ def get_torch_device() -> torch.device:
 
 
 def resize_image(img, target_resolution=(128, 128)):
-    if type(img) == np.ndarray:
+    if type(img) is np.ndarray:
         img = cv2.resize(img, target_resolution, interpolation=cv2.INTER_LINEAR)
-    elif type(img) == torch.Tensor:
+    elif type(img) is torch.Tensor:
         img = F.interpolate(img, size=target_resolution, mode="bilinear")
     else:
         raise ValueError("Unsupported type for img")
