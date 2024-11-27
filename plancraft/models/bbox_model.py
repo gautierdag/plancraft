@@ -428,7 +428,7 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
             image_mean=[0.63, 0.63, 0.63],
             image_std=[0.21, 0.21, 0.21],
             min_size=128,
-            max_size=256,
+            max_size=512,
             num_classes=len(ALL_ITEMS),
             box_score_thresh=0.05,
             rpn_batch_size_per_image=64,

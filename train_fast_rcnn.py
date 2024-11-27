@@ -55,21 +55,21 @@ def sample_starting_inv():
 
 
 class EnvWrapper:
-    def __init__(self, resolution="high"):
+    def __init__(self):
         self.env = PlancraftEnv(
             inventory=sample_starting_inv(),
-            resolution=resolution,
         )
 
-    def step(self, starting_inv: list[dict[str, int]]):
+    def step(self, starting_inv: list[dict[str, int]], resolution: str):
         self.env.reset(new_inventory=starting_inv)
+        self.env.table.resolution = resolution
         obs = self.env.step()
         return obs
 
 
-def sample_environment(batch_size=32, N=100, resolution="high"):
+def sample_environment(batch_size=32, N=100):
     transform = v2.Compose([v2.ToImage(), v2.ToDtype(torch.float32, scale=True)])
-    env = EnvWrapper(resolution=resolution)
+    env = EnvWrapper()
     print("Env loaded")
     i = 0
     while i < N:
@@ -77,9 +77,10 @@ def sample_environment(batch_size=32, N=100, resolution="high"):
         batch_targets = []
         batch_images_raw = []
         batch_inventory = []
+        resolution = random.choice(["low", "medium", "high"])
         while len(batch_images) < batch_size:
             starting_inv = sample_starting_inv()
-            obs = env.step(starting_inv)
+            obs = env.step(starting_inv, resolution=resolution)
             # create targets/boxes
             target = {"labels": [], "boxes": [], "quantity_labels": []}
             inv = []
@@ -118,23 +119,23 @@ def sample_environment(batch_size=32, N=100, resolution="high"):
 
 if __name__ == "__main__":
     m1_path = "latest_maskrcnn_high.pth"
-    resolution = "high"
     M1_model = IntegratedBoundingBoxModel(load_resnet_weights=True)
     M1_model = M1_model.cuda()
 
     print("Loaded model")
-    N = 10000
+    N = 20000
     m1_lr = 0.0005
     batch_size = 8
     save_every = 500
     count = 0
     m1_optimizer = torch.optim.AdamW(M1_model.parameters(), lr=m1_lr)
 
-    wandb.init(project="plancraft-img-encoder", entity="itl", name=f"{resolution}-res")
+    wandb.init(project="plancraft-img-encoder", entity="itl", name=f"all-res")
     pbar = tqdm(total=N)
 
     for images, targets, raw_images, inv in sample_environment(
-        N=N, batch_size=batch_size, resolution=resolution
+        N=N,
+        batch_size=batch_size,
     ):
         M1_model.train()
         images = images.cuda()
@@ -194,4 +195,4 @@ if __name__ == "__main__":
     wandb.finish()
 
     # save model
-    # M1_model.push_to_hub("plancraft-maskrcnn")
+    M1_model.push_to_hub("plancraft-maskrcnn")
