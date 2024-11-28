@@ -1970,7 +1970,7 @@ wheels = [
 
 [[package]]
 name = "plancraft"
-version = "0.1.4"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "hydra-core" },
@@ -2031,7 +2031,7 @@ requires-dist = [
     { name = "pydantic" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
     { name = "seaborn", marker = "extra == 'full'" },
-    { name = "setuptools", specifier = ">=49.2.0" },
+    { name = "setuptools" },
     { name = "torch", marker = "extra == 'full'", specifier = ">=2.5.0" },
     { name = "torchvision", marker = "extra == 'full'", specifier = ">=0.20.0" },
     { name = "tqdm" },

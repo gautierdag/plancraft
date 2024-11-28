@@ -4,6 +4,7 @@ version = "0.2.0"
 description = "Plancraft: an evaluation dataset for planning with LLM agents"
 readme = "README.md"
 requires-python = ">=3.9"
+
 dependencies = [
     "hydra-core>=1.3.2",
     "imageio>=2.36.0",
@@ -14,7 +15,7 @@ dependencies = [
     "pillow>=8.0.0",
     "pydantic",
     "python-dotenv>=1.0.1",
-    "setuptools>=49.2.0",
+    "setuptools",
     "tqdm",
     "wandb",
     "numpy",
