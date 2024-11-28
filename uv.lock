@@ -2031,7 +2031,7 @@ requires-dist = [
     { name = "pydantic" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
     { name = "seaborn", marker = "extra == 'full'" },
-    { name = "setuptools" },
+    { name = "setuptools", specifier = ">=75.6.0" },
     { name = "torch", marker = "extra == 'full'", specifier = ">=2.5.0" },
     { name = "torchvision", marker = "extra == 'full'", specifier = ">=0.20.0" },
     { name = "tqdm" },
