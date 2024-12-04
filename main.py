@@ -16,7 +16,7 @@ def flatten_cfg(cfg):
     return cfg
 
 
-@hydra.main(config_path="configs", config_name="eval", version_base=None)
+@hydra.main(config_path="configs", version_base=None)
 def main(cfg):
     logger.info(cfg)
     cfg = EvalConfig(**flatten_cfg(dict(cfg)))

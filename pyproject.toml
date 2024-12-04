@@ -15,11 +15,11 @@ dependencies = [
     "pandas",
     "pillow>=8.0.0",
     "pydantic",
-    "python-dotenv>=1.0.1",
     "setuptools",
     "tqdm",
     "wandb",
     "numpy",
+    "pydantic-settings>=2.6.1",
 ]
 
 [tool.uv]

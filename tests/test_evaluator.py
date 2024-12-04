@@ -14,12 +14,11 @@ def mock_cfg():
     cfg.plancraft.output_dir = "test_output"
     cfg.plancraft.split = "test_split"
     cfg.plancraft.environment = MagicMock()
-    cfg.plancraft.environment.symbolic = False
     cfg.plancraft.environment.resolution = "high"
     cfg.plancraft.model = "test_model"
     cfg.plancraft.adapter = ""
     cfg.plancraft.mode = "test_mode"
-    cfg.plancraft.valid_actions = ["action1", "action2"]
+    cfg.plancraft.valid_actions = ["move", "smelt"]
     cfg.plancraft.max_steps = 10
     cfg.plancraft.num_generations = 1
     cfg.plancraft.resume = False

@@ -1,3 +1,6 @@
+import numpy as np
+
+from plancraft.environments.env import PlancraftEnv
 from plancraft.models.utils import gold_search_recipe
 
 VALID_ACTIONS = ["move", "smelt", "think", "search", "impossible"]
@@ -156,3 +159,39 @@ def get_prompt_example(
                 }
             )
     return multimodal_dialogue
+
+
+def load_prompt_images(resolution: str) -> list[np.ndarray]:
+    """
+    Generates the images for the few-shot prompt in prompt.py
+    """
+    starting_inv = [
+        {"type": "diorite", "slot": 27, "quantity": 1},
+        {"type": "cobblestone", "slot": 39, "quantity": 1},
+    ]
+
+    env = PlancraftEnv(inventory=starting_inv, resolution=resolution)
+    actions = [
+        {"inventory_command": [0, 0, 0]},
+        {"inventory_command": [27, 4, 1]},
+        {"inventory_command": [39, 5, 1]},
+    ]
+    images = []
+    for action in actions:
+        obs = env.step(action)
+        images.append(obs["pov"])
+
+    second_inv = [
+        {"type": "iron_ore", "slot": 45, "quantity": 1},
+        {"type": "cobblestone", "slot": 39, "quantity": 1},
+    ]
+    new_actions = [
+        {"inventory_command": [0, 0, 0]},
+    ]
+    env.reset(new_inventory=second_inv)
+    for action in new_actions:
+        obs = env.step(action)
+        images.append(obs["pov"])
+
+    assert len(images) == 4
+    return images

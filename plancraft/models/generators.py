@@ -1,8 +1,6 @@
-import os
 import time
 
 import torch
-from dotenv import load_dotenv
 from loguru import logger
 from openai import OpenAI
 from PIL import Image
@@ -23,8 +21,6 @@ from plancraft.models.utils import (
     tokenize,
 )
 
-load_dotenv()
-
 
 class TransformersGenerator:
     def __init__(
@@ -35,10 +31,12 @@ class TransformersGenerator:
         use_images=False,
         use_hot_cache=True,
         adapter_name="",
+        hf_token=None,
         **kwargs,
     ):
         self.model_name = model_name
         self.use_hot_cache = use_hot_cache
+        self.hf_token = hf_token
 
         if tokenizer_name == "same":
             tokenizer_name = model_name
@@ -71,7 +69,7 @@ class TransformersGenerator:
         else:
             self.tokenizer = AutoTokenizer.from_pretrained(
                 tokenizer_name,
-                token=os.getenv("HF_TOKEN"),  # trust_remote_code=True
+                token=self.hf_token,  # trust_remote_code=True
                 padding_side="left",  # ensure that the padding is on the left
             )
             logger.info("Loading model")
@@ -162,10 +160,9 @@ class TransformersGenerator:
             for kvs in self.past_key_values_kwargs["past_key_values"]
         ]
 
-    @staticmethod
-    def build_model_kwargs(model_name: str, **kwargs) -> tuple[str, dict]:
+    def build_model_kwargs(self, model_name: str, **kwargs) -> tuple[str, dict]:
         model_kwargs = {
-            "token": os.getenv("HF_TOKEN"),
+            "token": self.hf_token,
             # "attn_implementation": "flash_attention_2",
             # "trust_remote_code": True,
         }

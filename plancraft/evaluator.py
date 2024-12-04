@@ -63,7 +63,19 @@ class Evaluator:
         if mode in ["dummy", "oracle"]:
             return f"{mode}_{name_str}"
 
-        actions = "|".join(self.cfg.plancraft.valid_actions)
+        valid_actions_to_str = {
+            "move": "m",
+            "smelt": "s",
+            "think": "t",
+            "search": "se",
+            "impossible": "i",
+        }
+        actions = "|".join(
+            [
+                valid_actions_to_str[action]
+                for action in self.cfg.plancraft.valid_actions
+            ]
+        )
         return f"{self.cfg.plancraft.mode}_{name_str}_{model_name}_{actions}"
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
@@ -191,6 +203,7 @@ class Evaluator:
             result = {
                 "success": success,
                 "recipe_type": example.recipe_type,
+                "complexity": example.complexity,
                 "number_of_steps": self.model.history.num_steps,
                 "model_trace": self.model.history.trace(),
                 "example_id": example.id,
@@ -236,7 +249,6 @@ class Evaluator:
             time_now = time.time()
 
             results_list = self.eval_all_examples(progress_bar=True)
-
             results_df = pd.DataFrame(results_list)
 
             output = {
@@ -253,6 +265,27 @@ class Evaluator:
                 mask = results_df["recipe_type"] == recipe_type
                 success_rate = results_df[mask]["success"].mean()
                 output[f"{recipe_type}_success_rate"] = success_rate
+
+            # calculate success rate for each complexity bin
+            complexity_mapping = {
+                0: "easy",
+                1: "easy",
+                2: "medium",
+                3: "hard",
+                4: "hard",
+                5: "impossible",
+            }
+            results_df["complexity_bin"] = results_df["complexity"].map(
+                complexity_mapping
+            )
+            # when impossible is True set complexity_bin to impossible
+            results_df["complexity_bin"] = results_df["complexity_bin"].fillna(
+                "impossible"
+            )
+            for complexity_bin in results_df["complexity_bin"].unique():
+                mask = results_df["complexity_bin"] == complexity_bin
+                success_rate = results_df[mask]["success"].mean()
+                output[f"{complexity_bin}_success_rate"] = success_rate
 
             time_elapsed = time.time() - time_now
             logger.info(f"Time elapsed: {time_elapsed:.2f}s")

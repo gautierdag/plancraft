@@ -1,11 +1,9 @@
 from typing import Literal, Optional, Union
 
 from pydantic import BaseModel, model_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-try:
-    from plancraft.environments.recipes import RECIPES
-except ImportError:
-    RECIPES = {}
+from plancraft.environments.recipes import RECIPES
 
 DatasetSplit = Literal[
     "train", "val", "val.small", "val.small.easy", "test", "test.small"
@@ -19,13 +17,13 @@ class EnvironmentConfig(BaseModel):
 class PlancraftConfig(BaseModel):
     model: str
     adapter: str = ""
-    tokenizer: str
-    num_generations: int
-    mode: Literal["react", "act", "oracle", "dummy"] = "react"
+    tokenizer: str = ""
+    num_generations: int = 1
+    mode: Literal["act", "oracle", "dummy"] = "act"
     output_dir: str
     max_steps: int = 30  # max number of steps (smelt/move) to take in the environment before stopping
-    quantize: Literal[False, "int4", "int8"]
-    environment: EnvironmentConfig
+    quantize: Literal[False, "int4", "int8"] = False
+    environment: EnvironmentConfig = EnvironmentConfig()
     split: DatasetSplit = "val.small"
     max_message_window: int = 30  # max number of messages to keep in dialogue history (30 is around 8k llama3 tokens)
     hot_cache: bool = True  # whether to cache the dialogue history between steps
@@ -49,12 +47,6 @@ class PlancraftConfig(BaseModel):
         ).issubset(
             {"move", "smelt", "think", "search", "impossible"}
         ), "valid_actions should be subset of {'move', 'smelt', 'think', 'search', 'impossible'}"
-
-        if self.use_images:
-            assert (
-                not self.environment.symbolic
-            ), "Set environment.symbolic to False when using images"
-
         return self
 
 
@@ -76,10 +68,17 @@ class LaunchConfig(BaseModel):
     env_vars: dict[str, dict[str, str]]
 
 
+class LocalEnvSettings(BaseSettings):
+    hf_token: str = ""
+
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+
 class EvalConfig(BaseModel):
     plancraft: PlancraftConfig
     wandb: WandbConfig
     launch: LaunchConfig
+    env_variables: LocalEnvSettings = LocalEnvSettings()
 
 
 class TrainingArgs(BaseModel):
@@ -114,6 +113,7 @@ class TrainConfig(BaseModel):
     training: TrainingArgs
     wandb: WandbConfig
     launch: LaunchConfig
+    env_variables: LocalEnvSettings
 
 
 class PlancraftExample(BaseModel):

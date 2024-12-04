@@ -21,7 +21,7 @@ wandb:
   entity: "itl"
   mode: "online"
 launch:
-  command: "python main.py"
+  command: "uv run main.py"
   job_name: "plancraft-s2234411"
   gpu_limit: 1
   gpu_product: NVIDIA-A100-SXM4-80GB

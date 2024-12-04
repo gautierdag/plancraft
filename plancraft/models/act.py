@@ -1,6 +1,5 @@
 import copy
 import torch
-from dotenv import load_dotenv
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
@@ -10,20 +9,20 @@ from plancraft.environments.actions import (
 )
 from plancraft.models.base import ABCModel, History
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel
-from plancraft.models.few_shot_images import load_prompt_images
 from plancraft.models.generators import (
     OAMGenerator,
     OpenAIGenerator,
     TransformersGenerator,
 )
-from plancraft.models.prompts import get_prompt_example, get_system_prompt
+from plancraft.models.prompts import (
+    get_prompt_example,
+    get_system_prompt,
+    load_prompt_images,
+)
 from plancraft.models.utils import (
     convert_observation_to_message,
     parse_content_response,
 )
-
-
-load_dotenv()
 
 
 class ActModel(ABCModel):
@@ -33,7 +32,6 @@ class ActModel(ABCModel):
 
     def __init__(self, cfg: EvalConfig):
         self.cfg = cfg
-        self.env_is_multimodal = not cfg.plancraft.environment.symbolic
         self.use_maskrcnn = cfg.plancraft.use_maskrcnn
         self.use_multimodal_content_format = cfg.plancraft.use_multimodal_content_format
         self.use_text_inventory = cfg.plancraft.use_text_inventory
@@ -41,7 +39,6 @@ class ActModel(ABCModel):
 
         self.bbox_model = None
         if self.use_maskrcnn:
-            assert self.env_is_multimodal, "MaskRCNN only supported in multimodal mode"
             self.bbox_model = IntegratedBoundingBoxModel.from_pretrained(
                 "gautierdag/plancraft-maskrcnn"
             )
@@ -70,6 +67,7 @@ class ActModel(ABCModel):
                 quantize=cfg.plancraft.quantize,
                 use_hot_cache=cfg.plancraft.hot_cache,
                 adapter_name=cfg.plancraft.adapter,
+                hf_token=cfg.plancraft.env_variables.hf_token,
             )
 
         self.prompt_images = []
@@ -83,8 +81,10 @@ class ActModel(ABCModel):
             use_multimodal_content_format=self.use_multimodal_content_format,
             use_images=self.use_images,
         )
-        if self.env_is_multimodal and self.use_images:
-            self.prompt_images = load_prompt_images()
+        if self.use_images:
+            self.prompt_images = load_prompt_images(
+                cfg.plancraft.environment.resolution
+            )
 
         if self.use_multimodal_content_format:
             self.system_prompt = {

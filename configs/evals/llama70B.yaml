@@ -1,27 +1,19 @@
-training: 
-  base_model: "llama3"
-  trace_mode: "ota"
-  push_to_hub: True
-  lora_r: 64
-  lora_alpha: 32
-  lora_dropout: 0.1
-  seed: 42
-  batch_size: 1
-  max_seq_length: 8000
-  gradient_accumulation_steps: 4
-  max_window_length: 40
-  learning_rate: 2e-4
-  max_grad_norm: 0.3
-  warmup_ratio: 0.05
-  num_train_epochs: 5
-  num_workers: 16
-  only_assistant: True
+plancraft:
+  model: meta-llama/Meta-Llama-3.1-70B-Instruct
+  tokenizer: meta-llama/Meta-Llama-3.1-70B-Instruct
+  num_generations: 5
+  mode: "act"
+  max_steps: 80
+  split: test.small
+  max_message_window: 40
+  resume: False
+  output_dir: "outputs"
 wandb:
-  project: "plancraft-train"
+  project: "plancraft"
   entity: "itl"
   mode: "online"
 launch:
-  command: "python main.py"
+  command: "uv run main.py"
   job_name: "plancraft-s2234411"
   gpu_limit: 1
   gpu_product: NVIDIA-A100-SXM4-80GB
