@@ -13,10 +13,67 @@ You can install the package by running the following command:
 pip install plancraft
 ```
 
-Should you need the multimodal version of the package, you will also need a custom [fork](https://github.com/gautierdag/minerl.git) of the minerl package. You can install it by running the following command:
+## Usage
 
-```bash
-pip install git+hhttps://github.com/gautierdag/minerl.git
+The package provides a `PlancraftEnv` class that can be used to interact with the environment. Here is an example of how to use it:
+
+```python
+from plancraft.environments.env import PlancraftEnv
+
+
+def main():
+    # Create the environment with an inventory containing 10 iron ores and 23 oak logs
+    env = PlancraftEnv(
+        inventory=[dict(type="iron_ore", quantity=10, slot=10)]
+        + [dict(type="oak_log", quantity=23, slot=23)],
+    )
+    # move one log to slot 1
+    # [from, to, quantity]
+    move_action = dict(
+        inventory_command=[23, 2, 1]
+    )
+    observation = env.step(move_action)
+    # observation["inventory"] contains the updated symbolic inventory
+    # observation["pov"] contains the updated image of the inventory
+
+    # smelt one iron ore
+    # [from, to, quantity]
+    smelt_action = dict(
+        smelt=[10, 11, 1]
+    )
+    observation = env.step(smelt_action)
+
+    # no op
+    observation = env.step()
 ```
 
-Note that you may need to follow the same installation instructions as in the [minerl documentation](https://minerl.readthedocs.io/en/latest/tutorials/index.html).
+Note that the environment is deterministic and stateful, so the same action will always lead to the same observation and the environment will keep track of the state of the inventory.
+
+### Evaluator
+
+The package also provides an `Evaluator` class that can be used to evaluate the performance of an agent on our specific dataset. Here is an example of how to use it:
+
+```python
+from plancraft.evaluator import Evaluator
+from plancraft.config import EvalConfig
+
+def main():
+    # Create the config
+    config = EvalConfig(...)
+    # Create the evaluator
+    evaluator = Evaluator(config)
+    # Evaluate the agent
+    evaluator.eval_all()
+```
+
+The evaluator class handles the environment loop and model interaction. The environment is created based on the configuration and the examples are loaded from the dataset. The `Evaluator` uses the dataset examples and initializes the environment with the example's inventory. It is also responsible for early stopping and verifying the target object has been craft. Finally, it also saves the results of the evaluation and the images generated during the evaluation.
+
+## Docker
+
+There is a docker image built to incorporate the latest code and its dependencies. I build it by running the following command:
+
+```bash
+docker buildx build --platform linux/amd64,linux/arm64 -t gautierdag/plancraft --push .
+```
+
+The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/plancraft). Note that unlike the package, the docker image includes everything in the repo.
