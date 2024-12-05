@@ -73,9 +73,16 @@ def export_env_vars(cfg: EvalConfig):
     return cmd
 
 
+def flatten_cfg(cfg):
+    # for some reason hydra wraps file paths from config path
+    if len(cfg) == 1:
+        return flatten_cfg(cfg[list(cfg.keys())[0]])
+    return cfg
+
+
 @hydra.main(config_path="configs", config_name="evals/llama8B", version_base=None)
 def main(cfg: DictConfig):
-    cfg = EvalConfig(**dict(cfg))
+    cfg = EvalConfig(**flatten_cfg(dict(cfg)))
     job_name = cfg.launch.job_name
     is_completed = check_if_completed(job_name, namespace=cfg.launch.namespace)
 
