@@ -49,7 +49,7 @@ class PlancraftOAM(PreTrainedModel):
 
         # load vision model
         self.vision_model = IntegratedBoundingBoxModel.from_pretrained(
-            "gautierdag/plancraft-maskrcnn"
+            "gautierdag/plancraft-fasterrcnn"
         )
         self.vision_model.eval()
 

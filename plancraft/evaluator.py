@@ -52,8 +52,8 @@ class Evaluator:
                 "At least one of use_text_inventory or use_images should be True"
             )
 
-        if self.cfg.plancraft.use_maskrcnn:
-            name_str += "_mrcnn"
+        if self.cfg.plancraft.use_fasterrcnn:
+            name_str += "_fasterrcnn"
 
         model_name = self.cfg.plancraft.model.split("/")[-1]
         if self.cfg.plancraft.adapter != "":
@@ -168,12 +168,16 @@ class Evaluator:
                 pbar.update(self.cfg.plancraft.max_steps)
                 results.append(resume_result)
                 continue
+            # skip impossible examples if impossible is not in valid actions
+            if (
+                example.impossible
+                and "impossible" not in self.cfg.plancraft.valid_actions
+            ):
+                continue
 
             success = False
-
             self.reset(example)
             action = None
-
             while (
                 not self.model.history.check_stuck()
                 and self.model.history.num_steps < self.cfg.plancraft.max_steps
@@ -231,6 +235,8 @@ class Evaluator:
             .replace(".", "_")
             .strip()
         )
+
+        wandb.login(key=self.cfg.env_variables.wandb_api_key)
 
         for n in range(self.cfg.plancraft.num_generations):
             logger.info(f"Generation {n+1}/{self.cfg.plancraft.num_generations}")
@@ -291,12 +297,13 @@ class Evaluator:
             logger.info(f"Time elapsed: {time_elapsed:.2f}s")
 
             logger.info(output)
-            wandb.log(output)
-            table = wandb.Table(
-                dataframe=results_df[["success", "number_of_steps", "example_id"]]
-            )
-            wandb.log({"results": table})
-            wandb.finish()
+            if wandb.run is not None:
+                wandb.log(output)
+                table = wandb.Table(
+                    dataframe=results_df[["success", "number_of_steps", "example_id"]]
+                )
+                wandb.log({"results": table})
+                wandb.finish()
 
             self.generation_number += 1
 

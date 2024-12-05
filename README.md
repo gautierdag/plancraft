@@ -76,4 +76,4 @@ There is a docker image built to incorporate the latest code and its dependencie
 docker buildx build --platform linux/amd64,linux/arm64 -t gautierdag/plancraft --push .
 ```
 
-The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/plancraft). Note that unlike the package, the docker image includes everything in the repo.
+The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/plancraft). Note that, unlike the package, the docker image includes everything in the repo.

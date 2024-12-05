@@ -118,7 +118,7 @@ def sample_environment(batch_size=32, N=100):
 
 
 if __name__ == "__main__":
-    m1_path = "latest_maskrcnn_high.pth"
+    m1_path = "latest_fasterrcnn_high.pth"
     M1_model = IntegratedBoundingBoxModel(load_resnet_weights=True)
     M1_model = M1_model.cuda()
 
@@ -195,4 +195,4 @@ if __name__ == "__main__":
     wandb.finish()
 
     # save model
-    M1_model.push_to_hub("plancraft-maskrcnn")
+    M1_model.push_to_hub("plancraft-fasterrcnn")

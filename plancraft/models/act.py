@@ -32,20 +32,20 @@ class ActModel(ABCModel):
 
     def __init__(self, cfg: EvalConfig):
         self.cfg = cfg
-        self.use_maskrcnn = cfg.plancraft.use_maskrcnn
+        self.use_fasterrcnn = cfg.plancraft.use_fasterrcnn
         self.use_multimodal_content_format = cfg.plancraft.use_multimodal_content_format
         self.use_text_inventory = cfg.plancraft.use_text_inventory
         self.use_images = cfg.plancraft.use_images
 
         self.bbox_model = None
-        if self.use_maskrcnn:
+        if self.use_fasterrcnn:
             self.bbox_model = IntegratedBoundingBoxModel.from_pretrained(
-                "gautierdag/plancraft-maskrcnn"
+                "gautierdag/plancraft-fasterrcnn"
             )
             self.bbox_model.eval()
             if torch.cuda.is_available():
                 self.bbox_model.cuda()
-            # MaskRCNN is not multimodal model but a separate model
+            # fasterrcnn is not multimodal model but a separate model
 
         self.few_shot = cfg.plancraft.few_shot
         self.use_system_prompt = cfg.plancraft.system_prompt
@@ -55,7 +55,9 @@ class ActModel(ABCModel):
         if "gpt-4o" in cfg.plancraft.model:
             self.use_multimodal_content_format = True
             self.llm = OpenAIGenerator(
-                use_images=self.use_images, model_name=cfg.plancraft.model
+                use_images=self.use_images,
+                model_name=cfg.plancraft.model,
+                api_key=cfg.env_variables.openai_api_key,
             )
         elif "oam" in cfg.plancraft.model:
             self.llm = OAMGenerator(model_name=cfg.plancraft.model)

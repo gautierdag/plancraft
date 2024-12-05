@@ -306,8 +306,8 @@ class TransformersGenerator:
 
 
 class OpenAIGenerator:
-    def __init__(self, use_images=False, model_name="gpt-4o-mini"):
-        self.client = OpenAI()
+    def __init__(self, use_images=False, model_name="gpt-4o-mini", api_key=None):
+        self.client = OpenAI(api_key=api_key)
         self.use_images = use_images
         self.model_name = model_name
 

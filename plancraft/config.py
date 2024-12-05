@@ -31,7 +31,7 @@ class PlancraftConfig(BaseModel):
     few_shot: bool = True  # whether to use few-shot prompt
     system_prompt: bool = True  # whether to use system prompt
     valid_actions: list[str] = ["move", "smelt", "think", "search", "impossible"]
-    use_maskrcnn: bool = False  # whether to use maskrcnn for multimodal parsing
+    use_fasterrcnn: bool = False  # whether to use fasterrcnn for multimodal parsing
 
     # observations
     use_text_inventory: bool = True  # whether to include inventory in text
@@ -70,6 +70,8 @@ class LaunchConfig(BaseModel):
 
 class LocalEnvSettings(BaseSettings):
     hf_token: str = ""
+    openai_api_key: str = ""
+    wandb_api_key: str = ""
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
