@@ -105,7 +105,7 @@ def main(cfg: DictConfig):
             name=job_name,
             cpu_request=cfg.launch.cpu_request,
             ram_request=cfg.launch.ram_request,
-            image="docker.io/gautierdag/plancraft-sim:latest",
+            image="docker.io/gautierdag/plancraft:latest",
             gpu_type="nvidia.com/gpu",
             gpu_limit=cfg.launch.gpu_limit,
             gpu_product=cfg.launch.gpu_product,
