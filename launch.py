@@ -73,7 +73,7 @@ def export_env_vars(cfg: EvalConfig):
     return cmd
 
 
-@hydra.main(config_path="configs", config_name="eval", version_base=None)
+@hydra.main(config_path="configs", config_name="evals/llama8B", version_base=None)
 def main(cfg: DictConfig):
     cfg = EvalConfig(**dict(cfg))
     job_name = cfg.launch.job_name
