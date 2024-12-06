@@ -69,7 +69,7 @@ class ActModel(ABCModel):
                 quantize=cfg.plancraft.quantize,
                 use_hot_cache=cfg.plancraft.hot_cache,
                 adapter_name=cfg.plancraft.adapter,
-                hf_token=cfg.plancraft.env_variables.hf_token,
+                hf_token=cfg.env_variables.hf_token,
             )
 
         self.prompt_images = []

@@ -472,16 +472,21 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
     ) -> list[dict]:
         inventory = []
         seen_slots = set()
-        for i in range(len(prediction["boxes"])):
-            slot = bbox_to_slot_index_iou(prediction["boxes"][i], resolution=resolution)
-            score = prediction["scores"][i]
-            label_idx = prediction["labels"][i].item()
-            label = ALL_ITEMS[label_idx]
-            quantity = prediction["quantities"][i].item()
-            if score > threshold:
-                if slot in seen_slots:
-                    continue
-                inventory.append({"slot": slot, "type": label, "quantity": quantity})
+        for bbox, score, label, quantity in zip(
+            prediction["boxes"],
+            prediction["scores"],
+            prediction["labels"],
+            prediction["quantities"],
+        ):
+            slot = bbox_to_slot_index_iou(bbox, resolution=resolution)
+            if score < threshold:
+                break
+            if slot in seen_slots:
+                continue
+            label = ALL_ITEMS[label.item()]
+            quantity = quantity.item()
+            inventory.append({"slot": slot, "type": label, "quantity": quantity})
+            seen_slots.add(slot)
         return inventory
 
     def freeze(self):
