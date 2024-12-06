@@ -1,6 +1,8 @@
 import copy
 from collections import Counter
 
+import torch
+
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     StopAction,
@@ -16,6 +18,7 @@ from plancraft.environments.recipes import (
 )
 from plancraft.environments.sampler import MAX_STACK_SIZE
 from plancraft.models.base import ABCModel, History
+from plancraft.models.bbox_model import IntegratedBoundingBoxModel
 
 
 def item_set_id_to_type(item_set_ids: set[int]):
@@ -134,6 +137,17 @@ class OracleModel(ABCModel):
         self._history = History(objective="")
         self.plans = []
         self.subplans = []
+        self.use_fasterrcnn = cfg.plancraft.use_fasterrcnn
+
+        self.bbox_model = None
+        if self.use_fasterrcnn:
+            # fasterrcnn is not multimodal model but a separate model
+            self.bbox_model = IntegratedBoundingBoxModel.from_pretrained(
+                "gautierdag/plancraft-fasterrcnn"
+            )
+            self.bbox_model.eval()
+            if torch.cuda.is_available():
+                self.bbox_model.cuda()
 
     @property
     def history(self):
@@ -159,7 +173,12 @@ class OracleModel(ABCModel):
         if len(self.plans) == 0:
             raise ValueError("No more steps in plan")
 
-        observed_inventory = copy.deepcopy(observation["inventory"])
+        if self.bbox_model is not None:
+            observed_inventory = self.bbox_model.get_inventory(
+                observation["pov"].copy()
+            )
+        else:
+            observed_inventory = copy.deepcopy(observation["inventory"])
 
         # take item from crafting slot
         if slot_item := get_crafting_slot_item(observed_inventory):

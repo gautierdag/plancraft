@@ -1,4 +1,5 @@
 import copy
+
 import torch
 
 from plancraft.config import EvalConfig
@@ -39,13 +40,14 @@ class ActModel(ABCModel):
 
         self.bbox_model = None
         if self.use_fasterrcnn:
+            # fasterrcnn is not multimodal model but a separate model
             self.bbox_model = IntegratedBoundingBoxModel.from_pretrained(
                 "gautierdag/plancraft-fasterrcnn"
             )
             self.bbox_model.eval()
             if torch.cuda.is_available():
                 self.bbox_model.cuda()
-            # fasterrcnn is not multimodal model but a separate model
+            
 
         self.few_shot = cfg.plancraft.few_shot
         self.use_system_prompt = cfg.plancraft.system_prompt
