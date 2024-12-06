@@ -195,7 +195,8 @@ class OracleModel(ABCModel):
         current_inventory_counter = get_inventory_counter(current_inventory)
         items_to_use_counter = current_inventory_counter - new_inventory_counter
         new_items = new_inventory_counter - current_inventory_counter
-        assert len(new_items) == 1
+        if not self.use_fasterrcnn:
+            assert len(new_items) == 1
 
         if isinstance(plan_recipe, ShapelessRecipe):
             crafting_slot = 1
