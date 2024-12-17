@@ -77,7 +77,8 @@ def sample_environment(batch_size=32, N=100):
         batch_targets = []
         batch_images_raw = []
         batch_inventory = []
-        resolution = random.choice(["low", "medium", "high"])
+        # resolution = random.choice(["low", "medium", "high"])
+        resolution = "high"
         while len(batch_images) < batch_size:
             starting_inv = sample_starting_inv()
             obs = env.step(starting_inv, resolution=resolution)
@@ -130,7 +131,7 @@ if __name__ == "__main__":
     count = 0
     m1_optimizer = torch.optim.AdamW(M1_model.parameters(), lr=m1_lr)
 
-    wandb.init(project="plancraft-img-encoder", entity="itl", name=f"all-res")
+    wandb.init(project="plancraft-img-encoder", entity="itl", name="all-res")
     pbar = tqdm(total=N)
 
     for images, targets, raw_images, inv in sample_environment(
@@ -195,4 +196,4 @@ if __name__ == "__main__":
     wandb.finish()
 
     # save model
-    M1_model.push_to_hub("plancraft-fasterrcnn")
+    M1_model.push_to_hub("plancraft-fasterrcnn-high")
