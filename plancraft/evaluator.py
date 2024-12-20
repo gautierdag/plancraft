@@ -118,25 +118,8 @@ class Evaluator:
         self,
         example: PlancraftExample,
     ):
-        current_inventory = example.slotted_inventory
-        self.environment.reset(new_inventory=current_inventory)
-        # do a no op to an initial observation
-        obs = self.environment.step()
-        # assert that the inventory is correct
-        if "inventory" in obs:
-            for item in current_inventory:
-                slot = item["slot"]
-                if (
-                    obs["inventory"][slot]["type"] != item["type"]
-                    or obs["inventory"][slot]["quantity"] != item["quantity"]
-                ) and item["type"] != "air":
-                    logger.warning(f"Inventory does not match expected for slot {slot}")
-                    logger.warning(f"Expected {item}")
-                    logger.warning(f"Got {obs['inventory'][slot]}")
-                    # try again
-                    self.reset(example)
-
         objective = f"Craft an item of type: {example.target}"
+        self.environment.reset(new_inventory=example.slotted_inventory)
         self.model.reset_history(objective=objective)
 
     def check_done(self, inventory: list[dict[str, int]], target: str):
@@ -150,6 +133,46 @@ class Evaluator:
                     return True
         return False
 
+    def eval_example(self, example: PlancraftExample) -> dict:
+        success = False
+        self.reset(example)
+        action = None
+        while (
+            not self.model.history.check_stuck()
+            and self.model.history.num_steps < self.cfg.plancraft.max_steps
+        ):
+            # if the action is stop then we end the episode
+            if isinstance(action, StopAction):
+                # if the action is stop and task is impossible then success
+                # otherwise we should not have stopped
+                success = example.impossible
+                break
+
+            # step action
+            observation = self.environment.step(action)
+
+            # check if the episode is done
+            success = self.check_done(observation["inventory"], example.target)
+            # exit if success
+            if success:
+                # add final observation to history
+                self.model.history.add_observation_to_history(observation)
+                break
+
+            # predict next action
+            action = self.model.step(observation)
+
+        # save results and reset
+        return {
+            "success": success,
+            "recipe_type": example.recipe_type,
+            "complexity": example.complexity,
+            "number_of_steps": self.model.history.num_steps,
+            "model_trace": self.model.history.trace(),
+            "example_id": example.id,
+            "impossible": example.impossible,
+        }
+
     def eval_all_examples(self, progress_bar=False) -> list:
         results = []
         pbar = tqdm(
@@ -158,7 +181,6 @@ class Evaluator:
         )
         correct = 0
         count = 0
-
         for example in self.examples:
             if resume_result := self.load_results_dict(example):
                 pbar.update(self.cfg.plancraft.max_steps)
@@ -171,44 +193,7 @@ class Evaluator:
             ):
                 continue
 
-            success = False
-            self.reset(example)
-            action = None
-            while (
-                not self.model.history.check_stuck()
-                and self.model.history.num_steps < self.cfg.plancraft.max_steps
-            ):
-                # if the action is stop then we end the episode
-                if isinstance(action, StopAction):
-                    # if the action is stop and task is impossible then success
-                    # otherwise we should not have stopped
-                    success = example.impossible
-                    break
-
-                # step action
-                observation = self.environment.step(action)
-
-                # check if the episode is done
-                success = self.check_done(observation["inventory"], example.target)
-                # exit if success
-                if success:
-                    # add final observation to history
-                    self.model.history.add_observation_to_history(observation)
-                    break
-
-                # predict next action
-                action = self.model.step(observation)
-
-            # save results and reset
-            result = {
-                "success": success,
-                "recipe_type": example.recipe_type,
-                "complexity": example.complexity,
-                "number_of_steps": self.model.history.num_steps,
-                "model_trace": self.model.history.trace(),
-                "example_id": example.id,
-                "impossible": example.impossible,
-            }
+            result = self.eval_example(example)
             results.append(result)
             self.save_results_dict(example, result)
             self.save_images(example, self.model.history.images)
@@ -222,7 +207,7 @@ class Evaluator:
 
         return results
 
-    def eval_all(self):
+    def eval_all_seeds(self):
         logger.info(
             f"Running evaluation over {len(self.examples)} examples {self.cfg.plancraft.num_generations} times."
         )
@@ -233,12 +218,10 @@ class Evaluator:
         )
 
         wandb.login(key=self.cfg.env_variables.wandb_api_key)
-
         for n in range(self.cfg.plancraft.num_generations):
             logger.info(f"Generation {n+1}/{self.cfg.plancraft.num_generations}")
             run_id = "".join(random.choices(string.ascii_lowercase, k=5))
             generation_run_name = run_name + f"_{run_id}"
-
             wandb.init(
                 name=generation_run_name,
                 project=self.cfg.wandb.project,

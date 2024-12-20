@@ -21,7 +21,7 @@ def main(cfg):
     logger.info(cfg)
     cfg = EvalConfig(**flatten_cfg(dict(cfg)))
     evaluator = Evaluator(cfg)
-    evaluator.eval_all()
+    evaluator.eval_all_seeds()
 
 
 if __name__ == "__main__":

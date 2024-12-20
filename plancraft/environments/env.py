@@ -275,7 +275,6 @@ class PlancraftEnvironment:
             self.smelt_item(slot, slot_to, quantity)
         else:
             raise ValueError("Invalid action")
-            # logger.warn("Cannot parse action for Symbolic action")
 
         self.clean_state()
         # convert to list for same format as minerl
