@@ -88,7 +88,7 @@ def sample_environment(batch_size=32, N=100):
             for item in obs["inventory"]:
                 if item["quantity"] > 0:
                     target["labels"].append(ALL_ITEMS.index(item["type"]))
-                    target["boxes"].append(slot_to_bbox(item["index"], resolution))
+                    target["boxes"].append(slot_to_bbox(item["slot"], resolution))
                     target["quantity_labels"].append(item["quantity"])
 
                     inv.append(item)

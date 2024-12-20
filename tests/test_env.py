@@ -46,7 +46,7 @@ def test_symbolic_env_symbolic_commands():
         [
             k["quantity"]
             for k in obs["inventory"]
-            if (k["type"] == "oak_planks" and k["index"] != 0)
+            if (k["type"] == "oak_planks" and k["slot"] != 0)
         ]
     )
     # made 4 planks 4 times

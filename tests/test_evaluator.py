@@ -124,11 +124,6 @@ def evaluator(mock_cfg, mock_example):
             return Evaluator(mock_cfg)
 
 
-def test_create_env(evaluator, mock_cfg):
-    env = evaluator.create_env(mock_cfg)
-    assert isinstance(env, PlancraftEnv)
-
-
 def test_load_dataset(evaluator):
     with pytest.raises(FileNotFoundError):
         evaluator.load_dataset("fake_split")

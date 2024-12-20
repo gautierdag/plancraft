@@ -27,7 +27,7 @@ class DummyModel(ABCModel):
         item_indices = set()
         for item in observation["inventory"]:
             if item["quantity"] > 0:
-                item_indices.add(item["index"])
+                item_indices.add(item["slot"])
         all_slots_to = set(range(1, 46))
         empty_slots = all_slots_to - item_indices
 

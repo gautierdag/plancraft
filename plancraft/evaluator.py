@@ -37,7 +37,11 @@ class Evaluator:
 
         self.examples: list[PlancraftExample] = self.load_dataset(cfg.plancraft.split)
 
-        self.environment = self.create_env(cfg)
+        self.environment = PlancraftEnv(
+            inventory=[],
+            resolution=cfg.plancraft.environment.resolution,
+        )
+
         self.model = get_model(cfg)
 
     def evaluator_name(self) -> str:
@@ -105,12 +109,6 @@ class Evaluator:
         with open(path, "r") as f:
             return json.load(f)
 
-    def create_env(self, cfg: EvalConfig) -> PlancraftEnv:
-        return PlancraftEnv(
-            inventory=[],
-            resolution=cfg.plancraft.environment.resolution,
-        )
-
     def load_dataset(self, dataset_split: str) -> list[PlancraftExample]:
         with open(f"data/{dataset_split}.json", "r") as f:
             dataset = json.load(f)
@@ -149,8 +147,6 @@ class Evaluator:
             if target == item["type"]:
                 # ensure item is taken out of crafting slot
                 if "slot" in item and item["slot"] != 0:
-                    return True
-                if "index" in item and item["index"] != 0:
                     return True
         return False
 

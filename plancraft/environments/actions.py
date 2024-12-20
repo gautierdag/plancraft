@@ -88,7 +88,7 @@ class SymbolicMoveAction(BaseModel):
 
     def to_action_dict(self) -> dict:
         return {
-            "move": [self.slot_from, self.slot_to, self.quantity],
+            "inventory_command": [self.slot_from, self.slot_to, self.quantity],
         }
 
 

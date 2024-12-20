@@ -256,7 +256,7 @@ class PlancraftEnv:
         # default no op action
         if action is None:
             state_list = [
-                {"type": item["type"], "quantity": item["quantity"], "index": idx}
+                {"type": item["type"], "quantity": item["quantity"], "slot": idx}
                 for idx, item in self.state.items()
             ]
             return {"inventory": state_list, "pov": self.table.frame}
@@ -280,7 +280,7 @@ class PlancraftEnv:
         self.clean_state()
         # convert to list for same format as minerl
         state_list = [
-            {"type": item["type"], "quantity": item["quantity"], "index": idx}
+            {"type": item["type"], "quantity": item["quantity"], "slot": idx}
             for idx, item in self.state.items()
         ]
         return {"inventory": state_list, "pov": self.table.frame}

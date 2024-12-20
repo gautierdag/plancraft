@@ -62,8 +62,6 @@ class History:
             # ignore slot 0
             if "slot" in item and item["slot"] == 0:
                 continue
-            if "index" in item and item["index"] == 0:
-                continue
             counter[item["type"]] += item["quantity"]
 
         self.inventory_counters.append(counter)

@@ -158,10 +158,7 @@ def objective_and_inventory_to_str(objective: str, inventory: list[dict]) -> str
         # skip items with quantity 0
         if item["quantity"] <= 0:
             continue
-        if "index" in item:
-            slot = item["index"]
-        else:
-            slot = item["slot"]
+        slot = item["slot"]
         if isinstance(slot, int):
             slot = convert_from_slot_index(slot)
         inventory_str += f"\n - {item['type']} {slot} quantity {item['quantity']}"
@@ -207,7 +204,7 @@ def convert_observation_to_message(
                 inventory.append(
                     {
                         "type": o["type"],
-                        "slot": convert_from_slot_index(o["index"]),
+                        "slot": convert_from_slot_index(o["slot"]),
                         "quantity": o["quantity"],
                     }
                 )
