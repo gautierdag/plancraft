@@ -265,9 +265,9 @@ class PlancraftEnv:
         if not isinstance(action, dict):
             action = action.to_action_dict()
 
-        if "inventory_command" in action:
+        if "move" in action:
             # do inventory command (move)
-            slot, slot_to, quantity = action["inventory_command"]
+            slot, slot_to, quantity = action["move"]
             self.move_item(slot, slot_to, quantity)
         elif "smelt" in action:
             # do smelt

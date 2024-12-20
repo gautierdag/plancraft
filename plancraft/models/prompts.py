@@ -172,9 +172,9 @@ def load_prompt_images(resolution: str) -> list[np.ndarray]:
 
     env = PlancraftEnv(inventory=starting_inv, resolution=resolution)
     actions = [
-        {"inventory_command": [0, 0, 0]},
-        {"inventory_command": [27, 4, 1]},
-        {"inventory_command": [39, 5, 1]},
+        {"move": [0, 0, 0]},
+        {"move": [27, 4, 1]},
+        {"move": [39, 5, 1]},
     ]
     images = []
     for action in actions:
@@ -186,7 +186,7 @@ def load_prompt_images(resolution: str) -> list[np.ndarray]:
         {"type": "cobblestone", "slot": 39, "quantity": 1},
     ]
     new_actions = [
-        {"inventory_command": [0, 0, 0]},
+        {"move": [0, 0, 0]},
     ]
     env.reset(new_inventory=second_inv)
     for action in new_actions:

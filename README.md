@@ -30,7 +30,7 @@ def main():
     # move one log to slot 1
     # [from, to, quantity]
     move_action = dict(
-        inventory_command=[23, 2, 1]
+        move=[23, 2, 1]
     )
     observation = env.step(move_action)
     # observation["inventory"] contains the updated symbolic inventory

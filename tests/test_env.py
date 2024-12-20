@@ -11,26 +11,26 @@ def test_symbolic_env_symbolic_commands():
         ("smelt", [10, 11, 1]),
         ("smelt", [10, 11, 1]),
         ("smelt", [10, 11, 1]),
-        ("inventory_command", [11, 1, 1]),
-        ("inventory_command", [11, 3, 1]),
-        ("inventory_command", [11, 5, 1]),
-        ("inventory_command", [0, 12, 1]),
-        ("inventory_command", [23, 1, 1]),
-        ("inventory_command", [23, 1, 1]),
-        ("inventory_command", [23, 1, 1]),
-        ("inventory_command", [23, 1, 1]),
-        ("inventory_command", [23, 1, 1]),
-        ("inventory_command", [23, 1, 1]),
-        ("inventory_command", [23, 1, 1]),
-        ("inventory_command", [23, 1, 1]),
-        ("inventory_command", [0, 30, 4]),
-        ("inventory_command", [0, 30, 4]),
-        ("inventory_command", [0, 30, 4]),
-        ("inventory_command", [0, 30, 4]),
-        ("inventory_command", [0, 0, 0]),
-        ("inventory_command", [0, 0, 0]),
-        ("inventory_command", [0, 0, 0]),
-        ("inventory_command", [0, 0, 0]),
+        ("move", [11, 1, 1]),
+        ("move", [11, 3, 1]),
+        ("move", [11, 5, 1]),
+        ("move", [0, 12, 1]),
+        ("move", [23, 1, 1]),
+        ("move", [23, 1, 1]),
+        ("move", [23, 1, 1]),
+        ("move", [23, 1, 1]),
+        ("move", [23, 1, 1]),
+        ("move", [23, 1, 1]),
+        ("move", [23, 1, 1]),
+        ("move", [23, 1, 1]),
+        ("move", [0, 30, 4]),
+        ("move", [0, 30, 4]),
+        ("move", [0, 30, 4]),
+        ("move", [0, 30, 4]),
+        ("move", [0, 0, 0]),
+        ("move", [0, 0, 0]),
+        ("move", [0, 0, 0]),
+        ("move", [0, 0, 0]),
     ]
 
     for action_name, action_args in actions_list:
@@ -91,9 +91,9 @@ def test_reset_state():
     assert env.state[1]["quantity"] == 10
 
 
-def test_step_inventory_command():
+def test_step_move():
     env = PlancraftEnv(inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}])
-    action = {"inventory_command": [1, 2, 5]}
+    action = {"move": [1, 2, 5]}
     env.step(action)
     assert env.state[1]["quantity"] == 5
     assert env.state[2]["type"] == "iron_ore"
