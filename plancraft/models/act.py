@@ -4,7 +4,6 @@ import torch
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
-    NoOp,
     StopAction,
     SymbolicAction,
 )
@@ -47,7 +46,6 @@ class ActModel(ABCModel):
             self.bbox_model.eval()
             if torch.cuda.is_available():
                 self.bbox_model.cuda()
-            
 
         self.few_shot = cfg.plancraft.few_shot
         self.use_system_prompt = cfg.plancraft.system_prompt
@@ -185,5 +183,5 @@ class ActModel(ABCModel):
             )
             i += 1
 
-        # if no action is found after max_invalid_actions, default to useless move action
-        return NoOp()
+        # if no action is found after max_invalid_actions, default to no move action
+        return

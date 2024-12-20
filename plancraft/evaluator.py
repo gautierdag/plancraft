@@ -137,6 +137,8 @@ class Evaluator:
         success = False
         self.reset(example)
         action = None
+
+        # run episode until stuck or until max steps is reached
         while (
             not self.model.history.check_stuck()
             and self.model.history.num_steps < self.cfg.plancraft.max_steps
