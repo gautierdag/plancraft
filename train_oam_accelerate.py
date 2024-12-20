@@ -312,27 +312,6 @@ def main(cfg):
 
         if accelerator.is_main_process:
             model.eval()
-            # batch_messages = [[{"role": "user", "content": "hi how are you?"}]]
-            # batch_images = [[]]
-            # text, _ = model.generate(
-            #     batch_messages=batch_messages, batch_images=batch_images
-            # )
-            # accelerator.print("Canary test")
-            # accelerator.print(text)
-
-            # # print the first 10 embeddings vectors
-            # accelerator.print("Embeddings")
-            # for i in range(10):
-            #     accelerator.print(
-            #         model.text_model.lm_head.weight[i].cpu().detach()[:20]
-            #     )
-
-            # # save layer to pth
-            # torch.save(
-            #     model.text_model.lm_head,
-            #     "model.text_model.lm_head.pth",
-            # )
-
             # save to local
             model.save_pretrained(
                 f"model_dump/{name}",

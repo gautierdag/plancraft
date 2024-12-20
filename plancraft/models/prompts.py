@@ -1,6 +1,6 @@
 import numpy as np
 
-from plancraft.environments.env import PlancraftEnv
+from plancraft.environments.env import PlancraftEnvironment
 from plancraft.models.utils import gold_search_recipe
 
 VALID_ACTIONS = ["move", "smelt", "think", "search", "impossible"]
@@ -170,7 +170,7 @@ def load_prompt_images(resolution: str) -> list[np.ndarray]:
         {"type": "cobblestone", "slot": 39, "quantity": 1},
     ]
 
-    env = PlancraftEnv(inventory=starting_inv, resolution=resolution)
+    env = PlancraftEnvironment(inventory=starting_inv, resolution=resolution)
     actions = [
         {"move": [0, 0, 0]},
         {"move": [27, 4, 1]},

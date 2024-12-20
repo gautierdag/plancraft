@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw
 from tqdm import tqdm
 
 import wandb
-from plancraft.environments.env import PlancraftEnv
+from plancraft.environments.env import PlancraftEnvironment
 from plancraft.environments.items import ALL_ITEMS
 from plancraft.environments.recipes import RECIPES, ShapedRecipe, ShapelessRecipe
 from plancraft.environments.sampler import sample_distractors
@@ -56,7 +56,7 @@ def sample_starting_inv():
 
 class EnvWrapper:
     def __init__(self):
-        self.env = PlancraftEnv(
+        self.env = PlancraftEnvironment(
             inventory=sample_starting_inv(),
         )
 

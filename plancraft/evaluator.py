@@ -12,7 +12,7 @@ from tqdm import tqdm
 
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environments.actions import StopAction
-from plancraft.environments.env import PlancraftEnv
+from plancraft.environments.env import PlancraftEnvironment
 from plancraft.models import get_model
 
 
@@ -37,7 +37,7 @@ class Evaluator:
 
         self.examples: list[PlancraftExample] = self.load_dataset(cfg.plancraft.split)
 
-        self.environment = PlancraftEnv(
+        self.environment = PlancraftEnvironment(
             inventory=[],
             resolution=cfg.plancraft.environment.resolution,
         )

@@ -194,7 +194,7 @@ class CraftingTableUI:
         return self.current_table.size
 
 
-class PlancraftEnv:
+class PlancraftEnvironment:
     """
     Environment class for the Plancraft environment.
     """

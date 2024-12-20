@@ -1,8 +1,8 @@
-from plancraft.environments.env import PlancraftEnv
+from plancraft.environments.env import PlancraftEnvironment
 
 
 def test_symbolic_env_symbolic_commands():
-    env = PlancraftEnv(
+    env = PlancraftEnvironment(
         inventory=[dict(type="iron_ore", quantity=10, slot=10)]
         + [dict(type="oak_log", quantity=23, slot=23)],
     )
@@ -60,14 +60,14 @@ def test_symbolic_env_symbolic_commands():
 
 
 def test_add_item_to_slot():
-    env = PlancraftEnv()
+    env = PlancraftEnvironment()
     env.add_item_to_slot("iron_ore", 1, 10)
     assert env.state[1]["type"] == "iron_ore"
     assert env.state[1]["quantity"] == 10
 
 
 def test_remove_item_from_slot():
-    env = PlancraftEnv()
+    env = PlancraftEnvironment()
     env.add_item_to_slot("iron_ore", 1, 10)
     env.remove_item_from_slot(1)
     assert env.state[1]["type"] == "air"
@@ -75,7 +75,7 @@ def test_remove_item_from_slot():
 
 
 def test_change_quantity_in_slot():
-    env = PlancraftEnv()
+    env = PlancraftEnvironment()
     env.add_item_to_slot("iron_ore", 1, 10)
     env.change_quantity_in_slot(1, 5)
     assert env.state[1]["quantity"] == 5
@@ -85,14 +85,18 @@ def test_change_quantity_in_slot():
 
 
 def test_reset_state():
-    env = PlancraftEnv(inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}])
+    env = PlancraftEnvironment(
+        inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}]
+    )
     env.reset_state()
     assert env.state[1]["type"] == "iron_ore"
     assert env.state[1]["quantity"] == 10
 
 
 def test_step_move():
-    env = PlancraftEnv(inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}])
+    env = PlancraftEnvironment(
+        inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}]
+    )
     action = {"move": [1, 2, 5]}
     env.step(action)
     assert env.state[1]["quantity"] == 5
@@ -101,7 +105,9 @@ def test_step_move():
 
 
 def test_step_smelt():
-    env = PlancraftEnv(inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}])
+    env = PlancraftEnvironment(
+        inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}]
+    )
     action = {"smelt": [1, 2, 5]}
     env.step(action)
     assert env.state[1]["quantity"] == 5
@@ -110,7 +116,7 @@ def test_step_smelt():
 
 
 def test_clean_state():
-    env = PlancraftEnv()
+    env = PlancraftEnvironment()
     env.add_item_to_slot("iron_ore", 1, 10)
     env.change_quantity_in_slot(1, 0)
     env.clean_state()
@@ -119,7 +125,9 @@ def test_clean_state():
 
 
 def test_move_item():
-    env = PlancraftEnv(inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}])
+    env = PlancraftEnvironment(
+        inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}]
+    )
     env.move_item(1, 2, 5)
     assert env.state[1]["quantity"] == 5
     assert env.state[2]["type"] == "iron_ore"
@@ -127,7 +135,9 @@ def test_move_item():
 
 
 def test_smelt_item():
-    env = PlancraftEnv(inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}])
+    env = PlancraftEnvironment(
+        inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}]
+    )
     env.smelt_item(1, 2, 5)
     assert env.state[1]["quantity"] == 5
     assert env.state[2]["type"] == "iron_ingot"
@@ -135,7 +145,9 @@ def test_smelt_item():
 
 
 def test_populate_craft_slot_craft_item():
-    env = PlancraftEnv(inventory=[{"type": "oak_log", "quantity": 10, "slot": 1}])
+    env = PlancraftEnvironment(
+        inventory=[{"type": "oak_log", "quantity": 10, "slot": 1}]
+    )
     env.add_item_to_slot("oak_log", 1, 1)
     env.populate_craft_slot_craft_item()
     assert env.state[0]["type"] == "oak_planks"
@@ -143,7 +155,9 @@ def test_populate_craft_slot_craft_item():
 
 
 def test_use_ingredients():
-    env = PlancraftEnv(inventory=[{"type": "oak_log", "quantity": 10, "slot": 1}])
+    env = PlancraftEnvironment(
+        inventory=[{"type": "oak_log", "quantity": 10, "slot": 1}]
+    )
     env.add_item_to_slot("oak_log", 1, 1)
     env.populate_craft_slot_craft_item()
     env.use_ingredients()
@@ -152,7 +166,7 @@ def test_use_ingredients():
 
 
 def test_reset():
-    env = PlancraftEnv()
+    env = PlancraftEnvironment()
     new_inventory = [{"type": "iron_ore", "quantity": 10, "slot": 1}]
     env.reset(new_inventory)
     assert env.state[1]["type"] == "iron_ore"

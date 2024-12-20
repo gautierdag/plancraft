@@ -15,15 +15,15 @@ pip install plancraft
 
 ## Usage
 
-The package provides a `PlancraftEnv` class that can be used to interact with the environment. Here is an example of how to use it:
+The package provides a `PlancraftEnvironment` class that can be used to interact with the environment. Here is an example of how to use it:
 
 ```python
-from plancraft.environments.env import PlancraftEnv
+from plancraft.environments.env import PlancraftEnvironment
 
 
 def main():
     # Create the environment with an inventory containing 10 iron ores and 23 oak logs
-    env = PlancraftEnv(
+    env = PlancraftEnvironment(
         inventory=[dict(type="iron_ore", quantity=10, slot=10)]
         + [dict(type="oak_log", quantity=23, slot=23)],
     )
