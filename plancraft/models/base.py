@@ -5,8 +5,8 @@ from copy import copy
 from loguru import logger
 
 from plancraft.environments.actions import (
-    SymbolicMoveAction,
-    SymbolicSmeltAction,
+    MoveAction,
+    SmeltAction,
 )
 
 
@@ -48,7 +48,7 @@ class History:
             else:
                 self.dialogue_history.append({"role": role, "content": content})
 
-    def add_action_to_history(self, action: SymbolicSmeltAction | SymbolicMoveAction):
+    def add_action_to_history(self, action: SmeltAction | MoveAction):
         if action is None:
             return
         self.action_history.append(action.model_dump())
@@ -133,14 +133,9 @@ class ABCModel(abc.ABC):
     """
 
     @abc.abstractmethod
-    def step(
-        self, observation: list[dict]
-    ) -> list[SymbolicMoveAction | SymbolicSmeltAction]:
+    def step(self, observation: list[dict]) -> str:
         """
-        Model should output a valid action based on the 3 types available
-
-        Note this is a batch operation, so the model should return a list of actions
-        for each observation in the batch
+        Model should output an action in text based on the types available
         """
         raise NotImplementedError()
 

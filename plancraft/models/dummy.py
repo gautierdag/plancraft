@@ -2,8 +2,8 @@ import random
 
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
-    SymbolicMoveAction,
-    SymbolicSmeltAction,
+    MoveAction,
+    SmeltAction,
 )
 from plancraft.models.base import ABCModel, History
 
@@ -22,7 +22,7 @@ class DummyModel(ABCModel):
 
     def random_select(self, observation):
         if observation is None or "inventory" not in observation:
-            return SymbolicMoveAction(slot_from=0, slot_to=0, quantity=1)
+            return MoveAction(slot_from=0, slot_to=0, quantity=1)
         # randomly pick an item from the inventory
         item_indices = set()
         for item in observation["inventory"]:
@@ -34,11 +34,11 @@ class DummyModel(ABCModel):
         random_slot_from = random.choice(list(item_indices))
         random_slot_to = random.choice(list(empty_slots))
 
-        return SymbolicMoveAction(
+        return MoveAction(
             slot_from=random_slot_from, slot_to=random_slot_to, quantity=1
         )
 
-    def step(self, observation: dict) -> list[SymbolicMoveAction | SymbolicSmeltAction]:
+    def step(self, observation: dict) -> list[MoveAction | SmeltAction]:
         # add observation to history
         self.history.add_observation_to_history(observation)
 

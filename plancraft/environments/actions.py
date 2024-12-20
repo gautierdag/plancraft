@@ -1,5 +1,3 @@
-from typing import Union
-
 from pydantic import BaseModel, field_validator, model_validator
 
 
@@ -42,7 +40,7 @@ def convert_from_slot_index(slot_index: int) -> str:
         return f"[I{slot_index-9}]"
 
 
-class SymbolicMoveAction(BaseModel):
+class MoveAction(BaseModel):
     """ "Moves an item from one slot to another"""
 
     slot_from: int
@@ -85,14 +83,18 @@ class SymbolicMoveAction(BaseModel):
             raise AttributeError("slot_to must be between 1 and 45")
         if self.quantity < 1 or self.quantity > 64:
             raise AttributeError("quantity must be between 1 and 64")
+        return self
 
     def to_action_dict(self) -> dict:
         return {
-            "inventory_command": [self.slot_from, self.slot_to, self.quantity],
+            "move": [self.slot_from, self.slot_to, self.quantity],
         }
 
+    def __str__(self):
+        return f"move: from {convert_from_slot_index(self.slot_from)} to {convert_from_slot_index(self.slot_to)} with quantity {self.quantity}"
 
-class SymbolicSmeltAction(BaseModel):
+
+class SmeltAction(BaseModel):
     """Smelts an item and moves the result into a new slot"""
 
     slot_from: int
@@ -135,11 +137,15 @@ class SymbolicSmeltAction(BaseModel):
             raise AttributeError("slot_to must be between 1 and 45")
         if self.quantity < 1 or self.quantity > 64:
             raise AttributeError("quantity must be between 1 and 64")
+        return self
 
     def to_action_dict(self) -> dict:
         return {
             "smelt": [self.slot_from, self.slot_to, self.quantity],
         }
+
+    def __str__(self):
+        return f"move: from {convert_from_slot_index(self.slot_from)} to {convert_from_slot_index(self.slot_to)} with quantity {self.quantity}"
 
 
 class ThinkAction(BaseModel):
@@ -149,6 +155,9 @@ class ThinkAction(BaseModel):
 
     def to_action_dict(self) -> dict:
         return {}
+
+    def __str__(self):
+        return f"think: {self.thought}"
 
 
 class SearchAction(BaseModel):
@@ -161,6 +170,9 @@ class SearchAction(BaseModel):
             "search": self.search_string,
         }
 
+    def __str__(self):
+        return f"search: {self.search_string}"
+
 
 class StopAction(BaseModel):
     """
@@ -170,10 +182,9 @@ class StopAction(BaseModel):
 
     reason: str = ""
 
+    def __str__(self):
+        return f"impossible: {self.reason}"
+
 
 # when symbolic action is true, can either move objects around or smelt
-SymbolicAction = SymbolicMoveAction | SymbolicSmeltAction
-
-
-class PydanticSymbolicAction(BaseModel):
-    root: Union[SymbolicMoveAction, SymbolicSmeltAction]
+SymbolicAction = MoveAction | SmeltAction

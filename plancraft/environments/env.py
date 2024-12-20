@@ -17,7 +17,7 @@ from plancraft.environments.recipes import (
 from plancraft.environments.sampler import MAX_STACK_SIZE
 
 
-class CraftingTableUI:
+class CraftingTableGUI:
     """
     Class to render a crafting table with items and quantities.
     """
@@ -202,7 +202,7 @@ class PlancraftEnvironment:
     def __init__(self, inventory: list[dict] = [], recipes=RECIPES, resolution="high"):
         self.inventory = inventory
 
-        self.table = CraftingTableUI(resolution=resolution)
+        self.table = CraftingTableGUI(resolution=resolution)
         self.state = defaultdict(lambda: {"type": "air", "quantity": 0})
 
         self.reset_state()

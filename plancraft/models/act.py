@@ -183,5 +183,5 @@ class ActModel(ABCModel):
             )
             i += 1
 
-        # if no action is found after max_invalid_actions, default to no move action
+        # if no action is found after max_invalid_actions, default to useless move action
         return

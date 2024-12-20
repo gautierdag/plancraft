@@ -6,8 +6,8 @@ import torch
 from plancraft.config import EvalConfig
 from plancraft.environments.actions import (
     StopAction,
-    SymbolicMoveAction,
-    SymbolicSmeltAction,
+    MoveAction,
+    SmeltAction,
 )
 from plancraft.environments.planner import optimal_planner
 from plancraft.environments.recipes import (
@@ -151,9 +151,7 @@ class OracleModel(ABCModel):
         inventory_counter = get_inventory_counter(observation["inventory"])
         self.plans = optimal_planner(target=target, inventory=inventory_counter)
 
-    def get_next_action(
-        self, observation: dict
-    ) -> SymbolicMoveAction | SymbolicSmeltAction:
+    def get_next_action(self, observation: dict) -> MoveAction | SmeltAction:
         if len(self.subplans) > 0:
             return self.subplans.pop(0)
         if len(self.plans) == 0:
@@ -170,7 +168,7 @@ class OracleModel(ABCModel):
         if slot_item := get_crafting_slot_item(observed_inventory):
             # move item from crafting slot to inventory
             free_slot = find_free_inventory_slot(observed_inventory, from_slot=0)
-            return SymbolicMoveAction(
+            return MoveAction(
                 slot_from=0, slot_to=free_slot, quantity=slot_item["quantity"]
             )
 
@@ -200,7 +198,7 @@ class OracleModel(ABCModel):
                         continue
 
                     # low_level_plan.append(("move", item, from_slot, crafting_slot, 1))
-                    action = SymbolicMoveAction(
+                    action = MoveAction(
                         slot_from=from_slot, slot_to=crafting_slot, quantity=1
                     )
                     # update state of inventory
@@ -220,7 +218,7 @@ class OracleModel(ABCModel):
                 free_slot = find_free_inventory_slot(
                     current_inventory, from_slot=from_slot
                 )
-                action = SymbolicSmeltAction(
+                action = SmeltAction(
                     slot_from=from_slot, slot_to=free_slot, quantity=quantity
                 )
                 self.subplans.append(action)
@@ -234,7 +232,7 @@ class OracleModel(ABCModel):
                     for item in valid_items:
                         if items_to_use_counter[item] > 0:
                             from_slot = find_item_in_inventory(item, current_inventory)
-                            action = SymbolicMoveAction(
+                            action = MoveAction(
                                 slot_from=from_slot,
                                 slot_to=inventory_position,
                                 quantity=1,
@@ -251,7 +249,7 @@ class OracleModel(ABCModel):
 
         return self.subplans.pop(0)
 
-    def step(self, observation: dict) -> list[SymbolicMoveAction | SymbolicSmeltAction]:
+    def step(self, observation: dict) -> list[MoveAction | SmeltAction]:
         # add observation to history
         self.history.add_observation_to_history(observation)
 

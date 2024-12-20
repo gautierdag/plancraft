@@ -12,8 +12,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from plancraft.environments.actions import (
     StopAction,
     SymbolicAction,
-    SymbolicMoveAction,
-    SymbolicSmeltAction,
+    MoveAction,
+    SmeltAction,
     convert_from_slot_index,
 )
 from plancraft.environments.recipes import RECIPES
@@ -268,13 +268,13 @@ def parse_content_response(
                 slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(1)
                 quantity = re.search(r"with quantity (\d+)", content).group(1)
                 if action == "move":
-                    action = SymbolicMoveAction(
+                    action = MoveAction(
                         slot_from=slot_from,
                         slot_to=slot_to,
                         quantity=quantity,
                     )
                 else:
-                    action = SymbolicSmeltAction(
+                    action = SmeltAction(
                         slot_from=slot_from,
                         slot_to=slot_to,
                         quantity=quantity,
