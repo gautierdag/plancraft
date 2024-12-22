@@ -16,3 +16,6 @@ uv run main.py --config-name evals/gpt4o_mini.yaml ++evals.plancraft.valid_actio
 # use fasterrcnn
 uv run main.py --config-name evals/gpt4o_mini.yaml ++evals.plancraft.valid_actions='[move,smelt]' ++evals.plancraft.use_images=True ++evals.plancraft.use_text_inventory=False ++evals.plancraft.use_fasterrcnn=True
 
+
+
+uv run main.py --config-name evals/dummy.yaml

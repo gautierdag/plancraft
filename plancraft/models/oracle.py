@@ -17,7 +17,7 @@ from plancraft.environment.recipes import (
     id_to_item,
 )
 from plancraft.environment.sampler import MAX_STACK_SIZE
-from plancraft.models.base import ABCModel, History
+from plancraft.models.base import PlancraftBaseModel
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel
 
 
@@ -114,13 +114,12 @@ def update_inventory(
     return new_inventory
 
 
-class OracleModel(ABCModel):
+class OracleModel(PlancraftBaseModel):
     """
     Oracle model returns actions that solve the task optimally
     """
 
     def __init__(self, cfg: EvalConfig):
-        # self._history = History(objective="")
         self.plans = []
         self.subplans = []
         self.use_fasterrcnn = cfg.plancraft.use_fasterrcnn
@@ -135,25 +134,16 @@ class OracleModel(ABCModel):
             if torch.cuda.is_available():
                 self.bbox_model.cuda()
 
-    # @property
-    # def history(self):
-    #     return self._history
-
-    # def reset_history(self, objective: str = ""):
-    # self.history.reset(objective=objective)
-    # self.plans = []
-    # self.subplans = []
-
     def reset(self):
         self.plans = []
         self.subplans = []
 
     def get_plan(self, observation: dict):
-        # objective="Craft an item of type: ...."
         # this simply recovering the target item to craft
-        target = self.history.objective.split(": ")[-1]
         inventory_counter = get_inventory_counter(observation["inventory"])
-        self.plans = optimal_planner(target=target, inventory=inventory_counter)
+        return optimal_planner(
+            target=observation["target"], inventory=inventory_counter
+        )
 
     def get_next_action(self, observation: dict) -> MoveAction | SmeltAction:
         if len(self.subplans) > 0:
@@ -201,7 +191,6 @@ class OracleModel(ABCModel):
                         n += 1
                         continue
 
-                    # low_level_plan.append(("move", item, from_slot, crafting_slot, 1))
                     action = MoveAction(
                         slot_from=from_slot, slot_to=crafting_slot, quantity=1
                     )
@@ -210,7 +199,6 @@ class OracleModel(ABCModel):
                         current_inventory, from_slot, crafting_slot, 1
                     )
                     self.subplans.append(action)
-
                     crafting_slot += 1
                     n += 1
 
@@ -254,18 +242,12 @@ class OracleModel(ABCModel):
         return self.subplans.pop(0)
 
     def step(self, observation: dict) -> str:
-        # add observation to history
-        # self.history.add_observation_to_history(observation)
-
         # get action
         if len(self.plans) == 0:
-            self.get_plan(observation)
+            self.plans = self.get_plan(observation)
             if self.plans is None:
                 self.plans = []
                 return StopAction()
 
         action = self.get_next_action(observation)
-
-        # add action to history
-        # self.history.add_action_to_history(action)
         return str(action)

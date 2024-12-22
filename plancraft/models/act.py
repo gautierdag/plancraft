@@ -3,11 +3,8 @@ import copy
 import torch
 
 from plancraft.config import EvalConfig
-from plancraft.environment.actions import (
-    StopAction,
-    SymbolicAction,
-)
-from plancraft.models.base import ABCModel, History
+from plancraft.utils import History
+from plancraft.models.base import PlancraftBaseModel
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel
 from plancraft.models.generators import (
     OAMGenerator,
@@ -21,11 +18,10 @@ from plancraft.models.prompts import (
 )
 from plancraft.models.utils import (
     convert_observation_to_message,
-    # parse_content_response,
 )
 
 
-class ActModel(ABCModel):
+class ActModel(PlancraftBaseModel):
     """
     Model that does action without thinking step
     """
@@ -141,7 +137,6 @@ class ActModel(ABCModel):
         # add observation to history
         observation_message = convert_observation_to_message(
             observation,
-            objective=self.history.objective,
             bbox_model=self.bbox_model,
             oam_model="oam" in self.llm.model_name,
             use_text_inventory=self.use_text_inventory,

@@ -135,7 +135,7 @@ class SmeltAction(BaseModel):
         return self
 
     def __str__(self):
-        return f"move: from {convert_from_slot_index(self.slot_from)} to {convert_from_slot_index(self.slot_to)} with quantity {self.quantity}"
+        return f"smelt: from {convert_from_slot_index(self.slot_from)} to {convert_from_slot_index(self.slot_to)} with quantity {self.quantity}"
 
 
 class ThinkAction(BaseModel):

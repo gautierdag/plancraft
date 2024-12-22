@@ -6,7 +6,7 @@ from typing import Literal, Optional
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from plancraft.environment.actions import SymbolicAction
+from plancraft.environment.actions import SymbolicAction, convert_from_slot_index
 from plancraft.environment.recipes import (
     RECIPES,
     ShapedRecipe,
@@ -15,6 +15,36 @@ from plancraft.environment.recipes import (
     convert_ingredients_to_table,
 )
 from plancraft.environment.sampler import MAX_STACK_SIZE
+
+
+def get_objective_str(target: str) -> str:
+    return f"Craft an item of type: {target}"
+
+
+def target_and_inventory_to_text_obs(target: str, inventory: list[dict]) -> str:
+    """
+    Convert inventory dict to text observation
+    """
+    objective = get_objective_str(target)
+    inventory_str = ""
+    for item in inventory:
+        # skip items with quantity 0
+        if item["quantity"] <= 0:
+            continue
+        slot = item["slot"]
+        if isinstance(slot, int):
+            slot = convert_from_slot_index(slot)
+        inventory_str += f"\n - {item['type']} {slot} quantity {item['quantity']}"
+    return f"{objective}\ninventory:{inventory_str}"
+
+
+def text_obs_to_objective_and_inventory(
+    text_observation: str,
+) -> tuple[str, list[dict]]:
+    """
+    Parser for text observation back to target object and inventory dict
+    """
+    raise NotImplementedError()
 
 
 class CraftingTableGUI:

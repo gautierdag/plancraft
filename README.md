@@ -89,8 +89,14 @@ The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/planc
     - [x] Move `gold_search_recipe` into environment module (search.py)
   - [x] Evaluator should handle the case where three non-env tools are used in a row -> force an observation/goal of the inventory
 - [ ] History should be attached to Evaluator object. Models should track whatever they need independently
+  - [x] Dummy model
+  - [x] Oracle model
+  - [ ] Act model
+  - [ ] Handle only dialogue tracking in model class
 - [ ] Observations should be passed as either text or image or both. Already in the correct format
 - [ ] Rerun image models with better bound box
   - [ ] Track bounding box accuracy
 - [ ] Set up github pages website for repo
 - [ ] Reduce size of inventory object - use dict instead of list, don't add empty quantities
+- [x] Remove option to pass dictionary object to environment
+- [ ] Improve planner to make optimal

@@ -4,10 +4,10 @@ from plancraft.config import EvalConfig
 from plancraft.environment.actions import (
     MoveAction,
 )
-from plancraft.models.base import ABCModel
+from plancraft.models.base import PlancraftBaseModel
 
 
-class DummyModel(ABCModel):
+class DummyModel(PlancraftBaseModel):
     """
     Dummy model returns actions that do random action
     """
@@ -15,7 +15,7 @@ class DummyModel(ABCModel):
     def __init__(self, cfg: EvalConfig):
         pass
 
-    def reset():
+    def reset(self):
         pass
 
     def random_select(self, observation):

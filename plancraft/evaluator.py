@@ -14,9 +14,12 @@ from tqdm import tqdm
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environment.actions import MoveAction, SmeltAction, StopAction
 from plancraft.environment.search import gold_search_recipe
-from plancraft.environment.env import PlancraftEnvironment
+from plancraft.environment.env import (
+    PlancraftEnvironment,
+    target_and_inventory_to_text_obs,
+)
 from plancraft.models import get_model
-from plancraft.models.base import History
+from plancraft.utils import History
 
 
 class Evaluator:
@@ -126,7 +129,6 @@ class Evaluator:
         self,
         example: PlancraftExample,
     ):
-        # objective = f"Craft an item of type: {example.target}"
         self.environment.reset(new_inventory=example.slotted_inventory)
         self.model.reset()
         self.history = History()
@@ -217,7 +219,11 @@ class Evaluator:
                 self.history.add_action_to_history(action)
                 observation = self.environment.step(action)
                 # convert symbolic inventory to text
-                observation["text"] = ""  # @TODO
+                # @TODO handle case when we don't want perfect text repr
+                observation["text"] = target_and_inventory_to_text_obs(
+                    example.target, inventory=observation["inventory"]
+                )
+                observation["target"] = example.target
                 num_non_env_actions = 0
 
             # check if the episode is done
@@ -230,7 +236,6 @@ class Evaluator:
 
             # predict next action
             raw_action = self.model.step(observation)
-
             action = self.parse_raw_model_response(raw_action)
 
         # save results and reset
@@ -238,8 +243,8 @@ class Evaluator:
             "success": success,
             "recipe_type": example.recipe_type,
             "complexity": example.complexity,
-            "number_of_steps": self.model.history.num_steps,
-            "model_trace": self.model.history.trace(),
+            "number_of_steps": self.history.num_steps,
+            "model_trace": self.history.trace(),
             "example_id": example.id,
             "impossible": example.impossible,
         }
@@ -267,7 +272,7 @@ class Evaluator:
             result = self.eval_example(example)
             results.append(result)
             self.save_results_dict(example, result)
-            self.save_images(example, self.model.history.images)
+            self.save_images(example, self.history.images)
 
             correct += int(result["success"])
             count += 1

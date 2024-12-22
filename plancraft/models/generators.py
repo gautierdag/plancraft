@@ -13,7 +13,7 @@ from transformers import (
 )
 from transformers.cache_utils import DynamicCache
 
-from plancraft.models.base import History
+from plancraft.utils import History
 from plancraft.models.oam import PlancraftOAM
 from plancraft.models.utils import (
     get_downloaded_models,
