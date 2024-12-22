@@ -1,4 +1,4 @@
-from plancraft.environments.sampler import (
+from plancraft.environment.sampler import (
     sample_distractors,
     assign_to_slots,
     construct_example,

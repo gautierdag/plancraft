@@ -15,7 +15,7 @@ from transformers import (
 )
 
 from plancraft.config import TrainConfig
-from plancraft.environments.actions import convert_from_slot_index
+from plancraft.environment.actions import convert_from_slot_index
 from plancraft.train.dataset import get_dataset_and_collate
 
 warnings.filterwarnings("ignore")

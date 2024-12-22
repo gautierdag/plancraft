@@ -3,7 +3,7 @@ from typing import Literal, Optional, Union
 from pydantic import BaseModel, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from plancraft.environments.recipes import RECIPES
+from plancraft.environment.recipes import RECIPES
 
 DatasetSplit = Literal[
     "train", "val", "val.small", "val.small.easy", "test", "test.small"

@@ -6,15 +6,15 @@ from typing import Literal, Optional
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from plancraft.environments.actions import SymbolicAction
-from plancraft.environments.recipes import (
+from plancraft.environment.actions import SymbolicAction
+from plancraft.environment.recipes import (
     RECIPES,
     ShapedRecipe,
     ShapelessRecipe,
     SmeltingRecipe,
     convert_ingredients_to_table,
 )
-from plancraft.environments.sampler import MAX_STACK_SIZE
+from plancraft.environment.sampler import MAX_STACK_SIZE
 
 
 class CraftingTableGUI:
@@ -252,37 +252,32 @@ class PlancraftEnvironment:
         for item in self.inventory:
             self.add_item_to_slot(item["type"], item["slot"], item["quantity"])
 
-    def step(self, action: Optional[SymbolicAction | dict] = None):
+    def step(self, action: Optional[SymbolicAction] = None):
         # default no op action
         if action is None:
             state_list = [
                 {"type": item["type"], "quantity": item["quantity"], "slot": idx}
                 for idx, item in self.state.items()
             ]
-            return {"inventory": state_list, "pov": self.table.frame}
+            return {"inventory": state_list, "image": self.table.frame}
 
-        # action_dict = action.to_action_dict()
-        if not isinstance(action, dict):
-            action = action.to_action_dict()
-
-        if "move" in action:
+        if action.action_type == "move":
             # do inventory command (move)
-            slot, slot_to, quantity = action["move"]
-            self.move_item(slot, slot_to, quantity)
-        elif "smelt" in action:
+            self.move_item(action.slot_from, action.slot_to, action.quantity)
+        elif action.action_type == "smelt":
             # do smelt
-            slot, slot_to, quantity = action["smelt"]
-            self.smelt_item(slot, slot_to, quantity)
+            self.smelt_item(action.slot_from, action.slot_to, action.quantity)
         else:
             raise ValueError("Invalid action")
 
         self.clean_state()
+
         # convert to list for same format as minerl
         state_list = [
             {"type": item["type"], "quantity": item["quantity"], "slot": idx}
             for idx, item in self.state.items()
         ]
-        return {"inventory": state_list, "pov": self.table.frame}
+        return {"inventory": state_list, "image": self.table.frame}
 
     def clean_state(self):
         # reset slot type if quantity is 0

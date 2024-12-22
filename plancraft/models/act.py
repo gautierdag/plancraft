@@ -3,7 +3,7 @@ import copy
 import torch
 
 from plancraft.config import EvalConfig
-from plancraft.environments.actions import (
+from plancraft.environment.actions import (
     StopAction,
     SymbolicAction,
 )
@@ -21,7 +21,7 @@ from plancraft.models.prompts import (
 )
 from plancraft.models.utils import (
     convert_observation_to_message,
-    parse_content_response,
+    # parse_content_response,
 )
 
 
@@ -134,7 +134,8 @@ class ActModel(ABCModel):
         self.history.reset(objective=objective, initial_dialogue=examples)
         self.llm.reset()
 
-    def step(self, observation: dict) -> SymbolicAction | StopAction:
+    # def step(self, observation: dict) -> SymbolicAction | StopAction:
+    def step(self, observation: dict) -> str:
         self.history.add_observation_to_history(observation)
 
         # add observation to history
@@ -150,38 +151,37 @@ class ActModel(ABCModel):
         self.history.add_message_to_history(content=observation_message, role="user")
 
         # Iterate until valid action
-        i = 0
-        while i < self.max_invalid_actions:
-            # add observation to history
-            message_window, image_window = self.llm.prepare_messages(
-                history=self.history,
-                max_messages_window=self.max_messages_window,
-                system_prompt=self.system_prompt,
-                prompt_images=self.prompt_images,
-            )
-            action_messages, action_token_used = self.llm.generate_unconstrained(
-                batch_messages=[message_window],
-                images=[image_window],
-            )
-            self.history.tokens_used += action_token_used
+        # i = 0
+        # while i < self.max_invalid_actions:
+        # add observation to history
+        message_window, image_window = self.llm.prepare_messages(
+            history=self.history,
+            max_messages_window=self.max_messages_window,
+            system_prompt=self.system_prompt,
+            prompt_images=self.prompt_images,
+        )
+        action_messages, action_token_used = self.llm.generate_unconstrained(
+            batch_messages=[message_window],
+            images=[image_window],
+        )
+        self.history.tokens_used += action_token_used
 
-            action_message = action_messages[0].split("\n")[0].strip()
+        action_message = action_messages[0].split("\n")[0].strip()
 
-            self.history.add_message_to_history(
-                content=action_message, role="assistant"
-            )
-            response = parse_content_response(
-                action_message, valid_actions=self.valid_actions
-            )
-            if not isinstance(response, str):
-                # valid action
-                self.history.add_action_to_history(response)
-                return response
+        self.history.add_message_to_history(content=action_message, role="assistant")
+        return action_message
+        # response = parse_content_response(
+        #     action_message, valid_actions=self.valid_actions
+        # )
+        # if not isinstance(response, str):
+        #     # valid action
+        #     self.history.add_action_to_history(response)
+        #     return response
 
-            self.history.add_message_to_history(
-                content=response,
-            )
-            i += 1
+        # self.history.add_message_to_history(
+        #     content=response,
+        # )
+        # i += 1
 
         # if no action is found after max_invalid_actions, default to useless move action
-        return
+        # return

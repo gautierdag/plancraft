@@ -85,11 +85,6 @@ class MoveAction(BaseModel):
             raise AttributeError("quantity must be between 1 and 64")
         return self
 
-    def to_action_dict(self) -> dict:
-        return {
-            "move": [self.slot_from, self.slot_to, self.quantity],
-        }
-
     def __str__(self):
         return f"move: from {convert_from_slot_index(self.slot_from)} to {convert_from_slot_index(self.slot_to)} with quantity {self.quantity}"
 
@@ -139,11 +134,6 @@ class SmeltAction(BaseModel):
             raise AttributeError("quantity must be between 1 and 64")
         return self
 
-    def to_action_dict(self) -> dict:
-        return {
-            "smelt": [self.slot_from, self.slot_to, self.quantity],
-        }
-
     def __str__(self):
         return f"move: from {convert_from_slot_index(self.slot_from)} to {convert_from_slot_index(self.slot_to)} with quantity {self.quantity}"
 
@@ -153,9 +143,6 @@ class ThinkAction(BaseModel):
 
     thought: str
 
-    def to_action_dict(self) -> dict:
-        return {}
-
     def __str__(self):
         return f"think: {self.thought}"
 
@@ -164,11 +151,6 @@ class SearchAction(BaseModel):
     """Searches for a relevant document in the wiki"""
 
     search_string: str
-
-    def to_action_dict(self) -> dict:
-        return {
-            "search": self.search_string,
-        }
 
     def __str__(self):
         return f"search: {self.search_string}"

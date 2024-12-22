@@ -1,11 +1,10 @@
 import random
 
 from plancraft.config import EvalConfig
-from plancraft.environments.actions import (
+from plancraft.environment.actions import (
     MoveAction,
-    SmeltAction,
 )
-from plancraft.models.base import ABCModel, History
+from plancraft.models.base import ABCModel
 
 
 class DummyModel(ABCModel):
@@ -14,15 +13,12 @@ class DummyModel(ABCModel):
     """
 
     def __init__(self, cfg: EvalConfig):
-        self._history = History(objective="")
+        pass
 
-    @property
-    def history(self):
-        return self._history
+    def reset():
+        pass
 
     def random_select(self, observation):
-        if observation is None or "inventory" not in observation:
-            return MoveAction(slot_from=0, slot_to=0, quantity=1)
         # randomly pick an item from the inventory
         item_indices = set()
         for item in observation["inventory"]:
@@ -38,14 +34,5 @@ class DummyModel(ABCModel):
             slot_from=random_slot_from, slot_to=random_slot_to, quantity=1
         )
 
-    def step(self, observation: dict) -> list[MoveAction | SmeltAction]:
-        # add observation to history
-        self.history.add_observation_to_history(observation)
-
-        # get action
-        action = self.random_select(observation)
-
-        # add action to history
-        self.history.add_action_to_history(action)
-
-        return action
+    def step(self, observation: dict) -> str:
+        return str(self.random_select(observation))

@@ -34,7 +34,7 @@ def main():
     )
     observation = env.step(move_action)
     # observation["inventory"] contains the updated symbolic inventory
-    # observation["pov"] contains the updated image of the inventory
+    # observation["image"] contains the updated image of the inventory
 
     # smelt one iron ore
     # [from, to, quantity]
@@ -63,7 +63,7 @@ def main():
     # Create the evaluator
     evaluator = Evaluator(config)
     # Evaluate the agent
-    evaluator.eval_all()
+    evaluator.eval_all_seeds()
 ```
 
 The evaluator class handles the environment loop and model interaction. The environment is created based on the configuration and the examples are loaded from the dataset. The `Evaluator` uses the dataset examples and initializes the environment with the example's inventory. It is also responsible for early stopping and verifying the target object has been craft. Finally, it also saves the results of the evaluation and the images generated during the evaluation.
@@ -77,3 +77,20 @@ docker buildx build --platform linux/amd64,linux/arm64 -t gautierdag/plancraft -
 ```
 
 The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/plancraft). Note that, unlike the package, the docker image includes everything in the repo.
+
+### TODO
+
+- [x] Migrate models to return actions as str
+  - [x] Dummy Model
+  - [x] Act Model
+  - [x] Oracle Model
+  - [x] Evaluator should handle tools and process the raw string
+    - [x] Move `parse_content_response` to evaluator
+    - [x] Move `gold_search_recipe` into environment module (search.py)
+  - [x] Evaluator should handle the case where three non-env tools are used in a row -> force an observation/goal of the inventory
+- [ ] History should be attached to Evaluator object. Models should track whatever they need independently
+- [ ] Observations should be passed as either text or image or both. Already in the correct format
+- [ ] Rerun image models with better bound box
+  - [ ] Track bounding box accuracy
+- [ ] Set up github pages website for repo
+- [ ] Reduce size of inventory object - use dict instead of list, don't add empty quantities

@@ -4,7 +4,7 @@ from copy import copy
 
 from loguru import logger
 
-from plancraft.environments.actions import (
+from plancraft.environment.actions import (
     MoveAction,
     SmeltAction,
 )
@@ -79,8 +79,8 @@ class History:
                 if item["quantity"] > 0:
                     clean_inv.append(item)
             self.add_inventory_to_history(clean_inv)
-        if "pov" in observation:
-            self.add_image_to_history(observation["pov"])
+        if "image" in observation:
+            self.add_image_to_history(observation["image"])
 
     def __str__(self):
         return str(self.dialogue_history)
@@ -139,16 +139,12 @@ class ABCModel(abc.ABC):
         """
         raise NotImplementedError()
 
-    @property
     @abc.abstractmethod
-    def history(self) -> History:
-        """
-        Return the history object.
-        """
+    def reset(self):
         raise NotImplementedError()
 
-    def reset_history(self, objective: str = ""):
-        """
-        Reset the history with a new objective.
-        """
-        self.history.reset(objective=objective)
+    # def reset_history(self, objective: str = ""):
+    #     """
+    #     Reset the history with a new objective.
+    #     """
+    #     self.history.reset(objective=objective)

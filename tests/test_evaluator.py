@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from plancraft.config import EvalConfig, PlancraftExample
-from plancraft.environments.env import PlancraftEnvironment
+from plancraft.environment.env import PlancraftEnvironment
 from plancraft.evaluator import Evaluator
 
 

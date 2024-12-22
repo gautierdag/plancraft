@@ -4,19 +4,19 @@ from collections import Counter
 import torch
 
 from plancraft.config import EvalConfig
-from plancraft.environments.actions import (
+from plancraft.environment.actions import (
     StopAction,
     MoveAction,
     SmeltAction,
 )
-from plancraft.environments.planner import optimal_planner
-from plancraft.environments.recipes import (
+from plancraft.environment.planner import optimal_planner
+from plancraft.environment.recipes import (
     ShapedRecipe,
     ShapelessRecipe,
     SmeltingRecipe,
     id_to_item,
 )
-from plancraft.environments.sampler import MAX_STACK_SIZE
+from plancraft.environment.sampler import MAX_STACK_SIZE
 from plancraft.models.base import ABCModel, History
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel
 
@@ -120,7 +120,7 @@ class OracleModel(ABCModel):
     """
 
     def __init__(self, cfg: EvalConfig):
-        self._history = History(objective="")
+        # self._history = History(objective="")
         self.plans = []
         self.subplans = []
         self.use_fasterrcnn = cfg.plancraft.use_fasterrcnn
@@ -135,12 +135,16 @@ class OracleModel(ABCModel):
             if torch.cuda.is_available():
                 self.bbox_model.cuda()
 
-    @property
-    def history(self):
-        return self._history
+    # @property
+    # def history(self):
+    #     return self._history
 
-    def reset_history(self, objective: str = ""):
-        self.history.reset(objective=objective)
+    # def reset_history(self, objective: str = ""):
+    # self.history.reset(objective=objective)
+    # self.plans = []
+    # self.subplans = []
+
+    def reset(self):
         self.plans = []
         self.subplans = []
 
@@ -159,7 +163,7 @@ class OracleModel(ABCModel):
 
         if self.bbox_model is not None:
             observed_inventory = self.bbox_model.get_inventory(
-                observation["pov"].copy()
+                observation["image"].copy()
             )
         else:
             observed_inventory = copy.deepcopy(observation["inventory"])
@@ -249,9 +253,9 @@ class OracleModel(ABCModel):
 
         return self.subplans.pop(0)
 
-    def step(self, observation: dict) -> list[MoveAction | SmeltAction]:
+    def step(self, observation: dict) -> str:
         # add observation to history
-        self.history.add_observation_to_history(observation)
+        # self.history.add_observation_to_history(observation)
 
         # get action
         if len(self.plans) == 0:
@@ -263,5 +267,5 @@ class OracleModel(ABCModel):
         action = self.get_next_action(observation)
 
         # add action to history
-        self.history.add_action_to_history(action)
-        return action
+        # self.history.add_action_to_history(action)
+        return str(action)

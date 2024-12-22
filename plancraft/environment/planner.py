@@ -2,7 +2,7 @@ import time
 
 import networkx as nx
 
-from plancraft.environments.recipes import RECIPES, BaseRecipe
+from plancraft.environment.recipes import RECIPES, BaseRecipe
 
 RECIPE_GRAPH = nx.DiGraph()
 

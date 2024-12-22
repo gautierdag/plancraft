@@ -1,5 +1,5 @@
 import pytest
-from plancraft.environments.recipes import (
+from plancraft.environment.recipes import (
     RECIPES,
     ShapedRecipe,
     ShapelessRecipe,

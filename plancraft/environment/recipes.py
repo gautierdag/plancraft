@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from plancraft.environments.items import ALL_ITEMS
+from plancraft.environment.items import ALL_ITEMS
 
 
 def clean_item_name(item: str) -> str:

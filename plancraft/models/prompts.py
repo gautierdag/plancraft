@@ -1,7 +1,7 @@
 import numpy as np
 
-from plancraft.environments.env import PlancraftEnvironment
-from plancraft.models.utils import gold_search_recipe
+from plancraft.environment.env import PlancraftEnvironment
+from plancraft.environment.search import gold_search_recipe
 
 VALID_ACTIONS = ["move", "smelt", "think", "search", "impossible"]
 
@@ -179,7 +179,7 @@ def load_prompt_images(resolution: str) -> list[np.ndarray]:
     images = []
     for action in actions:
         obs = env.step(action)
-        images.append(obs["pov"])
+        images.append(obs["image"])
 
     second_inv = [
         {"type": "iron_ore", "slot": 45, "quantity": 1},
@@ -191,7 +191,7 @@ def load_prompt_images(resolution: str) -> list[np.ndarray]:
     env.reset(new_inventory=second_inv)
     for action in new_actions:
         obs = env.step(action)
-        images.append(obs["pov"])
+        images.append(obs["image"])
 
     assert len(images) == 4
     return images

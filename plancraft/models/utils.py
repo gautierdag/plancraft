@@ -9,14 +9,14 @@ import torch
 from PIL import Image
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from plancraft.environments.actions import (
+from plancraft.environment.actions import (
     StopAction,
     SymbolicAction,
     MoveAction,
     SmeltAction,
     convert_from_slot_index,
 )
-from plancraft.environments.recipes import RECIPES
+# from plancraft.environment.recipes import RECIPES
 
 
 def numpy_to_base64(img_array: np.ndarray, image_format: str = "PNG") -> str:
@@ -188,7 +188,7 @@ def convert_observation_to_message(
     """
     if bbox_model is not None:
         # convert to tensor
-        inventory = bbox_model.get_inventory(observation["pov"].copy())
+        inventory = bbox_model.get_inventory(observation["image"].copy())
         text_content = objective_and_inventory_to_str(
             objective, sorted(inventory, key=lambda x: x["slot"])
         )
@@ -198,17 +198,9 @@ def convert_observation_to_message(
         text_content = objective
     else:
         # if not multimodal, we only have text - we just dump a JSON of the inventory
-        inventory = []
-        for o in observation["inventory"]:
-            if o["quantity"] > 0:
-                inventory.append(
-                    {
-                        "type": o["type"],
-                        "slot": convert_from_slot_index(o["slot"]),
-                        "quantity": o["quantity"],
-                    }
-                )
-        text_content = objective_and_inventory_to_str(objective, inventory)
+        text_content = objective_and_inventory_to_str(
+            objective, sorted(inventory, key=lambda x: x["slot"])
+        )
 
     if not use_multimodal_content_format:
         return text_content
@@ -217,69 +209,3 @@ def convert_observation_to_message(
     if use_images:
         content_list.append({"type": "image"})
     return {"content": content_list}
-
-
-def gold_search_recipe(recipe_name: str) -> str:
-    """
-    Gold search recipe for the given observation and action
-    """
-    if recipe_name not in RECIPES:
-        return "Could not find a recipe by that name."
-
-    out_string = f"Recipes to craft {recipe_name}:\n"
-    for i, r in enumerate(RECIPES[recipe_name]):
-        if r.recipe_type != "smelting":
-            # sample a valid input grid (note that this is not guaranteed to be the only valid grid)
-            input_crafting_grid = r.sample_input_crafting_grid()
-            recipe_instructions = ""
-            for item in input_crafting_grid:
-                recipe_instructions += (
-                    f"{item['type']} at {convert_from_slot_index(item['slot'])}\n"
-                )
-        else:
-            # smelting recipe
-            recipe_instructions = f"smelt {r.ingredient}\n"
-        out_string += f"recipe {i+1}:\n{recipe_instructions}"
-    return out_string
-
-
-def parse_content_response(
-    content: str, valid_actions: list[str] = ["smelt", "move"]
-) -> str | SymbolicAction | StopAction:
-    """
-    Given a message and set of valid actions, parse the content to return the action
-    or a message if the action is not valid/requires message response
-    """
-
-    action_match = re.search(f"({'|'.join(valid_actions)}):", content)
-    if action_match:
-        action = action_match.group(1)
-        if action == "think":
-            return "Ok"
-        elif action == "impossible":
-            reason = re.search(r"impossible: (.*)", content).group(1)
-            return StopAction(reason=reason)
-        elif action == "search":
-            search_target = re.search(r"search: (\w+)", content).group(1)
-            return gold_search_recipe(search_target)
-        else:
-            try:
-                slot_from = re.search(r" from (\[[ABCI]?\d+\])", content).group(1)
-                slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(1)
-                quantity = re.search(r"with quantity (\d+)", content).group(1)
-                if action == "move":
-                    action = MoveAction(
-                        slot_from=slot_from,
-                        slot_to=slot_to,
-                        quantity=quantity,
-                    )
-                else:
-                    action = SmeltAction(
-                        slot_from=slot_from,
-                        slot_to=slot_to,
-                        quantity=quantity,
-                    )
-                return action
-            except AttributeError as e:
-                return f"Format Error: {e}"
-    return f"Only select actions from the following: {', '.join(valid_actions)}"

@@ -1,4 +1,4 @@
-from plancraft.environments.env import PlancraftEnvironment
+from plancraft.environment.env import PlancraftEnvironment
 
 
 def test_symbolic_env_symbolic_commands():

@@ -6,10 +6,10 @@ from PIL import Image, ImageDraw
 from tqdm import tqdm
 
 import wandb
-from plancraft.environments.env import PlancraftEnvironment
-from plancraft.environments.items import ALL_ITEMS
-from plancraft.environments.recipes import RECIPES, ShapedRecipe, ShapelessRecipe
-from plancraft.environments.sampler import sample_distractors
+from plancraft.environment.env import PlancraftEnvironment
+from plancraft.environment.items import ALL_ITEMS
+from plancraft.environment.recipes import RECIPES, ShapedRecipe, ShapelessRecipe
+from plancraft.environment.sampler import sample_distractors
 from plancraft.models.bbox_model import IntegratedBoundingBoxModel, slot_to_bbox
 
 CRAFTING_RECIPES = [
@@ -103,10 +103,10 @@ def sample_environment(batch_size=32, N=100):
             if len(target["labels"]) == 0:
                 continue
 
-            img_tensor = transform(obs["pov"].copy())
+            img_tensor = transform(obs["image"].copy())
             batch_images.append(img_tensor)
             batch_targets.append(target)
-            batch_images_raw.append(obs["pov"])
+            batch_images_raw.append(obs["image"])
             batch_inventory.append(inv)
 
         yield (

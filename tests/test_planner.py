@@ -1,4 +1,4 @@
-from plancraft.environments.planner import optimal_planner
+from plancraft.environment.planner import optimal_planner
 
 
 def test_optimal_planner_difficult():

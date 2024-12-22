@@ -5,9 +5,9 @@ from collections import Counter
 import numpy as np
 from loguru import logger
 
-from plancraft.environments.items import ALL_ITEMS, all_data
-from plancraft.environments.planner import get_ancestors, optimal_planner
-from plancraft.environments.recipes import RECIPES
+from plancraft.environment.items import ALL_ITEMS, all_data
+from plancraft.environment.planner import get_ancestors, optimal_planner
+from plancraft.environment.recipes import RECIPES
 
 MAX_STACK_SIZE = {}
 for data_item in all_data["items"]:

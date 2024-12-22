@@ -19,7 +19,7 @@ from torchvision.models.detection.roi_heads import (
 )
 from torchvision.ops import boxes as box_ops
 
-from plancraft.environments.items import ALL_ITEMS
+from plancraft.environment.items import ALL_ITEMS
 
 from functools import lru_cache
 

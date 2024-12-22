@@ -3,6 +3,7 @@ import os
 import random
 import string
 import time
+import re
 
 import imageio
 import pandas as pd
@@ -11,9 +12,11 @@ from loguru import logger
 from tqdm import tqdm
 
 from plancraft.config import EvalConfig, PlancraftExample
-from plancraft.environments.actions import StopAction
-from plancraft.environments.env import PlancraftEnvironment
+from plancraft.environment.actions import MoveAction, SmeltAction, StopAction
+from plancraft.environment.search import gold_search_recipe
+from plancraft.environment.env import PlancraftEnvironment
 from plancraft.models import get_model
+from plancraft.models.base import History
 
 
 class Evaluator:
@@ -35,13 +38,18 @@ class Evaluator:
         )
         self.generation_number = 0
 
+        # load all examples
         self.examples: list[PlancraftExample] = self.load_dataset(cfg.plancraft.split)
 
+        # start environment
         self.environment = PlancraftEnvironment(
             inventory=[],
             resolution=cfg.plancraft.environment.resolution,
         )
+        # initialise history/dialogue tracking
+        self.history = History()
 
+        # load model
         self.model = get_model(cfg)
 
     def evaluator_name(self) -> str:
@@ -118,9 +126,10 @@ class Evaluator:
         self,
         example: PlancraftExample,
     ):
-        objective = f"Craft an item of type: {example.target}"
+        # objective = f"Craft an item of type: {example.target}"
         self.environment.reset(new_inventory=example.slotted_inventory)
-        self.model.reset_history(objective=objective)
+        self.model.reset()
+        self.history = History()
 
     def check_done(self, inventory: list[dict[str, int]], target: str):
         """
@@ -133,15 +142,64 @@ class Evaluator:
                     return True
         return False
 
+    def parse_raw_model_response(
+        self, content: str
+    ) -> str | MoveAction | SmeltAction | StopAction:
+        """
+        Given a message and set of valid actions, parse the content to return the action
+        or a message if the action is not valid/requires message response
+        """
+
+        action_match = re.search(
+            f"({'|'.join(self.cfg.plancraft.valid_actions)}):", content
+        )
+        if action_match:
+            action = action_match.group(1)
+            if action == "think":
+                return "Ok"
+            elif action == "impossible":
+                reason = re.search(r"impossible: (.*)", content).group(1)
+                return StopAction(reason=reason)
+            elif action == "search":
+                search_target = re.search(r"search: (\w+)", content).group(1)
+                return gold_search_recipe(search_target)
+            else:
+                try:
+                    slot_from = re.search(r" from (\[[ABCI]?\d+\])", content).group(1)
+                    slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(1)
+                    quantity = re.search(r"with quantity (\d+)", content).group(1)
+                    if action == "move":
+                        action = MoveAction(
+                            slot_from=slot_from,
+                            slot_to=slot_to,
+                            quantity=quantity,
+                        )
+                    else:
+                        action = SmeltAction(
+                            slot_from=slot_from,
+                            slot_to=slot_to,
+                            quantity=quantity,
+                        )
+                    return action
+                except AttributeError as e:
+                    return f"Format Error: {e}"
+        return f"Only select actions from the following: {', '.join(self.cfg.plancraft.valid_actions)}"
+
     def eval_example(self, example: PlancraftExample) -> dict:
+        """
+        Given the loaded model and an example from Plancraft
+        run the episode until success or termination.
+        Termination can happen from: early stopping (stuck) / max_steps / stop_action
+        """
         success = False
+        num_non_env_actions = 0
         self.reset(example)
         action = None
 
         # run episode until stuck or until max steps is reached
         while (
-            not self.model.history.check_stuck()
-            and self.model.history.num_steps < self.cfg.plancraft.max_steps
+            not self.history.check_stuck()
+            and self.history.num_steps < self.cfg.plancraft.max_steps
         ):
             # if the action is stop then we end the episode
             if isinstance(action, StopAction):
@@ -149,20 +207,31 @@ class Evaluator:
                 # otherwise we should not have stopped
                 success = example.impossible
                 break
-
-            # step action
-            observation = self.environment.step(action)
+            # action is external tool then it is str
+            elif isinstance(action, str) and num_non_env_actions < 3:
+                observation = {"text": action}
+                num_non_env_actions += 1
+            # action is environment action
+            else:
+                # add action to history
+                self.history.add_action_to_history(action)
+                observation = self.environment.step(action)
+                # convert symbolic inventory to text
+                observation["text"] = ""  # @TODO
+                num_non_env_actions = 0
 
             # check if the episode is done
             success = self.check_done(observation["inventory"], example.target)
+
+            self.history.add_observation_to_history(observation)
             # exit if success
             if success:
-                # add final observation to history
-                self.model.history.add_observation_to_history(observation)
                 break
 
             # predict next action
-            action = self.model.step(observation)
+            raw_action = self.model.step(observation)
+
+            action = self.parse_raw_model_response(raw_action)
 
         # save results and reset
         return {

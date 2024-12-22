@@ -7,8 +7,8 @@ import numpy as np
 
 from tqdm import tqdm
 
-from plancraft.environments.recipes import RECIPES
-from plancraft.environments.sampler import construct_example
+from plancraft.environment.recipes import RECIPES
+from plancraft.environment.sampler import construct_example
 
 
 def reset_construct_example(target, num_distractors, impossible):
