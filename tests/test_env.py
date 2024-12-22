@@ -1,3 +1,4 @@
+from plancraft.environment.actions import MoveAction, SmeltAction
 from plancraft.environment.env import PlancraftEnvironment
 
 
@@ -8,34 +9,34 @@ def test_symbolic_env_symbolic_commands():
     )
     obs = env.step()
     actions_list = [
-        ("smelt", [10, 11, 1]),
-        ("smelt", [10, 11, 1]),
-        ("smelt", [10, 11, 1]),
-        ("move", [11, 1, 1]),
-        ("move", [11, 3, 1]),
-        ("move", [11, 5, 1]),
-        ("move", [0, 12, 1]),
-        ("move", [23, 1, 1]),
-        ("move", [23, 1, 1]),
-        ("move", [23, 1, 1]),
-        ("move", [23, 1, 1]),
-        ("move", [23, 1, 1]),
-        ("move", [23, 1, 1]),
-        ("move", [23, 1, 1]),
-        ("move", [23, 1, 1]),
-        ("move", [0, 30, 4]),
-        ("move", [0, 30, 4]),
-        ("move", [0, 30, 4]),
-        ("move", [0, 30, 4]),
-        ("move", [0, 0, 0]),
-        ("move", [0, 0, 0]),
-        ("move", [0, 0, 0]),
-        ("move", [0, 0, 0]),
+        SmeltAction(slot_from=10, slot_to=11, quantity=1),
+        SmeltAction(slot_from=10, slot_to=11, quantity=1),
+        SmeltAction(slot_from=10, slot_to=11, quantity=1),
+        MoveAction(slot_from=11, slot_to=1, quantity=1),
+        MoveAction(slot_from=11, slot_to=3, quantity=1),
+        MoveAction(slot_from=11, slot_to=5, quantity=1),
+        MoveAction(slot_from=0, slot_to=12, quantity=1),
+        MoveAction(slot_from=23, slot_to=1, quantity=1),
+        MoveAction(slot_from=23, slot_to=1, quantity=1),
+        MoveAction(slot_from=23, slot_to=1, quantity=1),
+        MoveAction(slot_from=23, slot_to=1, quantity=1),
+        MoveAction(slot_from=23, slot_to=1, quantity=1),
+        MoveAction(slot_from=23, slot_to=1, quantity=1),
+        MoveAction(slot_from=23, slot_to=1, quantity=1),
+        MoveAction(slot_from=23, slot_to=1, quantity=1),
+        MoveAction(slot_from=0, slot_to=30, quantity=4),
+        MoveAction(slot_from=0, slot_to=30, quantity=4),
+        MoveAction(slot_from=0, slot_to=30, quantity=4),
+        MoveAction(slot_from=0, slot_to=30, quantity=4),
+        None,
+        None,
+        None,
+        None,
     ]
 
-    for action_name, action_args in actions_list:
+    for action in actions_list:
         # Take a random action
-        obs = env.step({action_name: action_args})
+        obs = env.step(action)
         print(env.state[11])
 
     assert all([k["type"] != "iron_ingot" for k in obs["inventory"]])
@@ -97,7 +98,7 @@ def test_step_move():
     env = PlancraftEnvironment(
         inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}]
     )
-    action = {"move": [1, 2, 5]}
+    action = MoveAction(slot_from=1, slot_to=2, quantity=5)
     env.step(action)
     assert env.state[1]["quantity"] == 5
     assert env.state[2]["type"] == "iron_ore"
@@ -108,7 +109,7 @@ def test_step_smelt():
     env = PlancraftEnvironment(
         inventory=[{"type": "iron_ore", "quantity": 10, "slot": 1}]
     )
-    action = {"smelt": [1, 2, 5]}
+    action = SmeltAction(slot_from=1, slot_to=2, quantity=5)
     env.step(action)
     assert env.state[1]["quantity"] == 5
     assert env.state[2]["type"] == "iron_ingot"
