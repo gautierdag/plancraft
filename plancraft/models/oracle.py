@@ -247,7 +247,7 @@ class OracleModel(PlancraftBaseModel):
             self.plans = self.get_plan(observation)
             if self.plans is None:
                 self.plans = []
-                return StopAction()
+                return str(StopAction())
 
         action = self.get_next_action(observation)
         return str(action)
