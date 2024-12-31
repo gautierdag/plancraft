@@ -100,6 +100,10 @@ def get_prompt_example(
     use_multimodal_content_format=False,
     use_images=False,
 ) -> list[dict]:
+    """
+    Generates a few-shot prompt for the crafting task
+    """
+
     assert set(actions).issubset(VALID_ACTIONS), f"Invalid actions: {actions}"
     assert "move" in actions, "move should be one of the actions"
     assert "smelt" in actions, "smelt should be one of the actions"

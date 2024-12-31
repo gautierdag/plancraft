@@ -1,23 +1,24 @@
 import json
 import os
 import random
+import re
 import string
 import time
-import re
 
 import imageio
 import pandas as pd
-import wandb
 from loguru import logger
 from tqdm import tqdm
 
+import wandb
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environment.actions import MoveAction, SmeltAction, StopAction
-from plancraft.environment.search import gold_search_recipe
 from plancraft.environment.env import (
     PlancraftEnvironment,
+    get_objective_str,
     target_and_inventory_to_text_obs,
 )
+from plancraft.environment.search import gold_search_recipe
 from plancraft.models import get_model
 from plancraft.utils import History
 
@@ -49,8 +50,15 @@ class Evaluator:
             inventory=[],
             resolution=cfg.plancraft.environment.resolution,
         )
+
         # initialise history/dialogue tracking
-        self.history = History()
+        self.history = History(
+            valid_actions=cfg.plancraft.valid_actions,
+            use_multimodal_content_format=cfg.plancraft.use_multimodal_content_format,
+            use_images=cfg.plancraft.use_images,
+            use_text_inventory=cfg.plancraft.use_text_inventory,
+            resolution=cfg.plancraft.environment.resolution,
+        )
 
         # load model
         self.model = get_model(cfg)
@@ -131,7 +139,7 @@ class Evaluator:
     ):
         self.environment.reset(new_inventory=example.slotted_inventory)
         self.model.reset()
-        self.history = History()
+        self.history.reset()
 
     def check_done(self, inventory: list[dict[str, int]], target: str):
         """
@@ -187,6 +195,41 @@ class Evaluator:
                     return f"Format Error: {e}"
         return f"Only select actions from the following: {', '.join(self.cfg.plancraft.valid_actions)}"
 
+    def convert_observation_to_message(
+        self,
+        observation: dict,
+    ) -> str | dict:
+        """
+        Convert an environment observation to the message format used by an LLM chat model
+
+        Parameters:
+        - observation: dict - The observation to convert.
+        - use_text_inventory: bool - Whether to use text inventory.
+        - use_multimodal_content_format: bool - Whether to use multimodal content format.
+        - use_images: bool - Whether to append an image to the message content - must be used with use_multimodal_content_format.
+        """
+        if self.cfg.plancraft.use_fasterrcnn:
+            # convert image to inventory using fasterrcnn
+            inventory = self.model.bbox_model.get_inventory(observation["image"].copy())
+            text_content = target_and_inventory_to_text_obs(
+                observation["target"], sorted(inventory, key=lambda x: x["slot"])
+            )
+        elif not self.cfg.plancraft.use_text_inventory:
+            text_content = get_objective_str(observation["target"])
+        else:
+            # if not multimodal, we only have text - we format the inventory as text
+            text_content = target_and_inventory_to_text_obs(
+                observation["target"],
+                sorted(observation["inventory"], key=lambda x: x["slot"]),
+            )
+        if not self.cfg.plancraft.use_multimodal_content_format:
+            return text_content
+
+        content_list = [{"type": "text", "text": text_content}]
+        if self.cfg.plancraft.use_images:
+            content_list.append({"type": "image"})
+        return {"content": content_list}
+
     def eval_example(self, example: PlancraftExample) -> dict:
         """
         Given the loaded model and an example from Plancraft
@@ -211,31 +254,40 @@ class Evaluator:
                 break
             # action is external tool then it is str
             elif isinstance(action, str) and num_non_env_actions < 3:
-                observation = {"text": action}
+                observation = {"message": action}
                 num_non_env_actions += 1
             # action is environment action
             else:
                 # add action to history
                 self.history.add_action_to_history(action)
                 observation = self.environment.step(action)
-                # convert symbolic inventory to text
-                # @TODO handle case when we don't want perfect text repr
-                observation["text"] = target_and_inventory_to_text_obs(
-                    example.target, inventory=observation["inventory"]
-                )
                 observation["target"] = example.target
+
+                # convert inventory observation to text message
+                observation["message"] = self.convert_observation_to_message(
+                    observation
+                )
                 num_non_env_actions = 0
 
-            # check if the episode is done
-            success = self.check_done(observation["inventory"], example.target)
+                # check if the episode is done
+                success = self.check_done(observation["inventory"], example.target)
 
+            # add observation to history
             self.history.add_observation_to_history(observation)
+            # add observation message to history
+            self.history.add_message_to_history(
+                content=observation["message"], role="user"
+            )
+
             # exit if success
             if success:
                 break
 
             # predict next action
-            raw_action = self.model.step(observation)
+            raw_action = self.model.step(observation, dialogue_history=self.history)
+            # add message to history
+            self.history.add_message_to_history(content=raw_action, role="assistant")
+            # parse the raw action
             action = self.parse_raw_model_response(raw_action)
 
         # save results and reset
@@ -258,6 +310,8 @@ class Evaluator:
         correct = 0
         count = 0
         for example in self.examples:
+            logger.debug(f"Running example {example.id}")
+
             if resume_result := self.load_results_dict(example):
                 pbar.update(self.cfg.plancraft.max_steps)
                 results.append(resume_result)

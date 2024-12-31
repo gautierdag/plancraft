@@ -5,9 +5,9 @@ import torch
 
 from plancraft.config import EvalConfig
 from plancraft.environment.actions import (
-    StopAction,
     MoveAction,
     SmeltAction,
+    StopAction,
 )
 from plancraft.environment.planner import optimal_planner
 from plancraft.environment.recipes import (
@@ -241,7 +241,7 @@ class OracleModel(PlancraftBaseModel):
 
         return self.subplans.pop(0)
 
-    def step(self, observation: dict) -> str:
+    def step(self, observation: dict, **kwargs) -> str:
         # get action
         if len(self.plans) == 0:
             self.plans = self.get_plan(observation)

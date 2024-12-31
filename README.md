@@ -13,6 +13,8 @@ You can install the package by running the following command:
 pip install plancraft
 ```
 
+## NOTE: This code is still in active development and refactoring (31/12/24). Expect a proper release by end of January 2025
+
 ## Usage
 
 The package provides a `PlancraftEnvironment` class that can be used to interact with the environment. Here is an example of how to use it:
@@ -88,15 +90,31 @@ The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/planc
     - [x] Move `parse_content_response` to evaluator
     - [x] Move `gold_search_recipe` into environment module (search.py)
   - [x] Evaluator should handle the case where three non-env tools are used in a row -> force an observation/goal of the inventory
-- [ ] History should be attached to Evaluator object. Models should track whatever they need independently
+- [x] History should be attached to Evaluator object. Models should track whatever they need independently
   - [x] Dummy model
   - [x] Oracle model
-  - [ ] Act model
-  - [ ] Handle only dialogue tracking in model class
-- [ ] Observations should be passed as either text or image or both. Already in the correct format
-- [ ] Rerun image models with better bound box
-  - [ ] Track bounding box accuracy
-- [ ] Set up github pages website for repo
-- [ ] Reduce size of inventory object - use dict instead of list, don't add empty quantities
+  - [x] Act model (uses history but only for dialogue tracking)
+  - ~~[] Handle only dialogue tracking in model class~~
+  - [x] Track token usage somewhere
+  - [x] Track dialogue exchanges in evaluator
 - [x] Remove option to pass dictionary object to environment
-- [ ] Improve planner to make optimal
+- [ ] Observations should be passed as either text or image or both. Already in the correct format
+- [ ] Reduce size of inventory object - use dict instead of list, don't add empty quantities
+- [x] Remove OAM from repo
+- [ ] Rerun image models with better bounding box model
+  - [ ] Track bounding box accuracy
+- [ ] Set up github pages website for repo documentation
+- [ ] Improve planner to bring closer to optimal
+- [ ] Add minecraft wiki scrape and non-oracle search for pages
+
+```bibtex
+@misc{dagan2024plancraftevaluationdatasetplanning,
+      title={Plancraft: an evaluation dataset for planning with LLM agents}, 
+      author={Gautier Dagan and Frank Keller and Alex Lascarides},
+      year={2024},
+      eprint={2412.21033},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2412.21033}, 
+}
+```

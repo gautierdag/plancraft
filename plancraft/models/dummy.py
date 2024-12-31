@@ -34,5 +34,5 @@ class DummyModel(PlancraftBaseModel):
             slot_from=random_slot_from, slot_to=random_slot_to, quantity=1
         )
 
-    def step(self, observation: dict) -> str:
+    def step(self, observation: dict, **kwargs) -> str:
         return str(self.random_select(observation))

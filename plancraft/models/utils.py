@@ -2,21 +2,11 @@ import base64
 import glob
 import io
 import pathlib
-import re
 
 import numpy as np
 import torch
 from PIL import Image
 from transformers import AutoModelForCausalLM, AutoTokenizer
-
-from plancraft.environment.actions import (
-    StopAction,
-    SymbolicAction,
-    MoveAction,
-    SmeltAction,
-    convert_from_slot_index,
-)
-# from plancraft.environment.recipes import RECIPES
 
 
 def numpy_to_base64(img_array: np.ndarray, image_format: str = "PNG") -> str:
@@ -150,62 +140,3 @@ def tokenize(
             padding=True,
         )
     return tokenized_messages
-
-
-def objective_and_inventory_to_str(objective: str, inventory: list[dict]) -> str:
-    inventory_str = ""
-    for item in inventory:
-        # skip items with quantity 0
-        if item["quantity"] <= 0:
-            continue
-        slot = item["slot"]
-        if isinstance(slot, int):
-            slot = convert_from_slot_index(slot)
-        inventory_str += f"\n - {item['type']} {slot} quantity {item['quantity']}"
-    return f"{objective}\ninventory:{inventory_str}"
-
-
-def convert_observation_to_message(
-    observation: dict,
-    objective: str,
-    bbox_model=None,
-    oam_model=False,
-    use_text_inventory=True,
-    use_multimodal_content_format=False,
-    use_images=False,
-) -> str | dict:
-    """
-    Convert an observation to a message format
-
-    Parameters:
-    - observation: dict - The observation to convert.
-    - objective: str - The objective of the observation.
-    - bbox_model: Optional - The bounding box model to use.
-    - oam_model: bool - Whether to use the OAM model.
-    - use_text_inventory: bool - Whether to use text inventory.
-    - use_multimodal_content_format: bool - Whether to use multimodal content format.
-    - use_images: bool - Whether to append an image to the message content - must be used with use_multimodal_content_format.
-    """
-    if bbox_model is not None:
-        # convert to tensor
-        inventory = bbox_model.get_inventory(observation["image"].copy())
-        text_content = objective_and_inventory_to_str(
-            objective, sorted(inventory, key=lambda x: x["slot"])
-        )
-    elif oam_model:
-        text_content = f"{objective}\ninventory:\n"
-    elif not use_text_inventory:
-        text_content = objective
-    else:
-        # if not multimodal, we only have text - we just dump a JSON of the inventory
-        text_content = objective_and_inventory_to_str(
-            objective, sorted(inventory, key=lambda x: x["slot"])
-        )
-
-    if not use_multimodal_content_format:
-        return text_content
-
-    content_list = [{"type": "text", "text": text_content}]
-    if use_images:
-        content_list.append({"type": "image"})
-    return {"content": content_list}

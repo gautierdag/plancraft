@@ -10,22 +10,78 @@ from plancraft.environment.actions import (
     MoveAction,
     SmeltAction,
 )
+from plancraft.environment.prompts import (
+    get_system_prompt,
+    get_prompt_example,
+    load_prompt_images,
+)
 
 
 class History:
+    """
+    History class to keep track of dialogue, actions, inventory and images
+    Args:
+        valid_actions: list of valid actions
+        initial_dialogue: list of dialogue messages
+        use_multimodal_content_format: whether to use multimodal content format (list of content with types)
+    """
+
     def __init__(
         self,
-        initial_dialogue: list[dict] = [],
+        valid_actions: list[str] = ["move", "smelt"],
         use_multimodal_content_format=False,
+        few_shot=False,
+        use_images=False,
+        use_text_inventory=False,
+        resolution="high",
     ):
-        self.dialogue_history = initial_dialogue
-        self.initial_dialogue_length = len(initial_dialogue)
+        self.valid_actions = valid_actions
+        self.use_multimodal_content_format = use_multimodal_content_format
+        self.few_shot = few_shot
+        self.use_images = use_images
+        self.use_text_inventory = use_text_inventory
+        self.resolution = resolution  # low, medium, high
+
         self.action_history = []
         self.inventory_history = []
         self.inventory_counters = []
-        self.images = []
+
         self.tokens_used = 0
-        self.use_multimodal_content_format = use_multimodal_content_format
+
+        # set up dialogue history with few-shot prompt
+        self.set_up_few_shot_prompt()
+        self.system_prompt_dialogue = self.system_prompt()
+
+        self.dialogue_history = copy(self.prompt_examples)
+        self.images = copy(self.prompt_images)
+        self.initial_dialogue_length = len(self.dialogue_history)
+
+    def system_prompt(self):
+        # kept separate from dialogue history because certain models deal with system prompt differently
+        system_prompt_text = get_system_prompt(self.valid_actions)
+        if self.use_multimodal_content_format:
+            return {
+                "role": "system",
+                "content": [{"text": system_prompt_text, "type": "text"}],
+            }
+        return {
+            "role": "system",
+            "content": system_prompt_text,
+        }
+
+    def set_up_few_shot_prompt(self):
+        self.prompt_examples = []
+        self.prompt_images = []
+
+        if self.few_shot:
+            self.prompt_examples = get_prompt_example(
+                self.valid_actions,
+                use_text_inventory=self.use_text_inventory,
+                use_multimodal_content_format=self.use_multimodal_content_format,
+                use_images=self.use_images,
+            )
+            if self.use_images:
+                self.prompt_images = load_prompt_images(resolution=self.resolution)
 
     def add_message_to_history(self, content: str | dict, role="user"):
         if role == "assistant":
@@ -85,12 +141,17 @@ class History:
     def __str__(self):
         return str(self.dialogue_history)
 
-    def reset(self, objective: str = "", initial_dialogue: list[dict] = []):
-        self.dialogue_history = initial_dialogue
+    def reset(self):
+        # reset dialogue history to few-shot prompt
+        self.dialogue_history = copy(self.prompt_examples)
+        self.images = copy(self.prompt_images)
+        self.initial_dialogue_length = len(self.dialogue_history)
+
         self.action_history = []
         self.inventory_history = []
         self.inventory_counters = []
-        self.images = []
+
+        self.tokens_used = 0
 
     def trace(self):
         return {
