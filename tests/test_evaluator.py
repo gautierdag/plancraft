@@ -253,7 +253,7 @@ def test_dummy_model(mock_cfg, mock_example_json):
         result = evaluator.eval_example(example)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
-        assert result["success"] == False
+        assert not result["success"]
 
 
 def test_oracle_model(mock_cfg, mock_example_json):
@@ -266,7 +266,7 @@ def test_oracle_model(mock_cfg, mock_example_json):
         result = evaluator.eval_example(example)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
-        assert result["success"] == True
+        assert result["success"]
 
 
 # def test_eval_all_examples(evaluator):

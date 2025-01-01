@@ -4,6 +4,11 @@
 ![Python Version](https://img.shields.io/badge/python-3.9+-blue)
 ![Ruff](https://img.shields.io/badge/linter-ruff-blue)
 [![PyPI Version](https://img.shields.io/pypi/v/plancraft)](https://pypi.org/project/plancraft/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/gautierdag/plancraft)](https://hub.docker.com/r/gautierdag/plancraft)
+![License](https://img.shields.io/github/license/gautierdag/plancraft)
+![GitHub Repo stars](https://img.shields.io/github/stars/gautierdag/plancraft?style=social)
+
+[Paper](https://arxiv.org/abs/2412.21033) | [Website](https://gautierdag.github.io/plancraft/)
 
 Plancraft is a minecraft environment and agent that innovates on planning LLM agents with a retriever
 
@@ -13,14 +18,12 @@ You can install the package by running the following command:
 pip install plancraft
 ```
 
-![gif-example3](data/oracle/train/images/TRAIN0010.gif)
-![gif-example1](data/oracle/train/images/TRAIN1133.gif)
-![gif-example2](data/oracle/train/images/TRAIN0383.gif)
-![gif-example3](data/oracle/train/images/TRAIN1000.gif)
+![gif-example3](docs/images/train_images/TRAIN0010.gif)
+![gif-example1](docs/images/train_images/TRAIN1133.gif)
+![gif-example2](docs/images/train_images/TRAIN0383.gif)
+![gif-example3](docs/images/train_images/TRAIN1000.gif)
 
 The package provides a multimodal environment and dataset for evaluating planning agents. The dataset consists of examples of crafting tasks in Minecraft, where the agent must craft a target object from a set of initial items. The environment is a simplified version of Minecraft where the agent can move items between slots in an inventory and smelt items to create new items. The agent must craft the target object by moving or smelting items around in the inventory.
-
-## NOTE: This code is still in active development and refactoring (31/12/24). Expect a proper release by end of January 2025
 
 ## Usage
 
@@ -151,6 +154,10 @@ To implement a model, you need to subclass the `PlancraftBaseModel` class and im
 
 You will also need to modify the `get_model` function in the `plancraft.models` module to return an instance of your model when the correct config is passed.
 
+## Reproducing the Results tables in the paper
+
+To reproduce the results tables in the paper, you can use the `exps.sh` script in the `root` directory. The script will run the evaluation for all the models and seeds specified in the paper. The results will be saved in output directory but also on wandb if you have an account and set the `WANDB_API_KEY` environment variable.
+
 ## Docker
 
 There is a docker image built to incorporate the latest code and its dependencies. I build it by running the following command:
@@ -163,7 +170,6 @@ The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/planc
 
 ## To Do
 
-- [ ] Set up github pages website for repo documentation
 - [ ] Rerun image models with better bounding box model
   - [ ] Track bounding box accuracy
 - [ ] Improve planner to bring closer to optimal (the oracle planner does not consider  future crafting steps when moving items -- see paper for more details)
