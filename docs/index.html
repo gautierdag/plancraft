@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plancraft</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .paper-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .title-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .dataset-gif {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            /* animation-duration: 5s; Adjust this value to control speed - higher number = slower playback */
+        }
+        .title {
+            text-align: center;
+            font-size: 2em;
+            margin: 0;
+            flex: 1;
+        }
+        .authors {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .links-section {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            color: #24292e;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .external-link:hover {
+            background-color: #f1f1f1;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .abstract {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section-title {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .bibtex-link {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .bibtex-link a {
+            color: #0366d6;
+            text-decoration: none;
+        }
+        .bibtex-link a:hover {
+            text-decoration: underline;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .bibtex-section {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .bibtex-code {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .copy-button {
+            background-color: #0366d6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .copy-button:hover {
+            background-color: #0256b9;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="paper-container">
+
+        <div class="gif-section" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+            <img src="../data/oracle/train/images/TRAIN0003.gif" class="dataset-gif" alt="Dataset example 3" loop>
+            <img src="../data/oracle/train/images/TRAIN0004.gif" class="dataset-gif" alt="Dataset example 4" loop>
+            <img src="../data/oracle/train/images/TRAIN0005.gif" class="dataset-gif" alt="Dataset example 5" loop>
+            <img src="../data/oracle/train/images/TRAIN0006.gif" class="dataset-gif" alt="Dataset example 6" loop>
+            <img src="../data/oracle/train/images/TRAIN0007.gif" class="dataset-gif" alt="Dataset example 7" loop>
+            <img src="../data/oracle/train/images/TRAIN0008.gif" class="dataset-gif" alt="Dataset example 8" loop>
+            <img src="../data/oracle/train/images/TRAIN0009.gif" class="dataset-gif" alt="Dataset example 9" loop>
+            <img src="../data/oracle/train/images/TRAIN0010.gif" class="dataset-gif" alt="Dataset example 10" loop>
+        </div>
+
+
+        <div class="title-section">
+            <img src="../data/oracle/train/images/TRAIN0001.gif" class="dataset-gif" alt="Dataset example 1" loop>
+            <h1 class="title">Plancraft: an evaluation dataset for planning with LLM agents</h1>
+            <img src="../data/oracle/train/images/TRAIN0002.gif" class="dataset-gif" alt="Dataset example 2" loop>
+        </div>
+
+        <!-- row of gifs -->
+        <div class="gif-section" style="display: flex; justify-content: center; gap: 10px;">
+            <img src="../data/oracle/train/images/TRAIN0003.gif" class="dataset-gif" alt="Dataset example 3" loop>
+            <img src="../data/oracle/train/images/TRAIN0004.gif" class="dataset-gif" alt="Dataset example 4" loop>
+            <img src="../data/oracle/train/images/TRAIN0005.gif" class="dataset-gif" alt="Dataset example 5" loop>
+            <img src="../data/oracle/train/images/TRAIN0006.gif" class="dataset-gif" alt="Dataset example 6" loop>
+            <img src="../data/oracle/train/images/TRAIN0007.gif" class="dataset-gif" alt="Dataset example 7" loop>
+            <img src="../data/oracle/train/images/TRAIN0008.gif" class="dataset-gif" alt="Dataset example 8" loop>
+            <img src="../data/oracle/train/images/TRAIN0009.gif" class="dataset-gif" alt="Dataset example 9" loop>
+            <img src="../data/oracle/train/images/TRAIN0010.gif" class="dataset-gif" alt="Dataset example 10" loop>
+        </div>
+
+        <div class="authors">
+            <br>
+            Gautier Dagan, Frank Keller, Alex Lascarides<br>
+            <small>University of Edinburgh</small>
+        </div>
+        
+
+        <div class="links-section">
+            <a href="https://arxiv.org/abs/2412.21033" class="external-link">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+                Paper
+            </a>
+            <a href="https://github.com/gautierdag/plancraft" class="external-link">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                Code
+            </a>
+        </div>
+
+        <div class="abstract">
+            <strong>Abstract:</strong> We present Plancraft, a multi-modal evaluation dataset for LLM agents. Plancraft has both a text-only and multi-modal
+            interface, based on the Minecraft crafting GUI. We include the Minecraft Wiki to evaluate tool use and Retrieval
+            Augmented Generation (RAG), as well as an oracle planner and oracle RAG information extractor, to ablate the different
+            components of a modern agent architecture. To evaluate decision-making, Plancraft also includes a subset of examples
+            that are intentionally unsolvable, providing a realistic challenge that requires the agent not only to complete tasks
+            but also to decide whether they are solvable at all. We benchmark both open-source and closed-source LLMs and strategies
+            on our task and compare their performance to a handcrafted planner. We find that LLMs and VLMs struggle with the
+            planning problems that Plancraft introduces, and we offer suggestions on how to improve their capabilities.
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Comparaison to other Datasets</h2>
+            <div class="image-container">
+                <img src="images/compare_table.png" alt="Compare Table">
+                <br>
+                <em>Table 1:Comparison of different interactive datasets commonly used in agentic LLM evaluation. Each of these datasets expresses
+                the goal or task in natural language and requires multi-step planning. We design Plancraft to provide a testing ground
+                for which there exists both a natural language knowledge base and a handcrafted planner. Plancraft also includes a
+                subset of the data that is intentionally unsatisfiable (Impossible Set), since the capacity to predict that there's no
+                valid plan is important. Note that GAIA allows tool use, including web search, however a knowledge
+                base on how to solve the task is not provided.</em>
+            </div>
+            <p>Most existing benchmarks for evaluating LLM agents focus almost exclusively on success rates: that is, the
+                proportion of trials in which the agent achieved a goal state. Success rates measure whether the agent
+                constructed a valid plan but do not measure the efficiency or the quality of that plan. Some environments allow
+                an arbitrary number of incorrect steps, while others immediately terminate an episode if a wrong action is
+                executed.</p>
+            <p>Reporting or measuring only success rates also introduces a dataset bias, as it implies that the solution to a
+                given problem is easily verifiable, yet difficult to obtain. As a result, we argue that <strong>success rate
+                    alone is insufficient to capture the complexity of real-world scenarios</strong>. Each additional step of
+                inference incurs non-negligible costs, so metrics should include more fine-grained assessments, such as how
+                close the LLM's plan is to a handcrafted solution.</p>
+            <p>Furthermore, <strong>effective agent-based systems should recognise when a task is unsolvable</strong>, as many
+                real-world tasks may lie beyond the agent's capabilities and indeed many real-world tasks might be difficult to
+                verify as doable or not. Without the capacity to predict if there's no valid plan, an agent will incur
+                significant costs in continually monitoring and replanning.</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Method</h2>
+                <p>To create Plancraft, we implement the logic and visual representation of the Minecraft crafting GUI. Similarly to
+                    Prasad et al. (2023), we reconstruct the crafting process entirely in Python using game files and images of items
+                    obtained from the Wiki. Using image manipulation to overlay items on top of the inventory background significantly
+                    improves performance, as the observations do not require the Java game engine. Our environment has a one-to-one
+                    pixel mapping with the real Minecraft interface and supports multiple resolutions.</p>
+                <div class="subsection">
+                    <h3>Assumptions</h3>
+                    <p>Plancraft makes a number of simplifying assumptions:</p>
+                    <ul>
+                        <li><strong>Single Agent:</strong> There is a single agent in the environment, and any changes to the
+                            environment are a direct result of this agent's actions.</li>
+                        <li><strong>Deterministic:</strong> Valid actions are always executed, and their effects are predictable.</li>
+                        <li><strong>Observable:</strong> The crafting interface and inventory are fully observable, either through the
+                            text description or through the multi-modal image input.</li>
+                        <li><strong>Sequential:</strong> Aligned with classical planning, each action is discrete and executed one at a
+                            time.</li>
+                    </ul>
+                </div>
+                <div class="subsection">
+                    <h3>Action and Observation Space</h3>
+                    <p>The abstraction level chosen for the action and observation space has a great impact on the tractability of the
+                        planning problem. Other Minecraft environments, such as MineDojo (referenced by Prasad et al., 2023), provide a
+                        high-level "craft" command that doesn't require the agent to manipulate the underlying ingredients. Plancraft,
+                        on the other hand, requires the correct placement of ingredients in the inventory and, as such, provides a
+                        lower-level symbolic action space.</p>
+                    <p>The two possible <em>environment</em> actions are <strong>smelt</strong> and <strong>move</strong>, and both
+                        actions require a <code>slot_from</code>, a <code>slot_to</code>, and a <code>quantity</code>. This abstracts
+                        control dynamics and focuses on planning and spatial reasoning.</p>
+                </div>
+            <div class="image-container">
+                <img src="images/plancraft.jpg" alt="Method figure">
+                <br>
+                <em>Figure 1: Example flow of Plancraft. The agent can use the varying set of tools as described in its system prompt. The action descriptions and formats in the system prompt are only present if the action is allowed. The dialogue history is passed as a sequence of messages. Environment messages include the task goal and current observation (text or image). If the agent takes an action that does not impact the environment such as think or search, then the environment does not return an observation but a response based on this action.</em>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Results</h2>
+            <div class="image-container">
+                <img src="images/results_table.png" alt="Results Table">
+                <br>
+                <em>Table 2: Average Success Rates (SR) for different models and sets of actions available: <code>move</code> (M), <code>smelt</code> (S), <code>think</code> (T),
+                <code>search</code> (SE), <code>impossible</code> (I). We also report the average count of special actions used, the average plan length, the
+                Action Efficiency (AE) and the average total number of tokens used. We group very easy and easy difficulty categories
+                together as `easy' and hard and very hard as `hard'.</em>
+            </div>
+            <p>Our results confirm that larger models, such as Llama 70B, outperform smaller models like Llama 8B in both task
+                success and efficiency in Plancraft. This advantage is further amplified by specialised actions such as
+                <code>think</code> and <code>search</code>.</p>
+            <p>The introduction of <code>impossible</code> highlights a trade-off: while enabling models to recognise unsolvable
+                tasks reduces token usage and increases efficiency, it disproportionately impacts smaller models like Llama 8B.
+                Fine-tuning smaller models, as shown with Llama 8B FT, significantly boosts task success but also reveals a key
+                limitation: the inability to effectively use new actions like <code>think</code> and <code>search</code>,
+                indicating that fine-tuning may overly constrain behaviour.</p>
+            <p>Additionally, our findings emphasise challenges in multi-modal settings. While text-only tasks highlight strong
+                performance trends, raw image inputs, as seen with gpt-4o-mini IMG, underscore fundamental limitations of
+                out-of-the-box vision-language models (VLMs) for effective planning.</p>
+            <p>Overall, our results underscore the complexity of bridging multi-modal inputs and decision-making in planning
+                tasks.</p>
+            <p>For more details, please refer to the <a href="https://arxiv.org/abs/2412.21033">paper</a>.</p>
+        </div>
+
+
+        <div class="bibtex-section">
+            <h2 class="section-title">Citation</h2>
+            <button class="copy-button" onclick="copyBibtex()">Copy BibTeX</button>
+            <div class="bibtex-code" id="bibtex">@misc{dagan2024plancraftevaluationdatasetplanning,
+            title={Plancraft: an evaluation dataset for planning with LLM agents},
+            author={Gautier Dagan and Frank Keller and Alex Lascarides},
+            year={2024},
+            eprint={2412.21033},
+            archivePrefix={arXiv},
+            primaryClass={cs.CL},
+            url={https://arxiv.org/abs/2412.21033},
+            }
+</div>
+        </div>
+    </div>
+
+    <script>
+        // Function to generate random numbers for GIF selection
+        function getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Function to format number with leading zeros
+        function formatNumber(num) {
+            return num.toString().padStart(4, '0');
+        }
+
+        // Function to get a random GIF path
+        function getRandomGifPath() {
+            const num = formatNumber(getRandomNumber(1, 999));
+            return `../data/oracle/train/images/TRAIN${num}.gif`;
+        }
+
+        // Function to update a single GIF with error handling
+        function updateSingleGif(gifElement) {
+            const maxAttempts = 10;
+            let attempts = 0;
+            function tryLoadingGif() {
+                if (attempts >= maxAttempts) {
+                    console.error(`Failed to find valid GIF after ${maxAttempts} attempts`);
+                    gifElement.style.opacity = '1';
+                    return;
+                }
+                attempts++;
+                const newPath = getRandomGifPath();
+                // Set up one-time error handler for this attempt
+                const handleError = () => {
+                    console.log(`Attempt ${attempts}: GIF not found, trying another...`);
+                    gifElement.removeEventListener('error', handleError);
+                    tryLoadingGif();
+                };
+                // Set up one-time load handler for this attempt
+                const handleLoad = () => {
+                    console.log(`Successfully loaded GIF after ${attempts} attempts`);
+                    gifElement.style.opacity = '1';
+                    gifElement.removeEventListener('load', handleLoad);
+                };
+                gifElement.addEventListener('error', handleError, { once: true });
+                gifElement.addEventListener('load', handleLoad, { once: true });
+                gifElement.style.opacity = '0.5';
+                gifElement.src = newPath;
+            }
+            tryLoadingGif();
+        }
+
+        // Function to update all GIFs
+        function updateAllGifs() {
+            const gifs = document.querySelectorAll('.dataset-gif');
+            gifs.forEach(gif => updateSingleGif(gif));
+        }
+
+        // Function to handle GIF ending and start a new one
+        function handleGifEnd(event) {
+            updateSingleGif(event.target);
+        }
+
+        // Initialize GIFs and add event listeners
+        function initializeGifs() {
+            const gifs = document.querySelectorAll('.dataset-gif');
+            gifs.forEach(gif => {
+                gif.style.transition = 'opacity 0.3s';
+                gif.addEventListener('ended', handleGifEnd);
+                updateSingleGif(gif);
+            });
+        }
+
+        // Function to copy BibTeX to clipboard
+        function copyBibtex() {
+            const bibtexText = document.getElementById('bibtex').textContent;
+            navigator.clipboard.writeText(bibtexText).then(() => {
+                const button = document.querySelector('.copy-button');
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy BibTeX';
+                }, 2000);
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeGifs);
+
+        // Function to control GIF speed
+        function setSpeed(seconds) {
+            const gifs = document.querySelectorAll('.dataset-gif');
+            gifs.forEach(gif => {
+                gif.style.animationDuration = seconds + 's';
+            });
+
+            // Update active button state
+            document.querySelectorAll('.speed-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Function to reload all GIFs periodically
+            function reloadGifsPeriodically(interval) {
+                setInterval(() => {
+                    const gifs = document.querySelectorAll('.dataset-gif');
+                    gifs.forEach(gif => updateSingleGif(gif));
+                }, interval);
+            }
+
+            // Initialize when page loads
+            document.addEventListener('DOMContentLoaded', () => {
+                initializeGifs();
+                reloadGifsPeriodically(3000); // Change GIFs every 5 seconds (5000 ms)
+            });
+    </script>
+</body>
+</html>

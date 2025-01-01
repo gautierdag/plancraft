@@ -13,6 +13,13 @@ You can install the package by running the following command:
 pip install plancraft
 ```
 
+![gif-example3](data/oracle/train/images/TRAIN0010.gif)
+![gif-example1](data/oracle/train/images/TRAIN1133.gif)
+![gif-example2](data/oracle/train/images/TRAIN0383.gif)
+![gif-example3](data/oracle/train/images/TRAIN1000.gif)
+
+The package provides a multimodal environment and dataset for evaluating planning agents. The dataset consists of examples of crafting tasks in Minecraft, where the agent must craft a target object from a set of initial items. The environment is a simplified version of Minecraft where the agent can move items between slots in an inventory and smelt items to create new items. The agent must craft the target object by moving or smelting items around in the inventory.
+
 ## NOTE: This code is still in active development and refactoring (31/12/24). Expect a proper release by end of January 2025
 
 ## Usage
@@ -26,23 +33,19 @@ from plancraft.environments.env import PlancraftEnvironment
 def main():
     # Create the environment with an inventory containing 10 iron ores and 23 oak logs
     env = PlancraftEnvironment(
-        inventory=[dict(type="iron_ore", quantity=10, slot=10)]
-        + [dict(type="oak_log", quantity=23, slot=23)],
+        inventory={
+          10: dict(type="iron_ore", quantity=10),
+          23: dict(type="oak_log", quantity=23)
+        }
     )
     # move one log to slot 1
-    # [from, to, quantity]
-    move_action = dict(
-        move=[23, 2, 1]
-    )
+    move_action = MoveAction(from_slot=23, to_slot=1, quantity=1)
     observation = env.step(move_action)
     # observation["inventory"] contains the updated symbolic inventory
     # observation["image"] contains the updated image of the inventory
 
     # smelt one iron ore
-    # [from, to, quantity]
-    smelt_action = dict(
-        smelt=[10, 11, 1]
-    )
+    smelt_action = SmeltAction(from_slot=10, to_slot=11, quantity=1)
     observation = env.step(smelt_action)
 
     # no op
@@ -70,6 +73,84 @@ def main():
 
 The evaluator class handles the environment loop and model interaction. The environment is created based on the configuration and the examples are loaded from the dataset. The `Evaluator` uses the dataset examples and initializes the environment with the example's inventory. It is also responsible for early stopping and verifying the target object has been craft. Finally, it also saves the results of the evaluation and the images generated during the evaluation.
 
+#### The Evaluator interactive loop
+
+The evaluator loop for each example is as follows:
+
+```python
+# Initialize success and non-environment actions counter
+success = False
+num_non_env_actions = 0
+
+# Reset the environment and example
+reset(example)
+
+# Run the evaluation loop
+while not history.check_stuck() and history.num_steps < max_steps:
+    if action == StopAction:  # StopAction ends the episode
+        success = example.impossible  # Success if task is impossible
+        break
+    elif isinstance(action, str) and num_non_env_actions < 3:  
+        # Handle external tool action (str message)
+        observation = {"message": action}
+        num_non_env_actions += 1
+    else:  
+        # Handle environment action
+        if isinstance(action, str):  
+            # Handle invalid case (exceeded non-env action limit)
+            observation = environment.step()
+        else:
+            history.add_action_to_history(action)  # Add action to history
+            observation = environment.step(action)
+
+        # Convert observation to message and reset non-env counter
+        observation["target"] = example.target
+        observation["message"] = convert_observation_to_message(observation)
+        num_non_env_actions = 0
+
+        # Check if episode is complete
+        success = check_done(observation["inventory"], example.target)
+
+    # Update history with observation and message
+    history.add_observation_to_history(observation)
+    history.add_message_to_history(content=observation["message"], role="user")
+
+    if success:  # Exit loop if success
+        break
+
+    # Model predicts next action
+    raw_action = model.step(observation, dialogue_history=history)
+
+    # Update history with predicted action
+    history.add_message_to_history(content=raw_action, role="assistant")
+
+    # Parse raw action into a structured format
+    action = parse_raw_model_response(raw_action)
+
+# Return results after evaluation
+return {
+    "success": success,
+    "recipe_type": example.recipe_type,
+    "complexity": example.complexity,
+    "number_of_steps": history.num_steps,
+    "model_trace": history.trace(),
+    "example_id": example.id,
+    "impossible": example.impossible,
+}
+```
+
+### Observation
+
+The observation returned by the `PlancraftEnvironment` class is a dictionary with the following keys: `inventory` and `image`. The `inventory` key contains a dictionary with the slot number as the key and the item in the slot as the value (eg {"type": "iron_ingot", "quantity": 2}). The `image` key contains a numpy array representing the image of the inventory.
+
+The observation returned by the `Evaluator` class is a dictionary with the following keys: `inventory`, `image`, `message`, and `target`. The `message` key contains a string representing the environment formatted in text (we follow the annotation scheme described in our paper). The `target` key contains a string representing the target object to be crafted.
+
+### Implementing a Model
+
+To implement a model, you need to subclass the `PlancraftBaseModel` class and implement the `step` and `reset` method. See the `plancraft.models.dummy` module for an example of how to implement a basic model.
+
+You will also need to modify the `get_model` function in the `plancraft.models` module to return an instance of your model when the correct config is passed.
+
 ## Docker
 
 There is a docker image built to incorporate the latest code and its dependencies. I build it by running the following command:
@@ -80,32 +161,19 @@ docker buildx build --platform linux/amd64,linux/arm64 -t gautierdag/plancraft -
 
 The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/plancraft). Note that, unlike the package, the docker image includes everything in the repo.
 
-### TODO
+## To Do
 
-- [x] Migrate models to return actions as str
-  - [x] Dummy Model
-  - [x] Act Model
-  - [x] Oracle Model
-  - [x] Evaluator should handle tools and process the raw string
-    - [x] Move `parse_content_response` to evaluator
-    - [x] Move `gold_search_recipe` into environment module (search.py)
-  - [x] Evaluator should handle the case where three non-env tools are used in a row -> force an observation/goal of the inventory
-- [x] History should be attached to Evaluator object. Models should track whatever they need independently
-  - [x] Dummy model
-  - [x] Oracle model
-  - [x] Act model (uses history but only for dialogue tracking)
-  - ~~[] Handle only dialogue tracking in model class~~
-  - [x] Track token usage somewhere
-  - [x] Track dialogue exchanges in evaluator
-- [x] Remove option to pass dictionary object to environment
-- [x] Observations should be passed as message in correct format
-- [x] Reduce size of inventory object - use dict instead of list, don't add empty quantities
-- [x] Remove OAM from repo
+- [ ] Set up github pages website for repo documentation
 - [ ] Rerun image models with better bounding box model
   - [ ] Track bounding box accuracy
-- [ ] Set up github pages website for repo documentation
-- [ ] Improve planner to bring closer to optimal
+- [ ] Improve planner to bring closer to optimal (the oracle planner does not consider  future crafting steps when moving items -- see paper for more details)
 - [ ] Add minecraft wiki scrape and non-oracle search for pages
+
+## PRs Welcomed
+
+If you would like to contribute to the project, please feel free to open a PR. I am happy to review and merge PRs that improve the project. If you have any questions, feel free to create an issue or reach out to me directly.
+
+## Citation
 
 ```bibtex
 @misc{dagan2024plancraftevaluationdatasetplanning,
