@@ -15,9 +15,9 @@ def test_assign_to_slots():
         "cracked_nether_bricks": 28,
         "peony": 34,
     }
-    inventory_list = assign_to_slots(inventory)
-    assert len(inventory_list) == 7
-    assert sum([x["count"] for x in inventory_list]) == 110
+    inventory_dict = assign_to_slots(inventory)
+    assert len(inventory_dict) == 7
+    assert sum([x["quantity"] for x in inventory_dict.values()]) == 110
 
     inventory = {
         "red_dye": 3,
@@ -26,18 +26,18 @@ def test_assign_to_slots():
         "birch_planks": 1,
         "oak_log": 1,
     }
-    inventory_list = assign_to_slots(inventory)
-    assert len(inventory_list) == 5
-    assert sum([x["count"] for x in inventory_list]) == 32
+    inventory_dict = assign_to_slots(inventory)
+    assert len(inventory_dict) == 5
+    assert sum([x["quantity"] for x in inventory_dict.values()]) == 32
 
     inventory = {
         "nether_quartz_ore": 24,
         "yellow_bed": 1,
         "red_sandstone_slab": 5,
     }
-    inventory_list = assign_to_slots(inventory)
-    assert len(inventory_list) == 3
-    assert sum([x["count"] for x in inventory_list]) == 30
+    inventory_dict = assign_to_slots(inventory)
+    assert len(inventory_dict) == 3
+    assert sum([x["quantity"] for x in inventory_dict.values()]) == 30
 
 
 def test_sample_distractors():

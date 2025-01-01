@@ -141,15 +141,14 @@ class Evaluator:
         self.model.reset()
         self.history.reset()
 
-    def check_done(self, inventory: list[dict[str, int]], target: str):
+    def check_done(self, inventory: dict, target: str):
         """
         Check that target object is obtained
         """
-        for item in inventory:
-            if target == item["type"]:
-                # ensure item is taken out of crafting slot
-                if "slot" in item and item["slot"] != 0:
-                    return True
+        for slot, item in inventory.items():
+            # ensure the target is in the inventory (not in slot 0)
+            if target == item["type"] and slot != 0:
+                return True
         return False
 
     def parse_raw_model_response(
@@ -212,15 +211,14 @@ class Evaluator:
             # convert image to inventory using fasterrcnn
             inventory = self.model.bbox_model.get_inventory(observation["image"].copy())
             text_content = target_and_inventory_to_text_obs(
-                observation["target"], sorted(inventory, key=lambda x: x["slot"])
+                observation["target"], inventory
             )
         elif not self.cfg.plancraft.use_text_inventory:
             text_content = get_objective_str(observation["target"])
         else:
             # if not multimodal, we only have text - we format the inventory as text
             text_content = target_and_inventory_to_text_obs(
-                observation["target"],
-                sorted(observation["inventory"], key=lambda x: x["slot"]),
+                observation["target"], observation["inventory"]
             )
         if not self.cfg.plancraft.use_multimodal_content_format:
             return text_content
@@ -253,17 +251,22 @@ class Evaluator:
                 success = example.impossible
                 break
             # action is external tool then it is str
+            # limit the number of consecutive non-env actions to 3
             elif isinstance(action, str) and num_non_env_actions < 3:
                 observation = {"message": action}
                 num_non_env_actions += 1
             # action is environment action
             else:
                 # add action to history
-                self.history.add_action_to_history(action)
-                observation = self.environment.step(action)
-                observation["target"] = example.target
+                # TODO: fix the next two lines being triggered with a str response if num_non_env_actions >= 3
+                if isinstance(action, str):
+                    observation = self.environment.step()
+                else:
+                    self.history.add_action_to_history(action)
+                    observation = self.environment.step(action)
 
                 # convert inventory observation to text message
+                observation["target"] = example.target
                 observation["message"] = self.convert_observation_to_message(
                     observation
                 )

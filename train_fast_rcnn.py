@@ -85,10 +85,10 @@ def sample_environment(batch_size=32, N=100):
             # create targets/boxes
             target = {"labels": [], "boxes": [], "quantity_labels": []}
             inv = []
-            for item in obs["inventory"]:
+            for slot, item in obs["inventory"].items():
                 if item["quantity"] > 0:
                     target["labels"].append(ALL_ITEMS.index(item["type"]))
-                    target["boxes"].append(slot_to_bbox(item["slot"], resolution))
+                    target["boxes"].append(slot_to_bbox(slot, resolution))
                     target["quantity_labels"].append(item["quantity"])
 
                     inv.append(item)

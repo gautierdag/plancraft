@@ -121,7 +121,7 @@ class TrainConfig(BaseModel):
 class PlancraftExample(BaseModel):
     target: str
     inventory: dict[str, int]
-    slotted_inventory: list[dict[str, Union[str, int]]]
+    slotted_inventory: dict[int, dict[str, Union[str, int]]]
     num_distractors: int
     impossible: bool
     optimal_path_length: Optional[int]

@@ -99,7 +99,7 @@ The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/planc
   - [x] Track dialogue exchanges in evaluator
 - [x] Remove option to pass dictionary object to environment
 - [x] Observations should be passed as message in correct format
-- [ ] Reduce size of inventory object - use dict instead of list, don't add empty quantities
+- [x] Reduce size of inventory object - use dict instead of list, don't add empty quantities
 - [x] Remove OAM from repo
 - [ ] Rerun image models with better bounding box model
   - [ ] Track bounding box accuracy

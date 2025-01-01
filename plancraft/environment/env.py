@@ -21,20 +21,19 @@ def get_objective_str(target: str) -> str:
     return f"Craft an item of type: {target}"
 
 
-def target_and_inventory_to_text_obs(target: str, inventory: list[dict]) -> str:
+def target_and_inventory_to_text_obs(target: str, inventory: dict) -> str:
     """
     Convert inventory dict to text observation
     """
     objective = get_objective_str(target)
     inventory_str = ""
-    for item in inventory:
+    # sort by slot number
+    for slot, item in sorted(inventory.items(), key=lambda item: item[0]):
         # skip items with quantity 0
         if item["quantity"] <= 0:
             continue
-        slot = item["slot"]
-        if isinstance(slot, int):
-            slot = convert_from_slot_index(slot)
-        inventory_str += f"\n - {item['type']} {slot} quantity {item['quantity']}"
+        slot_str = convert_from_slot_index(slot)
+        inventory_str += f"\n - {item['type']} {slot_str} quantity {item['quantity']}"
     return f"{objective}\ninventory:{inventory_str}"
 
 
@@ -229,13 +228,13 @@ class PlancraftEnvironment:
     Environment class for the Plancraft environment.
     """
 
-    def __init__(self, inventory: list[dict] = [], recipes=RECIPES, resolution="high"):
-        self.inventory = inventory
-
+    def __init__(
+        self, inventory: Optional[dict] = None, recipes=RECIPES, resolution="high"
+    ):
         self.table = CraftingTableGUI(resolution=resolution)
-        self.state = defaultdict(lambda: {"type": "air", "quantity": 0})
+        self.state = {}
 
-        self.reset_state()
+        self.reset(inventory)
 
         self.table_indexes = list(range(1, 10))
         self.output_index = 0
@@ -261,35 +260,38 @@ class PlancraftEnvironment:
 
     def remove_item_from_slot(self, slot: int):
         self.table.remove_item_from_slot(slot)
-        self.state[slot] = {"type": "air", "quantity": 0}
+        if slot in self.state:
+            del self.state[slot]  # Remove the slot from the dictionary
 
     def change_quantity_in_slot(self, slot: int, quantity: int = 1):
         if quantity == 0:
             self.remove_item_from_slot(slot)
             return
 
-        assert quantity > 0 and quantity <= 64
+        assert 0 < quantity <= 64
+        assert slot in self.state, "Slot does not exist in the inventory"
+
         self.state[slot]["quantity"] = quantity
         # update visual representation by removing and adding the item with the new quantity
         self.table.remove_item_from_slot(slot)
         self.table.add_item_to_slot(self.state[slot]["type"], slot, quantity)
 
-    def reset_state(self):
+    def reset(self, new_inventory: Optional[dict] = None):
         self.table.clear()
-        for slot in range(46):
-            self.remove_item_from_slot(slot)
-        # initialise inventory
-        for item in self.inventory:
-            self.add_item_to_slot(item["type"], item["slot"], item["quantity"])
+        self.state = {}  # Start with an empty dictionary
+        # Initialise inventory
+        if new_inventory:
+            for slot, item in new_inventory.items():
+                assert "type" in item and "quantity" in item
+                assert slot >= 0 and slot < 46
+                assert item["quantity"] > 0 and item["quantity"] <= 64
+                self.state[slot] = item
+        return self.state
 
-    def step(self, action: Optional[SymbolicAction] = None):
+    def step(self, action: Optional[SymbolicAction] = None) -> dict:
         # default no op action
         if action is None:
-            state_list = [
-                {"type": item["type"], "quantity": item["quantity"], "slot": idx}
-                for idx, item in self.state.items()
-            ]
-            return {"inventory": state_list, "image": self.table.frame}
+            return {"inventory": dict(self.state), "image": self.table.frame}
 
         if action.action_type == "move":
             # do inventory command (move)
@@ -301,36 +303,31 @@ class PlancraftEnvironment:
             raise ValueError("Invalid action")
 
         self.clean_state()
-
-        # convert to list for same format as minerl
-        state_list = [
-            {"type": item["type"], "quantity": item["quantity"], "slot": idx}
-            for idx, item in self.state.items()
-        ]
-        return {"inventory": state_list, "image": self.table.frame}
+        return {"inventory": dict(self.state), "image": self.table.frame}
 
     def clean_state(self):
         # reset slot type if quantity is 0
-        for i in self.state.keys():
-            if self.state[i]["quantity"] == 0:
-                self.remove_item_from_slot(i)
+        to_remove = [slot for slot, item in self.state.items() if item["quantity"] <= 0]
+        for slot in to_remove:
+            self.remove_item_from_slot(slot)
+
+    def slot_empty(self, slot: int) -> bool:
+        return slot not in self.state or self.state[slot]["quantity"] <= 0
 
     def move_item(self, slot_from: int, slot_to: int, quantity: int):
-        if slot_from == slot_to or quantity < 1 or slot_to == 0:
+        if slot_from == slot_to or quantity < 1:
             return
         # slot outside of inventory
-        if slot_from not in self.state or slot_to not in self.state:
+        if slot_from < 0 or slot_to < 1 or slot_from >= 46 or slot_to >= 46:
             return
         # not enough
-        if self.state[slot_from]["quantity"] < quantity:
+        if self.slot_empty(slot_from) or self.state[slot_from]["quantity"] < quantity:
             return
 
         item = self.state[slot_from]
 
         # slot to is not empty or is the same type as item
-        if (self.state[slot_to]["type"] == "air") or (
-            self.state[slot_to]["quantity"] <= 0
-        ):
+        if self.slot_empty(slot_to):
             # add quantity to new slot
             self.add_item_to_slot(item["type"], slot_to, quantity)
             # remove quantity from old slot
@@ -351,7 +348,7 @@ class PlancraftEnvironment:
             return
 
         # reset slot if quantity is 0
-        if self.state[slot_from]["quantity"] == 0:
+        if self.slot_empty(slot_from):
             self.remove_item_from_slot(slot_from)
 
         # use up ingredients
@@ -363,21 +360,22 @@ class PlancraftEnvironment:
             self.populate_craft_slot_craft_item()
 
     def smelt_item(self, slot_from: int, slot_to: int, quantity: int):
-        if quantity < 1 or slot_to == 0 or slot_from == slot_to or slot_from == 0:
+        if quantity < 1 or slot_from == slot_to:
             return  # skip if quantity is less than 1
 
-        if slot_from not in self.state or slot_to not in self.state:
-            return  # handle slot out of bounds or invalid slot numbers
+        # handle slot out of bounds or invalid slot numbers
+        if slot_from < 1 or slot_to < 1 or slot_from >= 46 or slot_to >= 46:
+            return
 
         item = self.state[slot_from]
-        if item["quantity"] < quantity or item["type"] == "air":
+        if self.slot_empty(slot_from) or item["quantity"] < quantity:
             return  # skip if the slot from is empty or does not have enough items
 
         for recipe in self.smelting_recipes:
             if output := recipe.smelt(item["type"]):
                 output_type = output.item
                 # Check if the destination slot is empty or has the same type of item as the output
-                if self.state[slot_to]["type"] == "air":
+                if self.slot_empty(slot_to):
                     self.add_item_to_slot(output_type, slot_to, quantity)
                     self.change_quantity_in_slot(
                         slot_from, self.state[slot_from]["quantity"] - quantity
@@ -398,7 +396,7 @@ class PlancraftEnvironment:
                     return  # No space or type mismatch in slot_to
 
         # Clean up if the source slot is depleted
-        if self.state[slot_from] == 0:
+        if self.slot_empty(slot_from):
             self.remove_item_from_slot(slot_from)
 
         if slot_to < 10 or slot_from < 10:
@@ -408,10 +406,10 @@ class PlancraftEnvironment:
         # get ingredients from crafting table
         ingredients = []
         for i in self.table_indexes:
-            if self.state[i]["type"] != "air" and self.state[i]["quantity"] > 0:
-                ingredients.append(self.state[i]["type"])
-            else:
+            if self.slot_empty(i):
                 ingredients.append(None)
+            else:
+                ingredients.append(self.state[i]["type"])
         table = convert_ingredients_to_table(ingredients)
 
         # check if any of the crafting recipes match the ingredients
@@ -434,8 +432,3 @@ class PlancraftEnvironment:
                 self.remove_item_from_slot(idx + 1)
 
         self.ingredients_idxs = []
-
-    def reset(self, new_inventory: list[dict]):
-        self.inventory = new_inventory
-        self.reset_state()
-        return self.state

@@ -355,6 +355,7 @@ class OpenAIGenerator:
         self,
         batch_messages: list[list[dict]],
         max_tokens=256,
+        temperature=0.6,
         **kwargs,
     ) -> tuple[list[str], int]:
         contents = []
@@ -363,7 +364,7 @@ class OpenAIGenerator:
             response = self.client.chat.completions.create(
                 model=self.model_name,
                 messages=messages,
-                temperature=0.0,
+                temperature=temperature,
                 max_tokens=max_tokens,
                 top_p=1,
                 frequency_penalty=0,

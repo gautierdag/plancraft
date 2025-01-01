@@ -105,21 +105,18 @@ class History:
                 self.dialogue_history.append({"role": role, "content": content})
 
     def add_action_to_history(self, action: SmeltAction | MoveAction):
-        if action is None:
-            return
-        self.action_history.append(action.model_dump())
+        if isinstance(action, SmeltAction) or isinstance(action, MoveAction):
+            self.action_history.append(action.model_dump())
 
-    def add_inventory_to_history(self, inventory: list[dict[str, int]]):
+    def add_inventory_to_history(self, inventory: dict):
         self.inventory_history.append(inventory)
-
         # count inventory
         counter = Counter()
-        for item in inventory:
+        for slot, item in inventory.items():
             # ignore slot 0
-            if "slot" in item and item["slot"] == 0:
+            if slot == 0:
                 continue
             counter[item["type"]] += item["quantity"]
-
         self.inventory_counters.append(counter)
 
     def add_image_to_history(self, image):
@@ -129,12 +126,12 @@ class History:
         if observation is None:
             return
         if "inventory" in observation:
-            clean_inv = []
+            # clean_inv = []
             # remove empty slots
-            for item in observation["inventory"]:
-                if item["quantity"] > 0:
-                    clean_inv.append(item)
-            self.add_inventory_to_history(clean_inv)
+            # for slot, item in observation["inventory"].items():
+            #     if item["quantity"] > 0:
+            #         clean_inv.append(item)
+            self.add_inventory_to_history(observation["inventory"])
         if "image" in observation:
             self.add_image_to_history(observation["image"])
 

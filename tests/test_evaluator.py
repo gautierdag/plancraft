@@ -3,8 +3,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from plancraft.config import EvalConfig, PlancraftExample
-from plancraft.environment.env import PlancraftEnvironment
 from plancraft.evaluator import Evaluator
+from plancraft.environment.actions import MoveAction, SmeltAction, StopAction
 
 
 @pytest.fixture
@@ -51,25 +51,25 @@ def mock_example_json():
             "chain": 42,
             "purple_concrete": 22,
         },
-        "slotted_inventory": [
-            {"slot": 45, "type": "cyan_stained_glass", "quantity": 6},
-            {"slot": 20, "type": "purpur_stairs", "quantity": 26},
-            {"slot": 12, "type": "birch_trapdoor", "quantity": 28},
-            {"slot": 38, "type": "zombie_head", "quantity": 30},
-            {"slot": 25, "type": "jungle_fence", "quantity": 8},
-            {"slot": 39, "type": "acacia_slab", "quantity": 60},
-            {"slot": 22, "type": "netherite_helmet", "quantity": 1},
-            {"slot": 42, "type": "cooked_salmon", "quantity": 61},
-            {"slot": 10, "type": "purple_terracotta", "quantity": 48},
-            {"slot": 23, "type": "cod_bucket", "quantity": 1},
-            {"slot": 19, "type": "ancient_debris", "quantity": 42},
-            {"slot": 13, "type": "cobblestone_wall", "quantity": 60},
-            {"slot": 16, "type": "magenta_bed", "quantity": 1},
-            {"slot": 44, "type": "cat_spawn_egg", "quantity": 32},
-            {"slot": 37, "type": "yellow_dye", "quantity": 6},
-            {"slot": 24, "type": "chain", "quantity": 42},
-            {"slot": 28, "type": "purple_concrete", "quantity": 22},
-        ],
+        "slotted_inventory": {
+            45: {"type": "cyan_stained_glass", "quantity": 6},
+            20: {"type": "purpur_stairs", "quantity": 26},
+            12: {"type": "birch_trapdoor", "quantity": 28},
+            38: {"type": "zombie_head", "quantity": 30},
+            25: {"type": "jungle_fence", "quantity": 8},
+            39: {"type": "acacia_slab", "quantity": 60},
+            22: {"type": "netherite_helmet", "quantity": 1},
+            42: {"type": "cooked_salmon", "quantity": 61},
+            10: {"type": "purple_terracotta", "quantity": 48},
+            23: {"type": "cod_bucket", "quantity": 1},
+            19: {"type": "ancient_debris", "quantity": 42},
+            13: {"type": "cobblestone_wall", "quantity": 60},
+            16: {"type": "magenta_bed", "quantity": 1},
+            44: {"type": "cat_spawn_egg", "quantity": 32},
+            37: {"type": "yellow_dye", "quantity": 6},
+            24: {"type": "chain", "quantity": 42},
+            28: {"type": "purple_concrete", "quantity": 22},
+        },
         "target": "cyan_stained_glass_pane",
         "num_distractors": 16,
         "impossible": False,
@@ -131,13 +131,142 @@ def test_load_dataset(evaluator):
 
 def test_reset(evaluator, mock_example):
     evaluator.reset(mock_example)
-    assert evaluator.environment.inventory == mock_example.slotted_inventory
+    assert dict(evaluator.environment.state) == mock_example.slotted_inventory
 
 
 def test_check_done(evaluator):
-    inventory = [{"type": "iron_ingot", "quantity": 1, "slot": 1}]
+    inventory = {1: {"type": "iron_ingot", "quantity": 1}}
     assert evaluator.check_done(inventory, "iron_ingot")
     assert not evaluator.check_done(inventory, "diamond")
+
+
+# Sample test function for parse_raw_model_response
+def test_parse_raw_model_response(evaluator):
+    evaluator.cfg.plancraft.valid_actions = [
+        "move",
+        "smelt",
+        "think",
+        "search",
+        "impossible",
+    ]
+
+    # Define example inputs and expected outputs
+    content_move = "move: from [A1] to [B2] with quantity 10"
+    content_move_format_err = "move: from AAA to [B2] with quantity 10"
+    content_smelt = "smelt: from [A1] to [I1] with quantity 1"
+    content_think = "think: some thought"
+    content_impossible = "impossible: Cannot reach the target"
+    content_search = "search: bucket"
+    invalid_content = "dance: some random action"
+
+    # Test case: move action
+    result = evaluator.parse_raw_model_response(content_move)
+    assert isinstance(result, MoveAction)
+    assert result.slot_from == 1
+    assert result.slot_to == 5
+    assert result.quantity == 10
+
+    # Test case: invalid format
+    result = evaluator.parse_raw_model_response(content_move_format_err)
+    assert "Format Error" in result
+
+    # Test case: smelt action
+    result = evaluator.parse_raw_model_response(content_smelt)
+    assert isinstance(result, SmeltAction)
+    assert result.slot_from == 1
+    assert result.slot_to == 10
+    assert result.quantity == 1
+
+    # Test case: think action
+    result = evaluator.parse_raw_model_response(content_think)
+    assert result == "Ok"
+
+    # Test case: impossible action
+    result = evaluator.parse_raw_model_response(content_impossible)
+    assert isinstance(result, StopAction)
+    assert result.reason == "Cannot reach the target"
+
+    # Test case: search action
+    result = evaluator.parse_raw_model_response(content_search)
+    assert "Recipes to craft bucket:\nrecipe 1:\niron_ingot at" in result
+
+    # Test case: invalid action
+    result = evaluator.parse_raw_model_response(invalid_content)
+    assert "Only select actions from the following:" in result
+
+
+def test_convert_observation_to_message(evaluator):
+    target = "iron_ingot"
+    inventory = {1: {"type": "iron_ingot", "quantity": 1}}
+    observation = {
+        "target": target,
+        "inventory": inventory,
+    }
+
+    evaluator.cfg.plancraft.use_fasterrcnn = False
+    evaluator.cfg.plancraft.use_text_inventory = False
+    evaluator.cfg.plancraft.use_multimodal_content_format = False
+
+    message = evaluator.convert_observation_to_message(observation)
+    assert message == "Craft an item of type: iron_ingot"
+
+    evaluator.cfg.plancraft.use_text_inventory = True
+    message = evaluator.convert_observation_to_message(observation)
+    assert (
+        message
+        == "Craft an item of type: iron_ingot\ninventory:\n - iron_ingot [A1] quantity 1"
+    )
+
+    evaluator.cfg.plancraft.use_multimodal_content_format = True
+    evaluator.cfg.plancraft.use_images = False
+    message = evaluator.convert_observation_to_message(observation)
+    message = {
+        "content": [
+            {
+                "type": "text",
+                "text": "Craft an item of type: iron_ingot\ninventory:\n - iron_ingot [A1] quantity 1",
+            }
+        ],
+    }
+
+    evaluator.cfg.plancraft.use_multimodal_content_format = True
+    evaluator.cfg.plancraft.use_images = True
+    message = evaluator.convert_observation_to_message(observation)
+    message = {
+        "content": [
+            {
+                "type": "text",
+                "text": "Craft an item of type: iron_ingot\ninventory:\n - iron_ingot [A1] quantity 1",
+            },
+            {"type": "image"},
+        ],
+    }
+
+
+def test_dummy_model(mock_cfg, mock_example_json):
+    mock_cfg.plancraft.mode = "dummy"
+    mock_cfg.plancraft.use_fasterrcnn = False
+    example = PlancraftExample(**mock_example_json)
+    with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
+        mock_load_dataset.return_value = [example]
+        evaluator = Evaluator(mock_cfg)
+        result = evaluator.eval_example(example)
+        assert result["example_id"] == "TRAIN0000"
+        assert result["model_trace"]["tokens_used"] == 0
+        assert result["success"] == False
+
+
+def test_oracle_model(mock_cfg, mock_example_json):
+    mock_cfg.plancraft.mode = "oracle"
+    mock_cfg.plancraft.use_fasterrcnn = False
+    example = PlancraftExample(**mock_example_json)
+    with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
+        mock_load_dataset.return_value = [example]
+        evaluator = Evaluator(mock_cfg)
+        result = evaluator.eval_example(example)
+        assert result["example_id"] == "TRAIN0000"
+        assert result["model_trace"]["tokens_used"] == 0
+        assert result["success"] == True
 
 
 # def test_eval_all_examples(evaluator):

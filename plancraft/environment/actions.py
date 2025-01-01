@@ -138,24 +138,6 @@ class SmeltAction(BaseModel):
         return f"smelt: from {convert_from_slot_index(self.slot_from)} to {convert_from_slot_index(self.slot_to)} with quantity {self.quantity}"
 
 
-class ThinkAction(BaseModel):
-    """Think about the answer before answering"""
-
-    thought: str
-
-    def __str__(self):
-        return f"think: {self.thought}"
-
-
-class SearchAction(BaseModel):
-    """Searches for a relevant document in the wiki"""
-
-    search_string: str
-
-    def __str__(self):
-        return f"search: {self.search_string}"
-
-
 class StopAction(BaseModel):
     """
     Action that model can take to stop planning - decide impossible to continue

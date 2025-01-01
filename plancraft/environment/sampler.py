@@ -34,7 +34,7 @@ def assign_to_slots(inventory: dict[str, int]) -> list[dict]:
     # slots available outside of crafting interface
     available_slots = list(range(10, 46))
     random.shuffle(available_slots)
-    inventory_list = []
+    inventory_dict = {}
 
     for item, total_count in inventory.items():
         while total_count > 0:
@@ -43,10 +43,10 @@ def assign_to_slots(inventory: dict[str, int]) -> list[dict]:
                 break
             slot = available_slots.pop()
             count_in_slot = min(total_count, MAX_STACK_SIZE[item])
-            inventory_list.append({"slot": slot, "item": item, "count": count_in_slot})
+            inventory_dict[slot] = {"type": item, "quantity": count_in_slot}
             total_count -= count_in_slot
 
-    return inventory_list
+    return inventory_dict
 
 
 def sample_recipes(
@@ -167,10 +167,10 @@ def construct_example(
         optimal_path = optimal_planner(target, inventory)
 
     # assign to slots
-    inventory_list = assign_to_slots(inventory)
+    inventory_dict = assign_to_slots(inventory)
     example = {
         "inventory": inventory,
-        "slotted_inventory": inventory_list,
+        "slotted_inventory": inventory_dict,
         "target": target,
         "num_distractors": num_distractors,
         "impossible": impossible,

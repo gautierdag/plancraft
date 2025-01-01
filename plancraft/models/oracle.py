@@ -25,32 +25,27 @@ def item_set_id_to_type(item_set_ids: set[int]):
     return set(id_to_item(i) for i in item_set_ids)
 
 
-def find_free_inventory_slot(inventory: list[dict], from_slot: int) -> int:
+def find_free_inventory_slot(inventory: dict, from_slot: int) -> int:
     # find a free slot in the inventory for the item in from_slot
-    from_item_type, from_item_quantity = None, None
+    from_item_type = inventory[from_slot]["type"]
+    from_item_quantity = inventory[from_slot]["quantity"]
+
+    empty_slots = set(range(10, 46)) - set(inventory.keys()) - set([from_slot])
 
     type_to_slot = {}
     slot_to_quantity = {}
-    for item in inventory:
-        if "slot" in item and item["slot"] == from_slot:
-            from_item_quantity = item["quantity"]
-            from_item_type = item["type"]
-            # break
+    for slot, item in inventory.items():
+        if slot == from_slot:
+            continue
         item_type = item["type"]
-        quantity = item["quantity"]
-        if quantity == 0:
-            item_type = "air"
-
-        item_slot = item["slot"]
+        # if item["quantity"] == 0:
+        #     item_type = "air"
         if item_type not in type_to_slot:
-            type_to_slot[item_type] = [item_slot]
+            type_to_slot[item_type] = [slot]
         else:
-            type_to_slot[item_type].append(item_slot)
+            type_to_slot[item_type].append(slot)
 
-        if item_slot not in slot_to_quantity:
-            slot_to_quantity[item_slot] = quantity
-        else:
-            slot_to_quantity[item_slot] += quantity
+        slot_to_quantity[slot] = item["quantity"]
 
     assert from_item_type is not None, f"Item not found in slot {from_slot}"
 
@@ -58,59 +53,56 @@ def find_free_inventory_slot(inventory: list[dict], from_slot: int) -> int:
     if from_item_type in type_to_slot:
         for slot in type_to_slot[from_item_type]:
             if (
-                slot != from_slot
-                and slot_to_quantity[slot] + from_item_quantity
+                slot_to_quantity[slot] + from_item_quantity
                 <= MAX_STACK_SIZE[from_item_type]
             ):
                 return slot
-
     # if there is a free slot with air
-    for slot in type_to_slot["air"]:
-        if slot != from_slot and slot > 10:
-            return slot
+    # if "air" in type_to_slot:
+    #     for slot in type_to_slot["air"]:
+    #         if slot > 10:
+    #             return slot
+
+    if len(empty_slots) > 0:
+        return empty_slots.pop()
 
     raise ValueError("No free slot found")
 
 
-def find_item_in_inventory(target: str, inventory: list[dict]) -> int:
-    for item in inventory:
+def find_item_in_inventory(target: str, inventory: dict) -> int:
+    for slot, item in inventory.items():
         if item["type"] == target and item["quantity"] > 0:
-            if "slot" in item:
-                return item["slot"]
-            raise ValueError("Neither slot or index is set")
+            return slot
 
 
-def get_inventory_counter(inventory: list[dict]) -> Counter:
+def get_inventory_counter(inventory: dict) -> Counter:
     counter = Counter()
-    for item in inventory:
-        if "slot" in item and item["slot"] == 0:
+    for slot, item in inventory.items():
+        if slot == 0:
             continue
-        if item["type"] == "air":
-            continue
+        # if item["type"] == "air":
+        #     continue
         counter[item["type"]] += item["quantity"]
     return counter
 
 
-def get_crafting_slot_item(inventory: list[dict]) -> dict:
-    for item in inventory:
-        if "slot" in item and item["slot"] == 0 and item["quantity"] > 0:
+def get_crafting_slot_item(inventory: dict) -> dict:
+    for slot, item in inventory.items():
+        if slot == 0 and item["quantity"] > 0:
             return item
     return None
 
 
 def update_inventory(
-    inventory: list[dict], slot_from: int, slot_to: int, quantity: int
-) -> list[dict]:
+    inventory: dict, slot_from: int, slot_to: int, quantity: int
+) -> dict:
     """
     decrements quantity of item in slot_from
     NOTE: we don't care about incrementing the items in slot_to
 
     """
-    new_inventory = []
-    for item in inventory:
-        if "slot" in item and item["slot"] == slot_from:
-            item["quantity"] -= quantity
-        new_inventory.append(item)
+    new_inventory = dict(inventory)
+    new_inventory[slot_from]["quantity"] -= quantity
     return new_inventory
 
 
