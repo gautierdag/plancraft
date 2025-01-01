@@ -21,7 +21,7 @@ TEMPLATES = {
 class PlancraftDialogueDataset(Dataset):
     def __init__(
         self,
-        dataset_dir: str = "data/oracle",
+        dataset_dir: str = "oracle_trajectories",
         use_images=False,
         trace_mode="oa",
         split="train",

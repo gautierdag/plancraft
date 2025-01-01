@@ -138,35 +138,34 @@
 </head>
 <body>
     <div class="paper-container">
-
         <div class="gif-section" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
-            <img src="../data/oracle/train/images/TRAIN0003.gif" class="dataset-gif" alt="Dataset example 3" loop>
-            <img src="../data/oracle/train/images/TRAIN0004.gif" class="dataset-gif" alt="Dataset example 4" loop>
-            <img src="../data/oracle/train/images/TRAIN0005.gif" class="dataset-gif" alt="Dataset example 5" loop>
-            <img src="../data/oracle/train/images/TRAIN0006.gif" class="dataset-gif" alt="Dataset example 6" loop>
-            <img src="../data/oracle/train/images/TRAIN0007.gif" class="dataset-gif" alt="Dataset example 7" loop>
-            <img src="../data/oracle/train/images/TRAIN0008.gif" class="dataset-gif" alt="Dataset example 8" loop>
-            <img src="../data/oracle/train/images/TRAIN0009.gif" class="dataset-gif" alt="Dataset example 9" loop>
-            <img src="../data/oracle/train/images/TRAIN0010.gif" class="dataset-gif" alt="Dataset example 10" loop>
+            <img src="images/train_images/TRAIN0003.gif" class="dataset-gif" alt="Dataset example 3" loop>
+            <img src="images/train_images/TRAIN0004.gif" class="dataset-gif" alt="Dataset example 4" loop>
+            <img src="images/train_images/TRAIN0005.gif" class="dataset-gif" alt="Dataset example 5" loop>
+            <img src="images/train_images/TRAIN0006.gif" class="dataset-gif" alt="Dataset example 6" loop>
+            <img src="images/train_images/TRAIN0007.gif" class="dataset-gif" alt="Dataset example 7" loop>
+            <img src="images/train_images/TRAIN0008.gif" class="dataset-gif" alt="Dataset example 8" loop>
+            <img src="images/train_images/TRAIN0009.gif" class="dataset-gif" alt="Dataset example 9" loop>
+            <img src="images/train_images/TRAIN0010.gif" class="dataset-gif" alt="Dataset example 10" loop>
         </div>
 
 
         <div class="title-section">
-            <img src="../data/oracle/train/images/TRAIN0001.gif" class="dataset-gif" alt="Dataset example 1" loop>
+            <img src="images/train_images/TRAIN0001.gif" class="dataset-gif" alt="Dataset example 1" loop>
             <h1 class="title">Plancraft: an evaluation dataset for planning with LLM agents</h1>
-            <img src="../data/oracle/train/images/TRAIN0002.gif" class="dataset-gif" alt="Dataset example 2" loop>
+            <img src="images/train_images/TRAIN0002.gif" class="dataset-gif" alt="Dataset example 2" loop>
         </div>
 
         <!-- row of gifs -->
         <div class="gif-section" style="display: flex; justify-content: center; gap: 10px;">
-            <img src="../data/oracle/train/images/TRAIN0003.gif" class="dataset-gif" alt="Dataset example 3" loop>
-            <img src="../data/oracle/train/images/TRAIN0004.gif" class="dataset-gif" alt="Dataset example 4" loop>
-            <img src="../data/oracle/train/images/TRAIN0005.gif" class="dataset-gif" alt="Dataset example 5" loop>
-            <img src="../data/oracle/train/images/TRAIN0006.gif" class="dataset-gif" alt="Dataset example 6" loop>
-            <img src="../data/oracle/train/images/TRAIN0007.gif" class="dataset-gif" alt="Dataset example 7" loop>
-            <img src="../data/oracle/train/images/TRAIN0008.gif" class="dataset-gif" alt="Dataset example 8" loop>
-            <img src="../data/oracle/train/images/TRAIN0009.gif" class="dataset-gif" alt="Dataset example 9" loop>
-            <img src="../data/oracle/train/images/TRAIN0010.gif" class="dataset-gif" alt="Dataset example 10" loop>
+            <img src="images/train_images/TRAIN0003.gif" class="dataset-gif" alt="Dataset example 3" loop>
+            <img src="images/train_images/TRAIN0004.gif" class="dataset-gif" alt="Dataset example 4" loop>
+            <img src="images/train_images/TRAIN0005.gif" class="dataset-gif" alt="Dataset example 5" loop>
+            <img src="images/train_images/TRAIN0006.gif" class="dataset-gif" alt="Dataset example 6" loop>
+            <img src="images/train_images/TRAIN0007.gif" class="dataset-gif" alt="Dataset example 7" loop>
+            <img src="images/train_images/TRAIN0008.gif" class="dataset-gif" alt="Dataset example 8" loop>
+            <img src="images/train_images/TRAIN0009.gif" class="dataset-gif" alt="Dataset example 9" loop>
+            <img src="images/train_images/TRAIN0010.gif" class="dataset-gif" alt="Dataset example 10" loop>
         </div>
 
         <div class="authors">
@@ -329,7 +328,7 @@
         // Function to get a random GIF path
         function getRandomGifPath() {
             const num = formatNumber(getRandomNumber(1, 999));
-            return `../data/oracle/train/images/TRAIN${num}.gif`;
+            return `images/train_images/TRAIN${num}.gif`;
         }
 
         // Function to update a single GIF with error handling

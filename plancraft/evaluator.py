@@ -129,7 +129,8 @@ class Evaluator:
             return json.load(f)
 
     def load_dataset(self, dataset_split: str) -> list[PlancraftExample]:
-        with open(f"data/{dataset_split}.json", "r") as f:
+        folder = os.path.dirname(os.path.abspath(__file__))
+        with open(f"{folder}/data/{dataset_split}.json", "r") as f:
             dataset = json.load(f)
             return [PlancraftExample(**example) for example in dataset]
 
