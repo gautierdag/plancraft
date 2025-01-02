@@ -10,7 +10,7 @@
 
 [Paper](https://arxiv.org/abs/2412.21033) | [Website](https://gautierdag.github.io/plancraft/)
 
-Plancraft is a minecraft environment and agent that innovates on planning LLM agents with a retriever
+Plancraft is a minecraft environment and agent that innovates on planning LLM agents with an oracle RAG retriever.
 
 You can install the package by running the following command:
 
@@ -170,10 +170,13 @@ The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/planc
 
 ## To Do
 
+Non-exhaustive list of things to do from highest to lowest priority:
+
+- [ ] Add minecraft wiki scrape and non-oracle search for pages
+- [ ] Improve planner to bring closer to optimal (the oracle planner does not consider  future crafting steps when moving items -- see paper for more details)
 - [ ] Rerun image models with better bounding box model
   - [ ] Track bounding box accuracy
-- [ ] Improve planner to bring closer to optimal (the oracle planner does not consider  future crafting steps when moving items -- see paper for more details)
-- [ ] Add minecraft wiki scrape and non-oracle search for pages
+- [ ] Implement a version of the image environment entirely on cuda/pytorch rather than cpu
 
 ## PRs Welcomed
 
