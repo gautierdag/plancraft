@@ -19,8 +19,8 @@ from plancraft.environment.env import (
     target_and_inventory_to_text_obs,
 )
 from plancraft.environment.search import gold_search_recipe
-from plancraft.models import get_model
 from plancraft.utils import History
+from plancraft.models.base import PlancraftBaseModel
 
 
 class Evaluator:
@@ -35,7 +35,7 @@ class Evaluator:
     Finally, it also saves the results of the evaluation and the images generated during the evaluation.
     """
 
-    def __init__(self, cfg: EvalConfig):
+    def __init__(self, cfg: EvalConfig, model: PlancraftBaseModel):
         self.cfg = cfg
         self.output_dir = (
             f"{cfg.plancraft.output_dir}/{self.evaluator_name()}/{cfg.plancraft.split}"
@@ -61,7 +61,7 @@ class Evaluator:
         )
 
         # load model
-        self.model = get_model(cfg)
+        self.model = model
 
     def evaluator_name(self) -> str:
         if self.cfg.plancraft.use_text_inventory and self.cfg.plancraft.use_images:

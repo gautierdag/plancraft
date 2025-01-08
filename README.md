@@ -68,8 +68,10 @@ from plancraft.config import EvalConfig
 def main():
     # Create the config
     config = EvalConfig(...)
+    # create model -- Note you can create your own model by subclassing PlancraftBaseModel
+    model = get_model(config)
     # Create the evaluator
-    evaluator = Evaluator(config)
+    evaluator = Evaluator(config, model=model)
     # Evaluate the agent
     evaluator.eval_all_seeds()
 ```
@@ -152,7 +154,7 @@ The observation returned by the `Evaluator` class is a dictionary with the follo
 
 To implement a model, you need to subclass the `PlancraftBaseModel` class and implement the `step` and `reset` method. See the `plancraft.models.dummy` module for an example of how to implement a basic model.
 
-You will also need to modify the `get_model` function in the `plancraft.models` module to return an instance of your model when the correct config is passed.
+You should then be able to use the `Evaluator` class to evaluate it.
 
 ## Reproducing the Results tables in the paper
 

@@ -5,6 +5,7 @@ import hydra
 from loguru import logger
 from plancraft.config import EvalConfig
 from plancraft.evaluator import Evaluator
+from plancraft.models import get_model
 
 warnings.filterwarnings("ignore")
 
@@ -20,7 +21,8 @@ def flatten_cfg(cfg):
 def main(cfg):
     logger.info(cfg)
     cfg = EvalConfig(**flatten_cfg(dict(cfg)))
-    evaluator = Evaluator(cfg)
+    model = get_model(cfg)
+    evaluator = Evaluator(cfg, model)
     evaluator.eval_all_seeds()
 
 

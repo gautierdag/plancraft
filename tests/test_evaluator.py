@@ -5,6 +5,7 @@ import pytest
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.evaluator import Evaluator
 from plancraft.environment.actions import MoveAction, SmeltAction, StopAction
+from plancraft.models import get_model
 
 
 @pytest.fixture
@@ -114,14 +115,13 @@ def mock_example(mock_example_json):
 
 @pytest.fixture
 def evaluator(mock_cfg, mock_example):
-    with patch("plancraft.evaluator.get_model") as mock_get_model:
-        mock_model = MagicMock()
-        mock_model.history.trace.return_value = {"tokens_used": 10}
-        mock_model.history.images = [MagicMock()]
-        mock_get_model.return_value = mock_model
-        with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
-            mock_load_dataset.return_value = [mock_example]
-            return Evaluator(mock_cfg)
+    mock_model = MagicMock()
+    mock_model.history.trace.return_value = {"tokens_used": 10}
+    mock_model.history.images = [MagicMock()]
+
+    with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
+        mock_load_dataset.return_value = [mock_example]
+        return Evaluator(mock_cfg, model=mock_model)
 
 
 def test_load_dataset(evaluator):
@@ -247,9 +247,10 @@ def test_dummy_model(mock_cfg, mock_example_json):
     mock_cfg.plancraft.mode = "dummy"
     mock_cfg.plancraft.use_fasterrcnn = False
     example = PlancraftExample(**mock_example_json)
+    model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [example]
-        evaluator = Evaluator(mock_cfg)
+        evaluator = Evaluator(mock_cfg, model)
         result = evaluator.eval_example(example)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
@@ -260,9 +261,10 @@ def test_oracle_model(mock_cfg, mock_example_json):
     mock_cfg.plancraft.mode = "oracle"
     mock_cfg.plancraft.use_fasterrcnn = False
     example = PlancraftExample(**mock_example_json)
+    model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [example]
-        evaluator = Evaluator(mock_cfg)
+        evaluator = Evaluator(mock_cfg, model)
         result = evaluator.eval_example(example)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
