@@ -1,6 +1,6 @@
 from typing import Literal, Optional, Union
 
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from plancraft.environment.recipes import RECIPES
@@ -30,7 +30,7 @@ class PlancraftConfig(BaseModel):
     resume: bool = True  # resume inference
     few_shot: bool = True  # whether to use few-shot prompt
     system_prompt: bool = True  # whether to use system prompt
-    valid_actions: list[str] = ["move", "smelt", "think", "search", "impossible", "ask"]
+    valid_actions: list[str] = ["move", "smelt", "think", "search", "impossible"]
     use_fasterrcnn: bool = False  # whether to use fasterrcnn for multimodal parsing
 
     # observations

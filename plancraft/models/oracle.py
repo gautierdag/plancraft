@@ -38,8 +38,6 @@ def find_free_inventory_slot(inventory: dict, from_slot: int) -> int:
         if slot == from_slot:
             continue
         item_type = item["type"]
-        # if item["quantity"] == 0:
-        #     item_type = "air"
         if item_type not in type_to_slot:
             type_to_slot[item_type] = [slot]
         else:
@@ -57,12 +55,6 @@ def find_free_inventory_slot(inventory: dict, from_slot: int) -> int:
                 <= MAX_STACK_SIZE[from_item_type]
             ):
                 return slot
-    # if there is a free slot with air
-    # if "air" in type_to_slot:
-    #     for slot in type_to_slot["air"]:
-    #         if slot > 10:
-    #             return slot
-
     if len(empty_slots) > 0:
         return empty_slots.pop()
 
@@ -80,8 +72,6 @@ def get_inventory_counter(inventory: dict) -> Counter:
     for slot, item in inventory.items():
         if slot == 0:
             continue
-        # if item["type"] == "air":
-        #     continue
         counter[item["type"]] += item["quantity"]
     return counter
 
@@ -170,7 +160,6 @@ class OracleModel(PlancraftBaseModel):
 
         if isinstance(plan_recipe, ShapelessRecipe):
             crafting_slot = 1
-
             # add each item to crafting slots
             for item, quantity in items_to_use_counter.items():
                 n = 0

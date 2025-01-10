@@ -322,6 +322,9 @@ class PlancraftEnvironment:
         # not enough
         if self.slot_empty(slot_from) or self.state[slot_from]["quantity"] < quantity:
             return
+        # if craft slot - must take all
+        if slot_from == 0 and self.state[slot_from]["quantity"] != quantity:
+            return
 
         item = self.state[slot_from]
 
