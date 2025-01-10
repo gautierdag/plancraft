@@ -1,4 +1,7 @@
-from plancraft.environment.actions import convert_from_slot_index
+import re
+from typing import Optional
+
+from plancraft.environment.actions import convert_from_slot_index, ActionHandlerBase
 from plancraft.environment.recipes import RECIPES
 
 
@@ -24,3 +27,27 @@ def gold_search_recipe(recipe_name: str) -> str:
             recipe_instructions = f"smelt {r.ingredient}\n"
         out_string += f"recipe {i+1}:\n{recipe_instructions}"
     return out_string
+
+
+class GoldSearchActionHandler(ActionHandlerBase):
+    @property
+    def prompt_description(self) -> str:
+        return "Search for recipes to craft a specific item"
+
+    @property
+    def prompt_format_example(self) -> str:
+        return "`search: <recipe name>`"
+
+    @property
+    def action_name(self) -> str:
+        return "search"
+
+    def match(self, generated_text) -> Optional[str]:
+        """
+        Parse the raw model response to a SearchAction
+        """
+        action_match = re.search(f"({self.action_name}):", generated_text)
+        if not action_match:
+            return
+        search_target = re.search(r"search: (\w+)", generated_text).group(1)
+        return gold_search_recipe(search_target)

@@ -1,6 +1,5 @@
 import glob
 import os
-from collections import defaultdict
 from typing import Literal, Optional
 
 import numpy as np

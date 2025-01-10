@@ -1,7 +1,6 @@
 import json
 import os
 import random
-import re
 import string
 import time
 
@@ -12,13 +11,17 @@ from tqdm import tqdm
 
 import wandb
 from plancraft.config import EvalConfig, PlancraftExample
-from plancraft.environment.actions import MoveAction, SmeltAction, StopAction
+from plancraft.environment.actions import (
+    StopAction,
+    ActionHandlerBase,
+    MoveActionHandler,
+    SmeltActionHandler,
+)
 from plancraft.environment.env import (
     PlancraftEnvironment,
     get_objective_str,
     target_and_inventory_to_text_obs,
 )
-from plancraft.environment.search import gold_search_recipe
 from plancraft.utils import History
 from plancraft.models.base import PlancraftBaseModel
 
@@ -35,12 +38,18 @@ class Evaluator:
     Finally, it also saves the results of the evaluation and the images generated during the evaluation.
     """
 
-    def __init__(self, cfg: EvalConfig, model: PlancraftBaseModel):
+    def __init__(
+        self,
+        cfg: EvalConfig,
+        run_name: str,
+        model: PlancraftBaseModel,
+        actions: list[ActionHandlerBase] = [MoveActionHandler(), SmeltActionHandler()],
+    ):
         self.cfg = cfg
-        self.output_dir = (
-            f"{cfg.plancraft.output_dir}/{self.evaluator_name()}/{cfg.plancraft.split}"
-        )
+        self.run_name = run_name
+        self.output_dir = f"{cfg.plancraft.output_dir}/{run_name}/{cfg.plancraft.split}"
         self.generation_number = 0
+        self.actions = actions
 
         # load all examples
         self.examples: list[PlancraftExample] = self.load_dataset(cfg.plancraft.split)
@@ -53,7 +62,7 @@ class Evaluator:
 
         # initialise history/dialogue tracking
         self.history = History(
-            valid_actions=cfg.plancraft.valid_actions,
+            actions=actions,
             use_multimodal_content_format=cfg.plancraft.use_multimodal_content_format,
             use_images=cfg.plancraft.use_images,
             use_text_inventory=cfg.plancraft.use_text_inventory,
@@ -62,44 +71,6 @@ class Evaluator:
 
         # load model
         self.model = model
-
-    def evaluator_name(self) -> str:
-        if self.cfg.plancraft.use_text_inventory and self.cfg.plancraft.use_images:
-            name_str = "both"
-        elif self.cfg.plancraft.use_images:
-            name_str = "images"
-        elif self.cfg.plancraft.use_text_inventory:
-            name_str = "text"
-        else:
-            raise ValueError(
-                "At least one of use_text_inventory or use_images should be True"
-            )
-
-        if self.cfg.plancraft.use_fasterrcnn:
-            name_str += "_fasterrcnn"
-
-        model_name = self.cfg.plancraft.model.split("/")[-1]
-        if self.cfg.plancraft.adapter != "":
-            model_name = self.cfg.plancraft.adapter.split("/")[-1]
-
-        mode = self.cfg.plancraft.mode
-        if mode in ["dummy", "oracle"]:
-            return f"{mode}_{name_str}"
-
-        valid_actions_to_str = {
-            "move": "m",
-            "smelt": "s",
-            "think": "t",
-            "search": "se",
-            "impossible": "i",
-        }
-        actions = "|".join(
-            [
-                valid_actions_to_str[action]
-                for action in self.cfg.plancraft.valid_actions
-            ]
-        )
-        return f"{self.cfg.plancraft.mode}_{name_str}_{model_name}_{actions}"
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"
@@ -152,48 +123,17 @@ class Evaluator:
                 return True
         return False
 
-    def parse_raw_model_response(
-        self, content: str
-    ) -> str | MoveAction | SmeltAction | StopAction:
+    def parse_raw_model_response(self, generated_text: str):
         """
-        Given a message and set of valid actions, parse the content to return the action
+        Given a message and set of action handlers, parse the content to return the action
         or a message if the action is not valid/requires message response
         """
-
-        action_match = re.search(
-            f"({'|'.join(self.cfg.plancraft.valid_actions)}):", content
-        )
-        if action_match:
-            action = action_match.group(1)
-            if action == "think":
-                return "Ok"
-            elif action == "impossible":
-                reason = re.search(r"impossible: (.*)", content).group(1)
-                return StopAction(reason=reason)
-            elif action == "search":
-                search_target = re.search(r"search: (\w+)", content).group(1)
-                return gold_search_recipe(search_target)
-            else:
-                try:
-                    slot_from = re.search(r" from (\[[ABCI]?\d+\])", content).group(1)
-                    slot_to = re.search(r" to (\[[ABCI]?\d+\])", content).group(1)
-                    quantity = re.search(r"with quantity (\d+)", content).group(1)
-                    if action == "move":
-                        action = MoveAction(
-                            slot_from=slot_from,
-                            slot_to=slot_to,
-                            quantity=quantity,
-                        )
-                    else:
-                        action = SmeltAction(
-                            slot_from=slot_from,
-                            slot_to=slot_to,
-                            quantity=quantity,
-                        )
-                    return action
-                except AttributeError as e:
-                    return f"Format Error: {e}"
-        return f"Only select actions from the following: {', '.join(self.cfg.plancraft.valid_actions)}"
+        for handler in self.actions:
+            match_output = handler.match(generated_text)
+            if match_output:
+                return match_output
+        action_names = [handler.action_name for handler in self.actions]
+        return f"Only select actions from the following: {', '.join(action_names)}"
 
     def convert_observation_to_message(
         self,
@@ -230,11 +170,8 @@ class Evaluator:
         return {"content": content_list}
 
     def eval_example(self, example: PlancraftExample) -> dict:
-        """
-        Given the loaded model and an example from Plancraft
-        run the episode until success or termination.
-        Termination can happen from: early stopping (stuck) / max_steps / stop_action
-        """
+        """Given the loaded model and an example from Plancraft
+        run the episode until success or termination."""
         success = False
         num_non_env_actions = 0
         self.reset(example)
@@ -346,7 +283,7 @@ class Evaluator:
             f"Running evaluation over {len(self.examples)} examples {self.cfg.plancraft.num_generations} times."
         )
         run_name = (
-            f"{self.evaluator_name()} {self.cfg.plancraft.split}".replace(" ", "_")
+            f"{self.run_name} {self.cfg.plancraft.split}".replace(" ", "_")
             .replace(".", "_")
             .strip()
         )

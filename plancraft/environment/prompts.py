@@ -2,31 +2,11 @@ import numpy as np
 
 from plancraft.environment.env import PlancraftEnvironment
 from plancraft.environment.search import gold_search_recipe
-
-VALID_ACTIONS = ["move", "smelt", "think", "search", "impossible"]
-
-ACTIONS_DESCRIPTIONS = {
-    "move": {
-        "description": "Transfer a specific quantity of an item from one slot to another",
-        "format": "`move: from [Source] to [Target] with quantity N`",
-    },
-    "smelt": {
-        "description": "Smelt an item in a furnace and moves the output to a specific slot",
-        "format": "`smelt: from [Source] to [Target] with quantity N`",
-    },
-    "think": {
-        "description": "Generate thoughts to help you decide on the next action",
-        "format": "`think: <thought message>`",
-    },
-    "search": {
-        "description": "Search for a recipe to craft a specific item",
-        "format": "`search: <recipe name>`",
-    },
-    "impossible": {
-        "description": "Stop task if it is certain that it is impossible with given inventory",
-        "format": "`impossible: <reason>`",
-    },
-}
+from plancraft.environment.actions import (
+    ActionHandlerBase,
+    MoveActionHandler,
+    SmeltActionHandler,
+)
 
 BASE_SYSTEM_PROMPT = """You are crafting in Minecraft. You need to decide on the next action.
 
@@ -47,23 +27,6 @@ Constraints:
    - You cannot move or smelt items into [0]
    - If an item is not in slot [0] then the recipe is incorrect
    - You need to move items from [0] to a free inventory slot to complete the crafting process"""
-
-
-def get_system_prompt(actions: list[str]):
-    assert set(actions).issubset(VALID_ACTIONS), f"Invalid actions: {actions}"
-    assert "move" in actions, "move should be one of the actions"
-    assert "smelt" in actions, "smelt should be one of the actions"
-
-    descriptions = ""
-    for action in actions:
-        descriptions += f"\n\t- {action}: {ACTIONS_DESCRIPTIONS[action]['description']}"
-
-    output_format = ""
-    for action in actions:
-        output_format += f"\n\t- {ACTIONS_DESCRIPTIONS[action]['format']}"
-
-    return f"{BASE_SYSTEM_PROMPT}\n\nActions:{descriptions}\n\nFormat{output_format}\n\n{BASE_SYSTEM_PROMPT_EXAMPLE}"
-
 
 CRAFTING_STEPS = [
     "Craft an item of type: andesite\ninventory:\n - diorite [I18] quantity 1\n - cobblestone [I30] quantity 1",
@@ -94,8 +57,26 @@ SEARCH_STEPS = [
 ]
 
 
+def get_system_prompt(
+    handlers: list[ActionHandlerBase] = [MoveActionHandler(), SmeltActionHandler()],
+):
+    action_names = [handler.action_name for handler in handlers]
+    assert "move" in action_names, "MoveActionHandler should be one of the handlers"
+    assert "smelt" in action_names, "SmeltActionHandler should be one of the handlers"
+
+    descriptions = ""
+    for handler in handlers:
+        descriptions += f"\n\t- {handler.action_name}: {handler.prompt_description}"
+
+    output_format = ""
+    for handler in handlers:
+        output_format += f"\n\t- {handler.prompt_format_example}"
+
+    return f"{BASE_SYSTEM_PROMPT}\n\nActions:{descriptions}\n\nFormat{output_format}\n\n{BASE_SYSTEM_PROMPT_EXAMPLE}"
+
+
 def get_prompt_example(
-    actions: list[str],
+    handlers: list[ActionHandlerBase] = [MoveActionHandler(), SmeltActionHandler()],
     use_text_inventory=True,
     use_multimodal_content_format=False,
     use_images=False,
@@ -103,10 +84,9 @@ def get_prompt_example(
     """
     Generates a few-shot prompt for the crafting task
     """
-
-    assert set(actions).issubset(VALID_ACTIONS), f"Invalid actions: {actions}"
-    assert "move" in actions, "move should be one of the actions"
-    assert "smelt" in actions, "smelt should be one of the actions"
+    handler_names = [handler.action_name for handler in handlers]
+    assert "move" in handler_names, "move should be one of the actions"
+    assert "smelt" in handler_names, "smelt should be one of the actions"
 
     if use_images:
         assert (
@@ -120,12 +100,12 @@ def get_prompt_example(
             text = text.split("\ninventory:\n")[0]
 
         example_dialogue.append({"role": "user", "content": text})
-        if "search" in actions and SEARCH_STEPS[i]:
+        if "search" in handler_names and SEARCH_STEPS[i]:
             example_dialogue.append({"role": "assistant", "content": SEARCH_STEPS[i]})
             search_target = text.split("seach: ")[-1].strip()
             search_response = gold_search_recipe(search_target)
             example_dialogue.append({"role": "user", "content": search_response})
-        if "think" in actions:
+        if "think" in handler_names:
             example_dialogue.append({"role": "assistant", "content": THINK_STEPS[i]})
             example_dialogue.append({"role": "user", "content": "Ok"})
         example_dialogue.append({"role": "assistant", "content": BASE_ACTION_STEPS[i]})

@@ -1,3 +1,7 @@
+import abc
+import re
+from typing import Optional
+
 from pydantic import BaseModel, field_validator, model_validator
 
 
@@ -38,6 +42,39 @@ def convert_from_slot_index(slot_index: int) -> str:
         return grid_map[slot_index]
     else:
         return f"[I{slot_index-9}]"
+
+
+class ActionHandlerBase(abc.ABC):
+    @property
+    @abc.abstractmethod
+    def prompt_description(self) -> str:
+        """
+        Return the prompt description for the model
+        """
+        raise NotImplementedError()
+
+    @property
+    @abc.abstractmethod
+    def prompt_format_example(self) -> str:
+        """
+        Return the prompt format example for the model
+        """
+        raise NotImplementedError()
+
+    @property
+    @abc.abstractmethod
+    def action_name(self) -> str:
+        """
+        Return the action name for the model
+        """
+        raise NotImplementedError()
+
+    @abc.abstractmethod
+    def match(self, generated_text: str):
+        """
+        Match the generated text to the action/tool
+        """
+        raise NotImplementedError()
 
 
 class MoveAction(BaseModel):
@@ -152,3 +189,118 @@ class StopAction(BaseModel):
 
 # when symbolic action is true, can either move objects around or smelt
 SymbolicAction = MoveAction | SmeltAction
+
+
+class MoveActionHandler(ActionHandlerBase):
+    @property
+    def prompt_description(self) -> str:
+        return "Transfer a specific quantity of an item from one slot to another"
+
+    @property
+    def prompt_format_example(self) -> str:
+        return "`move: from [Source] to [Target] with quantity N`"
+
+    @property
+    def action_name(self) -> str:
+        return "move"
+
+    def match(self, generated_text: str) -> Optional[MoveAction | str]:
+        """
+        Parse the raw model response to a MoveAction
+        """
+        action_match = re.search(f"({self.action_name}):", generated_text)
+        if not action_match:
+            return
+        try:
+            slot_from = re.search(r" from (\[[ABCI]?\d+\])", generated_text).group(1)
+            slot_to = re.search(r" to (\[[ABCI]?\d+\])", generated_text).group(1)
+            quantity = re.search(r"with quantity (\d+)", generated_text).group(1)
+            action = MoveAction(
+                slot_from=slot_from,
+                slot_to=slot_to,
+                quantity=quantity,
+            )
+            return action
+        except AttributeError as e:
+            return f"Format Error: {e}"
+
+
+class SmeltActionHandler(ActionHandlerBase):
+    @property
+    def prompt_description(self) -> str:
+        return "Smelt an item in a furnace and moves the output to a specific slot"
+
+    @property
+    def prompt_format_example(self) -> str:
+        return "`smelt: from [Source] to [Target] with quantity N`"
+
+    @property
+    def action_name(self) -> str:
+        return "smelt"
+
+    def match(self, generated_text: str) -> Optional[SmeltAction | str]:
+        """
+        Parse the raw model response to a SmeltAction
+        """
+        action_match = re.search(f"({self.action_name}):", generated_text)
+        if not action_match:
+            return
+        try:
+            slot_from = re.search(r" from (\[[ABCI]?\d+\])", generated_text).group(1)
+            slot_to = re.search(r" to (\[[ABCI]?\d+\])", generated_text).group(1)
+            quantity = re.search(r"with quantity (\d+)", generated_text).group(1)
+            action = SmeltAction(
+                slot_from=slot_from,
+                slot_to=slot_to,
+                quantity=quantity,
+            )
+            return action
+        except AttributeError as e:
+            return f"Format Error: {e}"
+
+
+class ImpossibleActionHandler(ActionHandlerBase):
+    @property
+    def prompt_description(self) -> str:
+        return "Stop task if it is certain that it is impossible with given inventory"
+
+    @property
+    def prompt_format_example(self) -> str:
+        return "`impossible: <reason>`"
+
+    @property
+    def action_name(self) -> str:
+        return "impossible"
+
+    def match(self, generated_text) -> Optional[StopAction]:
+        """
+        Parse the raw model response to a StopAction
+        """
+        action_match = re.search(f"({self.action_name}):", generated_text)
+        if not action_match:
+            return
+        reason = re.search(r"impossible: (.*)", generated_text).group(1)
+        return StopAction(reason=reason)
+
+
+class ThinkActionHandler(ActionHandlerBase):
+    @property
+    def prompt_description(self) -> str:
+        return "Generate thoughts to help you decide on the next action"
+
+    @property
+    def prompt_format_example(self) -> str:
+        return "`think: <thought message>`"
+
+    @property
+    def action_name(self) -> str:
+        return "think"
+
+    def match(self, generated_text) -> Optional[str]:
+        """
+        Parse the raw model response to a ThinkAction
+        """
+        action_match = re.search(f"({self.action_name}):", generated_text)
+        if not action_match:
+            return
+        return "Ok"

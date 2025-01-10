@@ -30,7 +30,7 @@ class PlancraftConfig(BaseModel):
     resume: bool = True  # resume inference
     few_shot: bool = True  # whether to use few-shot prompt
     system_prompt: bool = True  # whether to use system prompt
-    valid_actions: list[str] = ["move", "smelt", "think", "search", "impossible"]
+    valid_actions: list[str] = ["move", "smelt", "think", "search", "impossible", "ask"]
     use_fasterrcnn: bool = False  # whether to use fasterrcnn for multimodal parsing
 
     # observations
@@ -39,15 +39,6 @@ class PlancraftConfig(BaseModel):
     use_multimodal_content_format: bool = (
         False  # whether to use multimodal content format
     )
-
-    @model_validator(mode="after")
-    def validate(self):
-        assert set(
-            self.valid_actions
-        ).issubset(
-            {"move", "smelt", "think", "search", "impossible"}
-        ), "valid_actions should be subset of {'move', 'smelt', 'think', 'search', 'impossible'}"
-        return self
 
 
 class WandbConfig(BaseModel):

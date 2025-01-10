@@ -7,6 +7,7 @@ import torch
 from loguru import logger
 
 from plancraft.environment.actions import (
+    ActionHandlerBase,
     MoveAction,
     SmeltAction,
 )
@@ -21,21 +22,21 @@ class History:
     """
     History class to keep track of dialogue, actions, inventory and images
     Args:
-        valid_actions: list of valid actions
+        valid_actions: list of valid actions names
         initial_dialogue: list of dialogue messages
         use_multimodal_content_format: whether to use multimodal content format (list of content with types)
     """
 
     def __init__(
         self,
-        valid_actions: list[str] = ["move", "smelt"],
+        actions: list[ActionHandlerBase] = [],
         use_multimodal_content_format=False,
         few_shot=False,
         use_images=False,
         use_text_inventory=False,
         resolution="high",
     ):
-        self.valid_actions = valid_actions
+        self.action_handlers = actions
         self.use_multimodal_content_format = use_multimodal_content_format
         self.few_shot = few_shot
         self.use_images = use_images
@@ -58,7 +59,7 @@ class History:
 
     def system_prompt(self):
         # kept separate from dialogue history because certain models deal with system prompt differently
-        system_prompt_text = get_system_prompt(self.valid_actions)
+        system_prompt_text = get_system_prompt(handlers=self.action_handlers)
         if self.use_multimodal_content_format:
             return {
                 "role": "system",
@@ -75,7 +76,7 @@ class History:
 
         if self.few_shot:
             self.prompt_examples = get_prompt_example(
-                self.valid_actions,
+                self.action_handlers,
                 use_text_inventory=self.use_text_inventory,
                 use_multimodal_content_format=self.use_multimodal_content_format,
                 use_images=self.use_images,

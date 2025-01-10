@@ -3,8 +3,15 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from plancraft.config import EvalConfig, PlancraftExample
-from plancraft.evaluator import Evaluator
+from plancraft.environment import (
+    GoldSearchActionHandler,
+    ImpossibleActionHandler,
+    MoveActionHandler,
+    SmeltActionHandler,
+    ThinkActionHandler,
+)
 from plancraft.environment.actions import MoveAction, SmeltAction, StopAction
+from plancraft.evaluator import Evaluator
 from plancraft.models import get_model
 
 
@@ -121,7 +128,7 @@ def evaluator(mock_cfg, mock_example):
 
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [mock_example]
-        return Evaluator(mock_cfg, model=mock_model)
+        return Evaluator(mock_cfg, run_name="test_run", model=mock_model)
 
 
 def test_load_dataset(evaluator):
@@ -142,12 +149,12 @@ def test_check_done(evaluator):
 
 # Sample test function for parse_raw_model_response
 def test_parse_raw_model_response(evaluator):
-    evaluator.cfg.plancraft.valid_actions = [
-        "move",
-        "smelt",
-        "think",
-        "search",
-        "impossible",
+    evaluator.actions = [
+        MoveActionHandler(),
+        SmeltActionHandler(),
+        ThinkActionHandler(),
+        ImpossibleActionHandler(),
+        GoldSearchActionHandler(),
     ]
 
     # Define example inputs and expected outputs
@@ -250,7 +257,7 @@ def test_dummy_model(mock_cfg, mock_example_json):
     model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [example]
-        evaluator = Evaluator(mock_cfg, model)
+        evaluator = Evaluator(mock_cfg, run_name="test_run", model=model)
         result = evaluator.eval_example(example)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
@@ -264,7 +271,7 @@ def test_oracle_model(mock_cfg, mock_example_json):
     model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [example]
-        evaluator = Evaluator(mock_cfg, model)
+        evaluator = Evaluator(mock_cfg, run_name="test_run", model=model)
         result = evaluator.eval_example(example)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
