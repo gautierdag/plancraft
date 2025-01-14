@@ -1,5 +1,6 @@
 import json
 import os
+from typing import Optional
 
 import imageio
 from loguru import logger
@@ -8,18 +9,18 @@ from tqdm import tqdm
 import wandb
 from plancraft.config import PlancraftExample
 from plancraft.environment.actions import (
-    StopAction,
     ActionHandlerBase,
     MoveActionHandler,
     SmeltActionHandler,
+    StopAction,
 )
 from plancraft.environment.env import (
     PlancraftEnvironment,
     get_objective_str,
     target_and_inventory_to_text_obs,
 )
-from plancraft.utils import History
 from plancraft.models.base import PlancraftBaseModel
+from plancraft.utils import History
 
 
 class Evaluator:
@@ -48,6 +49,10 @@ class Evaluator:
         use_images: bool = False,
         use_text_inventory: bool = False,
         use_fasterrcnn: bool = False,
+        system_prompt: Optional[dict] = None,
+        prompt_examples: list[dict] = [],
+        prompt_images: list[str] = [],
+        few_shot: bool = True,
     ):
         self.run_name = run_name
         self.use_multimodal_content_format = use_multimodal_content_format
@@ -77,6 +82,10 @@ class Evaluator:
             use_images=use_images,
             use_text_inventory=use_text_inventory,
             resolution=resolution,
+            few_shot=few_shot,
+            system_prompt=system_prompt,
+            prompt_examples=prompt_examples,
+            prompt_images=prompt_images,
         )
 
         # load model

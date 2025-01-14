@@ -59,7 +59,8 @@ SEARCH_STEPS = [
 
 def get_system_prompt(
     handlers: list[ActionHandlerBase] = [MoveActionHandler(), SmeltActionHandler()],
-):
+    use_multimodal_content_format=False,
+) -> dict:
     action_names = [handler.action_name for handler in handlers]
     assert "move" in action_names, "MoveActionHandler should be one of the handlers"
     assert "smelt" in action_names, "SmeltActionHandler should be one of the handlers"
@@ -72,7 +73,17 @@ def get_system_prompt(
     for handler in handlers:
         output_format += f"\n\t- {handler.prompt_format_example}"
 
-    return f"{BASE_SYSTEM_PROMPT}\n\nActions:{descriptions}\n\nFormat{output_format}\n\n{BASE_SYSTEM_PROMPT_EXAMPLE}"
+    system_prompt_text = f"{BASE_SYSTEM_PROMPT}\n\nActions:{descriptions}\n\nFormat{output_format}\n\n{BASE_SYSTEM_PROMPT_EXAMPLE}"
+
+    if use_multimodal_content_format:
+        return {
+            "role": "system",
+            "content": [{"text": system_prompt_text, "type": "text"}],
+        }
+    return {
+        "role": "system",
+        "content": system_prompt_text,
+    }
 
 
 def get_prompt_example(

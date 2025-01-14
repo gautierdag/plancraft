@@ -2,6 +2,7 @@ import glob
 import pathlib
 from collections import Counter
 from copy import copy
+from typing import Optional
 
 import torch
 from loguru import logger
@@ -12,8 +13,8 @@ from plancraft.environment.actions import (
     SmeltAction,
 )
 from plancraft.environment.prompts import (
-    get_system_prompt,
     get_prompt_example,
+    get_system_prompt,
     load_prompt_images,
 )
 
@@ -35,6 +36,9 @@ class History:
         use_images=False,
         use_text_inventory=False,
         resolution="high",
+        system_prompt: Optional[dict] = None,
+        prompt_examples: list[dict] = [],
+        prompt_images: list[str] = [],
     ):
         self.action_handlers = actions
         self.use_multimodal_content_format = use_multimodal_content_format
@@ -49,31 +53,30 @@ class History:
 
         self.tokens_used = 0
 
+        # use system prompt if provided
+        if system_prompt:
+            self.system_prompt_dialogue = system_prompt
+        else:
+            # generate system prompt
+            self.system_prompt_dialogue = get_system_prompt(
+                handlers=self.action_handlers,
+                use_multimodal_content_format=self.use_multimodal_content_format,
+            )
+
         # set up dialogue history with few-shot prompt
+        self.prompt_examples = prompt_examples
+        self.prompt_images = prompt_images
         self.set_up_few_shot_prompt()
-        self.system_prompt_dialogue = self.system_prompt()
 
         self.dialogue_history = copy(self.prompt_examples)
         self.images = copy(self.prompt_images)
         self.initial_dialogue_length = len(self.dialogue_history)
 
-    def system_prompt(self):
-        # kept separate from dialogue history because certain models deal with system prompt differently
-        system_prompt_text = get_system_prompt(handlers=self.action_handlers)
-        if self.use_multimodal_content_format:
-            return {
-                "role": "system",
-                "content": [{"text": system_prompt_text, "type": "text"}],
-            }
-        return {
-            "role": "system",
-            "content": system_prompt_text,
-        }
-
     def set_up_few_shot_prompt(self):
-        self.prompt_examples = []
-        self.prompt_images = []
-
+        # if either prompt_examples or prompt_images are provided, skip
+        if self.prompt_examples or self.prompt_images:
+            return
+        # if few-shot is not enabled, skip
         if self.few_shot:
             self.prompt_examples = get_prompt_example(
                 self.action_handlers,
