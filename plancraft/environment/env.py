@@ -285,6 +285,7 @@ class PlancraftEnvironment:
                 assert slot >= 0 and slot < 46
                 assert item["quantity"] > 0 and item["quantity"] <= 64
                 self.state[slot] = item
+                self.table.add_item_to_slot(item["type"], slot, item["quantity"])
         return self.state
 
     def step(self, action: Optional[SymbolicAction] = None) -> dict:
