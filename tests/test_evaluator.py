@@ -108,6 +108,7 @@ def mock_example_json():
         "unique_items_used": 1.0,
         "complexity": 6.0,
         "complexity_bin": 1.0,
+        "complexity_split": "easy",
         "unseen_in_train": False,
         "unseen_in_val": False,
         "split": "train",
@@ -128,7 +129,7 @@ def evaluator(mock_cfg, mock_example):
 
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [mock_example]
-        return Evaluator(mock_cfg, run_name="test_run", model=mock_model)
+        return Evaluator(run_name="test_run", model=mock_model)
 
 
 def test_load_dataset(evaluator):
@@ -210,22 +211,22 @@ def test_convert_observation_to_message(evaluator):
         "inventory": inventory,
     }
 
-    evaluator.cfg.plancraft.use_fasterrcnn = False
-    evaluator.cfg.plancraft.use_text_inventory = False
-    evaluator.cfg.plancraft.use_multimodal_content_format = False
+    evaluator.use_fasterrcnn = False
+    evaluator.use_text_inventory = False
+    evaluator.use_multimodal_content_format = False
 
     message = evaluator.convert_observation_to_message(observation)
     assert message == "Craft an item of type: iron_ingot"
 
-    evaluator.cfg.plancraft.use_text_inventory = True
+    evaluator.use_text_inventory = True
     message = evaluator.convert_observation_to_message(observation)
     assert (
         message
         == "Craft an item of type: iron_ingot\ninventory:\n - iron_ingot [A1] quantity 1"
     )
 
-    evaluator.cfg.plancraft.use_multimodal_content_format = True
-    evaluator.cfg.plancraft.use_images = False
+    evaluator.use_multimodal_content_format = True
+    evaluator.use_images = False
     message = evaluator.convert_observation_to_message(observation)
     message = {
         "content": [
@@ -236,8 +237,8 @@ def test_convert_observation_to_message(evaluator):
         ],
     }
 
-    evaluator.cfg.plancraft.use_multimodal_content_format = True
-    evaluator.cfg.plancraft.use_images = True
+    evaluator.use_multimodal_content_format = True
+    evaluator.use_images = True
     message = evaluator.convert_observation_to_message(observation)
     message = {
         "content": [
@@ -257,7 +258,7 @@ def test_dummy_model(mock_cfg, mock_example_json):
     model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [example]
-        evaluator = Evaluator(mock_cfg, run_name="test_run", model=model)
+        evaluator = Evaluator(run_name="test_run", model=model)
         result = evaluator.eval_example(example)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
@@ -271,7 +272,7 @@ def test_oracle_model(mock_cfg, mock_example_json):
     model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [example]
-        evaluator = Evaluator(mock_cfg, run_name="test_run", model=model)
+        evaluator = Evaluator(run_name="test_run", model=model)
         result = evaluator.eval_example(example)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0

@@ -122,6 +122,7 @@ class PlancraftExample(BaseModel):
     unique_items_used: Optional[int]
     complexity: Optional[int]
     complexity_bin: int
+    complexity_split: str  # "easy", "medium", "hard" or "impossible"
     unseen_in_train: bool
     unseen_in_val: bool
     split: DatasetSplit
