@@ -229,6 +229,9 @@ class Evaluator:
 
                 # check if the episode is done
                 success = self.check_done(observation["inventory"], example.target)
+            # exit if success
+            if success:
+                break
 
             # add observation to history
             self.history.add_observation_to_history(observation)
@@ -236,11 +239,6 @@ class Evaluator:
             self.history.add_message_to_history(
                 content=observation["message"], role="user"
             )
-
-            # exit if success
-            if success:
-                break
-
             # predict next action
             raw_action = self.model.step(observation, dialogue_history=self.history)
             # add message to history
@@ -256,7 +254,6 @@ class Evaluator:
             "number_of_steps": self.history.num_steps,
             "model_trace": self.history.trace(),
             "example_id": example.id,
-            "impossible": example.impossible,
         }
 
     def eval_all_examples(self, progress_bar=False) -> list:
