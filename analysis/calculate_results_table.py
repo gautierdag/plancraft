@@ -203,10 +203,6 @@ def oracle_count(action_history):
 
 
 df["actions_dict"] = df["dialogue_history"].apply(count_actions)
-df.loc[df["mode"] == "oracle", "actions_dict"] = df[df["mode"] == "oracle"][
-    "action_history"
-].apply(oracle_count)
-
 df = pd.concat([df, df.actions_dict.apply(pd.Series)], axis=1).drop(
     "actions_dict", axis=1
 )

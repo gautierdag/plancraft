@@ -7,11 +7,7 @@ from typing import Optional
 import torch
 from loguru import logger
 
-from plancraft.environment.actions import (
-    ActionHandlerBase,
-    MoveAction,
-    SmeltAction,
-)
+from plancraft.environment.actions import ActionHandlerBase
 from plancraft.environment.prompts import (
     get_prompt_example,
     get_system_prompt,
@@ -108,10 +104,6 @@ class History:
             else:
                 self.dialogue_history.append({"role": role, "content": content})
 
-    def add_action_to_history(self, action: SmeltAction | MoveAction):
-        if isinstance(action, SmeltAction) or isinstance(action, MoveAction):
-            self.action_history.append(action.model_dump())
-
     def add_inventory_to_history(self, inventory: dict):
         self.inventory_history.append(inventory)
         # count inventory
@@ -148,7 +140,6 @@ class History:
         self.images = copy(self.prompt_images)
         self.initial_dialogue_length = len(self.dialogue_history)
 
-        self.action_history = []
         self.inventory_history = []
         self.inventory_counters = []
 
@@ -159,7 +150,6 @@ class History:
             "dialogue_history": copy(
                 self.dialogue_history[self.initial_dialogue_length :]
             ),
-            "action_history": copy(self.action_history),
             "inventory_history": copy(self.inventory_history),
             "tokens_used": copy(self.tokens_used),
         }

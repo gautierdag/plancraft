@@ -213,11 +213,9 @@ class Evaluator:
                 num_non_env_actions += 1
             # action is environment action
             else:
-                # add action to history
                 if isinstance(action, str):
                     observation = self.environment.step()
                 else:
-                    self.history.add_action_to_history(action)
                     observation = self.environment.step(action)
 
                 # convert inventory observation to text message
