@@ -18,6 +18,13 @@ You can install the package by running the following command:
 pip install plancraft
 ```
 
+Or:
+
+```bash
+uv add plancraft
+```
+
+
 ![gif-example3](docs/images/train_images/TRAIN0010.gif)
 ![gif-example1](docs/images/train_images/TRAIN1133.gif)
 ![gif-example2](docs/images/train_images/TRAIN0383.gif)
@@ -63,17 +70,14 @@ The package also provides an `Evaluator` class that can be used to evaluate the 
 
 ```python
 from plancraft.evaluator import Evaluator
-from plancraft.config import EvalConfig
 
 def main():
-    # Create the config
-    config = EvalConfig(...)
     # create model -- Note you can create your own model by subclassing PlancraftBaseModel
-    model = get_model(config)
+    model = get_model("dummy")
     # Create the evaluator
-    evaluator = Evaluator(config, model=model)
+    evaluator = Evaluator(run_name="dummy", model=model)
     # Evaluate the agent
-    evaluator.eval_all_seeds()
+    evaluator.eval_all_examples()
 ```
 
 The evaluator class handles the environment loop and model interaction. The environment is created based on the configuration and the examples are loaded from the dataset. The `Evaluator` uses the dataset examples and initializes the environment with the example's inventory. It is also responsible for early stopping and verifying the target object has been craft. Finally, it also saves the results of the evaluation and the images generated during the evaluation.
@@ -105,7 +109,6 @@ while not history.check_stuck() and history.num_steps < max_steps:
             # Handle invalid case (exceeded non-env action limit)
             observation = environment.step()
         else:
-            history.add_action_to_history(action)  # Add action to history
             observation = environment.step(action)
 
         # Convert observation to message and reset non-env counter
@@ -116,19 +119,16 @@ while not history.check_stuck() and history.num_steps < max_steps:
         # Check if episode is complete
         success = check_done(observation["inventory"], example.target)
 
-    # Update history with observation and message
-    history.add_observation_to_history(observation)
-    history.add_message_to_history(content=observation["message"], role="user")
-
     if success:  # Exit loop if success
         break
 
+    # Update history with observation and message
+    history.add_observation_to_history(observation)
+    history.add_message_to_history(content=observation["message"], role="user")
     # Model predicts next action
     raw_action = model.step(observation, dialogue_history=history)
-
     # Update history with predicted action
     history.add_message_to_history(content=raw_action, role="assistant")
-
     # Parse raw action into a structured format
     action = parse_raw_model_response(raw_action)
 
@@ -140,7 +140,6 @@ return {
     "number_of_steps": history.num_steps,
     "model_trace": history.trace(),
     "example_id": example.id,
-    "impossible": example.impossible,
 }
 ```
 
