@@ -43,7 +43,6 @@ class History:
         self.use_text_inventory = use_text_inventory
         self.resolution = resolution  # low, medium, high
 
-        self.action_history = []
         self.inventory_history = []
         self.inventory_counters = []
 
@@ -156,7 +155,7 @@ class History:
 
     @property
     def num_steps(self):
-        return len(self.action_history)
+        return (len(self.dialogue_history) - self.initial_dialogue_length) // 2
 
     def check_stuck(self, max_steps_no_change: int = 10) -> bool:
         """
