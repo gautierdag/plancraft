@@ -70,7 +70,7 @@ class ActionHandlerBase(abc.ABC):
         raise NotImplementedError()
 
     @abc.abstractmethod
-    def match(self, generated_text: str):
+    def match(self, generated_text: str, **kwargs) -> Optional[BaseModel | str]:
         """
         Match the generated text to the action/tool
         """
@@ -204,7 +204,7 @@ class MoveActionHandler(ActionHandlerBase):
     def action_name(self) -> str:
         return "move"
 
-    def match(self, generated_text: str) -> Optional[MoveAction | str]:
+    def match(self, generated_text: str, **kwargs) -> Optional[MoveAction | str]:
         """
         Parse the raw model response to a MoveAction
         """
@@ -238,7 +238,7 @@ class SmeltActionHandler(ActionHandlerBase):
     def action_name(self) -> str:
         return "smelt"
 
-    def match(self, generated_text: str) -> Optional[SmeltAction | str]:
+    def match(self, generated_text: str, **kwargs) -> Optional[SmeltAction | str]:
         """
         Parse the raw model response to a SmeltAction
         """
@@ -272,7 +272,7 @@ class ImpossibleActionHandler(ActionHandlerBase):
     def action_name(self) -> str:
         return "impossible"
 
-    def match(self, generated_text) -> Optional[StopAction]:
+    def match(self, generated_text, **kwargs) -> Optional[StopAction]:
         """
         Parse the raw model response to a StopAction
         """
@@ -296,7 +296,7 @@ class ThinkActionHandler(ActionHandlerBase):
     def action_name(self) -> str:
         return "think"
 
-    def match(self, generated_text) -> Optional[str]:
+    def match(self, generated_text, **kwargs) -> Optional[str]:
         """
         Parse the raw model response to a ThinkAction
         """

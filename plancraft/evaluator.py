@@ -142,13 +142,15 @@ class Evaluator:
                 return True
         return False
 
-    def parse_raw_model_response(self, generated_text: str):
+    def parse_raw_model_response(self, generated_text: str, observation=None) -> str:
         """
         Given a message and set of action handlers, parse the content to return the action
         or a message if the action is not valid/requires message response
         """
         for handler in self.actions:
-            match_output = handler.match(generated_text)
+            match_output = handler.match(
+                generated_text, observation=observation, history=self.history
+            )
             if match_output:
                 return match_output
         action_names = [handler.action_name for handler in self.actions]
@@ -242,7 +244,7 @@ class Evaluator:
             # add message to history
             self.history.add_message_to_history(content=raw_action, role="assistant")
             # parse the raw action
-            action = self.parse_raw_model_response(raw_action)
+            action = self.parse_raw_model_response(raw_action, observation=observation)
 
         # save results and reset
         return {

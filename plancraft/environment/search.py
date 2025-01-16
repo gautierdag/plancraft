@@ -42,7 +42,7 @@ class GoldSearchActionHandler(ActionHandlerBase):
     def action_name(self) -> str:
         return "search"
 
-    def match(self, generated_text) -> Optional[str]:
+    def match(self, generated_text, **kwargs) -> Optional[str]:
         """
         Parse the raw model response to a SearchAction
         """
