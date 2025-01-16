@@ -194,7 +194,6 @@ class Evaluator:
         """Given the loaded model and an example from Plancraft
         run the episode until success or termination."""
         success = False
-        num_non_env_actions = 0
         self.reset(example)
         action = None
 
@@ -209,24 +208,18 @@ class Evaluator:
                 success = example.impossible
                 break
             # action is external tool then it is str
-            # limit the number of consecutive non-env actions to 3
-            elif isinstance(action, str) and num_non_env_actions < 3:
-                observation = {"message": action}
-                num_non_env_actions += 1
+            if isinstance(action, str):
+                observation = self.environment.step()
+                observation["target"] = example.target
+                observation["message"] = action
             # action is environment action
             else:
-                if isinstance(action, str):
-                    observation = self.environment.step()
-                else:
-                    observation = self.environment.step(action)
-
+                observation = self.environment.step(action)
                 # convert inventory observation to text message
                 observation["target"] = example.target
                 observation["message"] = self.convert_observation_to_message(
                     observation
                 )
-                num_non_env_actions = 0
-
                 # check if the episode is done
                 success = self.check_done(observation["inventory"], example.target)
             # exit if success
