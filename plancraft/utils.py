@@ -44,8 +44,6 @@ class History:
         self.resolution = resolution  # low, medium, high
 
         self.inventory_history = []
-        self.inventory_counters = []
-
         self.tokens_used = 0
 
         # use system prompt if provided
@@ -105,14 +103,6 @@ class History:
 
     def add_inventory_to_history(self, inventory: dict):
         self.inventory_history.append(inventory)
-        # count inventory
-        counter = Counter()
-        for slot, item in inventory.items():
-            # ignore slot 0
-            if slot == 0:
-                continue
-            counter[item["type"]] += item["quantity"]
-        self.inventory_counters.append(counter)
 
     def add_image_to_history(self, image):
         self.images.append(image)
@@ -121,11 +111,6 @@ class History:
         if observation is None:
             return
         if "inventory" in observation:
-            # clean_inv = []
-            # remove empty slots
-            # for slot, item in observation["inventory"].items():
-            #     if item["quantity"] > 0:
-            #         clean_inv.append(item)
             self.add_inventory_to_history(observation["inventory"])
         if "image" in observation:
             self.add_image_to_history(observation["image"])
@@ -140,7 +125,6 @@ class History:
         self.initial_dialogue_length = len(self.dialogue_history)
 
         self.inventory_history = []
-        self.inventory_counters = []
 
         self.tokens_used = 0
 
