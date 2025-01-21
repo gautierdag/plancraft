@@ -157,21 +157,6 @@ class History:
     def num_steps(self):
         return (len(self.dialogue_history) - self.initial_dialogue_length) // 2
 
-    def check_stuck(self, max_steps_no_change: int = 10) -> bool:
-        """
-        If inventory content does not change for max_steps_no_change steps
-        the agent is considered stuck.
-
-        With N=10, the oracle solver can still solve 100% of the examples
-        """
-        if len(self.inventory_counters) <= max_steps_no_change:
-            return False
-
-        return all(
-            c == self.inventory_counters[-max_steps_no_change - 1]
-            for c in self.inventory_counters[-max_steps_no_change - 1 :]
-        )
-
 
 def get_downloaded_models() -> dict:
     """

@@ -198,9 +198,7 @@ class Evaluator:
         action = None
 
         # run episode until stuck or until max steps is reached
-        while (
-            not self.history.check_stuck() and self.history.num_steps < self.max_steps
-        ):
+        while self.history.num_steps < self.max_steps:
             # if the action is stop then we end the episode
             if isinstance(action, StopAction):
                 # if the action is stop and task is impossible then success
