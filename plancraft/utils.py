@@ -81,9 +81,6 @@ class History:
                 self.prompt_images = load_prompt_images(resolution=self.resolution)
 
     def add_message_to_history(self, content: str | dict, role="user"):
-        if role == "assistant":
-            logger.info(content)
-
         if isinstance(content, dict):
             assert "content" in content, "content key not found in message"
             content["role"] = role

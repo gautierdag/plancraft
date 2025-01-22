@@ -261,7 +261,6 @@ class Evaluator:
         correct = 0
         count = 0
         for example in self.examples:
-            logger.debug(f"Running example {example.id}")
             if resume_result := self.load_results_dict(example):
                 pbar.update(self.max_steps)
                 results.append(resume_result)

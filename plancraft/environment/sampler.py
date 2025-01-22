@@ -39,7 +39,7 @@ def assign_to_slots(inventory: dict[str, int]) -> list[dict]:
     for item, total_count in inventory.items():
         while total_count > 0:
             if len(available_slots) == 0:
-                logger.info("Not enough slots available")
+                logger.warning("Not enough slots available")
                 break
             slot = available_slots.pop()
             count_in_slot = min(total_count, MAX_STACK_SIZE[item])
