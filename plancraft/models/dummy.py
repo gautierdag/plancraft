@@ -18,14 +18,19 @@ class DummyModel(PlancraftBaseModel):
         pass
 
     def random_select(self, observation):
-        # randomly pick an item from the inventory
+        # randomly pick an item that has quantity 1 from the inventory
         item_indices = set()
         for slot, item in observation["inventory"].items():
-            if item["quantity"] > 0:
+            if item["quantity"] == 1:
                 item_indices.add(slot)
         all_slots_to = set(range(1, 46))
         empty_slots = all_slots_to - item_indices
 
+        # if not item with quantity == 1, randomly pick any item
+        if len(item_indices) == 0:
+            item_indices = set(observation["inventory"].keys())
+
+        # move the item to a random empty slot
         random_slot_from = random.choice(list(item_indices))
         random_slot_to = random.choice(list(empty_slots))
 

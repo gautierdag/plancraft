@@ -19,6 +19,7 @@ from plancraft.environment import (
 )
 from plancraft.evaluator import Evaluator
 from plancraft.models import get_model
+from plancraft.models.base import PlancraftBaseModel
 
 warnings.filterwarnings("ignore")
 
@@ -70,6 +71,7 @@ def eval_all_seeds(
     run_name: str,
     cfg: EvalConfig,
     evaluator: Evaluator,
+    model: PlancraftBaseModel,
 ):
     num_seeds = cfg.plancraft.num_generations
     logger.info(
@@ -94,7 +96,7 @@ def eval_all_seeds(
         )
         time_now = time.time()
 
-        results_list = evaluator.eval_all_examples(progress_bar=True)
+        results_list = evaluator.eval_all_examples(model, progress_bar=True)
         results_df = pd.DataFrame(results_list)
 
         output = {
@@ -157,7 +159,6 @@ def main(cfg):
 
     evaluator = Evaluator(
         run_name=run_name,
-        model=model,
         actions=action_handlers,
         output_dir=cfg.plancraft.output_dir,
         split=cfg.plancraft.split,
@@ -169,7 +170,12 @@ def main(cfg):
         use_fasterrcnn=cfg.plancraft.use_fasterrcnn,
         resolution=cfg.plancraft.environment.resolution,
     )
-    eval_all_seeds(run_name, cfg, evaluator)
+    eval_all_seeds(
+        run_name,
+        cfg,
+        evaluator,
+        model=model,
+    )
 
 
 if __name__ == "__main__":

@@ -129,17 +129,12 @@ def evaluator(mock_cfg, mock_example):
 
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [mock_example]
-        return Evaluator(run_name="test_run", model=mock_model)
+        return Evaluator(run_name="test_run")
 
 
 def test_load_dataset(evaluator):
     with pytest.raises(FileNotFoundError):
         evaluator.load_dataset("fake_split")
-
-
-def test_reset(evaluator, mock_example):
-    evaluator.reset(mock_example)
-    assert dict(evaluator.environment.state) == mock_example.slotted_inventory
 
 
 def test_check_done(evaluator):
@@ -258,8 +253,8 @@ def test_dummy_model(mock_cfg, mock_example_json):
     model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [example]
-        evaluator = Evaluator(run_name="test_run", model=model)
-        result = evaluator.eval_example(example)
+        evaluator = Evaluator(run_name="test_run")
+        result = evaluator.eval_example(example, model=model)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
         assert not result["success"]
@@ -272,8 +267,8 @@ def test_oracle_model(mock_cfg, mock_example_json):
     model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [example]
-        evaluator = Evaluator(run_name="test_run", model=model)
-        result = evaluator.eval_example(example)
+        evaluator = Evaluator(run_name="test_run")
+        result = evaluator.eval_example(example, model=model)
         assert result["example_id"] == "TRAIN0000"
         assert result["model_trace"]["tokens_used"] == 0
         assert result["success"]

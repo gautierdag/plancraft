@@ -1,6 +1,7 @@
 import json
 import os
 from typing import Optional
+from copy import deepcopy
 
 import imageio
 from loguru import logger
@@ -38,7 +39,6 @@ class Evaluator:
     def __init__(
         self,
         run_name: str,
-        model: PlancraftBaseModel,
         actions: list[ActionHandlerBase] = [MoveActionHandler(), SmeltActionHandler()],
         output_dir: str = "output",
         split: str = "val.small",
@@ -61,6 +61,13 @@ class Evaluator:
         self.use_fasterrcnn = use_fasterrcnn
         self.max_steps = max_steps
         self.resume = resume
+        self.resolution = resolution
+
+        # history args
+        self.system_prompt = system_prompt
+        self.prompt_examples = prompt_examples
+        self.prompt_images = prompt_images
+        self.few_shot = few_shot
 
         self.output_dir = f"{output_dir}/{run_name}/{split}"
         self.generation_number = 0
@@ -68,28 +75,6 @@ class Evaluator:
 
         # load all examples
         self.examples: list[PlancraftExample] = self.load_dataset(split)
-
-        # start environment
-        self.environment = PlancraftEnvironment(
-            inventory=[],
-            resolution=resolution,
-        )
-
-        # initialise history/dialogue tracking
-        self.history = History(
-            actions=actions,
-            use_multimodal_content_format=use_multimodal_content_format,
-            use_images=use_images,
-            use_text_inventory=use_text_inventory,
-            resolution=resolution,
-            few_shot=few_shot,
-            system_prompt=system_prompt,
-            prompt_examples=prompt_examples,
-            prompt_images=prompt_images,
-        )
-
-        # load model
-        self.model = model
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"
@@ -124,14 +109,6 @@ class Evaluator:
             dataset = json.load(f)
             return [PlancraftExample(**example) for example in dataset]
 
-    def reset(
-        self,
-        example: PlancraftExample,
-    ):
-        self.environment.reset(new_inventory=example.slotted_inventory)
-        self.model.reset()
-        self.history.reset()
-
     def check_done(self, inventory: dict, target: str):
         """
         Check that target object is obtained
@@ -142,14 +119,16 @@ class Evaluator:
                 return True
         return False
 
-    def parse_raw_model_response(self, generated_text: str, observation=None) -> str:
+    def parse_raw_model_response(
+        self, generated_text: str, observation=None, history=None
+    ) -> str:
         """
         Given a message and set of action handlers, parse the content to return the action
         or a message if the action is not valid/requires message response
         """
         for handler in self.actions:
             match_output = handler.match(
-                generated_text, observation=observation, history=self.history
+                generated_text, observation=observation, history=history
             )
             if match_output:
                 return match_output
@@ -159,6 +138,7 @@ class Evaluator:
     def convert_observation_to_message(
         self,
         observation: dict,
+        model: PlancraftBaseModel = None,
     ) -> str | dict:
         """
         Convert an environment observation to the message format used by an LLM chat model
@@ -170,8 +150,9 @@ class Evaluator:
         - use_images: bool - Whether to append an image to the message content - must be used with use_multimodal_content_format.
         """
         if self.use_fasterrcnn:
+            assert model is not None, "Model must be provided to convert image to text"
             # convert image to inventory using fasterrcnn
-            inventory = self.model.bbox_model.get_inventory(observation["image"].copy())
+            inventory = model.bbox_model.get_inventory(observation["image"].copy())
             text_content = target_and_inventory_to_text_obs(
                 observation["target"], inventory
             )
@@ -190,15 +171,38 @@ class Evaluator:
             content_list.append({"type": "image"})
         return {"content": content_list}
 
-    def eval_example(self, example: PlancraftExample) -> dict:
+    def eval_example(
+        self,
+        example: PlancraftExample,
+        model: PlancraftBaseModel,
+    ) -> dict:
         """Given the loaded model and an example from Plancraft
         run the episode until success or termination."""
+
+        # start environment
+        environment = PlancraftEnvironment(
+            inventory=example.slotted_inventory,
+            resolution=self.resolution,
+        )
+
+        # initialise history/dialogue tracking
+        history = History(
+            actions=self.actions,
+            use_multimodal_content_format=self.use_multimodal_content_format,
+            use_images=self.use_images,
+            use_text_inventory=self.use_text_inventory,
+            resolution=self.resolution,
+            few_shot=self.few_shot,
+            system_prompt=deepcopy(self.system_prompt),
+            prompt_examples=deepcopy(self.prompt_examples),
+            prompt_images=deepcopy(self.prompt_images),
+        )
+
         success = False
-        self.reset(example)
         action = None
 
         # run episode until stuck or until max steps is reached
-        while self.history.num_steps < self.max_steps:
+        while history.num_steps < self.max_steps:
             # if the action is stop then we end the episode
             if isinstance(action, StopAction):
                 # if the action is stop and task is impossible then success
@@ -207,16 +211,16 @@ class Evaluator:
                 break
             # action is external tool then it is str
             if isinstance(action, str):
-                observation = self.environment.step()
+                observation = environment.step()
                 observation["target"] = example.target
                 observation["message"] = action
             # action is environment action
             else:
-                observation = self.environment.step(action)
+                observation = environment.step(action)
                 # convert inventory observation to text message
                 observation["target"] = example.target
                 observation["message"] = self.convert_observation_to_message(
-                    observation
+                    observation, model=model
                 )
                 # check if the episode is done
                 success = self.check_done(observation["inventory"], example.target)
@@ -225,29 +229,30 @@ class Evaluator:
                 break
 
             # add observation to history
-            self.history.add_observation_to_history(observation)
+            history.add_observation_to_history(observation)
             # add observation message to history
-            self.history.add_message_to_history(
-                content=observation["message"], role="user"
-            )
+            history.add_message_to_history(content=observation["message"], role="user")
             # predict next action
-            raw_action = self.model.step(observation, dialogue_history=self.history)
+            raw_action = model.step(observation, dialogue_history=history)
             # add message to history
-            self.history.add_message_to_history(content=raw_action, role="assistant")
+            history.add_message_to_history(content=raw_action, role="assistant")
             # parse the raw action
-            action = self.parse_raw_model_response(raw_action, observation=observation)
+            action = self.parse_raw_model_response(
+                raw_action, observation=observation, history=history
+            )
 
         # save results and reset
         return {
             "success": success,
             "recipe_type": example.recipe_type,
             "complexity": example.complexity_split,
-            "number_of_steps": self.history.num_steps,
-            "model_trace": self.history.trace(),
+            "number_of_steps": history.num_steps,
+            "model_trace": history.trace(),
             "example_id": example.id,
+            "images": history.images,
         }
 
-    def eval_all_examples(self, progress_bar=False) -> list:
+    def eval_all_examples(self, model, progress_bar=False) -> list:
         results = []
         pbar = tqdm(
             total=len(self.examples),
@@ -268,10 +273,14 @@ class Evaluator:
             ]:
                 continue
 
-            result = self.eval_example(example)
+            result = self.eval_example(example, model=model)
+            model.reset()
+
+            # save images and results
+            self.save_images(example, result["images"])
+            del result["images"]
             results.append(result)
             self.save_results_dict(example, result)
-            self.save_images(example, self.history.images)
 
             correct += int(result["success"])
             count += 1
