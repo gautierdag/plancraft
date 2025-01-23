@@ -370,9 +370,10 @@ class PlancraftEnvironment:
         if slot_from < 1 or slot_to < 1 or slot_from >= 46 or slot_to >= 46:
             return
 
-        item = self.state[slot_from]
-        if self.slot_empty(slot_from) or item["quantity"] < quantity:
+        if self.slot_empty(slot_from) or self.state[slot_from]["quantity"] < quantity:
             return  # skip if the slot from is empty or does not have enough items
+
+        item = self.state[slot_from]
 
         for recipe in self.smelting_recipes:
             if output := recipe.smelt(item["type"]):
