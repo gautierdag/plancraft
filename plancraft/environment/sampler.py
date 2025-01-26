@@ -5,16 +5,9 @@ from collections import Counter
 import numpy as np
 from loguru import logger
 
-from plancraft.environment.items import ALL_ITEMS, all_data
-from plancraft.environment.planner import get_ancestors, optimal_planner
+from plancraft.environment.items import ALL_ITEMS
+from plancraft.environment.planner import get_ancestors, optimal_planner, MAX_STACK_SIZE
 from plancraft.environment.recipes import RECIPES
-
-MAX_STACK_SIZE = {}
-for data_item in all_data["items"]:
-    if data_item["stackable"]:
-        MAX_STACK_SIZE[data_item["type"]] = data_item["stackSize"]
-    else:
-        MAX_STACK_SIZE[data_item["type"]] = 1
 
 
 def sample_distractors(
