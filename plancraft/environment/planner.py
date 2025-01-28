@@ -309,9 +309,6 @@ def decompose_subgoal(
                     free_slot = find_free_inventory_slot(
                         current_inventory, from_slot=crafting_slot
                     )
-                    print(
-                        f"Moving item from {crafting_slot} to {free_slot}, current_inventory: {current_inventory}"
-                    )
                     action = MoveAction(
                         slot_from=crafting_slot,
                         slot_to=free_slot,
