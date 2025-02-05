@@ -292,7 +292,7 @@ class Evaluator:
             # Get observations for all active environments
             observations = []
             active_indices = []
-            obs_mapping = {}  # Map active_indices to their observation index
+            active_histories = []
 
             for i, (env, action, active) in enumerate(
                 zip(environments, actions, active_mask)
@@ -314,14 +314,12 @@ class Evaluator:
                     }
                     continue
 
-                active_indices.append(i)
+                # Get observation
                 if isinstance(action, str):
-                    # Handle message action
                     obs = env.step()
                     obs["target"] = examples[i].target
                     obs["message"] = action
                 else:
-                    # Handle environment action
                     obs = env.step(action)
                     obs["target"] = examples[i].target
                     obs["message"] = self.convert_observation_to_message(
@@ -342,10 +340,12 @@ class Evaluator:
                         }
                         continue
 
-                obs_mapping[i] = len(
-                    observations
-                )  # Map active index to observation index
+                # Add to batch lists
+                active_indices.append(i)
                 observations.append(obs)
+                active_histories.append(histories[i])
+
+                # Update history
                 histories[i].add_observation_to_history(obs)
                 histories[i].add_message_to_history(content=obs["message"], role="user")
                 steps_taken[i] += 1
@@ -354,21 +354,20 @@ class Evaluator:
                 break
 
             # Batch predict actions for active environments
-            active_histories = [histories[i] for i in active_indices]
             raw_actions = model.batch_step(
                 observations, dialogue_histories=active_histories
             )
 
             # Process actions for each active environment
-            for idx, raw_action in zip(active_indices, raw_actions):
+            for batch_idx, (idx, raw_action) in enumerate(
+                zip(active_indices, raw_actions)
+            ):
                 histories[idx].add_message_to_history(
                     content=raw_action, role="assistant"
                 )
                 actions[idx] = self.parse_raw_model_response(
                     raw_action,
-                    observation=observations[
-                        obs_mapping[idx]
-                    ],  # Use mapping to get correct observation
+                    observation=observations[batch_idx],
                     history=histories[idx],
                 )
 
