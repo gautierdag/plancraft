@@ -1,6 +1,7 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
+from loguru import logger
 
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environment import (
@@ -274,11 +275,80 @@ def test_oracle_model(mock_cfg, mock_example_json):
         assert result["success"]
 
 
-# def test_eval_all_examples(evaluator):
-#     evaluator.save_images = MagicMock()
-#     evaluator.save_results_dict = MagicMock()
-#     results = evaluator.eval_all_examples()
-#     assert len(results) == 1
-#     assert results[0]["example_id"] == "TRAIN0000"
-#     assert evaluator.save_images.call_count == 1
-#     assert evaluator.save_results_dict.call_count == 1
+def test_batch_eval_examples(mock_cfg, mock_example_json):
+    mock_cfg.plancraft.mode = "dummy"
+    mock_cfg.plancraft.use_fasterrcnn = False
+
+    # Create multiple examples
+    examples = [PlancraftExample(**mock_example_json) for _ in range(3)]
+
+    model = get_model(mock_cfg)
+    with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
+        mock_load_dataset.return_value = examples
+        evaluator = Evaluator(run_name="test_run")
+
+        # Test batch evaluation
+        batch_results = evaluator.batch_eval_examples(
+            examples,
+            model,
+        )
+
+        # Test individual evaluation for comparison
+        individual_results = [
+            evaluator.eval_example(ex, model=model) for ex in examples
+        ]
+
+        # Verify batch results
+        assert len(batch_results) == len(examples)
+        for result in batch_results:
+            assert result["example_id"] == "TRAIN0000"
+            assert result["model_trace"]["tokens_used"] == 0
+            assert "success" in result
+            assert "number_of_steps" in result
+            assert "images" in result
+
+        # Verify batch results match structure of individual results
+        assert len(batch_results) == len(individual_results)
+        for batch_result, individual_result in zip(batch_results, individual_results):
+            assert batch_result.keys() == individual_result.keys()
+
+
+def test_batch_oracle_model(mock_cfg, mock_example_json):
+    mock_cfg.plancraft.mode = "oracle"
+    mock_cfg.plancraft.use_fasterrcnn = False
+
+    # Create multiple examples - using same example since we know it works
+    model = get_model(mock_cfg)
+    with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
+        mock_load_dataset.return_value = []
+        evaluator = Evaluator(run_name="test_run")
+        # Test batch evaluation
+        examples = [PlancraftExample(**mock_example_json) for _ in range(2)]
+        batch_results = evaluator.batch_eval_examples(
+            examples,
+            model=model,
+        )
+        # Verify batch results
+        assert len(batch_results) == len(examples)
+        for result in batch_results:
+            assert result["example_id"] == "TRAIN0000"
+            assert result["model_trace"]["tokens_used"] == 0
+            assert result["success"]  # Oracle should succeed
+
+        # Test individual evaluation for comparison
+        individual_results = []
+        # examples = [PlancraftExample(**mock_example_json) for _ in range(1)]
+        for ex in examples:
+            model.reset()
+            result = evaluator.eval_example(ex, model=model)
+            assert result["example_id"] == "TRAIN0000"
+            assert result["success"]
+            individual_results.append(result)
+
+        # # Since oracle is deterministic, batch and individual should match exactly
+        for batch_result, individual_result in zip(batch_results, individual_results):
+            assert batch_result["success"] == individual_result["success"]
+            assert (
+                batch_result["number_of_steps"] == individual_result["number_of_steps"]
+            )
+            assert batch_result["model_trace"] == individual_result["model_trace"]

@@ -38,3 +38,12 @@ class OracleModel(PlancraftBaseModel):
 
         action = self.subplans.pop(0)
         return action
+
+    def batch_step(self, observations: list[dict], **kwargs) -> list:
+        # Need to fully isolate state between examples
+        actions = []
+        for observation in observations:
+            self.reset()
+            action = self.step(observation)
+            actions.append(action)
+        return actions

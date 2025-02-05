@@ -40,3 +40,6 @@ class DummyModel(PlancraftBaseModel):
 
     def step(self, observation: dict, **kwargs) -> str:
         return str(self.random_select(observation))
+
+    def batch_step(self, observations: list[dict], **kwargs) -> list:
+        return [self.step(observation) for observation in observations]

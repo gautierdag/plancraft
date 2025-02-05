@@ -176,12 +176,14 @@ class Evaluator:
         example: PlancraftExample,
         model: PlancraftBaseModel,
     ) -> dict:
-        """Given the loaded model and an example from Plancraft
-        run the episode until success or termination."""
+        """
+        Given the loaded model and an example from Plancraft
+        run the episode until success or termination.
+        """
 
         # start environment
         environment = PlancraftEnvironment(
-            inventory=example.slotted_inventory,
+            inventory=deepcopy(example.slotted_inventory),
             resolution=self.resolution,
         )
 
@@ -251,6 +253,135 @@ class Evaluator:
             "example_id": example.id,
             "images": history.images,
         }
+
+    def batch_eval_examples(
+        self,
+        examples: list[PlancraftExample],
+        model,
+    ) -> list:
+        # Initialize environments and histories
+        environments = [
+            PlancraftEnvironment(
+                inventory=deepcopy(examples[i].slotted_inventory),
+                resolution=self.resolution,
+            )
+            for i in range(len(examples))
+        ]
+
+        histories = [
+            History(
+                actions=self.actions,
+                use_multimodal_content_format=self.use_multimodal_content_format,
+                use_images=self.use_images,
+                use_text_inventory=self.use_text_inventory,
+                resolution=self.resolution,
+                few_shot=self.few_shot,
+                system_prompt=deepcopy(self.system_prompt),
+                prompt_examples=deepcopy(self.prompt_examples),
+                prompt_images=deepcopy(self.prompt_images),
+            )
+            for _ in range(len(examples))
+        ]
+
+        # Track which environments are still active
+        active_mask = [True for _ in range(len(examples))]
+        results = [None for _ in range(len(examples))]
+        steps_taken = [0 for _ in range(len(examples))]
+        actions = [None for _ in range(len(examples))]
+
+        while any(active_mask) and all(steps < self.max_steps for steps in steps_taken):
+            # Get observations for all active environments
+            observations = []
+            active_indices = []
+            for i, (env, action, active) in enumerate(
+                zip(environments, actions, active_mask)
+            ):
+                if not active:
+                    continue
+
+                if isinstance(action, StopAction):
+                    # Handle stop action
+                    active_mask[i] = False
+                    results[i] = {
+                        "success": examples[i].impossible,
+                        "recipe_type": examples[i].recipe_type,
+                        "complexity": examples[i].complexity_split,
+                        "number_of_steps": steps_taken[i],
+                        "model_trace": histories[i].trace(),
+                        "example_id": examples[i].id,
+                        "images": histories[i].images,
+                    }
+                    logger.info("STOP")
+                    continue
+
+                active_indices.append(i)
+                if isinstance(action, str):
+                    # Handle message action
+                    obs = env.step()
+                    obs["target"] = examples[i].target
+                    obs["message"] = action
+                else:
+                    # Handle environment action
+                    obs = env.step(action)
+                    obs["target"] = examples[i].target
+                    obs["message"] = self.convert_observation_to_message(
+                        obs, model=model
+                    )
+
+                    # Check if done
+                    if self.check_done(obs["inventory"], examples[i].target):
+                        active_mask[i] = False
+                        results[i] = {
+                            "success": True,
+                            "recipe_type": examples[i].recipe_type,
+                            "complexity": examples[i].complexity_split,
+                            "number_of_steps": steps_taken[i],
+                            "model_trace": histories[i].trace(),
+                            "example_id": examples[i].id,
+                            "images": histories[i].images,
+                        }
+                        continue
+
+                observations.append(obs)
+                histories[i].add_observation_to_history(obs)
+                histories[i].add_message_to_history(content=obs["message"], role="user")
+                steps_taken[i] += 1
+
+            if not observations:
+                break
+
+            # Batch predict actions for active environments
+            active_histories = [histories[i] for i in active_indices]
+            raw_actions = model.batch_step(
+                observations, dialogue_histories=active_histories
+            )
+
+            # Process actions for each active environment
+            for idx, raw_action in zip(active_indices, raw_actions):
+                logger.info(f"{histories[idx].num_steps}, {raw_action}")
+                histories[idx].add_message_to_history(
+                    content=raw_action, role="assistant"
+                )
+                actions[idx] = self.parse_raw_model_response(
+                    raw_action,
+                    observation=observations[active_indices.index(idx)],
+                    history=histories[idx],
+                )
+
+        # Fill in results for environments that didn't finish
+        for i, result in enumerate(results):
+            if result is None:
+                results[i] = {
+                    "success": False,
+                    "recipe_type": examples[i].recipe_type,
+                    "complexity": examples[i].complexity_split,
+                    "number_of_steps": steps_taken[i],
+                    "model_trace": histories[i].trace(),
+                    "example_id": examples[i].id,
+                    "images": histories[i].images,
+                }
+
+        return results
 
     def eval_all_examples(self, model, progress_bar=False) -> list:
         results = []
