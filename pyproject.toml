@@ -1,6 +1,6 @@
 [project]
 name = "plancraft"
-version = "0.3.18"
+version = "0.3.19"
 description = "Plancraft: an evaluation dataset for planning with LLM agents"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -28,6 +28,7 @@ dev-dependencies = [
     "ipykernel>=6.29.5",
     "ipython>=7.5.0",
     "jupyterlab>=4.2.5",
+    "pytest-cov>=6.0.0",
     "pytest>=8.3.3",
     "ruff>=0.7.1",
     "uv>=0.4.25",

@@ -4,7 +4,6 @@ from typing import Optional
 from copy import deepcopy
 
 import imageio
-from loguru import logger
 from tqdm import tqdm
 
 import wandb
@@ -293,6 +292,8 @@ class Evaluator:
             # Get observations for all active environments
             observations = []
             active_indices = []
+            obs_mapping = {}  # Map active_indices to their observation index
+
             for i, (env, action, active) in enumerate(
                 zip(environments, actions, active_mask)
             ):
@@ -311,7 +312,6 @@ class Evaluator:
                         "example_id": examples[i].id,
                         "images": histories[i].images,
                     }
-                    logger.info("STOP")
                     continue
 
                 active_indices.append(i)
@@ -342,6 +342,9 @@ class Evaluator:
                         }
                         continue
 
+                obs_mapping[i] = len(
+                    observations
+                )  # Map active index to observation index
                 observations.append(obs)
                 histories[i].add_observation_to_history(obs)
                 histories[i].add_message_to_history(content=obs["message"], role="user")
@@ -358,13 +361,14 @@ class Evaluator:
 
             # Process actions for each active environment
             for idx, raw_action in zip(active_indices, raw_actions):
-                logger.info(f"{histories[idx].num_steps}, {raw_action}")
                 histories[idx].add_message_to_history(
                     content=raw_action, role="assistant"
                 )
                 actions[idx] = self.parse_raw_model_response(
                     raw_action,
-                    observation=observations[active_indices.index(idx)],
+                    observation=observations[
+                        obs_mapping[idx]
+                    ],  # Use mapping to get correct observation
                     history=histories[idx],
                 )
 
