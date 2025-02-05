@@ -46,8 +46,14 @@ class GoldSearchActionHandler(ActionHandlerBase):
         """
         Parse the raw model response to a SearchAction
         """
-        action_match = re.search(f"({self.action_name}):", generated_text)
-        if not action_match:
-            return
-        search_target = re.search(r"search: (\w+)", generated_text).group(1)
-        return gold_search_recipe(search_target)
+        try:
+            action_match = re.search(f"({self.action_name}):", generated_text)
+            if not action_match:
+                return
+
+            search_target = re.search(r"search: *(\w+)", generated_text).group(1)
+            return gold_search_recipe(search_target)
+        except AttributeError:
+            return (
+                f"Format Error. Action be in the format: {self.prompt_format_example}"
+            )

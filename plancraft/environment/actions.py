@@ -208,10 +208,10 @@ class MoveActionHandler(ActionHandlerBase):
         """
         Parse the raw model response to a MoveAction
         """
-        action_match = re.search(f"({self.action_name}):", generated_text)
-        if not action_match:
-            return
         try:
+            action_match = re.search(f"({self.action_name}):", generated_text)
+            if not action_match:
+                return
             slot_from = re.search(r" from (\[[ABCI]?\d+\])", generated_text).group(1)
             slot_to = re.search(r" to (\[[ABCI]?\d+\])", generated_text).group(1)
             quantity = re.search(r"with quantity (\d+)", generated_text).group(1)
@@ -221,8 +221,10 @@ class MoveActionHandler(ActionHandlerBase):
                 quantity=quantity,
             )
             return action
-        except AttributeError as e:
-            return f"Format Error: {e}"
+        except AttributeError:
+            return (
+                f"Format Error. Action be in the format: {self.prompt_format_example}"
+            )
 
 
 class SmeltActionHandler(ActionHandlerBase):
@@ -242,10 +244,11 @@ class SmeltActionHandler(ActionHandlerBase):
         """
         Parse the raw model response to a SmeltAction
         """
-        action_match = re.search(f"({self.action_name}):", generated_text)
-        if not action_match:
-            return
+
         try:
+            action_match = re.search(f"({self.action_name}):", generated_text)
+            if not action_match:
+                return
             slot_from = re.search(r" from (\[[ABCI]?\d+\])", generated_text).group(1)
             slot_to = re.search(r" to (\[[ABCI]?\d+\])", generated_text).group(1)
             quantity = re.search(r"with quantity (\d+)", generated_text).group(1)
@@ -255,8 +258,10 @@ class SmeltActionHandler(ActionHandlerBase):
                 quantity=quantity,
             )
             return action
-        except AttributeError as e:
-            return f"Format Error: {e}"
+        except AttributeError:
+            return (
+                f"Format Error. Action be in the format: {self.prompt_format_example}"
+            )
 
 
 class ImpossibleActionHandler(ActionHandlerBase):
@@ -276,11 +281,16 @@ class ImpossibleActionHandler(ActionHandlerBase):
         """
         Parse the raw model response to a StopAction
         """
-        action_match = re.search(f"({self.action_name}):", generated_text)
-        if not action_match:
-            return
-        reason = re.search(r"impossible: (.*)", generated_text).group(1)
-        return StopAction(reason=reason)
+        try:
+            action_match = re.search(f"({self.action_name}):", generated_text)
+            if not action_match:
+                return
+            reason = re.search(r"impossible: (.*)", generated_text).group(1)
+            return StopAction(reason=reason)
+        except AttributeError:
+            return (
+                f"Format Error. Action be in the format: {self.prompt_format_example}"
+            )
 
 
 class ThinkActionHandler(ActionHandlerBase):
@@ -300,7 +310,12 @@ class ThinkActionHandler(ActionHandlerBase):
         """
         Parse the raw model response to a ThinkAction
         """
-        action_match = re.search(f"({self.action_name}):", generated_text)
-        if not action_match:
-            return
-        return "Ok"
+        try:
+            action_match = re.search(f"({self.action_name}):", generated_text)
+            if not action_match:
+                return
+            return "Ok"
+        except AttributeError:
+            return (
+                f"Format Error. Action be in the format: {self.prompt_format_example}"
+            )
