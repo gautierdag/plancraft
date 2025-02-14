@@ -39,6 +39,10 @@ class GoldSearchActionHandler(ActionHandlerBase):
         return "`search: <recipe name>`"
 
     @property
+    def regex_pattern(self) -> str:
+        return r"search: \w+"
+
+    @property
     def action_name(self) -> str:
         return "search"
 

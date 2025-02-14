@@ -201,6 +201,12 @@ class MoveActionHandler(ActionHandlerBase):
         return "`move: from [Source] to [Target] with quantity N`"
 
     @property
+    def regex_pattern(self) -> str:
+        return (
+            r"move: from \[(0|[ABCI][0-9])\] to \[(0|[ABCI][0-9])\] with quantity \d+"
+        )
+
+    @property
     def action_name(self) -> str:
         return "move"
 
@@ -235,6 +241,12 @@ class SmeltActionHandler(ActionHandlerBase):
     @property
     def prompt_format_example(self) -> str:
         return "`smelt: from [Source] to [Target] with quantity N`"
+
+    @property
+    def regex_pattern(self) -> str:
+        return (
+            r"smelt: from \[(0|[ABCI][0-9])\] to \[(0|[ABCI][0-9])\] with quantity \d+"
+        )
 
     @property
     def action_name(self) -> str:
@@ -274,6 +286,10 @@ class ImpossibleActionHandler(ActionHandlerBase):
         return "`impossible: <reason>`"
 
     @property
+    def regex_pattern(self) -> str:
+        return r"impossible: .+"
+
+    @property
     def action_name(self) -> str:
         return "impossible"
 
@@ -301,6 +317,10 @@ class ThinkActionHandler(ActionHandlerBase):
     @property
     def prompt_format_example(self) -> str:
         return "`think: <thought message>`"
+
+    @property
+    def regex_pattern(self) -> str:
+        return r"think: .+"
 
     @property
     def action_name(self) -> str:

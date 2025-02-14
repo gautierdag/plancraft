@@ -1,3 +1,5 @@
+import json
+import os
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -352,3 +354,37 @@ def test_batch_oracle_model(mock_cfg, mock_example_json):
                 batch_result["number_of_steps"] == individual_result["number_of_steps"]
             )
             assert batch_result["model_trace"] == individual_result["model_trace"]
+
+
+def test_real_val_example():
+    """Test a real validation example with Oracle model to verify end-to-end success"""
+    # Setup minimal configuration for Oracle model
+    cfg = MagicMock(spec=EvalConfig)
+    cfg.plancraft = MagicMock()
+    cfg.plancraft.mode = "oracle"
+    cfg.plancraft.use_fasterrcnn = False
+    cfg.plancraft.valid_actions = ["move", "smelt", "think", "impossible"]
+    cfg.plancraft.model = "test_model"
+
+    # Setup evaluator and model
+    model = get_model(cfg)
+    evaluator = Evaluator(
+        run_name="test_run",
+        max_steps=30,
+        use_multimodal_content_format=False,
+        use_images=False,
+        use_text_inventory=True,
+        split="val",
+    )
+    example = list(filter(lambda x: x.id == "VAL0439", evaluator.examples))[0]
+    # Run evaluation
+    result = evaluator.eval_example(example, model=model)
+
+    # Verify results
+    assert result["success"], "Oracle model should succeed on validation example"
+    assert result["example_id"].startswith("VAL")
+    assert "number_of_steps" in result
+    assert result["number_of_steps"] > 0
+
+    # check trace
+    trace = result["model_trace"]
