@@ -63,6 +63,14 @@ class ActionHandlerBase(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def regex_pattern(self) -> str:
+        """
+        Return the regex pattern for the model
+        """
+        raise NotImplementedError()
+
+    @property
+    @abc.abstractmethod
     def action_name(self) -> str:
         """
         Return the action name for the model
@@ -97,7 +105,7 @@ class MoveAction(BaseModel):
                 return convert_to_slot_index(value)
             except ValueError:
                 raise AttributeError(
-                    "slot_from and slot_to must be [0] or [A1] to [C3] or [I1] to [I36]"
+                    "[Source] and [Target] must be [0] or [A1] to [C3] or [I1] to [I36]"
                 )
         return value
 
@@ -113,11 +121,11 @@ class MoveAction(BaseModel):
     @model_validator(mode="after")
     def validate(self):
         if self.slot_from == self.slot_to:
-            raise AttributeError("slot_from and slot_to must be different")
+            raise AttributeError("[Source] and [Target] must be different")
         if self.slot_from < 0 or self.slot_from > 45:
-            raise AttributeError("slot_from must be between 0 and 45")
+            raise AttributeError("[Source] must be between 0 and 45")
         if self.slot_to < 1 or self.slot_to > 45:
-            raise AttributeError("slot_to must be between 1 and 45")
+            raise AttributeError("[Target] must be between 1 and 45")
         if self.quantity < 1 or self.quantity > 64:
             raise AttributeError("quantity must be between 1 and 64")
         return self
@@ -146,7 +154,7 @@ class SmeltAction(BaseModel):
                 return convert_to_slot_index(value)
             except ValueError:
                 raise AttributeError(
-                    "slot_from and slot_to must be [0] or [A1] to [C3] or [I1] to [I36]"
+                    "[Source] and [Target] must be [0] or [A1] to [C3] or [I1] to [I36]"
                 )
         return value
 
@@ -162,11 +170,11 @@ class SmeltAction(BaseModel):
     @model_validator(mode="after")
     def validate(self):
         if self.slot_from == self.slot_to:
-            raise AttributeError("slot_from and slot_to must be different")
+            raise AttributeError("[Source] and [Target] must be different")
         if self.slot_from < 0 or self.slot_from > 45:
-            raise AttributeError("slot_from must be between 0 and 45")
+            raise AttributeError("[Source] must be between 0 and 45")
         if self.slot_to < 1 or self.slot_to > 45:
-            raise AttributeError("slot_to must be between 1 and 45")
+            raise AttributeError("[Target] must be between 1 and 45")
         if self.quantity < 1 or self.quantity > 64:
             raise AttributeError("quantity must be between 1 and 64")
         return self
@@ -227,10 +235,8 @@ class MoveActionHandler(ActionHandlerBase):
                 quantity=quantity,
             )
             return action
-        except AttributeError:
-            return (
-                f"Format Error. Action be in the format: {self.prompt_format_example}"
-            )
+        except AttributeError as e:
+            return f"Format Error: {e}. Correct format: {self.prompt_format_example}"
 
 
 class SmeltActionHandler(ActionHandlerBase):
@@ -270,10 +276,8 @@ class SmeltActionHandler(ActionHandlerBase):
                 quantity=quantity,
             )
             return action
-        except AttributeError:
-            return (
-                f"Format Error. Action be in the format: {self.prompt_format_example}"
-            )
+        except AttributeError as e:
+            return f"Format Error: {e}. Correct format: {self.prompt_format_example}"
 
 
 class ImpossibleActionHandler(ActionHandlerBase):
@@ -303,10 +307,8 @@ class ImpossibleActionHandler(ActionHandlerBase):
                 return
             reason = re.search(r"impossible: (.*)", generated_text).group(1)
             return StopAction(reason=reason)
-        except AttributeError:
-            return (
-                f"Format Error. Action be in the format: {self.prompt_format_example}"
-            )
+        except AttributeError as e:
+            return f"Format Error: {e}. Correct format: {self.prompt_format_example}"
 
 
 class ThinkActionHandler(ActionHandlerBase):
@@ -335,7 +337,5 @@ class ThinkActionHandler(ActionHandlerBase):
             if not action_match:
                 return
             return "Ok"
-        except AttributeError:
-            return (
-                f"Format Error. Action be in the format: {self.prompt_format_example}"
-            )
+        except AttributeError as e:
+            return f"Format Error: {e}. Correct format: {self.prompt_format_example}"

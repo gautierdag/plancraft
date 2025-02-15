@@ -385,6 +385,3 @@ def test_real_val_example():
     assert result["example_id"].startswith("VAL")
     assert "number_of_steps" in result
     assert result["number_of_steps"] > 0
-
-    # check trace
-    trace = result["model_trace"]

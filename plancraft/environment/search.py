@@ -57,7 +57,5 @@ class GoldSearchActionHandler(ActionHandlerBase):
 
             search_target = re.search(r"search: *(\w+)", generated_text).group(1)
             return gold_search_recipe(search_target)
-        except AttributeError:
-            return (
-                f"Format Error. Action be in the format: {self.prompt_format_example}"
-            )
+        except AttributeError as e:
+            return f"Format Error: {e}. Correct format: {self.prompt_format_example}"
