@@ -19,8 +19,8 @@ from plancraft.environment.env import (
     get_objective_str,
     target_and_inventory_to_text_obs,
 )
-from plancraft.models.base import PlancraftBaseModel
-from plancraft.utils import History
+from plancraft.models.base import PlancraftBaseModel, PlancraftModelOutput
+from plancraft.utils import HistoryBase, History, HistoryConfig
 
 
 class Evaluator:
@@ -41,39 +41,38 @@ class Evaluator:
         actions: list[ActionHandlerBase] = [MoveActionHandler(), SmeltActionHandler()],
         output_dir: str = "output",
         split: str = "val.small",
-        resolution: str = "high",
         max_steps: int = 30,
         resume: bool = False,
+        use_fasterrcnn: bool = False,
         use_multimodal_content_format: bool = False,
         use_images: bool = False,
         use_text_inventory: bool = False,
-        use_fasterrcnn: bool = False,
-        system_prompt: Optional[dict] = None,
-        prompt_examples: list[dict] = [],
-        prompt_images: list[str] = [],
-        few_shot: bool = True,
+        resolution: str = "high",
+        history_config: Optional[HistoryConfig] = None,
+        history_class: type[HistoryBase] = History,
     ):
         self.run_name = run_name
+        self.actions = actions
+        self.output_dir = f"{output_dir}/{run_name}/{split}"
+        self.max_steps = max_steps
+        self.resume = resume
+        self.use_fasterrcnn = use_fasterrcnn
+        self.generation_number = 0
         self.use_multimodal_content_format = use_multimodal_content_format
         self.use_images = use_images
         self.use_text_inventory = use_text_inventory
-        self.use_fasterrcnn = use_fasterrcnn
-        self.max_steps = max_steps
-        self.resume = resume
         self.resolution = resolution
 
-        # history args
-        self.system_prompt = system_prompt
-        self.prompt_examples = prompt_examples
-        self.prompt_images = prompt_images
-        self.few_shot = few_shot
+        # Set up history configuration
+        self.history_config = history_config or HistoryConfig()
+        self.history_class = history_class
 
-        self.output_dir = f"{output_dir}/{run_name}/{split}"
-        self.generation_number = 0
-        self.actions = actions
-
-        # load all examples
+        # load examples
         self.examples: list[PlancraftExample] = self.load_dataset(split)
+
+    def create_history(self) -> HistoryBase:
+        """Create a new History instance with current configuration"""
+        return self.history_class(actions=self.actions, config=self.history_config)
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"
@@ -187,17 +186,7 @@ class Evaluator:
         )
 
         # initialise history/dialogue tracking
-        history = History(
-            actions=self.actions,
-            use_multimodal_content_format=self.use_multimodal_content_format,
-            use_images=self.use_images,
-            use_text_inventory=self.use_text_inventory,
-            resolution=self.resolution,
-            few_shot=self.few_shot,
-            system_prompt=deepcopy(self.system_prompt),
-            prompt_examples=deepcopy(self.prompt_examples),
-            prompt_images=deepcopy(self.prompt_images),
-        )
+        history = self.create_history()
 
         success = False
         action = None
@@ -235,8 +224,24 @@ class Evaluator:
             history.add_message_to_history(content=observation["message"], role="user")
             # predict next action
             raw_action = model.step(observation, dialogue_history=history)
-            # add message to history
-            history.add_message_to_history(content=raw_action, role="assistant")
+
+            # if the model returns a PlancraftModelOutput, extract the action
+            if isinstance(raw_action, PlancraftModelOutput):
+                # add message to history
+                history.add_message_to_history(
+                    content=raw_action.action,
+                    role="assistant",
+                    **(raw_action.kwargs or {}),
+                )
+                raw_action = raw_action.action
+            elif isinstance(raw_action, str):
+                # add message to history
+                history.add_message_to_history(content=raw_action, role="assistant")
+            else:
+                raise ValueError(
+                    f"model.step() output must be a string or PlancraftModelOutput, got {type(raw_action)}"
+                )
+
             # parse the raw action
             action = self.parse_raw_model_response(
                 raw_action, observation=observation, history=history
@@ -267,20 +272,7 @@ class Evaluator:
             for i in range(len(examples))
         ]
 
-        histories = [
-            History(
-                actions=self.actions,
-                use_multimodal_content_format=self.use_multimodal_content_format,
-                use_images=self.use_images,
-                use_text_inventory=self.use_text_inventory,
-                resolution=self.resolution,
-                few_shot=self.few_shot,
-                system_prompt=deepcopy(self.system_prompt),
-                prompt_examples=deepcopy(self.prompt_examples),
-                prompt_images=deepcopy(self.prompt_images),
-            )
-            for _ in range(len(examples))
-        ]
+        histories = [self.create_history() for _ in range(len(examples))]
 
         # Track which environments are still active
         active_mask = [True for _ in range(len(examples))]
@@ -362,14 +354,34 @@ class Evaluator:
             for batch_idx, (idx, raw_action) in enumerate(
                 zip(active_indices, raw_actions)
             ):
-                histories[idx].add_message_to_history(
-                    content=raw_action, role="assistant"
-                )
-                actions[idx] = self.parse_raw_model_response(
-                    raw_action,
-                    observation=observations[batch_idx],
-                    history=histories[idx],
-                )
+                # if the model returns a PlancraftModelOutput, extract the action
+                if isinstance(raw_action, PlancraftModelOutput):
+                    # add message to history
+                    histories[idx].add_message_to_history(
+                        content=raw_action.action,
+                        role="assistant",
+                        **(raw_action.kwargs or {}),
+                    )
+                    actions[idx] = self.parse_raw_model_response(
+                        raw_action.action,
+                        observation=observations[batch_idx],
+                        history=histories[idx],
+                    )
+                # if the model returns a string, parse the raw action
+                elif isinstance(raw_action, str):
+                    # add message to history
+                    histories[idx].add_message_to_history(
+                        content=raw_action, role="assistant"
+                    )
+                    actions[idx] = self.parse_raw_model_response(
+                        raw_action,
+                        observation=observations[batch_idx],
+                        history=histories[idx],
+                    )
+                else:
+                    raise ValueError(
+                        f"model.step() output must be a string or PlancraftModelOutput, got {type(raw_action)}"
+                    )
 
         # Fill in results for environments that didn't finish
         for i, result in enumerate(results):

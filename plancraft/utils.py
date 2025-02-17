@@ -1,8 +1,9 @@
 import glob
 import pathlib
-from collections import Counter
 from copy import copy
 from typing import Optional
+import abc
+from dataclasses import dataclass, field
 
 import torch
 from loguru import logger
@@ -15,7 +16,56 @@ from plancraft.environment.prompts import (
 )
 
 
-class History:
+@dataclass
+class HistoryConfig:
+    """Configuration for History instances"""
+
+    few_shot: bool = True
+    system_prompt: Optional[dict] = None
+    prompt_examples: list[dict] = field(default_factory=list)
+    prompt_images: list[str] = field(default_factory=list)
+
+
+class HistoryBase(abc.ABC):
+    """Abstract base class defining the interface required by the Evaluator"""
+
+    @property
+    @abc.abstractmethod
+    def num_steps(self) -> int:
+        """Return the number of interaction steps taken"""
+        pass
+
+    @abc.abstractmethod
+    def add_message_to_history(
+        self, content: str | dict, role: str = "user", **kwargs
+    ) -> None:
+        """Add a message to the dialogue history"""
+        pass
+
+    @abc.abstractmethod
+    def add_observation_to_history(self, observation: dict, **kwargs) -> None:
+        """Add an observation (inventory, image) to history"""
+        pass
+
+    @abc.abstractmethod
+    def trace(self) -> dict:
+        """Return a traceable history of the interaction"""
+        pass
+
+    @property
+    @abc.abstractmethod
+    def images(self) -> list:
+        """Return list of images"""
+        pass
+
+    @images.setter
+    @abc.abstractmethod
+    def images(self, value: list) -> None:
+        """Set list of images"""
+        pass
+
+
+class History(HistoryBase):
     """
     History class to keep track of dialogue, actions, inventory and images
     Args:
@@ -27,42 +77,40 @@ class History:
     def __init__(
         self,
         actions: list[ActionHandlerBase] = [],
-        use_multimodal_content_format=False,
-        few_shot=False,
-        use_images=False,
-        use_text_inventory=False,
-        resolution="high",
-        system_prompt: Optional[dict] = None,
-        prompt_examples: list[dict] = [],
-        prompt_images: list[str] = [],
+        config: HistoryConfig = HistoryConfig(),
+        resolution: str = "high",
+        use_multimodal_content_format: bool = False,
+        use_images: bool = False,
+        use_text_inventory: bool = True,
     ):
         self.action_handlers = actions
         self.use_multimodal_content_format = use_multimodal_content_format
-        self.few_shot = few_shot
+
         self.use_images = use_images
         self.use_text_inventory = use_text_inventory
-        self.resolution = resolution  # low, medium, high
+        self.resolution = resolution
 
         self.inventory_history = []
         self.tokens_used = 0
 
         # use system prompt if provided
-        if system_prompt:
-            self.system_prompt_dialogue = system_prompt
+        if config.system_prompt:
+            self.system_prompt_dialogue = config.system_prompt
         else:
             # generate system prompt
             self.system_prompt_dialogue = get_system_prompt(
                 handlers=self.action_handlers,
                 use_multimodal_content_format=self.use_multimodal_content_format,
             )
+        self.few_shot = config.few_shot
 
         # set up dialogue history with few-shot prompt
-        self.prompt_examples = prompt_examples
-        self.prompt_images = prompt_images
+        self.prompt_examples = config.prompt_examples
+        self.prompt_images = config.prompt_images
         self.set_up_few_shot_prompt()
 
         self.dialogue_history = copy(self.prompt_examples)
-        self.images = copy(self.prompt_images)
+        self._images = copy(self.prompt_images)
         self.initial_dialogue_length = len(self.dialogue_history)
 
     def set_up_few_shot_prompt(self):
@@ -80,7 +128,7 @@ class History:
             if self.use_images:
                 self.prompt_images = load_prompt_images(resolution=self.resolution)
 
-    def add_message_to_history(self, content: str | dict, role="user"):
+    def add_message_to_history(self, content: str | dict, role="user", **kwargs):
         if isinstance(content, dict):
             assert "content" in content, "content key not found in message"
             content["role"] = role
@@ -102,9 +150,9 @@ class History:
         self.inventory_history.append(inventory)
 
     def add_image_to_history(self, image):
-        self.images.append(image)
+        self._images.append(image)
 
-    def add_observation_to_history(self, observation: dict):
+    def add_observation_to_history(self, observation: dict, **kwargs):
         if observation is None:
             return
         if "inventory" in observation:
@@ -118,7 +166,7 @@ class History:
     def reset(self):
         # reset dialogue history to few-shot prompt
         self.dialogue_history = copy(self.prompt_examples)
-        self.images = copy(self.prompt_images)
+        self._images = copy(self.prompt_images)
         self.initial_dialogue_length = len(self.dialogue_history)
 
         self.inventory_history = []
@@ -137,6 +185,14 @@ class History:
     @property
     def num_steps(self):
         return (len(self.dialogue_history) - self.initial_dialogue_length) // 2
+
+    @property
+    def images(self) -> list:
+        return self._images
+
+    @images.setter
+    def images(self, value: list) -> None:
+        self._images = value
 
 
 def get_downloaded_models() -> dict:

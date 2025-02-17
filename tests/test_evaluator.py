@@ -128,7 +128,7 @@ def mock_example(mock_example_json):
 def evaluator(mock_cfg, mock_example):
     mock_model = MagicMock()
     mock_model.history.trace.return_value = {"tokens_used": 10}
-    mock_model.history.images = [MagicMock()]
+    mock_model.history.images 
 
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [mock_example]

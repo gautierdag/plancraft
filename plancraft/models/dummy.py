@@ -3,7 +3,7 @@ import random
 from plancraft.environment.actions import (
     MoveAction,
 )
-from plancraft.models.base import PlancraftBaseModel
+from plancraft.models.base import PlancraftBaseModel, PlancraftModelOutput
 
 
 class DummyModel(PlancraftBaseModel):
@@ -38,8 +38,10 @@ class DummyModel(PlancraftBaseModel):
             slot_from=random_slot_from, slot_to=random_slot_to, quantity=1
         )
 
-    def step(self, observation: dict, **kwargs) -> str:
-        return str(self.random_select(observation))
+    def step(self, observation: dict, **kwargs) -> PlancraftModelOutput:
+        return PlancraftModelOutput(action=str(self.random_select(observation)))
 
-    def batch_step(self, observations: list[dict], **kwargs) -> list:
+    def batch_step(
+        self, observations: list[dict], **kwargs
+    ) -> list[PlancraftModelOutput]:
         return [self.step(observation) for observation in observations]

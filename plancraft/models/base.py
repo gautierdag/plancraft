@@ -1,6 +1,15 @@
 import abc
 
+from dataclasses import dataclass
+from typing import Optional
+
 from plancraft.utils import History
+
+
+@dataclass
+class PlancraftModelOutput:
+    action: str
+    kwargs: Optional[dict] = None
 
 
 class PlancraftBaseModel(abc.ABC):
@@ -9,7 +18,9 @@ class PlancraftBaseModel(abc.ABC):
     """
 
     @abc.abstractmethod
-    def step(self, observation: dict, dialogue_history: History) -> str:
+    def step(
+        self, observation: dict, dialogue_history: History
+    ) -> PlancraftModelOutput | str:
         """
         Model should output an action in text based on the types available
         We also pass history to the model to allow for chat models to track the dialogue
