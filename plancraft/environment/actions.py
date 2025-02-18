@@ -22,6 +22,10 @@ def convert_to_slot_index(slot: str) -> int:
     if slot in grid_map:
         return grid_map[slot]
     else:
+        # check if it is an inventory slot
+        if len(slot) < 4 or len(slot) > 5 or slot[1] != "I" or slot[2] == "0":
+            raise ValueError("Invalid slot index")
+        # convert I1 to 10, I2 to 11, I3 to 12, ..., I36 to 45
         return int(slot[2:-1]) + 9
 
 
@@ -40,8 +44,9 @@ def convert_from_slot_index(slot_index: int) -> str:
     }
     if slot_index < 10:
         return grid_map[slot_index]
-    else:
+    elif slot_index < 46:
         return f"[I{slot_index-9}]"
+    raise ValueError("Invalid slot index")
 
 
 class ActionHandlerBase(abc.ABC):
