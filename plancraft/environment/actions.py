@@ -123,9 +123,13 @@ class MoveAction(BaseModel):
         if self.slot_from == self.slot_to:
             raise AttributeError("[Source] and [Target] must be different")
         if self.slot_from < 0 or self.slot_from > 45:
-            raise AttributeError("[Source] must be between 0 and 45")
+            raise AttributeError(
+                "[Source] must be [0] or [A1] to [C3] or [I1] to [I36]"
+            )
+        if self.slot_to == 0:
+            raise AttributeError("You cannot move items into [0]")
         if self.slot_to < 1 or self.slot_to > 45:
-            raise AttributeError("[Target] must be between 1 and 45")
+            raise AttributeError("[Target] must be [A1] to [C3] or [I1] to [I36]")
         if self.quantity < 1 or self.quantity > 64:
             raise AttributeError("quantity must be between 1 and 64")
         return self
@@ -172,9 +176,13 @@ class SmeltAction(BaseModel):
         if self.slot_from == self.slot_to:
             raise AttributeError("[Source] and [Target] must be different")
         if self.slot_from < 0 or self.slot_from > 45:
-            raise AttributeError("[Source] must be between 0 and 45")
+            raise AttributeError(
+                "[Source] must be [0] or [A1] to [C3] or [I1] to [I36]"
+            )
+        if self.slot_to == 0:
+            raise AttributeError("You cannot smelt items into [0]")
         if self.slot_to < 1 or self.slot_to > 45:
-            raise AttributeError("[Target] must be between 1 and 45")
+            raise AttributeError("[Target] must be [A1] to [C3] or [I1] to [I36]")
         if self.quantity < 1 or self.quantity > 64:
             raise AttributeError("quantity must be between 1 and 64")
         return self
