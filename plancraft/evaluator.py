@@ -230,7 +230,7 @@ class Evaluator:
                 observation = None
                 success = example.impossible
             # action is external tool then it is str
-            if isinstance(action, str):
+            elif isinstance(action, str):
                 observation = environment.step()
                 observation["target"] = example.target
                 observation["message"] = action
