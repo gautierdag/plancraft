@@ -187,47 +187,24 @@ class Evaluator:
 
         # initialise history/dialogue tracking
         history = self.create_history()
+        observation = environment.step()
+        # add target and first message to history
+        observation["target"] = example.target
+        observation["message"] = self.convert_observation_to_message(
+            observation, model=model
+        )
 
         success = False
-        action = None
-
         # run episode until stuck or until max steps is reached
         while history.num_steps < self.max_steps:
-            # if the action is stop then we end the episode
-            if isinstance(action, StopAction):
-                # if the action is stop and task is impossible then success
-                # otherwise we should not have stopped
-                success = example.impossible
-                break
-            # action is external tool then it is str
-            if isinstance(action, str):
-                observation = environment.step()
-                observation["target"] = example.target
-                observation["message"] = action
-            # action is environment action
-            else:
-                observation = environment.step(action)
-                # convert inventory observation to text message
-                observation["target"] = example.target
-                observation["message"] = self.convert_observation_to_message(
-                    observation, model=model
-                )
-                # check if the episode is done
-                success = self.check_done(observation["inventory"], example.target)
-            # exit if success
-            if success:
-                break
-
             # add observation to history
             history.add_observation_to_history(observation)
-            # add observation message to history
             history.add_message_to_history(content=observation["message"], role="user")
             # predict next action
             raw_action = model.step(observation, dialogue_history=history)
 
             # if the model returns a PlancraftModelOutput, extract the action
             if isinstance(raw_action, PlancraftModelOutput):
-                # add message to history
                 history.add_message_to_history(
                     content=raw_action.action,
                     role="assistant",
@@ -235,7 +212,6 @@ class Evaluator:
                 )
                 raw_action = raw_action.action
             elif isinstance(raw_action, str):
-                # add message to history
                 history.add_message_to_history(content=raw_action, role="assistant")
             else:
                 raise ValueError(
@@ -246,6 +222,41 @@ class Evaluator:
             action = self.parse_raw_model_response(
                 raw_action, observation=observation, history=history
             )
+
+            # if the action is stop then we end the episode
+            if isinstance(action, StopAction):
+                # if the action is stop and task is impossible then success
+                # otherwise we should not have stopped
+                observation = None
+                success = example.impossible
+            # action is external tool then it is str
+            if isinstance(action, str):
+                observation = environment.step()
+                observation["target"] = example.target
+                observation["message"] = action
+            # action is environment action
+            else:
+                observation = environment.step(action)
+                observation["target"] = example.target
+                observation["message"] = self.convert_observation_to_message(
+                    observation, model=model
+                )
+                # check if the episode is done
+                success = self.check_done(observation["inventory"], example.target)
+
+            # update model with success or failure
+            # observation is the next state after the action (s1)
+            # history is the dialogue history
+            # -- the last message contains the action taken (a0)
+            # -- the second to last message is the observation (s0)
+            # success is whether the episode is sucessful (r)
+            model.update(
+                observation=observation, history=history, success=success, action=action
+            )
+
+            # exit if success
+            if success or isinstance(action, StopAction):
+                break
 
         # save results and reset
         return {
@@ -263,6 +274,13 @@ class Evaluator:
         examples: list[PlancraftExample],
         model,
     ) -> list:
+        """
+        Similar to eval_example, but processes multiple examples at once.
+
+        Tracks which environments are still active until they've either succeeded,
+        reached max steps, or invoked StopAction.
+        """
+
         # Initialize environments and histories
         environments = [
             PlancraftEnvironment(
@@ -271,126 +289,139 @@ class Evaluator:
             )
             for i in range(len(examples))
         ]
-
         histories = [self.create_history() for _ in range(len(examples))]
 
         # Track which environments are still active
         active_mask = [True for _ in range(len(examples))]
         results = [None for _ in range(len(examples))]
-        steps_taken = [0 for _ in range(len(examples))]
-        actions = [None for _ in range(len(examples))]
+        observations = []
 
-        while any(active_mask) and all(steps < self.max_steps for steps in steps_taken):
-            # Get observations for all active environments
-            observations = []
-            active_indices = []
-            active_histories = []
+        # Initialize observations (s0) and user messages from environment
+        for i in range(len(examples)):
+            obs = environments[i].step()
+            obs["target"] = examples[i].target
+            obs["message"] = self.convert_observation_to_message(obs, model=model)
+            observations.append(obs)
 
-            for i, (env, action, active) in enumerate(
-                zip(environments, actions, active_mask)
-            ):
-                if not active:
-                    continue
-
-                if isinstance(action, StopAction):
-                    # Handle stop action
-                    active_mask[i] = False
-                    results[i] = {
-                        "success": examples[i].impossible,
-                        "recipe_type": examples[i].recipe_type,
-                        "complexity": examples[i].complexity_split,
-                        "number_of_steps": steps_taken[i],
-                        "model_trace": histories[i].trace(),
-                        "example_id": examples[i].id,
-                        "images": histories[i].images,
-                    }
-                    continue
-
-                # Get observation
-                if isinstance(action, str):
-                    obs = env.step()
-                    obs["target"] = examples[i].target
-                    obs["message"] = action
-                else:
-                    obs = env.step(action)
-                    obs["target"] = examples[i].target
-                    obs["message"] = self.convert_observation_to_message(
-                        obs, model=model
-                    )
-
-                    # Check if done
-                    if self.check_done(obs["inventory"], examples[i].target):
-                        active_mask[i] = False
-                        results[i] = {
-                            "success": True,
-                            "recipe_type": examples[i].recipe_type,
-                            "complexity": examples[i].complexity_split,
-                            "number_of_steps": steps_taken[i],
-                            "model_trace": histories[i].trace(),
-                            "example_id": examples[i].id,
-                            "images": histories[i].images,
-                        }
-                        continue
-
-                # Add to batch lists
-                active_indices.append(i)
-                observations.append(obs)
-                active_histories.append(histories[i])
-
-                # Update history
-                histories[i].add_observation_to_history(obs)
-                histories[i].add_message_to_history(content=obs["message"], role="user")
-                steps_taken[i] += 1
-
-            if not observations:
+        # Process until all done or max steps reached
+        while any(active_mask) and all(
+            history.num_steps < self.max_steps for history in histories
+        ):
+            # Gather active environments
+            active_indices = [
+                i
+                for i, active in enumerate(active_mask)
+                if active and histories[i].num_steps < self.max_steps
+            ]
+            if not active_indices:
                 break
 
-            # Batch predict actions for active environments
+            # For each active environment, add new obs to history for next iteration
+            for env_idx in active_indices:
+                if active_mask[env_idx]:
+                    histories[env_idx].add_observation_to_history(observations[env_idx])
+                    histories[env_idx].add_message_to_history(
+                        content=observations[env_idx]["message"], role="user"
+                    )
+
+            batch_observations = [observations[i] for i in active_indices]
+            batch_histories = [histories[i] for i in active_indices]
+
+            # Predict next actions in batch
             raw_actions = model.batch_step(
-                observations, dialogue_histories=active_histories
+                batch_observations, dialogue_histories=batch_histories
             )
 
-            # Process actions for each active environment
-            for batch_idx, (idx, raw_action) in enumerate(
-                zip(active_indices, raw_actions)
-            ):
-                # if the model returns a PlancraftModelOutput, extract the action
+            # Process each raw action and update environment/history
+            successes = []
+            actions = []
+            for env_idx, raw_action in zip(active_indices, raw_actions):
+                # Add model's message to history
                 if isinstance(raw_action, PlancraftModelOutput):
-                    # add message to history
-                    histories[idx].add_message_to_history(
+                    histories[env_idx].add_message_to_history(
                         content=raw_action.action,
                         role="assistant",
                         **(raw_action.kwargs or {}),
                     )
-                    actions[idx] = self.parse_raw_model_response(
-                        raw_action.action,
-                        observation=observations[batch_idx],
-                        history=histories[idx],
-                    )
-                # if the model returns a string, parse the raw action
+                    raw_action = raw_action.action
                 elif isinstance(raw_action, str):
-                    # add message to history
-                    histories[idx].add_message_to_history(
+                    histories[env_idx].add_message_to_history(
                         content=raw_action, role="assistant"
-                    )
-                    actions[idx] = self.parse_raw_model_response(
-                        raw_action,
-                        observation=observations[batch_idx],
-                        history=histories[idx],
                     )
                 else:
                     raise ValueError(
-                        f"model.step() output must be a string or PlancraftModelOutput, got {type(raw_action)}"
+                        f"model.batch_step() must return list[str] or list[PlancraftModelOutput], got {type(raw_action)}"
                     )
 
-        # Fill in results for environments that didn't finish
+                # Parse action
+                action = self.parse_raw_model_response(
+                    raw_action,
+                    observation=observations[env_idx],
+                    history=histories[env_idx],
+                )
+                actions.append(action)
+                success = False
+                # If action is StopAction
+                if isinstance(action, StopAction):
+                    # if the action is StopAction and the example is impossible,
+                    # we consider that a 'success' in the sense that the model recognized it can't be done
+                    success = examples[env_idx].impossible
+                    observations[env_idx] = None
+                # If parsed action is a string, it's a message
+                elif isinstance(action, str):
+                    obs = environments[env_idx].step()
+                    obs["target"] = examples[env_idx].target
+                    obs["message"] = action
+                    observations[env_idx] = obs
+                # Otherwise it's an actual environment action
+                else:
+                    obs = environments[env_idx].step(action)
+                    obs["target"] = examples[env_idx].target
+                    obs["message"] = self.convert_observation_to_message(
+                        obs, model=model
+                    )
+                    observations[env_idx] = obs
+                    success = self.check_done(
+                        obs["inventory"], examples[env_idx].target
+                    )
+
+                successes.append(success)
+
+                # If done, or action was stop, mark inactive and store result
+                if (
+                    success
+                    or isinstance(action, StopAction)
+                    or histories[env_idx].num_steps >= self.max_steps
+                ):
+                    active_mask[env_idx] = False
+                    results[env_idx] = {
+                        "success": success,
+                        "recipe_type": examples[env_idx].recipe_type,
+                        "complexity": examples[env_idx].complexity_split,
+                        "number_of_steps": histories[env_idx].num_steps,
+                        "model_trace": histories[env_idx].trace(),
+                        "example_id": examples[env_idx].id,
+                        "images": histories[env_idx].images,
+                    }
+
+            # Update the model for this single environment
+            batch_observations = [observations[i] for i in active_indices]
+            batch_histories = [histories[i] for i in active_indices]
+            model.batch_update(
+                observations=batch_observations,
+                histories=batch_histories,
+                successes=successes,
+                actions=actions,
+            )
+
+        # Fill in results for any environment that never completed
         for i, result in enumerate(results):
             if result is None:
                 results[i] = {
                     "success": False,
                     "recipe_type": examples[i].recipe_type,
                     "complexity": examples[i].complexity_split,
-                    "number_of_steps": steps_taken[i],
+                    "number_of_steps": histories[i].num_steps,
                     "model_trace": histories[i].trace(),
                     "example_id": examples[i].id,
                     "images": histories[i].images,

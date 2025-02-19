@@ -33,3 +33,10 @@ class PlancraftBaseModel(abc.ABC):
         Reset the model state - ready for a new episode
         """
         raise NotImplementedError()
+
+    @abc.abstractmethod
+    def update(self, **kwargs) -> None:
+        """
+        Update the model state based on the dialogue history
+        """
+        raise NotImplementedError()

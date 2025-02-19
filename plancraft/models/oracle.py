@@ -47,3 +47,9 @@ class OracleModel(PlancraftBaseModel):
             action = self.step(observation)
             actions.append(action)
         return actions
+
+    def update(self, **kwargs):
+        pass
+
+    def batch_update(self, **kwargs):
+        pass

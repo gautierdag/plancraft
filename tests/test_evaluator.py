@@ -1,9 +1,6 @@
-import json
-import os
 from unittest.mock import MagicMock, patch
 
 import pytest
-from loguru import logger
 
 from plancraft.config import EvalConfig, PlancraftExample
 from plancraft.environment import (
@@ -128,7 +125,7 @@ def mock_example(mock_example_json):
 def evaluator(mock_cfg, mock_example):
     mock_model = MagicMock()
     mock_model.history.trace.return_value = {"tokens_used": 10}
-    mock_model.history.images 
+    mock_model.history.images
 
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
         mock_load_dataset.return_value = [mock_example]
@@ -385,3 +382,73 @@ def test_real_val_example():
     assert result["example_id"].startswith("VAL")
     assert "number_of_steps" in result
     assert result["number_of_steps"] > 0
+
+
+def test_batch_eval_examples_active_indices(evaluator, mock_example_json):
+    """
+    Verifies that environments become inactive at different times,
+    ensuring that the 'active_indices' logic works correctly in batch_eval_examples.
+    """
+
+    from plancraft.config import PlancraftExample
+
+    class MockBatchModel:
+        """Simulate a model that will return a StopAction for each example in different steps."""
+
+        def __init__(self):
+            # Track how many times batch_step is called
+            self.call_count = 0
+            self.update_count = 0
+
+        def batch_step(self, batch_observations, dialogue_histories=None):
+            # First call: environment 0 is done (StopAction), 1 and 2 continue
+            if self.call_count == 0:
+                raw_actions = [
+                    "impossible: Cannot reach the target",
+                    "move: from [A1] to [A2]",
+                    "move: from [A1] to [A2]",
+                ]
+            # Second call: environment 1 is now done, environment 2 continues
+            elif self.call_count == 1:
+                raw_actions = [
+                    "impossible: Cannot reach the target",
+                    "move: from [A2] to [A1]",
+                ]
+            # Third call: environment 2 is done
+            else:
+                raw_actions = [
+                    "impossible: Cannot reach the target",
+                ]
+            self.call_count += 1
+            return raw_actions
+
+        def batch_update(
+            self, observations: list, histories: list, successes: list, actions: list
+        ):
+            assert len(observations) == len(histories) == len(successes) == len(actions)
+            assert len(observations) == 3 - self.call_count + 1
+            assert not any(successes)  # All examples should fail
+            # since the first action stops the environment
+            # the first observation in batch should be None
+            assert observations[0] is None
+            self.update_count += 1
+
+    # Create multiple examples
+    import copy
+
+    examples = [PlancraftExample(**copy.deepcopy(mock_example_json)) for _ in range(3)]
+
+    # Use the mock batch model
+    mock_model = MockBatchModel()
+    evaluator.actions += [ImpossibleActionHandler()]
+
+    batch_results = evaluator.batch_eval_examples(examples, model=mock_model)
+
+    # Verify batch results
+    assert batch_results[0]["number_of_steps"] == 1
+    assert batch_results[1]["number_of_steps"] == 2
+    assert batch_results[2]["number_of_steps"] == 3
+
+    # count number of times batch_step is called
+    assert mock_model.call_count == 3
+    assert mock_model.update_count == 3
