@@ -1,3 +1,4 @@
+import copy
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -279,7 +280,10 @@ def test_batch_eval_examples(mock_cfg, mock_example_json):
     mock_cfg.plancraft.use_fasterrcnn = False
 
     # Create multiple examples
-    examples = [PlancraftExample(**mock_example_json) for _ in range(3)]
+    examples = [
+        PlancraftExample(**(copy.deepcopy(mock_example_json) | {"id": f"VAL{i}"}))
+        for i in range(3)
+    ]
 
     model = get_model(mock_cfg)
     with patch("plancraft.evaluator.Evaluator.load_dataset") as mock_load_dataset:
@@ -300,7 +304,6 @@ def test_batch_eval_examples(mock_cfg, mock_example_json):
         # Verify batch results
         assert len(batch_results) == len(examples)
         for result in batch_results:
-            assert result["example_id"] == "TRAIN0000"
             assert result["model_trace"]["tokens_used"] == 0
             assert "success" in result
             assert "number_of_steps" in result
@@ -322,7 +325,10 @@ def test_batch_oracle_model(mock_cfg, mock_example_json):
         mock_load_dataset.return_value = []
         evaluator = Evaluator(run_name="test_run")
         # Test batch evaluation
-        examples = [PlancraftExample(**mock_example_json) for _ in range(2)]
+        examples = [
+            PlancraftExample(**(copy.deepcopy(mock_example_json) | {"id": f"VAL{i}"}))
+            for i in range(2)
+        ]
         batch_results = evaluator.batch_eval_examples(
             examples,
             model=model,
@@ -330,9 +336,11 @@ def test_batch_oracle_model(mock_cfg, mock_example_json):
         # Verify batch results
         assert len(batch_results) == len(examples)
         for result in batch_results:
-            assert result["example_id"] == "TRAIN0000"
             assert result["model_trace"]["tokens_used"] == 0
             assert result["success"]  # Oracle should succeed
+
+        assert batch_results[0]["example_id"] == "VAL0"
+        assert batch_results[1]["example_id"] == "VAL1"
 
         # Test individual evaluation for comparison
         individual_results = []
@@ -340,7 +348,6 @@ def test_batch_oracle_model(mock_cfg, mock_example_json):
         for ex in examples:
             model.reset()
             result = evaluator.eval_example(ex, model=model)
-            assert result["example_id"] == "TRAIN0000"
             assert result["success"]
             individual_results.append(result)
 
@@ -433,10 +440,10 @@ def test_batch_eval_examples_active_indices(evaluator, mock_example_json):
             assert observations[0] is None
             self.update_count += 1
 
-    # Create multiple examples
-    import copy
-
-    examples = [PlancraftExample(**copy.deepcopy(mock_example_json)) for _ in range(3)]
+    examples = [
+        PlancraftExample(**(copy.deepcopy(mock_example_json) | {"id": f"VAL{i}"}))
+        for i in range(3)
+    ]
 
     # Use the mock batch model
     mock_model = MockBatchModel()

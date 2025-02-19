@@ -2,6 +2,7 @@ import json
 import os
 from typing import Optional
 from copy import deepcopy
+from collections import deque
 
 import imageio
 from tqdm import tqdm
@@ -273,161 +274,155 @@ class Evaluator:
         self,
         examples: list[PlancraftExample],
         model,
+        batch_size: int = 4,
     ) -> list:
         """
-        Similar to eval_example, but processes multiple examples at once.
+        Processes examples in batches with dynamic replacement from a queue.
 
-        Tracks which environments are still active until they've either succeeded,
-        reached max steps, or invoked StopAction.
+        Args:
+            examples: List of examples to process
+            model: Model to use for evaluation
+            batch_size: Maximum number of concurrent environments
         """
+        pending_examples = deque(examples)
+        active_examples = []
+        active_environments = []
+        active_histories = []
+        active_observations = []
+        results = {ex.id: None for ex in examples}
 
-        # Initialize environments and histories
-        environments = [
-            PlancraftEnvironment(
-                inventory=deepcopy(examples[i].slotted_inventory),
+        # Initialize first batch
+        while len(active_examples) < batch_size and pending_examples:
+            example = pending_examples.popleft()
+            env = PlancraftEnvironment(
+                inventory=deepcopy(example.slotted_inventory),
                 resolution=self.resolution,
             )
-            for i in range(len(examples))
-        ]
-        histories = [self.create_history() for _ in range(len(examples))]
-
-        # Track which environments are still active
-        active_mask = [True for _ in range(len(examples))]
-        results = [None for _ in range(len(examples))]
-        observations = []
-
-        # Initialize observations (s0) and user messages from environment
-        for i in range(len(examples)):
-            obs = environments[i].step()
-            obs["target"] = examples[i].target
+            history = self.create_history()
+            obs = env.step()
+            obs["target"] = example.target
             obs["message"] = self.convert_observation_to_message(obs, model=model)
-            observations.append(obs)
 
-        # Process until all done or max steps reached
-        while any(active_mask) and all(
-            history.num_steps < self.max_steps for history in histories
-        ):
-            # Gather active environments
-            active_indices = [
-                i
-                for i, active in enumerate(active_mask)
-                if active and histories[i].num_steps < self.max_steps
-            ]
-            if not active_indices:
-                break
+            active_examples.append(example)
+            active_environments.append(env)
+            active_histories.append(history)
+            active_observations.append(obs)
 
-            # For each active environment, add new obs to history for next iteration
-            for env_idx in active_indices:
-                if active_mask[env_idx]:
-                    histories[env_idx].add_observation_to_history(observations[env_idx])
-                    histories[env_idx].add_message_to_history(
-                        content=observations[env_idx]["message"], role="user"
-                    )
+        # Process until all examples are done
+        while active_examples:
+            # Add observations to histories
+            for i in range(len(active_examples)):
+                active_histories[i].add_observation_to_history(active_observations[i])
+                active_histories[i].add_message_to_history(
+                    content=active_observations[i]["message"], role="user"
+                )
 
-            batch_observations = [observations[i] for i in active_indices]
-            batch_histories = [histories[i] for i in active_indices]
-
-            # Predict next actions in batch
+            # Get model predictions for current batch
             raw_actions = model.batch_step(
-                batch_observations, dialogue_histories=batch_histories
+                active_observations, dialogue_histories=active_histories
             )
 
-            # Process each raw action and update environment/history
+            # Process each active environment
+            completed_indices = []
             successes = []
             actions = []
-            for env_idx, raw_action in zip(active_indices, raw_actions):
-                # Add model's message to history
+
+            for i, (example, raw_action) in enumerate(
+                zip(active_examples, raw_actions)
+            ):
+                # Handle model output
                 if isinstance(raw_action, PlancraftModelOutput):
-                    histories[env_idx].add_message_to_history(
+                    active_histories[i].add_message_to_history(
                         content=raw_action.action,
                         role="assistant",
                         **(raw_action.kwargs or {}),
                     )
                     raw_action = raw_action.action
-                elif isinstance(raw_action, str):
-                    histories[env_idx].add_message_to_history(
+                else:
+                    active_histories[i].add_message_to_history(
                         content=raw_action, role="assistant"
                     )
-                else:
-                    raise ValueError(
-                        f"model.batch_step() must return list[str] or list[PlancraftModelOutput], got {type(raw_action)}"
-                    )
 
-                # Parse action
+                # Parse and execute action
                 action = self.parse_raw_model_response(
                     raw_action,
-                    observation=observations[env_idx],
-                    history=histories[env_idx],
+                    observation=active_observations[i],
+                    history=active_histories[i],
                 )
                 actions.append(action)
                 success = False
-                # If action is StopAction
+
                 if isinstance(action, StopAction):
-                    # if the action is StopAction and the example is impossible,
-                    # we consider that a 'success' in the sense that the model recognized it can't be done
-                    success = examples[env_idx].impossible
-                    observations[env_idx] = None
-                # If parsed action is a string, it's a message
+                    success = example.impossible
+                    active_observations[i] = None
                 elif isinstance(action, str):
-                    obs = environments[env_idx].step()
-                    obs["target"] = examples[env_idx].target
+                    obs = active_environments[i].step()
+                    obs["target"] = example.target
                     obs["message"] = action
-                    observations[env_idx] = obs
-                # Otherwise it's an actual environment action
+                    active_observations[i] = obs
                 else:
-                    obs = environments[env_idx].step(action)
-                    obs["target"] = examples[env_idx].target
+                    obs = active_environments[i].step(action)
+                    obs["target"] = example.target
                     obs["message"] = self.convert_observation_to_message(
                         obs, model=model
                     )
-                    observations[env_idx] = obs
-                    success = self.check_done(
-                        obs["inventory"], examples[env_idx].target
-                    )
+                    active_observations[i] = obs
+                    success = self.check_done(obs["inventory"], example.target)
 
                 successes.append(success)
 
-                # If done, or action was stop, mark inactive and store result
+                # Check if environment is done
                 if (
                     success
                     or isinstance(action, StopAction)
-                    or histories[env_idx].num_steps >= self.max_steps
+                    or active_histories[i].num_steps >= self.max_steps
                 ):
-                    active_mask[env_idx] = False
-                    results[env_idx] = {
+                    results[example.id] = {
                         "success": success,
-                        "recipe_type": examples[env_idx].recipe_type,
-                        "complexity": examples[env_idx].complexity_split,
-                        "number_of_steps": histories[env_idx].num_steps,
-                        "model_trace": histories[env_idx].trace(),
-                        "example_id": examples[env_idx].id,
-                        "images": histories[env_idx].images,
+                        "recipe_type": example.recipe_type,
+                        "complexity": example.complexity_split,
+                        "number_of_steps": active_histories[i].num_steps,
+                        "model_trace": active_histories[i].trace(),
+                        "example_id": example.id,
+                        "images": active_histories[i].images,
                     }
+                    completed_indices.append(i)
 
-            # Update the model for this single environment
-            batch_observations = [observations[i] for i in active_indices]
-            batch_histories = [histories[i] for i in active_indices]
+            # Update model
             model.batch_update(
-                observations=batch_observations,
-                histories=batch_histories,
+                observations=active_observations,
+                histories=active_histories,
                 successes=successes,
                 actions=actions,
             )
 
-        # Fill in results for any environment that never completed
-        for i, result in enumerate(results):
-            if result is None:
-                results[i] = {
-                    "success": False,
-                    "recipe_type": examples[i].recipe_type,
-                    "complexity": examples[i].complexity_split,
-                    "number_of_steps": histories[i].num_steps,
-                    "model_trace": histories[i].trace(),
-                    "example_id": examples[i].id,
-                    "images": histories[i].images,
-                }
+            # Remove completed environments and replace with new ones
+            for i in reversed(completed_indices):
+                active_examples.pop(i)
+                active_environments.pop(i)
+                active_histories.pop(i)
+                active_observations.pop(i)
 
-        return results
+                # Add new environment if there are pending examples
+                if pending_examples:
+                    example = pending_examples.popleft()
+                    env = PlancraftEnvironment(
+                        inventory=deepcopy(example.slotted_inventory),
+                        resolution=self.resolution,
+                    )
+                    history = self.create_history()
+                    obs = env.step()
+                    obs["target"] = example.target
+                    obs["message"] = self.convert_observation_to_message(
+                        obs, model=model
+                    )
+
+                    active_examples.append(example)
+                    active_environments.append(env)
+                    active_histories.append(history)
+                    active_observations.append(obs)
+
+        return list(results.values())
 
     def eval_all_examples(self, model, progress_bar=False) -> list:
         results = []
