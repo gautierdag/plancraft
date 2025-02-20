@@ -170,86 +170,70 @@ class Evaluator:
             content_list.append({"type": "image"})
         return {"content": content_list}
 
-    def eval_example(
-        self,
-        example: PlancraftExample,
-        model: PlancraftBaseModel,
-    ) -> dict:
-        """
-        Given the loaded model and an example from Plancraft
-        run the episode until success or termination.
-        """
-
-        # start environment
+    def _init_environment(self, example: PlancraftExample) -> tuple:
+        """Initialize environment and history for an example"""
         environment = PlancraftEnvironment(
             inventory=deepcopy(example.slotted_inventory),
             resolution=self.resolution,
         )
-
-        # initialise history/dialogue tracking
         history = self.create_history()
-        observation = environment.step()
-        # add target and first message to history
-        observation["target"] = example.target
-        observation["message"] = self.convert_observation_to_message(
-            observation, model=model
-        )
+        obs = environment.step()
+        obs["target"] = example.target
+        obs["message"] = self.convert_observation_to_message(obs)
+        return environment, history, obs
 
-        success = False
-        # run episode until stuck or until max steps is reached
-        while history.num_steps < self.max_steps:
-            # add observation to history
-            history.add_observation_to_history(observation)
-            history.add_message_to_history(content=observation["message"], role="user")
-            # predict next action
-            raw_action = model.step(observation, dialogue_history=history)
-
-            # if the model returns a PlancraftModelOutput, extract the action
-            if isinstance(raw_action, PlancraftModelOutput):
-                history.add_message_to_history(
-                    content=raw_action.action,
-                    role="assistant",
-                    **(raw_action.kwargs or {}),
-                )
-                raw_action = raw_action.action
-            elif isinstance(raw_action, str):
-                history.add_message_to_history(content=raw_action, role="assistant")
-            else:
-                raise ValueError(
-                    f"model.step() output must be a string or PlancraftModelOutput, got {type(raw_action)}"
-                )
-
-            # parse the raw action
-            action = self.parse_raw_model_response(
-                raw_action, observation=observation, history=history
+    def _process_model_output(
+        self, raw_action, observation: dict, history: HistoryBase
+    ) -> tuple:
+        """Process model output and update history"""
+        if isinstance(raw_action, PlancraftModelOutput):
+            history.add_message_to_history(
+                content=raw_action.action,
+                role="assistant",
+                **(raw_action.kwargs or {}),
             )
+            raw_action = raw_action.action
+        else:
+            history.add_message_to_history(content=raw_action, role="assistant")
 
-            # if the action is stop then we end the episode
-            if isinstance(action, StopAction):
-                # if the action is stop and task is impossible then success
-                # otherwise we should not have stopped
-                observation = None
-                success = example.impossible
-            # action is external tool then it is str
-            elif isinstance(action, str):
-                observation = environment.step()
-                observation["target"] = example.target
-                observation["message"] = action
-            # action is environment action
-            else:
-                observation = environment.step(action)
-                observation["target"] = example.target
-                observation["message"] = self.convert_observation_to_message(
-                    observation, model=model
-                )
-                # check if the episode is done
-                success = self.check_done(observation["inventory"], example.target)
+        action = self.parse_raw_model_response(
+            raw_action,
+            observation=observation,
+            history=history,
+        )
+        return action
 
-            # exit if success
-            if success or isinstance(action, StopAction):
-                break
+    def _execute_action(
+        self, action, example: PlancraftExample, environment, model=None
+    ) -> tuple[dict, bool]:
+        """Execute action and return next observation and success status"""
+        success = False
 
-        # save results and reset
+        # stop action
+        if isinstance(action, StopAction):
+            observation = None
+            #  success is True if example was truly impossible
+            success = example.impossible
+        #  if action is a string, it is a message response
+        elif isinstance(action, str):
+            observation = environment.step()
+            observation["target"] = example.target
+            observation["message"] = action
+        #  execute action and check if target is obtained
+        else:
+            observation = environment.step(action)
+            observation["target"] = example.target
+            observation["message"] = self.convert_observation_to_message(
+                observation, model=model
+            )
+            success = self.check_done(observation["inventory"], example.target)
+
+        return observation, success
+
+    def _create_result(
+        self, example: PlancraftExample, success: bool, history: HistoryBase
+    ) -> dict:
+        """Create result dictionary for an example"""
         return {
             "success": success,
             "recipe_type": example.recipe_type,
@@ -260,6 +244,29 @@ class Evaluator:
             "images": history.images,
         }
 
+    def eval_example(
+        self,
+        example: PlancraftExample,
+        model: PlancraftBaseModel,
+    ) -> dict:
+        environment, history, observation = self._init_environment(example)
+        success = False
+
+        while history.num_steps < self.max_steps:
+            history.add_observation_to_history(observation)
+            history.add_message_to_history(content=observation["message"], role="user")
+
+            raw_action = model.step(observation, dialogue_history=history)
+            action = self._process_model_output(raw_action, observation, history)
+
+            observation, success = self._execute_action(
+                action, example, environment, model
+            )
+            if success or isinstance(action, StopAction):
+                break
+
+        return self._create_result(example, success, history)
+
     def batch_eval_examples(
         self,
         examples: list[PlancraftExample],
@@ -267,15 +274,6 @@ class Evaluator:
         batch_size: int = 4,
         callback_fn: Optional[callable] = None,
     ) -> list:
-        """
-        Processes examples in batches with dynamic replacement from a queue.
-
-        Args:
-            examples: List of examples to process
-            model: Model to use for evaluation
-            batch_size: Maximum number of concurrent environments
-            callback_fn: Optional callback function to call after each result
-        """
         pending_examples = deque(examples)
         active_examples = []
         active_environments = []
@@ -286,21 +284,13 @@ class Evaluator:
         # Initialize first batch
         while len(active_examples) < batch_size and pending_examples:
             example = pending_examples.popleft()
-            env = PlancraftEnvironment(
-                inventory=deepcopy(example.slotted_inventory),
-                resolution=self.resolution,
-            )
-            history = self.create_history()
-            obs = env.step()
-            obs["target"] = example.target
-            obs["message"] = self.convert_observation_to_message(obs, model=model)
+            env, history, obs = self._init_environment(example)
 
             active_examples.append(example)
             active_environments.append(env)
             active_histories.append(history)
             active_observations.append(obs)
 
-        # Process until all examples are done
         while active_examples:
             # Add observations to histories
             for i in range(len(active_examples)):
@@ -309,12 +299,10 @@ class Evaluator:
                     content=active_observations[i]["message"], role="user"
                 )
 
-            # Get model predictions for current batch
             raw_actions = model.batch_step(
                 active_observations, dialogue_histories=active_histories
             )
 
-            # Process each active environment
             completed_indices = []
             successes = []
             actions = []
@@ -322,65 +310,28 @@ class Evaluator:
             for i, (example, raw_action) in enumerate(
                 zip(active_examples, raw_actions)
             ):
-                # Handle model output
-                if isinstance(raw_action, PlancraftModelOutput):
-                    active_histories[i].add_message_to_history(
-                        content=raw_action.action,
-                        role="assistant",
-                        **(raw_action.kwargs or {}),
-                    )
-                    raw_action = raw_action.action
-                else:
-                    active_histories[i].add_message_to_history(
-                        content=raw_action, role="assistant"
-                    )
-
-                # Parse and execute action
-                action = self.parse_raw_model_response(
-                    raw_action,
-                    observation=active_observations[i],
-                    history=active_histories[i],
+                action = self._process_model_output(
+                    raw_action, active_observations[i], active_histories[i]
                 )
                 actions.append(action)
-                success = False
 
-                if isinstance(action, StopAction):
-                    success = example.impossible
-                    active_observations[i] = None
-                elif isinstance(action, str):
-                    obs = active_environments[i].step()
-                    obs["target"] = example.target
-                    obs["message"] = action
-                    active_observations[i] = obs
-                else:
-                    obs = active_environments[i].step(action)
-                    obs["target"] = example.target
-                    obs["message"] = self.convert_observation_to_message(
-                        obs, model=model
-                    )
-                    active_observations[i] = obs
-                    success = self.check_done(obs["inventory"], example.target)
-
+                obs, success = self._execute_action(
+                    action, example, active_environments[i], model
+                )
+                active_observations[i] = obs
                 successes.append(success)
 
-                # Check if environment is done
                 if (
                     success
                     or isinstance(action, StopAction)
                     or active_histories[i].num_steps >= self.max_steps
                 ):
-                    results[example.id] = {
-                        "success": success,
-                        "recipe_type": example.recipe_type,
-                        "complexity": example.complexity_split,
-                        "number_of_steps": active_histories[i].num_steps,
-                        "model_trace": active_histories[i].trace(),
-                        "example_id": example.id,
-                        "images": active_histories[i].images,
-                    }
+                    results[example.id] = self._create_result(
+                        example, success, active_histories[i]
+                    )
                     completed_indices.append(i)
                     if callback_fn:
-                        callback_fn(results[example.id])
+                        callback_fn(example=example, results=results[example.id])
 
             # Remove completed environments and replace with new ones
             for i in reversed(completed_indices):
@@ -389,19 +340,9 @@ class Evaluator:
                 active_histories.pop(i)
                 active_observations.pop(i)
 
-                # Add new environment if there are pending examples
                 if pending_examples:
                     example = pending_examples.popleft()
-                    env = PlancraftEnvironment(
-                        inventory=deepcopy(example.slotted_inventory),
-                        resolution=self.resolution,
-                    )
-                    history = self.create_history()
-                    obs = env.step()
-                    obs["target"] = example.target
-                    obs["message"] = self.convert_observation_to_message(
-                        obs, model=model
-                    )
+                    env, history, obs = self._init_environment(example)
 
                     active_examples.append(example)
                     active_environments.append(env)
