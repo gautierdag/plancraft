@@ -6,9 +6,9 @@ from pydantic import BaseModel, field_validator, model_validator
 
 
 # [A1], [A2], [A3], [B1], [B2], [B3], [C1], [C2], [C3], [I1]-[I36]
-SLOT_REGEX_PATTERN = r"\[([ABC][0-9]|I[1-9]|I[12][0-9]|I3[0-6])\]"
+SLOT_REGEX_PATTERN = r"\[([ABC][123]|I[1-9]|I[12][0-9]|I3[0-6])\]"
 # [0], [A1], [A2], [A3], [B1], [B2], [B3], [C1], [C2], [C3], [I1]-[I36]
-SLOT_REGEX_PATTERN_WITH_CRAFTING_SLOT = r"\[(0|[ABC][0-9]|I[1-9]|I[12][0-9]|I3[0-6])\]"
+SLOT_REGEX_PATTERN_WITH_CRAFTING_SLOT = r"\[(0|[ABC][123]|I[1-9]|I[12][0-9]|I3[0-6])\]"
 # 1-64
 QUANTITY_REGEX_PATTERN = r"([1-9]|[1-5][0-9]|6[0-4])"
 
