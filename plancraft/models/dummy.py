@@ -45,9 +45,3 @@ class DummyModel(PlancraftBaseModel):
         self, observations: list[dict], **kwargs
     ) -> list[PlancraftModelOutput]:
         return [self.step(observation) for observation in observations]
-
-    def update(self, **kwargs):
-        pass
-
-    def batch_update(self, **kwargs):
-        pass

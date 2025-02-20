@@ -429,16 +429,7 @@ def test_batch_eval_examples_active_indices(evaluator, mock_example_json):
             self.call_count += 1
             return raw_actions
 
-        def batch_update(
-            self, observations: list, histories: list, successes: list, actions: list
-        ):
-            assert len(observations) == len(histories) == len(successes) == len(actions)
-            assert len(observations) == 3 - self.call_count + 1
-            assert not any(successes)  # All examples should fail
-            # since the first action stops the environment
-            # the first observation in batch should be None
-            assert observations[0] is None
-            self.update_count += 1
+    mock_callback = MagicMock()
 
     examples = [
         PlancraftExample(**(copy.deepcopy(mock_example_json) | {"id": f"VAL{i}"}))
@@ -449,7 +440,9 @@ def test_batch_eval_examples_active_indices(evaluator, mock_example_json):
     mock_model = MockBatchModel()
     evaluator.actions += [ImpossibleActionHandler()]
 
-    batch_results = evaluator.batch_eval_examples(examples, model=mock_model)
+    batch_results = evaluator.batch_eval_examples(
+        examples, model=mock_model, callback_fn=mock_callback
+    )
 
     # Verify batch results
     assert batch_results[0]["number_of_steps"] == 1
@@ -458,4 +451,4 @@ def test_batch_eval_examples_active_indices(evaluator, mock_example_json):
 
     # count number of times batch_step is called
     assert mock_model.call_count == 3
-    assert mock_model.update_count == 3
+    assert mock_callback.call_count == 3

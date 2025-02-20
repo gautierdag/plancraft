@@ -245,16 +245,6 @@ class Evaluator:
                 # check if the episode is done
                 success = self.check_done(observation["inventory"], example.target)
 
-            # update model with success or failure
-            # observation is the next state after the action (s1)
-            # history is the dialogue history
-            # -- the last message contains the action taken (a0)
-            # -- the second to last message is the observation (s0)
-            # success is whether the episode is sucessful (r)
-            model.update(
-                observation=observation, history=history, success=success, action=action
-            )
-
             # exit if success
             if success or isinstance(action, StopAction):
                 break
@@ -275,6 +265,7 @@ class Evaluator:
         examples: list[PlancraftExample],
         model,
         batch_size: int = 4,
+        callback_fn: Optional[callable] = None,
     ) -> list:
         """
         Processes examples in batches with dynamic replacement from a queue.
@@ -283,6 +274,7 @@ class Evaluator:
             examples: List of examples to process
             model: Model to use for evaluation
             batch_size: Maximum number of concurrent environments
+            callback_fn: Optional callback function to call after each result
         """
         pending_examples = deque(examples)
         active_examples = []
@@ -387,14 +379,8 @@ class Evaluator:
                         "images": active_histories[i].images,
                     }
                     completed_indices.append(i)
-
-            # Update model
-            model.batch_update(
-                observations=active_observations,
-                histories=active_histories,
-                successes=successes,
-                actions=actions,
-            )
+                    if callback_fn:
+                        callback_fn(results[example.id])
 
             # Remove completed environments and replace with new ones
             for i in reversed(completed_indices):

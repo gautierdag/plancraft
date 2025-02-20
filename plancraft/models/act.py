@@ -72,6 +72,3 @@ class ActModel(PlancraftBaseModel):
         dialogue_history.tokens_used += action_token_used
         # return raw action message
         return action_messages[0].split("\n")[0].strip()
-
-    def update(self, **kwargs):
-        pass
