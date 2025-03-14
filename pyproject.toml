@@ -21,7 +21,6 @@ dependencies = [
     "numpy",
     "pydantic-settings>=2.6.1",
     "scikit-learn>=1.6.0",
-    "vllm>=0.7.3",
 ]
 
 [tool.uv]
@@ -43,6 +42,7 @@ full = [
     "torch>=2.5.0",
     "torchvision>=0.20.0",
     "transformers>=4.43.3",
+    "vllm>=0.7.3",
     "accelerate",
     "peft",
     "einops",

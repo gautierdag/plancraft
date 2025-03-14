@@ -4,13 +4,13 @@ plancraft:
   mode: oracle
   num_generations: 1
   max_steps: 30
-  split: test.small
-  max_message_window: 100
+  split: test
+  max_message_window: 40
   resume: False
   output_dir: "outputs"
   few_shot: False
   system_prompt: False
 wandb:
-  project: "plancraft"
+  project: "plancraft-new"
   entity: "itl"
   mode: "online"

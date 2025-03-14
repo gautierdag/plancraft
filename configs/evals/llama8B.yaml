@@ -4,11 +4,11 @@ plancraft:
   num_generations: 5
   mode: "act"
   max_steps: 30
-  split: test.small
+  split: test
   max_message_window: 40
   resume: False
   output_dir: "outputs"
 wandb:
-  project: "plancraft"
+  project: "plancraft-new"
   entity: "itl"
   mode: "online"
