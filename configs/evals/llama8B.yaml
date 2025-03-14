@@ -3,7 +3,7 @@ plancraft:
   tokenizer: meta-llama/Meta-Llama-3.1-8B-Instruct
   num_generations: 5
   mode: "act"
-  max_steps: 80
+  max_steps: 30
   split: test.small
   max_message_window: 40
   resume: False

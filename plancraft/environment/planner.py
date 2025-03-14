@@ -46,7 +46,7 @@ def optimal_planner(
     inventory: dict[str, int],
     steps=[],
     best_steps=None,
-    max_steps=40,
+    max_steps=30,
     timeout=30,
 ) -> list[tuple[BaseRecipe, dict[str, int]]]:
     """
