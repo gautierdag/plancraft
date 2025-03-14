@@ -97,8 +97,6 @@ class EnvWrapper:
                 - image: The image observation (if action was successful)
             reward: Reward for the current action (1.0 for success, 0.0 otherwise)
             terminated: Whether the episode is done due to task completion, failure, or timeout
-
-
         """
         action = self.parse_raw_model_response(action)
         self.current_step += 1
