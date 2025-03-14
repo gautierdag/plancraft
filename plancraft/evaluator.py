@@ -34,6 +34,13 @@ class Evaluator:
 
     It is also responsible for early stopping and verifying the target object has been craft.
     Finally, it also saves the results of the evaluation and the images generated during the evaluation.
+
+    This evaluator is designed to work with a PlancraftBaseModel and a set of ActionHandlerBase instances.
+    It supports multimodal content format and image-based inventory.
+
+    Importantly, it tracks the history of the dialogue and the environment state to provide a trace of the model's actions.
+
+    If you would want a simpler interface that just wraps the environment and actions to evaluate a single Plancraft example, you should use the EnvWrapper class.
     """
 
     def __init__(
