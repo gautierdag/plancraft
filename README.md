@@ -24,7 +24,6 @@ Or:
 uv add plancraft
 ```
 
-
 ![gif-example3](docs/images/train_images/TRAIN0010.gif)
 ![gif-example1](docs/images/train_images/TRAIN1133.gif)
 ![gif-example2](docs/images/train_images/TRAIN0383.gif)
@@ -34,7 +33,44 @@ The package provides a multimodal environment and dataset for evaluating plannin
 
 ## Usage
 
-The package provides a `PlancraftEnvironment` class that can be used to interact with the environment. Here is an example of how to use it:
+### Quick Start with EnvWrapper
+
+The package provides an `EnvWrapper` class that offers a simple interface for integrating your own agent with the Plancraft environment. This is the recommended way to get started if you want to use your own model implementation:
+
+```python
+from plancraft.simple import EnvWrapper, get_plancraft_examples
+
+# Load examples from the dataset
+examples = get_plancraft_examples(split="train")
+example = examples[0]  # Get the first example
+
+# Create the environment wrapper for this example
+env_wrapper = EnvWrapper(
+    example=example,
+    max_steps=30,
+    resolution="high",
+    use_text_inventory=True
+)
+
+# Simple agent loop
+observation, reward, terminated = env_wrapper.step("")  # Initialize environment
+while not terminated:
+    # Your agent decides the next action based on observation
+    action = your_agent_function(observation["text"])
+    
+    # Execute action in environment
+    observation, reward, terminated = env_wrapper.step(action)
+    
+    # Check if successful
+    if reward > 0:
+        print("Success!")
+```
+
+The `EnvWrapper` simplifies the interaction with the environment and doesn't rely on the `History` class or the `PlancraftBaseModel` interface, making it easier to integrate with your existing agent implementations.
+
+### PlancraftEnvironment
+
+For lower-level control, you can use the `PlancraftEnvironment` class directly:
 
 ```python
 from plancraft.environments.env import PlancraftEnvironment
@@ -64,23 +100,32 @@ def main():
 
 Note that the environment is deterministic and stateful, so the same action will always lead to the same observation and the environment will keep track of the state of the inventory.
 
-### Evaluator
+### Advanced Usage: Evaluator
 
-The package also provides an `Evaluator` class that can be used to evaluate the performance of an agent on our specific dataset. Here is an example of how to use it:
+For more advanced use cases, the package provides an `Evaluator` class for systematic evaluation of models on our dataset. Note that using the Evaluator requires following specific assumptions about model structure and history tracking:
 
 ```python
 from plancraft.evaluator import Evaluator
+from plancraft.models.base import PlancraftBaseModel
 
-def main():
-    # create model -- Note you can create your own model by subclassing PlancraftBaseModel
-    model = get_model("dummy")
-    # Create the evaluator
-    evaluator = Evaluator(run_name="dummy", model=model)
-    # Evaluate the agent
-    evaluator.eval_all_examples()
+# Create a model by subclassing PlancraftBaseModel
+class MyModel(PlancraftBaseModel):
+    def step(self, observation, dialogue_history):
+        # Your model implementation
+        pass
+    
+    def reset(self):
+        # Reset model state
+        pass
+
+# Create the evaluator with your model
+model = MyModel()
+evaluator = Evaluator(run_name="my_experiment")
+# Evaluate the agent
+results = evaluator.eval_all_examples(model=model)
 ```
 
-The evaluator class handles the environment loop and model interaction. The environment is created based on the configuration and the examples are loaded from the dataset. The `Evaluator` uses the dataset examples and initializes the environment with the example's inventory. It is also responsible for early stopping and verifying the target object has been craft. Finally, it also saves the results of the evaluation and the images generated during the evaluation.
+The `Evaluator` class handles the environment loop and model interaction. It is responsible for early stopping, verifying task completion, and saving results and images generated during evaluation.
 
 #### The Evaluator interactive loop
 
@@ -149,11 +194,13 @@ The observation returned by the `PlancraftEnvironment` class is a dictionary wit
 
 The observation returned by the `Evaluator` class is a dictionary with the following keys: `inventory`, `image`, `message`, and `target`. The `message` key contains a string representing the environment formatted in text (we follow the annotation scheme described in our paper). The `target` key contains a string representing the target object to be crafted.
 
+When using `EnvWrapper`, the observation contains at minimum a `text` key with the text observation, and may include `inventory`, `target`, and `image` keys depending on the action result.
+
 ### Implementing a Model
 
-To implement a model, you need to subclass the `PlancraftBaseModel` class and implement the `step` and `reset` method. See the `plancraft.models.dummy` module for an example of how to implement a basic model.
+To implement a model for use with the `Evaluator`, you need to subclass the `PlancraftBaseModel` class and implement the `step` and `reset` method. See the `plancraft.models.dummy` module for an example of how to implement a basic model.
 
-You should then be able to use the `Evaluator` class to evaluate it.
+For use with `EnvWrapper`, you can implement any agent function that processes the observation and returns an action string.
 
 ## Reproducing the Results tables in the paper
 
