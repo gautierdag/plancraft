@@ -4,6 +4,7 @@ import torch
 from loguru import logger
 from openai import OpenAI
 from PIL import Image
+import logging
 from transformers import (
     AutoModelForCausalLM,
     AutoModelForVision2Seq,
@@ -12,6 +13,15 @@ from transformers import (
     BitsAndBytesConfig,
 )
 from transformers.cache_utils import DynamicCache
+try:
+    from vllm import LLM, SamplingParams
+    from vllm.sampling_params import GuidedDecodingParams
+
+    # Set logging level to ERROR for vLLM
+    vllm_logger = logging.getLogger("vllm")
+    vllm_logger.setLevel(logging.ERROR)
+except ImportError:
+    logger.warning("vLLM not installed. Please install vLLM to use vLLM")
 
 from plancraft.models.utils import (
     get_downloaded_models,
@@ -299,6 +309,99 @@ class TransformersGenerator:
 
         _, total_tokens_used = generated_sequences.sequences.shape
         return text_responses, total_tokens_used
+
+
+
+class VLLMGenerator:
+    def __init__(
+        self,
+        model_name: str,
+        **kwargs,
+    ):
+        self.model_name = model_name
+        # Initialize vLLM model
+        logger.info(f"Loading model {model_name} with vLLM")
+        time_now = time.time()
+        
+        # Get downloaded models
+        downloaded_models = get_downloaded_models()
+        if model_name in downloaded_models:
+            model_name = downloaded_models[model_name]
+            logger.info(f"Using local model {model_name}")
+        
+        self.llm = LLM(
+            model=model_name,
+            trust_remote_code=True,
+        )
+        logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+
+    def reset(self):
+        # vLLM handles state automatically, no need to reset
+        pass
+
+    def prepare_messages(
+        self,
+        history: History,
+        max_messages_window: int,
+    ) -> tuple[list[dict], list]:
+        """
+        Prepare the messages using a history
+        """
+        message_window = history.dialogue_history[-max_messages_window:]
+        # remove the first assistant message if it is present
+        if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+            message_window = message_window[1:]
+        # add the system prompt if the first message is not a system message
+        if len(message_window) > 0 and message_window[0]["role"] != "system":
+            message_window = [history.system_prompt_dialogue] + message_window
+
+        # vLLM doesn't use images
+        return message_window, []
+
+    @torch.inference_mode()
+    def generate_unconstrained(
+        self,
+        batch_messages: list[list[dict]],
+        start_messages_generation: str = "",
+        max_tokens: int = 256,
+        temperature=0.6,
+        top_p=1.0,
+        frequency_penalty=0.0,
+        presence_penalty=0.0,
+        stop=["\n", "\n\n"],
+        **kwargs,
+    ) -> tuple[list[str], int]:
+        """
+        Generate unconstrained text based on the batch of messages using vLLM.
+        """
+        # Create sampling parameters for vLLM
+        sampling_params = SamplingParams(
+            temperature=temperature,
+            max_tokens=max_tokens,
+            top_p=top_p,
+            frequency_penalty=frequency_penalty,
+            presence_penalty=presence_penalty,
+            stop=stop if isinstance(stop, list) else [stop] if stop else None,
+        )
+        
+        # Generate completions with vLLM
+        outputs = self.llm.chat(
+            batch_messages,
+            sampling_params=sampling_params,
+            use_tqdm=False,
+        )
+        
+        # Extract responses
+        text_responses = []
+        total_tokens_used = 0
+        
+        for output in outputs:
+            text_responses.append(output.outputs[0].text)
+            # Sum prompt tokens and output tokens for the total
+            total_tokens_used += len(output.prompt_token_ids) + len(output.outputs[0].token_ids)
+            
+        return text_responses, total_tokens_used
+
 
 
 class OpenAIGenerator:

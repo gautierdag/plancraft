@@ -6,6 +6,7 @@ from plancraft.models.bbox_model import IntegratedBoundingBoxModel
 from plancraft.models.generators import (
     OpenAIGenerator,
     TransformersGenerator,
+    VLLMGenerator,
 )
 
 from plancraft.utils import History
@@ -42,15 +43,22 @@ class ActModel(PlancraftBaseModel):
                 api_key=cfg.env_variables.openai_api_key,
             )
         else:
-            # model is transformers based
-            self.llm = TransformersGenerator(
-                model_name=cfg.plancraft.model,
-                tokenizer_name=cfg.plancraft.tokenizer,
-                quantize=cfg.plancraft.quantize,
-                use_hot_cache=cfg.plancraft.hot_cache,
-                adapter_name=cfg.plancraft.adapter,
-                hf_token=cfg.env_variables.hf_token,
-            )
+            # if adapter name is provied then use TransformersGenerator
+            if cfg.plancraft.adapter != "" or self.use_images:
+                # model is transformers based
+                self.llm = TransformersGenerator(
+                    model_name=cfg.plancraft.model,
+                    tokenizer_name=cfg.plancraft.tokenizer,
+                    quantize=cfg.plancraft.quantize,
+                    use_hot_cache=cfg.plancraft.hot_cache,
+                    adapter_name=cfg.plancraft.adapter,
+                    hf_token=cfg.env_variables.hf_token,
+                )
+            else:
+                # use VLLM
+                self.llm = VLLMGenerator(
+                    model_name=cfg.plancraft.model,
+                )
         self.max_messages_window = cfg.plancraft.max_message_window
         self.kv_cache = None
 
