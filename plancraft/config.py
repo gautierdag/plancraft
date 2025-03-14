@@ -47,18 +47,6 @@ class WandbConfig(BaseModel):
     mode: str
 
 
-class LaunchConfig(BaseModel):
-    command: str
-    job_name: str
-    gpu_limit: int
-    gpu_product: str
-    cpu_request: int
-    ram_request: str
-    interactive: bool = False
-    namespace: str = "informatics"
-    env_vars: dict[str, dict[str, str]]
-
-
 class LocalEnvSettings(BaseSettings):
     hf_token: str = ""
     openai_api_key: str = ""
@@ -72,7 +60,6 @@ class LocalEnvSettings(BaseSettings):
 class EvalConfig(BaseModel):
     plancraft: PlancraftConfig
     wandb: WandbConfig
-    launch: LaunchConfig
     env_variables: LocalEnvSettings = LocalEnvSettings()
 
 
@@ -107,7 +94,6 @@ class TrainingArgs(BaseModel):
 class TrainConfig(BaseModel):
     training: TrainingArgs
     wandb: WandbConfig
-    launch: LaunchConfig
     env_variables: LocalEnvSettings
 
 
