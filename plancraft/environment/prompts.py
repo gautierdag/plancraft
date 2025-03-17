@@ -113,7 +113,7 @@ def get_prompt_example(
         example_dialogue.append({"role": "user", "content": text})
         if "search" in handler_names and SEARCH_STEPS[i]:
             example_dialogue.append({"role": "assistant", "content": SEARCH_STEPS[i]})
-            search_target = text.split("seach: ")[-1].strip()
+            search_target = SEARCH_STEPS[i].split("search: ")[-1].strip()
             search_response = gold_search_recipe(search_target)
             example_dialogue.append({"role": "user", "content": search_response})
         if "think" in handler_names:
