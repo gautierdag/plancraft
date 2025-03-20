@@ -3,6 +3,7 @@ import numpy as np
 from plancraft.environment.env import PlancraftEnvironment
 from plancraft.environment.search import gold_search_recipe
 from plancraft.environment.actions import (
+    MoveAction,
     ActionHandlerBase,
     MoveActionHandler,
     SmeltActionHandler,
@@ -160,29 +161,25 @@ def load_prompt_images(resolution: str) -> list[np.ndarray]:
     """
     Generates the images for the few-shot prompt in prompt.py
     """
-    starting_inv = [
-        {"type": "diorite", "slot": 27, "quantity": 1},
-        {"type": "cobblestone", "slot": 39, "quantity": 1},
-    ]
-
+    starting_inv = {
+        27: {"type": "diorite", "quantity": 1},
+        39: {"type": "cobblestone", "quantity": 1},
+    }
     env = PlancraftEnvironment(inventory=starting_inv, resolution=resolution)
     actions = [
-        {"move": [0, 0, 0]},
-        {"move": [27, 4, 1]},
-        {"move": [39, 5, 1]},
+        None,
+        MoveAction(slot_from=27, slot_to=4, quantity=1),
+        MoveAction(slot_from=39, slot_to=5, quantity=1),
     ]
     images = []
     for action in actions:
         obs = env.step(action)
         images.append(obs["image"])
-
-    second_inv = [
-        {"type": "iron_ore", "slot": 45, "quantity": 1},
-        {"type": "cobblestone", "slot": 39, "quantity": 1},
-    ]
-    new_actions = [
-        {"move": [0, 0, 0]},
-    ]
+    second_inv = {
+        45: {"type": "iron_ore", "quantity": 1},
+        39: {"type": "cobblestone", "quantity": 1},
+    }
+    new_actions = [None]
     env.reset(new_inventory=second_inv)
     for action in new_actions:
         obs = env.step(action)

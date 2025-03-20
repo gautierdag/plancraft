@@ -8,7 +8,6 @@ from plancraft.models.generators import (
     TransformersGenerator,
     VLLMGenerator,
 )
-
 from plancraft.utils import History
 
 
@@ -43,8 +42,8 @@ class ActModel(PlancraftBaseModel):
                 api_key=cfg.env_variables.openai_api_key,
             )
         else:
-            # if adapter name is provied then use TransformersGenerator
-            if cfg.plancraft.adapter != "" or self.use_images:
+            # if adapter name is provided then use TransformersGenerator
+            if self.use_images or cfg.plancraft.adapter != "":
                 # model is transformers based
                 self.llm = TransformersGenerator(
                     model_name=cfg.plancraft.model,
@@ -53,12 +52,11 @@ class ActModel(PlancraftBaseModel):
                     use_hot_cache=cfg.plancraft.hot_cache,
                     adapter_name=cfg.plancraft.adapter,
                     hf_token=cfg.env_variables.hf_token,
+                    use_images=self.use_images,
                 )
             else:
-                # use VLLM
-                self.llm = VLLMGenerator(
-                    model_name=cfg.plancraft.model,
-                )
+                # use standard VLLM for text-only models
+                self.llm = VLLMGenerator(model_name=cfg.plancraft.model)
         self.max_messages_window = cfg.plancraft.max_message_window
         self.kv_cache = None
 

@@ -39,10 +39,10 @@ def get_downloaded_models() -> dict:
     """
     downloaded_models = {}
     # known models on NFS partition
-    if pathlib.Path("/nfs").exists():
-        local_models = glob.glob("/nfs/public/hf/models/*/*")
+    if pathlib.Path("/public").exists():
+        local_models = glob.glob("/public/hf/models/*/*")
         downloaded_models = {
-            model.replace("/nfs/public/hf/models/", ""): model for model in local_models
+            model.replace("/public/hf/models/", ""): model for model in local_models
         }
     return downloaded_models
 

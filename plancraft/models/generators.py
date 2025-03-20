@@ -1,25 +1,19 @@
+# import logging
 import time
 
 import torch
 from loguru import logger
 from openai import OpenAI
 from PIL import Image
-import logging
 from transformers import (
     AutoModelForCausalLM,
-    AutoModelForVision2Seq,
-    AutoProcessor,
     AutoTokenizer,
     BitsAndBytesConfig,
 )
-from transformers.cache_utils import DynamicCache
+
 try:
     from vllm import LLM, SamplingParams
-    from vllm.sampling_params import GuidedDecodingParams
-
-    # Set logging level to ERROR for vLLM
-    vllm_logger = logging.getLogger("vllm")
-    vllm_logger.setLevel(logging.ERROR)
+    from vllm.lora.request import LoRARequest
 except ImportError:
     logger.warning("vLLM not installed. Please install vLLM to use vLLM")
 
@@ -38,13 +32,12 @@ class TransformersGenerator:
         tokenizer_name: str = "same",
         quantize=False,
         use_images=False,
-        use_hot_cache=True,
         adapter_name="",
         hf_token=None,
         **kwargs,
     ):
         self.model_name = model_name
-        self.use_hot_cache = use_hot_cache
+        # self.use_hot_cache = use_hot_cache
         self.hf_token = hf_token
 
         if tokenizer_name == "same":
@@ -55,57 +48,36 @@ class TransformersGenerator:
             model_name, quantize=quantize
         )
         self.processor = None
-        if "idefics" in model_name:
-            assert use_images, "Idefics model requires multimodal input"
-            self.tokenizer = AutoProcessor.from_pretrained(
-                tokenizer_name,
-                **model_kwargs,
-            )
-            self.tokenizer.eos_token_id = self.tokenizer.tokenizer.eos_token_id
-            logger.info("Loading model")
-            time_now = time.time()
-            self.model = AutoModelForVision2Seq.from_pretrained(
-                model_name,
-                device_map="auto",
-                **model_kwargs,
-            )
-            logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
-            # set pad_token_id
-            if self.tokenizer.tokenizer.pad_token_id:
-                self.pad_token_id = self.tokenizer.tokenizer.pad_token_id
-            else:
-                self.pad_token_id = self.tokenizer.tokenizer.eos_token_id
-        else:
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            tokenizer_name,
+            token=self.hf_token,  # trust_remote_code=True
+            padding_side="left",  # ensure that the padding is on the left
+        )
+        logger.info("Loading model")
+        time_now = time.time()
+        self.model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            device_map="auto",
+            **model_kwargs,
+        )
+        logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+
+        # load OA adapter
+        if adapter_name != "":
+            logger.info(f"Loading adapter and tokenizer from {adapter_name}")
             self.tokenizer = AutoTokenizer.from_pretrained(
-                tokenizer_name,
-                token=self.hf_token,  # trust_remote_code=True
-                padding_side="left",  # ensure that the padding is on the left
+                adapter_name,
+                padding_side="left",
             )
-            logger.info("Loading model")
-            time_now = time.time()
-            self.model = AutoModelForCausalLM.from_pretrained(
-                model_name,
-                device_map="auto",
-                **model_kwargs,
-            )
-            logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
+            self.model.resize_token_embeddings(len(self.tokenizer))
+            self.model.load_adapter(adapter_name)
 
-            # load OA adapter
-            if adapter_name != "":
-                logger.info(f"Loading adapter and tokenizer from {adapter_name}")
-                self.tokenizer = AutoTokenizer.from_pretrained(
-                    adapter_name,
-                    padding_side="left",
-                )
-                self.model.resize_token_embeddings(len(self.tokenizer))
-                self.model.load_adapter(adapter_name)
-
-            # set pad_token_id
-            if self.tokenizer.pad_token_id:
-                self.pad_token_id = self.tokenizer.pad_token_id
-            else:
-                self.tokenizer.pad_token = self.tokenizer.eos_token
-                self.pad_token_id = self.tokenizer.eos_token_id
+        # set pad_token_id
+        if self.tokenizer.pad_token_id:
+            self.pad_token_id = self.tokenizer.pad_token_id
+        else:
+            self.tokenizer.pad_token = self.tokenizer.eos_token
+            self.pad_token_id = self.tokenizer.eos_token_id
 
         # compile
         time_now = time.time()
@@ -120,54 +92,6 @@ class TransformersGenerator:
 
         self.past_key_values_kwargs = {}
         self.past_token_ids = None
-
-    def truncate_kv_cache(self, new_token_ids: torch.Tensor):
-        """
-        Truncate the key-value cache to the size which overlap the past_ids with the new_ids.
-        Uses:
-            past_ids: torch.Tensor [B, T]
-            new_ids: torch.Tensor [B, T]
-            kv_cache: tuple[tuple[torch.Tensor]]: tuple of key-value cache tensors
-
-        NOTE: this essentially implements System Prompt in the worst case when using batch_size==1
-        """
-        if (
-            self.past_token_ids is None
-            or "past_key_values" not in self.past_key_values_kwargs
-        ):
-            return
-
-        # caching doesn't seem to work with multimodal models
-        if self.use_images:
-            self.past_key_values_kwargs = {}
-            return
-
-        past_batch_size, past_seq_len = self.past_token_ids.shape
-        new_batch_size, new_seq_len = new_token_ids.shape
-
-        # If the batch size has changed, reset the cache
-        if past_batch_size != new_batch_size:
-            self.past_key_values_kwargs = {}
-            return
-
-        min_shape = min(past_seq_len, new_seq_len)
-        compare_past = (
-            self.past_token_ids[:, :min_shape] != new_token_ids[:, :min_shape]
-        )
-
-        # All tokens are the same - no need to truncate
-        if not compare_past.any():
-            return
-
-        # Find the first token that is different between the past and new tokens
-        seq_min = torch.argmax(compare_past.double(), dim=1).min()
-
-        # Truncate the key-value cache to the size which overlap the past_ids with the new_ids.
-        # assumes shape is [num_layers, num_heads, seq_len, hidden_size]
-        self.past_key_values_kwargs["past_key_values"] = [
-            [kv[:, :, :seq_min, :] for kv in kvs]
-            for kvs in self.past_key_values_kwargs["past_key_values"]
-        ]
 
     def build_model_kwargs(self, model_name: str, **kwargs) -> tuple[str, dict]:
         model_kwargs = {
@@ -265,20 +189,6 @@ class TransformersGenerator:
             k: v.to(self.model.device) for k, v in tokenized_messages.items()
         }
 
-        # Truncate the key-value cache
-        self.truncate_kv_cache(tokenized_messages["input_ids"])
-
-        if (
-            "past_key_values" in self.past_key_values_kwargs
-            and self.past_key_values_kwargs["past_key_values"][0][0].shape[-2]
-            > tokenized_messages["input_ids"].shape[-1]
-        ):
-            raise ValueError("Past key values are larger than the input_ids")
-
-        past_key_values = self.past_key_values_kwargs.get("past_key_values", None)
-        if past_key_values is not None:
-            past_key_values = DynamicCache.from_legacy_cache(past_key_values)
-
         generated_sequences = self.model.generate(
             **tokenized_messages,
             do_sample=True,
@@ -286,16 +196,7 @@ class TransformersGenerator:
             max_new_tokens=max_tokens,
             pad_token_id=self.pad_token_id,
             return_dict_in_generate=True,
-            use_cache=True,
-            past_key_values=past_key_values,
-            return_legacy_cache=True,
         )
-        # Cache the past key values
-        if self.use_hot_cache:
-            self.past_key_values_kwargs["past_key_values"] = (
-                generated_sequences.past_key_values
-            )
-        self.past_token_ids = generated_sequences.sequences
 
         # Decode the output
         text_responses = self.tokenizer.batch_decode(
@@ -311,28 +212,46 @@ class TransformersGenerator:
         return text_responses, total_tokens_used
 
 
-
 class VLLMGenerator:
     def __init__(
         self,
         model_name: str,
+        adapter_name="",
         **kwargs,
     ):
         self.model_name = model_name
         # Initialize vLLM model
         logger.info(f"Loading model {model_name} with vLLM")
         time_now = time.time()
-        
+
         # Get downloaded models
         downloaded_models = get_downloaded_models()
         if model_name in downloaded_models:
             model_name = downloaded_models[model_name]
             logger.info(f"Using local model {model_name}")
-        
+
         self.llm = LLM(
             model=model_name,
             trust_remote_code=True,
+            tensor_parallel_size=torch.cuda.device_count(),
+            gpu_memory_utilization=0.9,
+            max_model_len=16384,
+            enable_lora=True if adapter_name != "" else False,
         )
+
+        # Load adapter
+        self.lora_request = None
+        if adapter_name != "":
+            from huggingface_hub import snapshot_download
+
+            logger.info(f"Loading adapter from {adapter_name}")
+            lora_path = snapshot_download(repo_id=adapter_name)
+            self.lora_request = LoRARequest(
+                adapter_name,
+                lora_int_id=0,
+                lora_path=lora_path,
+            )
+
         logger.info(f"Model loaded in {time.time() - time_now:.2f} seconds")
 
     def reset(self):
@@ -362,7 +281,6 @@ class VLLMGenerator:
     def generate_unconstrained(
         self,
         batch_messages: list[list[dict]],
-        start_messages_generation: str = "",
         max_tokens: int = 256,
         temperature=0.6,
         top_p=1.0,
@@ -383,25 +301,27 @@ class VLLMGenerator:
             presence_penalty=presence_penalty,
             stop=stop if isinstance(stop, list) else [stop] if stop else None,
         )
-        
+
         # Generate completions with vLLM
         outputs = self.llm.chat(
             batch_messages,
             sampling_params=sampling_params,
             use_tqdm=False,
+            lora_request=self.lora_request,
         )
-        
+
         # Extract responses
         text_responses = []
         total_tokens_used = 0
-        
+
         for output in outputs:
             text_responses.append(output.outputs[0].text)
             # Sum prompt tokens and output tokens for the total
-            total_tokens_used += len(output.prompt_token_ids) + len(output.outputs[0].token_ids)
-            
-        return text_responses, total_tokens_used
+            total_tokens_used += len(output.prompt_token_ids) + len(
+                output.outputs[0].token_ids
+            )
 
+        return text_responses, total_tokens_used
 
 
 class OpenAIGenerator:

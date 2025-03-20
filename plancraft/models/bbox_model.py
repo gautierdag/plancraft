@@ -455,7 +455,7 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
             preds = self.model(x)
             return preds
 
-    def get_inventory(self, pil_image, resolution="high") -> dict:
+    def get_inventory(self, pil_image, resolution="high", threshold=0.25) -> dict:
         """
         Predict boxes and quantities
         """
@@ -464,10 +464,12 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
             img_tensor = img_tensor.cuda()
         with torch.no_grad():
             predictions = self.model(img_tensor.unsqueeze(0))
-        return self.prediction_to_inventory(predictions[0], resolution=resolution)
+        return self.prediction_to_inventory(
+            predictions[0], resolution=resolution, threshold=threshold
+        )
 
     @staticmethod
-    def prediction_to_inventory(prediction, threshold=0.9, resolution="high") -> dict:
+    def prediction_to_inventory(prediction, threshold=0.25, resolution="high") -> dict:
         inventory = {}
         seen_slots = set()
         for bbox, score, label, quantity in zip(
@@ -483,7 +485,7 @@ class IntegratedBoundingBoxModel(nn.Module, PyTorchModelHubMixin):
                 continue
             label = ALL_ITEMS[label.item()]
             quantity = quantity.item()
-            inventory["slot"] = {"type": label, "quantity": quantity}
+            inventory[slot] = {"type": label, "quantity": quantity}
             seen_slots.add(slot)
         return inventory
 

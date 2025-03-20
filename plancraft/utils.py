@@ -1,12 +1,7 @@
-import glob
-import pathlib
-from copy import copy
-from typing import Optional
 import abc
+from copy import copy
 from dataclasses import dataclass, field
-
-import torch
-from loguru import logger
+from typing import Optional
 
 from plancraft.environment.actions import ActionHandlerBase
 from plancraft.environment.prompts import (
@@ -193,31 +188,3 @@ class History(HistoryBase):
     @images.setter
     def images(self, value: list) -> None:
         self._images = value
-
-
-def get_downloaded_models() -> dict:
-    """
-    Get the list of downloaded models on the NFS partition (EIDF).
-    """
-    downloaded_models = {}
-    # known models on NFS partition
-    if pathlib.Path("/nfs").exists():
-        local_models = glob.glob("/nfs/public/hf/models/*/*")
-        downloaded_models = {
-            model.replace("/nfs/public/hf/models/", ""): model for model in local_models
-        }
-    return downloaded_models
-
-
-def get_torch_device() -> torch.device:
-    device = torch.device("cpu")
-    if torch.cuda.is_available():
-        device = torch.device("cuda", 0)
-    elif torch.backends.mps.is_available():
-        if not torch.backends.mps.is_built():
-            logger.info(
-                "MPS not available because the current PyTorch install was not built with MPS enabled."
-            )
-        else:
-            device = torch.device("mps")
-    return device
