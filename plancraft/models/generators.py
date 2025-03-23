@@ -1,5 +1,5 @@
-# import logging
 import time
+import copy
 
 import torch
 from loguru import logger
@@ -234,8 +234,9 @@ class VLLMGenerator:
             model=model_name,
             trust_remote_code=True,
             tensor_parallel_size=torch.cuda.device_count(),
-            gpu_memory_utilization=0.9,
+            gpu_memory_utilization=0.95,
             max_model_len=16384,
+            dtype=torch.bfloat16,
             enable_lora=True if adapter_name != "" else False,
         )
 
@@ -350,6 +351,8 @@ class OpenAIGenerator:
             message_window = [history.system_prompt_dialogue] + message_window
 
         if self.use_images:
+            message_window = copy.deepcopy(message_window)
+            # copy the images to the history
             img_idx = -1
             seen_images = 0
             # iterate through the messages in reverse order to assign images

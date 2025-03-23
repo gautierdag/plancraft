@@ -66,6 +66,7 @@ class Evaluator:
         self.resume = resume
         self.use_fasterrcnn = use_fasterrcnn
         self.generation_number = 0
+
         self.use_multimodal_content_format = use_multimodal_content_format
         self.use_images = use_images
         self.use_text_inventory = use_text_inventory
@@ -80,7 +81,14 @@ class Evaluator:
 
     def create_history(self) -> HistoryBase:
         """Create a new History instance with current configuration"""
-        return self.history_class(actions=self.actions, config=self.history_config)
+        return self.history_class(
+            actions=self.actions,
+            config=self.history_config,
+            resolution=self.resolution,
+            use_multimodal_content_format=self.use_multimodal_content_format,
+            use_images=self.use_images,
+            use_text_inventory=self.use_text_inventory,
+        )
 
     def save_results_dict(self, example: PlancraftExample, results_dict: dict):
         output_dir = f"{self.output_dir}/{self.generation_number}"
@@ -177,7 +185,7 @@ class Evaluator:
             content_list.append({"type": "image"})
         return {"content": content_list}
 
-    def _init_environment(self, example: PlancraftExample) -> tuple:
+    def _init_environment(self, example: PlancraftExample, model=None) -> tuple:
         """Initialize environment and history for an example"""
         environment = PlancraftEnvironment(
             inventory=deepcopy(example.slotted_inventory),
@@ -186,7 +194,7 @@ class Evaluator:
         history = self.create_history()
         obs = environment.step()
         obs["target"] = example.target
-        obs["message"] = self.convert_observation_to_message(obs)
+        obs["message"] = self.convert_observation_to_message(obs, model=model)
         return environment, history, obs
 
     def _process_model_output(
@@ -248,7 +256,7 @@ class Evaluator:
             "number_of_steps": history.num_steps,
             "model_trace": history.trace(),
             "example_id": example.id,
-            "images": history.images,
+            "images": history.trace_images(),
         }
 
     def eval_example(
@@ -256,7 +264,7 @@ class Evaluator:
         example: PlancraftExample,
         model: PlancraftBaseModel,
     ) -> dict:
-        environment, history, observation = self._init_environment(example)
+        environment, history, observation = self._init_environment(example, model=model)
         success = False
 
         while history.num_steps < self.max_steps:

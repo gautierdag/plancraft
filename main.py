@@ -20,6 +20,7 @@ from plancraft.environment import (
 from plancraft.evaluator import Evaluator
 from plancraft.models import get_model
 from plancraft.models.base import PlancraftBaseModel
+from plancraft.utils import HistoryConfig
 
 warnings.filterwarnings("ignore")
 
@@ -157,6 +158,10 @@ def main(cfg):
         elif action_name == "impossible":
             action_handlers.append(ImpossibleActionHandler())
 
+    history_config = HistoryConfig(
+        few_shot=cfg.plancraft.few_shot,
+    )
+
     evaluator = Evaluator(
         run_name=run_name,
         actions=action_handlers,
@@ -169,6 +174,7 @@ def main(cfg):
         use_text_inventory=cfg.plancraft.use_text_inventory,
         use_fasterrcnn=cfg.plancraft.use_fasterrcnn,
         resolution=cfg.plancraft.environment.resolution,
+        history_config=history_config,
     )
     eval_all_seeds(
         run_name,

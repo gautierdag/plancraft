@@ -165,7 +165,6 @@ class History(HistoryBase):
         self.initial_dialogue_length = len(self.dialogue_history)
 
         self.inventory_history = []
-
         self.tokens_used = 0
 
     def trace(self):
@@ -176,6 +175,10 @@ class History(HistoryBase):
             "inventory_history": copy(self.inventory_history),
             "tokens_used": copy(self.tokens_used),
         }
+
+    def trace_images(self):
+        # return only the images added after the initial dialogue
+        return self._images[len(self.prompt_images) :]
 
     @property
     def num_steps(self):
