@@ -33,19 +33,19 @@ The package provides a multimodal environment and dataset for evaluating plannin
 
 ## Usage
 
-### Quick Start with EnvWrapper
+### Quick Start with PlancraftGymWrapper
 
-The package provides an `EnvWrapper` class that offers a simple interface for integrating your own agent with the Plancraft environment. This is the recommended way to get started if you want to use your own model implementation:
+The package provides an `PlancraftGymWrapper` class that offers a simple interface for integrating your own agent with the Plancraft environment. This is the recommended way to get started if you want to use your own model implementation:
 
 ```python
-from plancraft.simple import EnvWrapper, get_plancraft_examples
+from plancraft.simple import PlancraftGymWrapper, get_plancraft_examples
 
 # Load examples from the dataset
 examples = get_plancraft_examples(split="train")
 example = examples[0]  # Get the first example
 
 # Create the environment wrapper for this example
-env_wrapper = EnvWrapper(
+env_wrapper = PlancraftGymWrapper(
     example=example,
     max_steps=30,
     resolution="high",
@@ -53,20 +53,20 @@ env_wrapper = EnvWrapper(
 )
 
 # Simple agent loop
-observation, reward, terminated = env_wrapper.step("")  # Initialize environment
-while not terminated:
+observation, reward, terminated, truncated, info = env_wrapper.step("")  # Initialize environment
+while not (terminated or truncated):
     # Your agent decides the next action based on observation
     action = your_agent_function(observation["text"])
     
     # Execute action in environment
-    observation, reward, terminated = env_wrapper.step(action)
+    observation, reward, terminated, truncated, info = env_wrapper.step(action)
     
     # Check if successful
     if reward > 0:
         print("Success!")
 ```
 
-The `EnvWrapper` simplifies the interaction with the environment and doesn't rely on the `History` class or the `PlancraftBaseModel` interface, making it easier to integrate with your existing agent implementations.
+The `PlancraftGymWrapper` follows the standard Gym API format and simplifies the interaction with the environment. It doesn't rely on the `History` class or the `PlancraftBaseModel` interface, making it easier to integrate with your existing agent implementations.
 
 ### PlancraftEnvironment
 
@@ -194,13 +194,13 @@ The observation returned by the `PlancraftEnvironment` class is a dictionary wit
 
 The observation returned by the `Evaluator` class is a dictionary with the following keys: `inventory`, `image`, `message`, and `target`. The `message` key contains a string representing the environment formatted in text (we follow the annotation scheme described in our paper). The `target` key contains a string representing the target object to be crafted.
 
-When using `EnvWrapper`, the observation contains at minimum a `text` key with the text observation, and may include `inventory`, `target`, and `image` keys depending on the action result.
+When using `PlancraftGymWrapper`, the observation contains at minimum a `text` key with the text observation, and may include `inventory`, `target`, and `image` keys depending on the action result.
 
 ### Implementing a Model
 
 To implement a model for use with the `Evaluator`, you need to subclass the `PlancraftBaseModel` class and implement the `step` and `reset` method. See the `plancraft.models.dummy` module for an example of how to implement a basic model.
 
-For use with `EnvWrapper`, you can implement any agent function that processes the observation and returns an action string.
+For use with `PlancraftGymWrapper`, you can implement any agent function that processes the observation and returns an action string.
 
 ## Reproducing the Results tables in the paper
 

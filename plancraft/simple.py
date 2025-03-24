@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Optional
+from typing import Any
 
 from plancraft.config import PlancraftExample
 from plancraft.environment.actions import (
@@ -27,7 +27,7 @@ def get_plancraft_examples(split: str = "train") -> list[PlancraftExample]:
     return [PlancraftExample(**example) for example in examples]
 
 
-class EnvWrapper:
+class PlancraftGymWrapper:
     """
     This wrapper class just wraps the environment and actions to evaluate a single example
 
@@ -85,9 +85,11 @@ class EnvWrapper:
         action_names = [handler.action_name for handler in self.actions]
         return f"Only select actions from the following: {', '.join(action_names)}"
 
-    def step(self, action: str) -> tuple[Optional[dict], float, bool]:
+    def step(
+        self, action: str
+    ) -> tuple[dict[str, Any], float, bool, bool, dict[str, Any]]:
         """
-        Execute action and return next observation, reward, and termination status
+        Execute action and return next observation, reward, termination status, truncation status, and info
 
         Returns:
             observation: The environment observation after the action, observation is a dictionary with keys:
@@ -96,7 +98,9 @@ class EnvWrapper:
                 - target: The target object (if action was successful)
                 - image: The image observation (if action was successful)
             reward: Reward for the current action (1.0 for success, 0.0 otherwise)
-            terminated: Whether the episode is done due to task completion, failure, or timeout
+            terminated: Whether the episode is done due to task completion or task failure
+            truncated: Whether the episode is done due to external limits (e.g. max steps reached)
+            info: Additional diagnostic information (helpful for debugging)
         """
         action = self.parse_raw_model_response(action)
         self.current_step += 1
@@ -104,15 +108,31 @@ class EnvWrapper:
         # Initialize return values
         reward = 0.0
         terminated = False
+        truncated = False
+        info = {"steps": self.current_step}
 
         # Handle already stopped case
         if self.stopped:
-            return {"text": "Plancraft environment is terminated"}, reward, True
+            return (
+                {"text": "Plancraft environment is terminated"},
+                reward,
+                True,
+                True,
+                info,
+            )
 
-        # Handle max steps reached (terminate with no reward)
+        # Handle max steps reached (truncate with no reward)
         if self.current_step > self.max_steps:
             self.success = False
-            return {"text": f"Max steps ({self.max_steps}) reached"}, reward, True
+            truncated = True
+            info["reason"] = "max_steps_reached"
+            return (
+                {"text": f"Max steps ({self.max_steps}) reached"},
+                reward,
+                terminated,
+                truncated,
+                info,
+            )
 
         # Handle stop action
         if isinstance(action, StopAction):
@@ -122,11 +142,14 @@ class EnvWrapper:
             self.success = self.example.impossible
             if self.success:
                 reward = 1.0
+                info["reason"] = "correctly_identified_impossible"
+            else:
+                info["reason"] = "incorrect_stop"
             observation = {
                 "text": "Plancraft environment is terminate due to stop action"
             }
 
-        # Handle invalid action
+        # Handle invalid action or non-env action
         elif isinstance(action, str):
             observation = self.environment.step()
             observation["target"] = self.example.target
@@ -158,5 +181,6 @@ class EnvWrapper:
                 reward = 1.0
                 terminated = True
                 self.stopped = True
+                info["reason"] = "success"
 
-        return observation, reward, terminated
+        return observation, reward, terminated, truncated, info

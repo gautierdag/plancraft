@@ -40,7 +40,7 @@ class Evaluator:
 
     Importantly, it tracks the history of the dialogue and the environment state to provide a trace of the model's actions.
 
-    If you would want a simpler interface that just wraps the environment and actions to evaluate a single Plancraft example, you should use the EnvWrapper class.
+    If you would want a simpler interface that just wraps the environment and actions to evaluate a single Plancraft example, you should use the PlancraftGymWrapper class.
     """
 
     def __init__(
