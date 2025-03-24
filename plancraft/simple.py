@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Any
+from typing import Any, Optional
 
 from plancraft.config import PlancraftExample
 from plancraft.environment.actions import (
@@ -86,7 +86,7 @@ class PlancraftGymWrapper:
         return f"Only select actions from the following: {', '.join(action_names)}"
 
     def step(
-        self, action: str
+        self, action: Optional[str] = None
     ) -> tuple[dict[str, Any], float, bool, bool, dict[str, Any]]:
         """
         Execute action and return next observation, reward, termination status, truncation status, and info
@@ -102,6 +102,19 @@ class PlancraftGymWrapper:
             truncated: Whether the episode is done due to external limits (e.g. max steps reached)
             info: Additional diagnostic information (helpful for debugging)
         """
+        # Handle initial step
+        if not action:
+            observation = self.environment.step()
+            observation["target"] = self.example.target
+            if self.use_text_inventory:
+                text = target_and_inventory_to_text_obs(
+                    target=self.example.target, inventory=observation["inventory"]
+                )
+            else:
+                text = get_objective_str(self.example.target)
+            observation["text"] = text
+            return observation, 0.0, False, False, {"steps": self.current_step}
+
         action = self.parse_raw_model_response(action)
         self.current_step += 1
 
