@@ -1,7 +1,7 @@
 # plancraft
 
 [![Test](https://github.com/gautierdag/plancraft/actions/workflows/test.yaml/badge.svg)](https://github.com/gautierdag/plancraft/actions/workflows/test.yaml)
-![Python Version](https://img.shields.io/badge/python-3.9+-blue)
+![Python Version](https://img.shields.io/badge/python-3.10+-blue)
 ![Ruff](https://img.shields.io/badge/linter-ruff-blue)
 [![PyPI Version](https://img.shields.io/pypi/v/plancraft)](https://pypi.org/project/plancraft/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/gautierdag/plancraft)](https://hub.docker.com/r/gautierdag/plancraft)
@@ -10,7 +10,7 @@
 
 [Paper](https://arxiv.org/abs/2412.21033) | [Website](https://gautierdag.github.io/plancraft/)
 
-Plancraft is a minecraft environment and agent that innovates on planning LLM agents with an oracle RAG retriever.
+Plancraft is a minecraft environment that benchmarks planning in LLM agents with an oracle RAG retriever.
 
 You can install the package by running the following command:
 
@@ -53,7 +53,8 @@ env_wrapper = PlancraftGymWrapper(
 )
 
 # Simple agent loop
-observation, reward, terminated, truncated, info = env_wrapper.step("")  # Initialize environment
+# Initialize environment
+observation, reward, terminated, truncated, info = env_wrapper.step("")
 while not (terminated or truncated):
     # Your agent decides the next action based on observation
     action = your_agent_function(observation["text"])
@@ -208,23 +209,13 @@ To reproduce the results tables in the paper, you can use the `exps.sh` script i
 
 ## Docker
 
-There is a docker image built to incorporate the latest code and its dependencies. I build it by running the following command:
+There is a docker image built to incorporate the latest code and its dependencies. It's built by running the following command:
 
 ```bash
 docker buildx build --platform linux/amd64,linux/arm64 -t gautierdag/plancraft --push .
 ```
 
 The image is available on [Docker Hub](https://hub.docker.com/r/gautierdag/plancraft). Note that, unlike the package, the docker image includes everything in the repo.
-
-## To Do
-
-Non-exhaustive list of things to do from highest to lowest priority:
-
-- [ ] Add minecraft wiki scrape and non-oracle search for pages
-- [ ] Improve planner to bring closer to optimal (the oracle planner does not consider  future crafting steps when moving items -- see paper for more details)
-- [ ] Rerun image models with better bounding box model
-  - [ ] Track bounding box accuracy
-- [ ] Implement a version of the image environment entirely on cuda/pytorch rather than cpu
 
 ## PRs Welcomed
 
