@@ -155,7 +155,9 @@ def construct_example(
 
     optimal_path = optimal_planner(target, inventory)
     # @TODO this is a hack to ensure that we don't have impossible examples
-    while optimal_path is not None and impossible:
+    while (optimal_path is not None and impossible) or (
+        optimal_path is None and not impossible
+    ):
         inventory = remove_ancestor_items(target, inventory)
         optimal_path = optimal_planner(target, inventory)
 
