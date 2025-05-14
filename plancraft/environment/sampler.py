@@ -110,17 +110,21 @@ def sample_recipes(
     return start_inputs, overall_exclude_set
 
 
-def remove_ancestor_items(target: str, inventory: dict[str, int]) -> dict[str, int]:
+def remove_ancestor_items(
+    target: str, inventory: dict[str, int]
+) -> tuple[dict[str, int], list[tuple[str, int]]]:
     ancestors = set(get_ancestors(target))
     possible_items = set(inventory.keys())
     items_to_remove = list(ancestors.intersection(possible_items))
     num_items = random.randint(1, len(items_to_remove))
+    removed_items = []
     for item in random.sample(items_to_remove, num_items):
         count_to_remove = random.randint(1, inventory[item])
         inventory[item] -= count_to_remove
         if inventory[item] == 0:
             del inventory[item]
-    return inventory
+        removed_items.append((item, count_to_remove))
+    return inventory, removed_items
 
 
 def construct_example(
@@ -142,9 +146,10 @@ def construct_example(
 
     # sample the recipe
     inventory, overall_exclude_set = sample_recipes(target, set())
+    removed_items = []
     if impossible:
         # if impossible then remove one or more items from the inventory
-        inventory = remove_ancestor_items(
+        inventory, removed_items = remove_ancestor_items(
             target,
             inventory,
         )
@@ -158,7 +163,7 @@ def construct_example(
     while (optimal_path is not None and impossible) or (
         optimal_path is None and not impossible
     ):
-        inventory = remove_ancestor_items(target, inventory)
+        inventory, removed_items = remove_ancestor_items(target, inventory)
         optimal_path = optimal_planner(target, inventory)
 
     # assign to slots
@@ -169,6 +174,7 @@ def construct_example(
         "target": target,
         "num_distractors": num_distractors,
         "impossible": impossible,
+        "missing_items": removed_items,
     }
     # either impossible and no path or not impossible and path exists
     assert (impossible and optimal_path is None) or (
