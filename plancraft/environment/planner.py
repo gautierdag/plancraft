@@ -496,13 +496,17 @@ def decompose_subgoal(
     return subplan, current_inventory, action_items_used
 
 
-def get_subplans(observation: dict, return_items=False) -> tuple[list[list[str]], list]:
+def get_subplans(
+    observation: dict, return_items=False
+) -> tuple[list[list[str]], list, list[str]] | tuple[list[list[str]], list]:
     current_inventory = copy.deepcopy(observation["inventory"])
     plan = get_plan(observation)
     # get action
     if plan is None or len(plan) == 0:
+        if return_items:
+            return [[str(StopAction())]], [], []
         return [[str(StopAction())]], []
-    # plan_recipe, new_inventory = plan[0]
+
     subplans = []
     action_items_used = []
 
