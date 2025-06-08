@@ -234,11 +234,13 @@ def get_plan(observation: dict):
 
 def decompose_subgoal(
     current_inventory: dict, plan_recipe, new_inventory: dict[str, int]
-) -> list[str]:
+) -> tuple[list[str], dict[str, int], list[str]]:
     """
     For a given plan_recipe and inventory, output the list of action to craft recipe
     """
     subplan = []
+    # track the item type used in each action's from_slot
+    action_items_used = []
     new_inventory_counter = Counter(new_inventory)
     current_inventory_counter = get_inventory_counter(current_inventory)
     items_to_use_counter = current_inventory_counter - new_inventory_counter
@@ -264,6 +266,7 @@ def decompose_subgoal(
             action = SmeltAction(
                 slot_from=from_slot, slot_to=free_slot, quantity=quantity
             )
+            action_items_used.append(current_inventory[from_slot]["type"])
             subplan.append(str(action))
 
             # update inventory to decrement quantity of item in from_slot and increment quantity of item in free_slot
@@ -280,7 +283,7 @@ def decompose_subgoal(
             if current_inventory[from_slot]["quantity"] <= 0:
                 del current_inventory[from_slot]
 
-            return subplan, current_inventory
+            return subplan, current_inventory, action_items_used
 
     elif isinstance(plan_recipe, ShapelessRecipe):
         crafting_slot = 1
@@ -314,6 +317,7 @@ def decompose_subgoal(
                         slot_to=free_slot,
                         quantity=current_inventory[crafting_slot]["quantity"],
                     )
+                    action_items_used.append(current_inventory[crafting_slot]["type"])
                     subplan.append(str(action))
                     current_inventory = update_inventory(
                         current_inventory,
@@ -331,6 +335,7 @@ def decompose_subgoal(
                 action = MoveAction(
                     slot_from=from_slot, slot_to=crafting_slot, quantity=1
                 )
+                action_items_used.append(current_inventory[from_slot]["type"])
                 subplan.append(str(action))
                 current_inventory = update_inventory(
                     current_inventory, from_slot, crafting_slot, 1
@@ -365,6 +370,9 @@ def decompose_subgoal(
                         slot_from=inventory_position,
                         slot_to=free_slot,
                         quantity=current_inventory[inventory_position]["quantity"],
+                    )
+                    action_items_used.append(
+                        current_inventory[inventory_position]["type"]
                     )
                     current_inventory = update_inventory(
                         current_inventory,
@@ -411,6 +419,9 @@ def decompose_subgoal(
                                     "quantity"
                                 ],
                             )
+                            action_items_used.append(
+                                current_inventory[inventory_position]["type"]
+                            )
                             current_inventory = update_inventory(
                                 current_inventory,
                                 inventory_position,
@@ -428,6 +439,7 @@ def decompose_subgoal(
                             slot_to=inventory_position,
                             quantity=1,
                         )
+                        action_items_used.append(current_inventory[from_slot]["type"])
                         items_to_use_counter[item] -= 1
                         added_item = True
                         # update state of inventory
@@ -446,6 +458,7 @@ def decompose_subgoal(
                     slot_to=free_slot,
                     quantity=current_inventory[slot]["quantity"],
                 )
+                action_items_used.append(current_inventory[slot]["type"])
                 current_inventory = update_inventory(
                     current_inventory,
                     slot,
@@ -469,6 +482,7 @@ def decompose_subgoal(
             )
         )
     )
+    action_items_used.append(current_inventory[0]["type"])
     current_inventory = update_inventory(
         current_inventory, 0, free_slot, plan_recipe.result.count
     )
@@ -479,10 +493,10 @@ def decompose_subgoal(
             if current_inventory[i]["quantity"] <= 0:
                 del current_inventory[i]
 
-    return subplan, current_inventory
+    return subplan, current_inventory, action_items_used
 
 
-def get_subplans(observation: dict) -> tuple[list[list[str]], list]:
+def get_subplans(observation: dict, return_items=False) -> tuple[list[list[str]], list]:
     current_inventory = copy.deepcopy(observation["inventory"])
     plan = get_plan(observation)
     # get action
@@ -490,10 +504,15 @@ def get_subplans(observation: dict) -> tuple[list[list[str]], list]:
         return [[str(StopAction())]], []
     # plan_recipe, new_inventory = plan[0]
     subplans = []
+    action_items_used = []
+
     # Calculate the subplans for each step in the plan
     for plan_recipe, new_inventory in plan:
-        subplan, current_inventory = decompose_subgoal(
+        subplan, current_inventory, action_items = decompose_subgoal(
             current_inventory, plan_recipe, new_inventory
         )
         subplans.append(subplan)
+        action_items_used.append(action_items)
+    if return_items:
+        return subplans, plan, action_items_used
     return subplans, plan
