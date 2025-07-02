@@ -1,4 +1,5 @@
 from plancraft.environment.planner import optimal_planner
+from plancraft.environment.planner import get_subplans
 
 
 def test_optimal_planner_difficult():
@@ -49,3 +50,18 @@ def test_optimal_planner_impossible():
     }
     steps = optimal_planner(target, inv)
     assert steps is None
+
+
+def test_get_subplans():
+    observation = {
+        "inventory": {
+            1: {"type": "oak_planks", "quantity": 1},  # A1
+            7: {"type": "jungle_planks", "quantity": 1},  # C1
+            2: {"type": "jungle_planks", "quantity": 1},  # A2
+            3: {"type": "jungle_planks", "quantity": 1},  # A3
+            11: {"type": "coal", "quantity": 1},  # B3
+            4: {"type": "jungle_planks", "quantity": 1},  # B1
+        },
+        "target": "torch",
+    }
+    plan = get_subplans(observation)

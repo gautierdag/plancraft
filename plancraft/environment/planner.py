@@ -392,7 +392,8 @@ def decompose_subgoal(
 
                     # if item is already in the correct position, skip
                     if (
-                        inventory_position in current_inventory
+                        items_to_use_counter[item] > 0
+                        and inventory_position in current_inventory
                         and current_inventory[inventory_position]["type"] == item
                     ) and current_inventory[inventory_position]["quantity"] > 0:
                         min_quantity_needed.add(inventory_position)
@@ -441,6 +442,8 @@ def decompose_subgoal(
                         )
                         action_items_used.append(current_inventory[from_slot]["type"])
                         items_to_use_counter[item] -= 1
+                        if items_to_use_counter[item] == 0:
+                            del items_to_use_counter[item]
                         added_item = True
                         # update state of inventory
                         current_inventory = update_inventory(
