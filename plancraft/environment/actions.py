@@ -216,6 +216,16 @@ class StopAction(BaseModel):
         return f"impossible: {self.reason}"
 
 
+class ClearAction(BaseModel):
+    """
+    Fake action that represents clearing the crafting grid by moving all items to inventory slots
+    Used for a more semantically aware planner step
+    """
+
+    def __str__(self):
+        return "clearing crafting grid"
+
+
 # when symbolic action is true, can either move objects around or smelt
 SymbolicAction = MoveAction | SmeltAction
 

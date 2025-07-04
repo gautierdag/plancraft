@@ -5,6 +5,7 @@ from collections import Counter
 import networkx as nx
 
 from plancraft.environment.actions import (
+    ClearAction,
     MoveAction,
     SmeltAction,
     StopAction,
@@ -500,7 +501,9 @@ def decompose_subgoal(
 
 
 def get_subplans(
-    observation: dict, return_items=False
+    observation: dict,
+    return_items=False,
+    clear_first=False,
 ) -> tuple[list[list[str]], list, list[str]] | tuple[list[list[str]], list]:
     current_inventory = copy.deepcopy(observation["inventory"])
     plan = get_plan(observation)
@@ -513,6 +516,29 @@ def get_subplans(
     subplans = []
     action_items_used = []
 
+    if clear_first:
+        # move all the current stuff in the crafting grid to free inventory slots
+        # While this makes a worse planner, this makes a clearer distinction between crafting steps
+        subplan = []
+        for slot in range(1, 10):  # crafting grid slots 1-9
+            if slot in current_inventory and current_inventory[slot]["quantity"] > 0:
+                free_slot = find_free_inventory_slot(current_inventory, from_slot=slot)
+                action = MoveAction(
+                    slot_from=slot,
+                    slot_to=free_slot,
+                    quantity=current_inventory[slot]["quantity"],
+                )
+                subplan.append(str(action))
+                current_inventory = update_inventory(
+                    current_inventory,
+                    slot,
+                    free_slot,
+                    current_inventory[slot]["quantity"],
+                )
+        if subplan:  # only add clear subplan if there were items to clear
+            subplans.append(subplan)
+            action_items_used.append([])
+
     # Calculate the subplans for each step in the plan
     for plan_recipe, new_inventory in plan:
         subplan, current_inventory, action_items = decompose_subgoal(
@@ -520,6 +546,14 @@ def get_subplans(
         )
         subplans.append(subplan)
         action_items_used.append(action_items)
+
+    # If we added a clear action, we need to modify the plan to include it
+    if clear_first and len(subplans) > len(plan):
+        # Insert a fake clear action at the beginning of the plan
+        clear_action = ClearAction()
+        plan_inventory_counter = copy.deepcopy(plan[0][1])
+        plan = [(clear_action, plan_inventory_counter)] + plan
+
     if return_items:
         return subplans, plan, action_items_used
     return subplans, plan
