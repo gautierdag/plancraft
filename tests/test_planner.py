@@ -64,4 +64,30 @@ def test_get_subplans():
         },
         "target": "torch",
     }
-    plan = get_subplans(observation)
+    subplans, plan = get_subplans(observation)
+    assert len(plan) == 2
+
+
+def test_get_subplans_clear_first():
+    observation = {
+        "inventory": {
+            1: {"type": "oak_planks", "quantity": 1},  # A1
+            7: {"type": "jungle_planks", "quantity": 1},  # C1
+            2: {"type": "jungle_planks", "quantity": 1},  # A2
+            3: {"type": "jungle_planks", "quantity": 1},  # A3
+            11: {"type": "coal", "quantity": 1},  # B3
+            4: {"type": "jungle_planks", "quantity": 1},  # B1
+        },
+        "target": "torch",
+    }
+    subplans_clear, plan_clear = get_subplans(observation, clear_first=True)
+    subplans_no_clear, plan_no_clear = get_subplans(observation, clear_first=False)
+    # adds the clear action to plan
+    assert len(plan_clear) == len(plan_no_clear) + 1
+
+    # flatten 2d list
+    flat_subplan_clear = [action for subplan in subplans_clear for action in subplan]
+    flat_subplan_no_clear = [
+        action for subplan in subplans_no_clear for action in subplan
+    ]
+    assert len(flat_subplan_clear) >= len(flat_subplan_no_clear)
