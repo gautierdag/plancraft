@@ -520,6 +520,7 @@ def get_subplans(
         # move all the current stuff in the crafting grid to free inventory slots
         # While this makes a worse planner, this makes a clearer distinction between crafting steps
         subplan = []
+        action_items = []
         for slot in range(1, 10):  # crafting grid slots 1-9
             if slot in current_inventory and current_inventory[slot]["quantity"] > 0:
                 free_slot = find_free_inventory_slot(current_inventory, from_slot=slot)
@@ -529,6 +530,7 @@ def get_subplans(
                     quantity=current_inventory[slot]["quantity"],
                 )
                 subplan.append(str(action))
+                action_items.append(current_inventory[slot]["type"])
                 current_inventory = update_inventory(
                     current_inventory,
                     slot,
@@ -537,7 +539,7 @@ def get_subplans(
                 )
         if subplan:  # only add clear subplan if there were items to clear
             subplans.append(subplan)
-            action_items_used.append([])
+            action_items_used.append([action_items])
 
     # Calculate the subplans for each step in the plan
     for plan_recipe, new_inventory in plan:
@@ -554,6 +556,9 @@ def get_subplans(
         plan_inventory_counter = copy.deepcopy(plan[0][1])
         plan = [(clear_action, plan_inventory_counter)] + plan
 
+    # If we are returning items, we need to return the action items used
+    # this is a list of the item (from_slot) used in each action
     if return_items:
         return subplans, plan, action_items_used
+
     return subplans, plan
