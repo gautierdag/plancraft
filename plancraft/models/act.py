@@ -7,6 +7,7 @@ from plancraft.models.generators import (
     OpenAIGenerator,
     TransformersGenerator,
     VLLMGenerator,
+    LiteLLMGenerator,
 )
 from plancraft.utils import History
 
@@ -34,7 +35,12 @@ class ActModel(PlancraftBaseModel):
                 self.bbox_model.cuda()
 
         # underlying language model
-        if "gpt-4o" in cfg.plancraft.model:
+        if "hosted_vllm" in cfg.plancraft.model:
+            self.llm = LiteLLMGenerator(
+                cfg.plancraft.model,
+                use_images=self.use_images,
+            )
+        elif "gpt-4o" in cfg.plancraft.model:
             self.use_multimodal_content_format = True
             self.llm = OpenAIGenerator(
                 use_images=self.use_images,

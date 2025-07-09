@@ -10,6 +10,21 @@ from transformers import (
     AutoTokenizer,
     BitsAndBytesConfig,
 )
+import litellm
+import logging
+from litellm import completion
+
+litellm._logging._disable_debugging()
+loggers = [
+    "LiteLLM Proxy",
+    "LiteLLM Router",
+    "LiteLLM",
+    "httpx"
+]
+for logger_name in loggers:
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.CRITICAL + 1) 
+
 
 try:
     from vllm import LLM, SamplingParams
@@ -401,3 +416,96 @@ class OpenAIGenerator:
             tokens_used += response.usage.total_tokens
             contents.append(content)
         return contents, tokens_used
+
+
+class LiteLLMGenerator:
+    def __init__(self, model_name, use_images=False):
+        self.use_images = use_images
+        self.model_name = model_name
+        self.api_base = (
+            "http://0.0.0.0:8000/v1" if "hosted_vllm" in self.model_name else None
+        )
+
+    def reset(self):
+        pass
+
+    def prepare_messages(
+        self,
+        history: History,
+        max_messages_window: int,
+    ) -> tuple[list[dict], list]:
+        """
+        Prepare the image messages for the model
+        """
+        message_window = history.dialogue_history[-max_messages_window:]
+        # remove the first assistant message if it is present
+        if len(message_window) > 0 and message_window[0]["role"] == "assistant":
+            message_window = message_window[1:]
+        # add the system prompt if the first message is not a system message
+        if message_window[0]["role"] != "system":
+            message_window = [history.system_prompt_dialogue] + message_window
+
+        if self.use_images:
+
+            message_window = copy.deepcopy(message_window)
+            # copy the images to the history
+            img_idx = -1
+            seen_images = 0
+            # iterate through the messages in reverse order to assign images
+            for i in range(len(message_window) - 1, -1, -1):
+                new_content_list = []
+                for content in message_window[i]["content"]:
+                    if content["type"] == "text":
+                        new_content_list.append(content)
+                    elif content["type"] == "image":
+                        base64_image = numpy_to_base64(history.images[img_idx])
+                        img_idx -= 1
+                        seen_images + 1
+                        new_content = {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/jpeg;base64,{base64_image}"
+                            },
+                        }
+                        new_content_list.append(new_content)
+                    message_window[i]["content"] = new_content_list
+            assert seen_images <= len(history.images), "Too many images"
+
+        return message_window, []
+
+    def generate_unconstrained(
+        self,
+        batch_messages: list[list[dict]],
+        max_tokens=256,
+        temperature=0.6,
+        **kwargs,
+    ) -> tuple[list[str], int]:
+        contents = []
+        tokens_used = 0
+        for messages in batch_messages:
+            response = completion(
+                model=self.model_name,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0,
+                stop=["\n", "\n\n"],
+                api_base=self.api_base,
+            )
+            content = response.choices[0].message.content
+            content = self.clear_thinking_tokens(content)
+            tokens_used += response.usage.total_tokens
+            contents.append(content)
+        
+        return contents, tokens_used
+    
+    @staticmethod
+    def clear_thinking_tokens(content: str) -> str:
+        """
+        remove the thinking <think> text from the model.
+        """
+        if "</think>" in content:
+            content = content.split("</think>")[-1]
+        return content.strip()

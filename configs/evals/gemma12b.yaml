@@ -1,6 +1,6 @@
 plancraft:
-  model: hosted_vllm/meta-llama/Llama-3.3-70B-Instruct
-  tokenizer: hosted_vllm/meta-llama/Llama-3.3-70B-Instruct
+  model: hosted_vllm/google/gemma-3-12b-it
+  tokenizer: hosted_vllm/google/gemma-3-12b-it
   num_generations: 5
   mode: "act"
   max_steps: 30

@@ -24,6 +24,7 @@ dependencies = [
 ]
 
 [tool.uv]
+no-build-isolation-package = ['flash-attn']
 dev-dependencies = [
     "ipykernel>=6.29.5",
     "ipython>=7.5.0",
@@ -39,14 +40,17 @@ full = [
     "hf-transfer",
     "matplotlib",
     "seaborn",
-    "torch>=2.5.0",
-    "torchvision>=0.20.0",
-    "transformers>=4.43.3",
-    "vllm>=0.7.3",
-    "accelerate",
-    "peft",
     "einops",
     "huggingface-hub",
+    "torch>=2.5.0",
+    "torchvision>=0.20.0",
+    "einops",
+    "huggingface-hub",
+    "transformers==4.52.3",
+    "flash-attn>=2.7.4.post1",
+    "flashinfer-python==0.2.2; sys_platform != 'darwin'",
+    "litellm>=1.71.1",
+    "vllm>=0.8.5",
 ]
 
 [tool.setuptools.package-dir]

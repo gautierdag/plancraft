@@ -10,18 +10,20 @@
 
 [Paper](https://arxiv.org/abs/2412.21033) | [Website](https://gautierdag.github.io/plancraft/)
 
+### Plancraft was accepted to COLM 2025!
+
 Plancraft is a minecraft environment that benchmarks planning in LLM agents with an oracle RAG retriever.
 
 You can install the package by running the following command:
 
 ```bash
-pip install plancraft
+uv add plancraft
 ```
 
-Or:
+Or
 
 ```bash
-uv add plancraft
+pip install plancraft
 ```
 
 ![gif-example3](docs/images/train_images/TRAIN0010.gif)
