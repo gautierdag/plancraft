@@ -1,0 +1,28 @@
+﻿============================================================
+COPILOT AGENT SMOKE TEST
+============================================================
+TEST 1: Client connection
+  State: connected
+  Version: 0.0.403
+  Protocol: 2
+  Ping: OK
+  RESULT: PASS
+
+TEST 2: Single agent (model=gpt-5-mini)
+  Agent action: move: from [I1] to [A2] with quantity 1
+  RESULT: PASS
+
+TEST 3: Full episode (1 example from val.small)
+  Example: VAL0491
+  Target: quartz
+  Impossible: False
+  Step 1: smelt: from [I19] to [I1] with quantity 1
+  Success: True | Reason: success | Steps: 1
+  RESULT: PASS
+
+Cleaning up...
+  Client stopped cleanly.
+
+============================================================
+ALL TESTS COMPLETE
+============================================================

@@ -1,0 +1,38 @@
+{
+  "model": "gemma-3-27b-it",
+  "split": "val.small",
+  "max_steps": 30,
+  "total": 3,
+  "successes": 2,
+  "success_rate": 0.6666666666666666,
+  "elapsed_seconds": 58.041754961013794,
+  "results": [
+    {
+      "example_id": "VAL0491",
+      "target": "quartz",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 3,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0274",
+      "target": "brown_dye",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 6,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0381",
+      "target": "lapis_lazuli",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 2,
+      "reason": "incorrect_stop"
+    }
+  ]
+}

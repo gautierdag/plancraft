@@ -1,0 +1,38 @@
+{
+  "model": "gemini-2.0-flash",
+  "split": "val.small",
+  "max_steps": 30,
+  "total": 3,
+  "successes": 0,
+  "success_rate": 0.0,
+  "elapsed_seconds": 18.411564350128174,
+  "results": [
+    {
+      "example_id": "VAL0491",
+      "target": "quartz",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0274",
+      "target": "brown_dye",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0381",
+      "target": "lapis_lazuli",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    }
+  ]
+}

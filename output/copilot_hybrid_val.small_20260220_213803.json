@@ -1,0 +1,1003 @@
+{
+  "model": "gpt-5-mini",
+  "backend": "copilot-sdk",
+  "architecture": "hybrid",
+  "split": "val.small",
+  "max_steps": 30,
+  "total": 110,
+  "successes": 58,
+  "success_rate": 0.5272727272727272,
+  "elapsed_seconds": 74654.18214178085,
+  "results": [
+    {
+      "example_id": "VAL0491",
+      "target": "quartz",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0274",
+      "target": "brown_dye",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 6,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0381",
+      "target": "lapis_lazuli",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0229",
+      "target": "cooked_salmon",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 2,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0214",
+      "target": "skull_banner_pattern",
+      "impossible": false,
+      "complexity": 2,
+      "success": true,
+      "steps": 8,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0187",
+      "target": "stick",
+      "impossible": false,
+      "complexity": 2,
+      "success": true,
+      "steps": 4,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0103",
+      "target": "cyan_carpet",
+      "impossible": false,
+      "complexity": 2,
+      "success": true,
+      "steps": 8,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0485",
+      "target": "cooked_cod",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 3,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0049",
+      "target": "gray_carpet",
+      "impossible": false,
+      "complexity": 2,
+      "success": true,
+      "steps": 4,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0001",
+      "target": "red_dye",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 6,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0095",
+      "target": "black_glazed_terracotta",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 3,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0143",
+      "target": "cut_red_sandstone_slab",
+      "impossible": false,
+      "complexity": 3,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0418",
+      "target": "birch_planks",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 27,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0163",
+      "target": "dried_kelp",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 2,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0532",
+      "target": "chiseled_sandstone",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 16,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0015",
+      "target": "sponge",
+      "impossible": false,
+      "complexity": 1,
+      "success": true,
+      "steps": 2,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0448",
+      "target": "jungle_planks",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0451",
+      "target": "ender_eye",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0051",
+      "target": "red_sandstone_slab",
+      "impossible": false,
+      "complexity": 3,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0146",
+      "target": "blue_carpet",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0461",
+      "target": "birch_trapdoor",
+      "impossible": false,
+      "complexity": 6,
+      "success": true,
+      "steps": 10,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0239",
+      "target": "red_sandstone",
+      "impossible": false,
+      "complexity": 4,
+      "success": true,
+      "steps": 11,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0403",
+      "target": "jungle_button",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 26,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0338",
+      "target": "white_wool",
+      "impossible": false,
+      "complexity": 4,
+      "success": true,
+      "steps": 15,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0132",
+      "target": "pink_dye",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0168",
+      "target": "end_stone_bricks",
+      "impossible": false,
+      "complexity": 4,
+      "success": true,
+      "steps": 8,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0596",
+      "target": "prismarine_brick_stairs",
+      "impossible": false,
+      "complexity": 6,
+      "success": true,
+      "steps": 28,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0211",
+      "target": "gray_dye",
+      "impossible": false,
+      "complexity": 6,
+      "success": true,
+      "steps": 5,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0346",
+      "target": "mossy_cobblestone_wall",
+      "impossible": false,
+      "complexity": 6,
+      "success": true,
+      "steps": 9,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0155",
+      "target": "cobblestone_wall",
+      "impossible": false,
+      "complexity": 6,
+      "success": true,
+      "steps": 8,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0372",
+      "target": "smooth_quartz_stairs",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0559",
+      "target": "red_sandstone_stairs",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0500",
+      "target": "crimson_stairs",
+      "impossible": false,
+      "complexity": 6,
+      "success": true,
+      "steps": 11,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0404",
+      "target": "jungle_button",
+      "impossible": false,
+      "complexity": 4,
+      "success": true,
+      "steps": 10,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0342",
+      "target": "iron_helmet",
+      "impossible": false,
+      "complexity": 5,
+      "success": false,
+      "steps": 7,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0441",
+      "target": "polished_basalt",
+      "impossible": false,
+      "complexity": 4,
+      "success": true,
+      "steps": 7,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0265",
+      "target": "golden_axe",
+      "impossible": false,
+      "complexity": 5,
+      "success": true,
+      "steps": 10,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0219",
+      "target": "leather",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0152",
+      "target": "blackstone_wall",
+      "impossible": false,
+      "complexity": 6,
+      "success": true,
+      "steps": 12,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0316",
+      "target": "yellow_stained_glass_pane",
+      "impossible": false,
+      "complexity": 6,
+      "success": true,
+      "steps": 14,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0288",
+      "target": "brown_banner",
+      "impossible": false,
+      "complexity": 7,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0164",
+      "target": "pumpkin_pie",
+      "impossible": false,
+      "complexity": 8,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0533",
+      "target": "netherite_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 10,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0519",
+      "target": "diamond_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": true,
+      "steps": 14,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0077",
+      "target": "ladder",
+      "impossible": false,
+      "complexity": 7,
+      "success": true,
+      "steps": 11,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0068",
+      "target": "cyan_concrete_powder",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0279",
+      "target": "flower_banner_pattern",
+      "impossible": false,
+      "complexity": 10,
+      "success": false,
+      "steps": 19,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0115",
+      "target": "jungle_slab",
+      "impossible": false,
+      "complexity": 8,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0457",
+      "target": "gray_terracotta",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0564",
+      "target": "lapis_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0284",
+      "target": "gold_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0159",
+      "target": "bone_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0376",
+      "target": "gray_wool",
+      "impossible": false,
+      "complexity": 8,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0071",
+      "target": "red_banner",
+      "impossible": false,
+      "complexity": 7,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0114",
+      "target": "jungle_slab",
+      "impossible": false,
+      "complexity": 8,
+      "success": true,
+      "steps": 12,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0286",
+      "target": "nether_wart_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": true,
+      "steps": 13,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0285",
+      "target": "nether_wart_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": true,
+      "steps": 13,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0262",
+      "target": "hay_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": true,
+      "steps": 13,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0074",
+      "target": "purple_concrete_powder",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0389",
+      "target": "dark_oak_slab",
+      "impossible": false,
+      "complexity": 8,
+      "success": true,
+      "steps": 11,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0575",
+      "target": "magenta_terracotta",
+      "impossible": false,
+      "complexity": 22,
+      "success": true,
+      "steps": 18,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0043",
+      "target": "crimson_sign",
+      "impossible": false,
+      "complexity": 27,
+      "success": false,
+      "steps": 26,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0232",
+      "target": "crimson_fence_gate",
+      "impossible": false,
+      "complexity": 14,
+      "success": true,
+      "steps": 18,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0398",
+      "target": "jungle_fence",
+      "impossible": false,
+      "complexity": 14,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0552",
+      "target": "orange_stained_glass_pane",
+      "impossible": false,
+      "complexity": 30,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0507",
+      "target": "chest_minecart",
+      "impossible": false,
+      "complexity": 14,
+      "success": true,
+      "steps": 28,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0330",
+      "target": "light_gray_terracotta",
+      "impossible": false,
+      "complexity": 20,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0556",
+      "target": "wooden_pickaxe",
+      "impossible": false,
+      "complexity": 12,
+      "success": false,
+      "steps": 14,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0100",
+      "target": "spectral_arrow",
+      "impossible": false,
+      "complexity": 16,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0524",
+      "target": "diamond_axe",
+      "impossible": false,
+      "complexity": 27,
+      "success": false,
+      "steps": 16,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0083",
+      "target": "black_carpet",
+      "impossible": false,
+      "complexity": 20,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0355",
+      "target": "oak_boat",
+      "impossible": false,
+      "complexity": 21,
+      "success": false,
+      "steps": 10,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0374",
+      "target": "gray_wool",
+      "impossible": false,
+      "complexity": 24,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0447",
+      "target": "stone_hoe",
+      "impossible": false,
+      "complexity": 24,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0463",
+      "target": "jungle_boat",
+      "impossible": false,
+      "complexity": 21,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0303",
+      "target": "composter",
+      "impossible": false,
+      "complexity": 20,
+      "success": false,
+      "steps": 10,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0307",
+      "target": "observer",
+      "impossible": false,
+      "complexity": 20,
+      "success": true,
+      "steps": 20,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0111",
+      "target": "magenta_dye",
+      "impossible": false,
+      "complexity": 28,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0501",
+      "target": "crimson_stairs",
+      "impossible": false,
+      "complexity": 24,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0102",
+      "target": "gray_bed",
+      "impossible": false,
+      "complexity": 14,
+      "success": false,
+      "steps": 2,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0170",
+      "target": "quartz_slab",
+      "impossible": false,
+      "complexity": 60,
+      "success": false,
+      "steps": 17,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0018",
+      "target": "green_stained_glass",
+      "impossible": false,
+      "complexity": 153,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0416",
+      "target": "activator_rail",
+      "impossible": false,
+      "complexity": 36,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0343",
+      "target": "purpur_block",
+      "impossible": false,
+      "complexity": 40,
+      "success": true,
+      "steps": 14,
+      "reason": "success"
+    },
+    {
+      "example_id": "VAL0037",
+      "target": "diorite_slab",
+      "impossible": false,
+      "complexity": 105,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0528",
+      "target": "jukebox",
+      "impossible": false,
+      "complexity": 33,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0592",
+      "target": "polished_blackstone_wall",
+      "impossible": false,
+      "complexity": 42,
+      "success": false,
+      "steps": 3,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0136",
+      "target": "light_blue_concrete_powder",
+      "impossible": false,
+      "complexity": 36,
+      "success": false,
+      "steps": 24,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0178",
+      "target": "sticky_piston",
+      "impossible": false,
+      "complexity": 52,
+      "success": false,
+      "steps": 3,
+      "reason": "incorrect_stop"
+    },
+    {
+      "example_id": "VAL0059",
+      "target": "smooth_quartz",
+      "impossible": false,
+      "complexity": 54,
+      "success": false,
+      "steps": 31,
+      "reason": "max_steps_reached"
+    },
+    {
+      "example_id": "VAL0382",
+      "target": "andesite",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0312",
+      "target": "prismarine_wall",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 2,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0016",
+      "target": "sponge",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0031",
+      "target": "anvil",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0242",
+      "target": "polished_granite_slab",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0401",
+      "target": "warped_sign",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0258",
+      "target": "shield",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0225",
+      "target": "white_bed",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0247",
+      "target": "end_stone_brick_slab",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0263",
+      "target": "iron_nugget",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0551",
+      "target": "birch_stairs",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0388",
+      "target": "dark_oak_slab",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0584",
+      "target": "wheat",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0562",
+      "target": "polished_andesite",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0546",
+      "target": "polished_blackstone_pressure_plate",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0553",
+      "target": "orange_stained_glass_pane",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0525",
+      "target": "stone_button",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0293",
+      "target": "torch",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0365",
+      "target": "red_terracotta",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    },
+    {
+      "example_id": "VAL0041",
+      "target": "stripped_warped_hyphae",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible"
+    }
+  ]
+}

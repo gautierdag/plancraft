@@ -1,0 +1,33 @@
+{
+  "backend": "massgen-litellm-orchestrator",
+  "config": "plancraft/agents/massgen_config.yaml",
+  "split": "val.small",
+  "max_steps": 1,
+  "heartbeat_seconds": 30,
+  "generated_at": "2026-02-26T08:08:07",
+  "total": 1,
+  "successes": 0,
+  "success_rate": 0.0,
+  "elapsed_seconds": 7.330569744110107,
+  "avg_seconds_per_example": 7.330569744110107,
+  "step_latency_p50": 0.0020117759704589844,
+  "step_latency_p95": 0.0020117759704589844,
+  "selected_agent_counts": {},
+  "step_log_jsonl": "output\\massgen_steps_val.small_20260226_080759.jsonl",
+  "results": [
+    {
+      "example_id": "VAL0491",
+      "target": "quartz",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 7.313,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    }
+  ]
+}

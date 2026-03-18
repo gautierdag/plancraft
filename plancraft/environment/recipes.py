@@ -22,7 +22,7 @@ TAG_TO_ITEMS: dict[str, list[str]] = {}
 for tag_file in glob.glob(f"{dir_path}/tags/*.json"):
     with open(tag_file) as file:
         tag = json.load(file)
-        tag_name = tag_file.split("/")[-1].split(".")[0]
+        tag_name = os.path.basename(tag_file).split(".")[0]
         TAG_TO_ITEMS[tag_name] = [clean_item_name(v) for v in tag["values"]]
 
 

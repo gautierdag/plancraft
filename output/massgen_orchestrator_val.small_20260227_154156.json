@@ -1,0 +1,1559 @@
+{
+  "backend": "massgen-litellm-orchestrator",
+  "config": "plancraft/agents/massgen_config.yaml",
+  "split": "val.small",
+  "max_steps": 30,
+  "heartbeat_seconds": 30,
+  "generated_at": "2026-02-27T15:42:19",
+  "total": 110,
+  "successes": 20,
+  "success_rate": 0.18181818181818182,
+  "elapsed_seconds": 22.69999074935913,
+  "avg_seconds_per_example": 0.2063635522669012,
+  "step_latency_p50": 0.0009968280792236328,
+  "step_latency_p95": 0.0015110969543457031,
+  "selected_agent_counts": {},
+  "step_log_jsonl": "output\\massgen_steps_val.small_20260227_154156.jsonl",
+  "results": [
+    {
+      "example_id": "VAL0491",
+      "target": "quartz",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.281,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0274",
+      "target": "brown_dye",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.2,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0381",
+      "target": "lapis_lazuli",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.203,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0229",
+      "target": "cooked_salmon",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.195,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0214",
+      "target": "skull_banner_pattern",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.202,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0187",
+      "target": "stick",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.199,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0103",
+      "target": "cyan_carpet",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.21,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0485",
+      "target": "cooked_cod",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.2,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0049",
+      "target": "gray_carpet",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.215,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0001",
+      "target": "red_dye",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.2,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0095",
+      "target": "black_glazed_terracotta",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.186,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0143",
+      "target": "cut_red_sandstone_slab",
+      "impossible": false,
+      "complexity": 3,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.191,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0418",
+      "target": "birch_planks",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.191,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0163",
+      "target": "dried_kelp",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.198,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0532",
+      "target": "chiseled_sandstone",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.191,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0015",
+      "target": "sponge",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.184,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0448",
+      "target": "jungle_planks",
+      "impossible": false,
+      "complexity": 1,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.19,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0451",
+      "target": "ender_eye",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.188,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0051",
+      "target": "red_sandstone_slab",
+      "impossible": false,
+      "complexity": 3,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.193,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0146",
+      "target": "blue_carpet",
+      "impossible": false,
+      "complexity": 2,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.19,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0461",
+      "target": "birch_trapdoor",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.195,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0239",
+      "target": "red_sandstone",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.185,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0403",
+      "target": "jungle_button",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.183,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0338",
+      "target": "white_wool",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.185,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0132",
+      "target": "pink_dye",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.183,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0168",
+      "target": "end_stone_bricks",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.197,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0596",
+      "target": "prismarine_brick_stairs",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.195,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0211",
+      "target": "gray_dye",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.192,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0346",
+      "target": "mossy_cobblestone_wall",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.186,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0155",
+      "target": "cobblestone_wall",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.19,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0372",
+      "target": "smooth_quartz_stairs",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.19,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0559",
+      "target": "red_sandstone_stairs",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.236,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0500",
+      "target": "crimson_stairs",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.189,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0404",
+      "target": "jungle_button",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.187,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0342",
+      "target": "iron_helmet",
+      "impossible": false,
+      "complexity": 5,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.196,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0441",
+      "target": "polished_basalt",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.209,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0265",
+      "target": "golden_axe",
+      "impossible": false,
+      "complexity": 5,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.199,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0219",
+      "target": "leather",
+      "impossible": false,
+      "complexity": 4,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.225,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0152",
+      "target": "blackstone_wall",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.204,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0316",
+      "target": "yellow_stained_glass_pane",
+      "impossible": false,
+      "complexity": 6,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.192,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0288",
+      "target": "brown_banner",
+      "impossible": false,
+      "complexity": 7,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.193,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0164",
+      "target": "pumpkin_pie",
+      "impossible": false,
+      "complexity": 8,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.196,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0533",
+      "target": "netherite_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.188,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0519",
+      "target": "diamond_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.188,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0077",
+      "target": "ladder",
+      "impossible": false,
+      "complexity": 7,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.19,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0068",
+      "target": "cyan_concrete_powder",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.195,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0279",
+      "target": "flower_banner_pattern",
+      "impossible": false,
+      "complexity": 10,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.218,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0115",
+      "target": "jungle_slab",
+      "impossible": false,
+      "complexity": 8,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.276,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0457",
+      "target": "gray_terracotta",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.237,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0564",
+      "target": "lapis_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.189,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0284",
+      "target": "gold_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.181,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0159",
+      "target": "bone_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.183,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0376",
+      "target": "gray_wool",
+      "impossible": false,
+      "complexity": 8,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.184,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0071",
+      "target": "red_banner",
+      "impossible": false,
+      "complexity": 7,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.189,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0114",
+      "target": "jungle_slab",
+      "impossible": false,
+      "complexity": 8,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.239,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0286",
+      "target": "nether_wart_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.225,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0285",
+      "target": "nether_wart_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.226,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0262",
+      "target": "hay_block",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.184,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0074",
+      "target": "purple_concrete_powder",
+      "impossible": false,
+      "complexity": 9,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.182,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0389",
+      "target": "dark_oak_slab",
+      "impossible": false,
+      "complexity": 8,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.184,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0575",
+      "target": "magenta_terracotta",
+      "impossible": false,
+      "complexity": 22,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.18,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0043",
+      "target": "crimson_sign",
+      "impossible": false,
+      "complexity": 27,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.186,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0232",
+      "target": "crimson_fence_gate",
+      "impossible": false,
+      "complexity": 14,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.19,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0398",
+      "target": "jungle_fence",
+      "impossible": false,
+      "complexity": 14,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.18,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0552",
+      "target": "orange_stained_glass_pane",
+      "impossible": false,
+      "complexity": 30,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.181,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0507",
+      "target": "chest_minecart",
+      "impossible": false,
+      "complexity": 14,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.179,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0330",
+      "target": "light_gray_terracotta",
+      "impossible": false,
+      "complexity": 20,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.178,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0556",
+      "target": "wooden_pickaxe",
+      "impossible": false,
+      "complexity": 12,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.175,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0100",
+      "target": "spectral_arrow",
+      "impossible": false,
+      "complexity": 16,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.175,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0524",
+      "target": "diamond_axe",
+      "impossible": false,
+      "complexity": 27,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.177,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0083",
+      "target": "black_carpet",
+      "impossible": false,
+      "complexity": 20,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.175,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0355",
+      "target": "oak_boat",
+      "impossible": false,
+      "complexity": 21,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.164,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0374",
+      "target": "gray_wool",
+      "impossible": false,
+      "complexity": 24,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.184,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0447",
+      "target": "stone_hoe",
+      "impossible": false,
+      "complexity": 24,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.171,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0463",
+      "target": "jungle_boat",
+      "impossible": false,
+      "complexity": 21,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.174,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0303",
+      "target": "composter",
+      "impossible": false,
+      "complexity": 20,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.175,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0307",
+      "target": "observer",
+      "impossible": false,
+      "complexity": 20,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.177,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0111",
+      "target": "magenta_dye",
+      "impossible": false,
+      "complexity": 28,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.176,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0501",
+      "target": "crimson_stairs",
+      "impossible": false,
+      "complexity": 24,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.176,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0102",
+      "target": "gray_bed",
+      "impossible": false,
+      "complexity": 14,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.236,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0170",
+      "target": "quartz_slab",
+      "impossible": false,
+      "complexity": 60,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.258,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0018",
+      "target": "green_stained_glass",
+      "impossible": false,
+      "complexity": 153,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.229,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0416",
+      "target": "activator_rail",
+      "impossible": false,
+      "complexity": 36,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.236,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0343",
+      "target": "purpur_block",
+      "impossible": false,
+      "complexity": 40,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.234,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0037",
+      "target": "diorite_slab",
+      "impossible": false,
+      "complexity": 105,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.228,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0528",
+      "target": "jukebox",
+      "impossible": false,
+      "complexity": 33,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.208,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0592",
+      "target": "polished_blackstone_wall",
+      "impossible": false,
+      "complexity": 42,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.223,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0136",
+      "target": "light_blue_concrete_powder",
+      "impossible": false,
+      "complexity": 36,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.212,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0178",
+      "target": "sticky_piston",
+      "impossible": false,
+      "complexity": 52,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.209,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0059",
+      "target": "smooth_quartz",
+      "impossible": false,
+      "complexity": 54,
+      "success": false,
+      "steps": 1,
+      "reason": "incorrect_stop",
+      "example_elapsed_seconds": 0.215,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0382",
+      "target": "andesite",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.206,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0312",
+      "target": "prismarine_wall",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.277,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0016",
+      "target": "sponge",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.248,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0031",
+      "target": "anvil",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.265,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0242",
+      "target": "polished_granite_slab",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.237,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0401",
+      "target": "warped_sign",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.23,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0258",
+      "target": "shield",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.208,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0225",
+      "target": "white_bed",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.216,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0247",
+      "target": "end_stone_brick_slab",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.212,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0263",
+      "target": "iron_nugget",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.199,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0551",
+      "target": "birch_stairs",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.291,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0388",
+      "target": "dark_oak_slab",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.301,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0584",
+      "target": "wheat",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.31,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0562",
+      "target": "polished_andesite",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.269,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0546",
+      "target": "polished_blackstone_pressure_plate",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.249,
+      "step_durations_seconds": [
+        0.002
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0553",
+      "target": "orange_stained_glass_pane",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.229,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0525",
+      "target": "stone_button",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.22,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0293",
+      "target": "torch",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.216,
+      "step_durations_seconds": [
+        0.0
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0365",
+      "target": "red_terracotta",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.237,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    },
+    {
+      "example_id": "VAL0041",
+      "target": "stripped_warped_hyphae",
+      "impossible": true,
+      "complexity": null,
+      "success": true,
+      "steps": 1,
+      "reason": "correctly_identified_impossible",
+      "example_elapsed_seconds": 0.213,
+      "step_durations_seconds": [
+        0.001
+      ],
+      "selected_agents": []
+    }
+  ]
+}
